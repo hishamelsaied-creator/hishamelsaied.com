@@ -106,6 +106,7 @@ FAQ = [
 
 BOOKS = [
     ("The Moving Line", "The 300-year race to build a thinking machine", "/img/book-the-moving-line.jpg", "History of artificial intelligence"),
+    ("The Hidden Board", "How Your Brain Plays the Game of Being Human", "/img/book-the-hidden-board.jpg", "Psychology and popular science"),
     ("Coaching in the Middle East", "What works with leaders in a region of many cultures", "/img/book-coaching-in-the-middle-east.jpg", "Executive coaching in the Middle East"),
 ]
 MEDIA = [
