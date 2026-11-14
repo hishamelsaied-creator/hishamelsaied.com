@@ -1,0 +1,31 @@
+  <section class="dark hero" style="padding-bottom:96px">
+    <div class="wrap split">
+      <div class="stack-lg">
+        <div class="stack">
+          <span class="label">تواصل معي</span>
+          <h1>أخبرني بما <em>يحدث معك</em>.</h1>
+          <p class="lead">بضعة أسطر تكفي. أقرأ كل استفسار بنفسي وأرد شخصياً.</p>
+        </div>
+        <div class="contact-lines">
+          <div><small>البريد الإلكتروني</small><a href="mailto:hisham@hishamelsaied.com" dir="ltr">hisham@hishamelsaied.com</a></div>
+          <div><small>الهاتف وواتساب</small><a href="tel:+971563294418" dir="ltr">+971 56 329 4418</a></div>
+          <div><small>LinkedIn</small><a href="https://www.linkedin.com/in/hishamelsaied/" target="_blank" rel="noopener" dir="ltr">linkedin.com/in/hishamelsaied</a></div>
+          <div><small>المقر</small><span>دبي، الإمارات العربية المتحدة</span></div>
+        </div>
+      </div>
+
+      <form id="enquiry-form" novalidate>
+        <div class="field"><label for="f-name">الاسم</label><input id="f-name" name="name" type="text" autocomplete="name" required></div>
+        <div class="field"><label for="f-role">المسمى الوظيفي والجهة</label><input id="f-role" name="role" type="text" autocomplete="organization-title"></div>
+        <div class="field"><label for="f-email">البريد الإلكتروني</label><input id="f-email" name="email" type="email" autocomplete="email" dir="ltr" required></div>
+        <div class="field"><label for="f-lang">اللغة المفضلة</label>
+          <select id="f-lang" name="language"><option>العربية</option><option>الإنجليزية</option><option>أيّ منهما</option></select>
+        </div>
+        <div class="field"><label for="f-type">موضوع الاستفسار</label>
+          <select id="f-type" name="type"><option>كوتشينج فردي</option><option>كلمة رئيسية أو محاضرة أو ورشة عمل</option><option>موضوع آخر</option></select></div>
+        <div class="field"><label for="f-msg">أخبرني بالمزيد</label><textarea id="f-msg" name="message" required></textarea></div>
+        <div><button class="btn" type="submit">إرسال الاستفسار</button></div>
+        <div class="form-msg" id="form-msg" role="status"></div>
+      </form>
+    </div>
+  </section>

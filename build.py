@@ -46,6 +46,43 @@ PAGES = [
     },
 ]
 
+PAGES_AR = [
+    {
+        "key": "home", "path": "/ar/", "nav": None,
+        "title": "هشام السعيد | كوتش تنفيذي في دبي لقادة الموارد البشرية",
+        "desc": "كوتشينج تنفيذي لمديري ومديرات الموارد البشرية في دبي والإمارات ودول الخليج، من مدير إقليمي سابق للموارد البشرية. معتمد ICF PCC وFCIPD. بالعربية والإنجليزية.",
+    },
+    {
+        "key": "coaching", "path": "/ar/coaching/", "nav": "الكوتشينج",
+        "title": "الكوتشينج التنفيذي لمديري الموارد البشرية | دبي، الإمارات",
+        "desc": "كوتشينج فردي لمديري ومديرات الموارد البشرية في دور جديد أو تحت ضغط. مدرب تنفيذي معتمد ICF PCC في دبي، يعمل في دول الخليج بالعربية والإنجليزية.",
+    },
+    {
+        "key": "speaking", "path": "/ar/speaking/", "nav": "المحاضرات وورش العمل",
+        "title": "متحدث ومدرب في القيادة والموارد البشرية | الإمارات والخليج",
+        "desc": "كلمات رئيسية ومحاضرات وورش عمل حول قيادة الأفراد وقدرات الموارد البشرية والمواهب والتقييم. متحدث ومدرب ثنائي اللغة مقيم في دبي.",
+    },
+    {
+        "key": "about", "path": "/ar/about/", "nav": "نبذة عني",
+        "title": "هشام السعيد، FCIPD وICF PCC | كوتش تنفيذي في دبي",
+        "desc": "مدير إقليمي سابق للموارد البشرية بخبرة تزيد على ٢٠ عاماً في الخليج وأوروبا وأمريكا الشمالية. معتمد ICF PCC وFCIPD وHogan. عضو هيئة تدريس في أكاديمية PwC وEY.",
+    },
+    {
+        "key": "contact", "path": "/ar/contact/", "nav": "تواصل معي",
+        "title": "تواصل مع هشام السعيد | الكوتشينج التنفيذي والمحاضرات، دبي",
+        "desc": "استفسر عن الكوتشينج التنفيذي أو الكلمات الرئيسية أو ورش العمل. مقيم في دبي ويعمل في الإمارات ودول الخليج بالعربية والإنجليزية.",
+    },
+]
+
+FAQ_AR = [
+    ("هل يمكن أن نعمل باللغة العربية؟", "نعم. أعمل بالعربية والإنجليزية، وكثير من عملائي ينتقلون بين اللغتين في الجلسة نفسها."),
+    ("هل الكوتشينج سري؟", "نعم. ألتزم بميثاق أخلاقيات الاتحاد الدولي للكوتشينج (ICF). ما نناقشه يبقى بيننا، حتى حين تكون جهة عملك هي من تدفع."),
+    ("هل يمكن لمؤسستي أن تتحمل التكلفة؟", "نعم. كثير من عملائي ترعاهم جهات عملهم، وآخرون يدفعون بأنفسهم."),
+    ("كم تستغرق مدة الكوتشينج؟", "يعتمد ذلك على ما تريد تغييره. نتفق على المدة بعد المحادثة الأولى."),
+    ("كم تبلغ التكلفة؟", "لأن كل برنامج مصمم حسب الحاجة، أشارك الرسوم بعد المحادثة الأولى."),
+    ("هل تعمل مع العاملين في الموارد البشرية فقط؟", "مديرو ومديرات الموارد البشرية هم من أعمل معهم أكثر، كما أعمل مع قيادات عليا في الجهات الحكومية والشركات في دول الخليج."),
+]
+
 FAQ = [
     ("Can we work in Arabic?", "Yes. I coach in Arabic and English, and many clients move between the two in the same session."),
     ("Is coaching confidential?", "Yes. I work to the ICF Code of Ethics. What we discuss stays between us, including when your employer is paying, and we agree at the start what, if anything, is reported back."),
@@ -56,7 +93,7 @@ FAQ = [
 ]
 
 
-def person():
+def person(ar=False):
     creds = [
         ("ICF Professional Certified Coach (PCC)", "International Coaching Federation"),
         ("Chartered Fellow (FCIPD)", "Chartered Institute of Personnel and Development"),
@@ -68,11 +105,13 @@ def person():
     return {
         "@type": "Person",
         "@id": PERSON_ID,
-        "name": "Hisham Elsaied",
-        "url": SITE + "/",
+        "name": "هشام السعيد" if ar else "Hisham Elsaied",
+        "alternateName": "Hisham Elsaied" if ar else "هشام السعيد",
+        "url": SITE + ("/ar/" if ar else "/"),
         "image": SITE + "/img/hisham-closeup.jpg",
-        "jobTitle": "Executive Coach and Leadership Development Consultant",
-        "description": "Dubai-based executive coach and former regional HR director. Coaches HR managers and directors across the GCC and speaks on leadership, HR capability, and talent and assessment, in Arabic and English.",
+        "jobTitle": "كوتش تنفيذي ومستشار في تطوير القيادات" if ar else "Executive Coach and Leadership Development Consultant",
+        "description": ("كوتش تنفيذي مقيم في دبي ومدير إقليمي سابق للموارد البشرية. يعمل مع مديري ومديرات الموارد البشرية في دول الخليج، ويتحدث في القيادة وقدرات الموارد البشرية والمواهب والتقييم، بالعربية والإنجليزية."
+                        if ar else "Dubai-based executive coach and former regional HR director. Coaches HR managers and directors across the GCC and speaks on leadership, HR capability, and talent and assessment, in Arabic and English."),
         "email": "mailto:hisham@hishamelsaied.com",
         "telephone": "+971563294418",
         "address": {"@type": "PostalAddress", "addressLocality": "Dubai", "addressCountry": "AE"},
@@ -92,21 +131,23 @@ def person():
     }
 
 
-def business():
+def business(ar=False):
     return {
         "@type": "ProfessionalService",
         "@id": BUSINESS_ID,
-        "name": "Hisham Elsaied, Executive Coaching",
-        "url": SITE + "/",
+        "name": "هشام السعيد، كوتشينج تنفيذي" if ar else "Hisham Elsaied, Executive Coaching",
+        "alternateName": "Hisham Elsaied, Executive Coaching" if ar else "هشام السعيد، كوتشينج تنفيذي",
+        "url": SITE + ("/ar/" if ar else "/"),
         "image": SITE + "/img/og-image.jpg",
-        "description": "Executive coaching for HR managers and directors, plus keynotes, masterclasses and workshops for leaders and HR teams. Dubai, UAE and the wider GCC. Arabic and English.",
+        "description": ("كوتشينج تنفيذي لمديري ومديرات الموارد البشرية، إلى جانب كلمات رئيسية ومحاضرات وورش عمل للقادة وفرق الموارد البشرية. دبي والإمارات ودول الخليج. بالعربية والإنجليزية."
+                        if ar else "Executive coaching for HR managers and directors, plus keynotes, masterclasses and workshops for leaders and HR teams. Dubai, UAE and the wider GCC. Arabic and English."),
         "founder": {"@id": PERSON_ID},
         "email": "hisham@hishamelsaied.com",
         "telephone": "+971563294418",
         "address": {"@type": "PostalAddress", "addressLocality": "Dubai", "addressCountry": "AE"},
         "areaServed": [{"@type": "Country", "name": c} for c in GCC],
         "availableLanguage": ["English", "Arabic"],
-        "knowsAbout": ["Executive coaching", "Leadership training", "HR capability", "Talent assessment"],
+        "knowsAbout": ["Executive coaching", "Leadership training", "HR capability", "Talent assessment", "الكوتشينج التنفيذي", "تدريب القيادات", "الموارد البشرية"],
     }
 
 
@@ -123,54 +164,80 @@ def service(name, desc, path, stype):
     }
 
 
-def breadcrumb(page):
+def breadcrumb(page, ar=False):
     return {
         "@type": "BreadcrumbList",
         "itemListElement": [
-            {"@type": "ListItem", "position": 1, "name": "Home", "item": SITE + "/"},
+            {"@type": "ListItem", "position": 1, "name": "الرئيسية" if ar else "Home", "item": SITE + ("/ar/" if ar else "/")},
             {"@type": "ListItem", "position": 2, "name": page["nav"], "item": SITE + page["path"]},
         ],
     }
 
 
-def graph(page):
-    g = [person(), business(),
-         {"@type": "WebSite", "@id": SITE + "/#website", "url": SITE + "/", "name": "Hisham Elsaied",
-          "inLanguage": "en", "publisher": {"@id": PERSON_ID}}]
+def graph(page, ar=False):
+    g = [person(ar), business(ar),
+         {"@type": "WebSite", "@id": SITE + ("/ar/#website" if ar else "/#website"), "url": SITE + ("/ar/" if ar else "/"),
+          "name": "هشام السعيد" if ar else "Hisham Elsaied", "inLanguage": "ar" if ar else "en", "publisher": {"@id": PERSON_ID}}]
     k = page["key"]
     if k == "coaching":
-        g.append(service("Executive coaching for HR managers and directors",
-                         "One-to-one executive coaching for HR managers and directors stepping into a bigger role or feeling stuck: presence with senior leaders, strategic thinking, influence, visibility and career decisions.",
-                         page["path"], "Executive coaching"))
-        g.append({"@type": "FAQPage", "mainEntity": [
-            {"@type": "Question", "name": q, "acceptedAnswer": {"@type": "Answer", "text": a}} for q, a in FAQ]})
+        if ar:
+            g.append(service("الكوتشينج التنفيذي لمديري ومديرات الموارد البشرية",
+                             "كوتشينج فردي لمديري ومديرات الموارد البشرية في دور جديد أو تحت ضغط: الحضور أمام القيادات العليا، والتفكير الاستراتيجي، والتأثير، والظهور، وقرارات المسار المهني.",
+                             page["path"], "كوتشينج تنفيذي"))
+            faq = FAQ_AR
+        else:
+            g.append(service("Executive coaching for HR managers and directors",
+                             "One-to-one executive coaching for HR managers and directors stepping into a bigger role or feeling stuck: presence with senior leaders, strategic thinking, influence, visibility and career decisions.",
+                             page["path"], "Executive coaching"))
+            faq = FAQ
+        g.append({"@type": "FAQPage", "inLanguage": "ar" if ar else "en", "mainEntity": [
+            {"@type": "Question", "name": q, "acceptedAnswer": {"@type": "Answer", "text": a}} for q, a in faq]})
     if k == "speaking":
-        g.append(service("Keynotes, masterclasses and workshops",
-                         "Keynotes, conference masterclasses and half-day or one-day workshops on leading people, HR capability, and talent and assessment, in Arabic or English.",
-                         page["path"], "Leadership and HR speaking and workshops"))
+        if ar:
+            g.append(service("كلمات رئيسية ومحاضرات وورش عمل",
+                             "كلمات رئيسية ومحاضرات متخصصة وورش عمل لنصف يوم أو يوم كامل حول قيادة الأفراد وقدرات الموارد البشرية والمواهب والتقييم، بالعربية أو الإنجليزية.",
+                             page["path"], "محاضرات وورش عمل في القيادة والموارد البشرية"))
+        else:
+            g.append(service("Keynotes, masterclasses and workshops",
+                             "Keynotes, conference masterclasses and half-day or one-day workshops on leading people, HR capability, and talent and assessment, in Arabic or English.",
+                             page["path"], "Leadership and HR speaking and workshops"))
     if k == "about":
-        g.append({"@type": "ProfilePage", "url": SITE + page["path"], "mainEntity": {"@id": PERSON_ID}})
+        g.append({"@type": "ProfilePage", "url": SITE + page["path"], "inLanguage": "ar" if ar else "en", "mainEntity": {"@id": PERSON_ID}})
     if page["nav"]:
-        g.append(breadcrumb(page))
+        g.append(breadcrumb(page, ar))
     return {"@context": "https://schema.org", "@graph": g}
 
 
-def header(page):
+def counterpart(page, ar):
+    if page["key"] == "404":
+        return "/" if ar else "/ar/"
+    other = PAGES if ar else PAGES_AR
+    return next(p["path"] for p in other if p["key"] == page["key"])
+
+
+def header(page, ar=False):
+    pages = PAGES_AR if ar else PAGES
+    base = "/ar" if ar else ""
+    order = ["about", "coaching", "speaking", "contact"]
     links = []
-    for p in PAGES:
-        if not p["nav"]:
-            continue
+    for key in order:
+        p = next(x for x in pages if x["key"] == key)
         cur = ' aria-current="page"' if p["key"] == page["key"] else ""
         links.append(f'      <a href="{p["path"]}"{cur}>{p["nav"]}</a>')
-    order = ["/about/", "/coaching/", "/speaking/", "/contact/"]
-    links.sort(key=lambda l: next(i for i, o in enumerate(order) if f'href="{o}"' in l))
+    switch = (f'      <a class="lang" href="{counterpart(page, ar)}" hreflang="en" lang="en">English</a>' if ar
+              else f'      <a class="lang" href="{counterpart(page, ar)}" hreflang="ar" lang="ar">العربية</a>')
+    brand = ('<b>هشام السعيد</b><span>FCIPD &nbsp;·&nbsp; ICF PCC</span>' if ar
+             else '<b>Hisham Elsaied</b><span>FCIPD &nbsp;·&nbsp; ICF PCC</span>')
+    menu = "القائمة" if ar else "Menu"
+    enquire = "تواصل" if ar else "Enquire"
     return f"""<header class="site-header">
   <div class="wrap">
-    <a class="brand" href="/"><b>Hisham Elsaied</b><span>FCIPD &nbsp;·&nbsp; ICF PCC</span></a>
-    <button class="menu-toggle" id="menu-toggle" type="button" aria-expanded="false" aria-controls="nav">Menu</button>
-    <nav class="nav" id="nav" aria-label="Main">
+    <a class="brand" href="{base}/">{brand}</a>
+    <button class="menu-toggle" id="menu-toggle" type="button" aria-expanded="false" aria-controls="nav">{menu}</button>
+    <nav class="nav" id="nav" aria-label="{'القائمة الرئيسية' if ar else 'Main'}">
 {chr(10).join(links)}
-      <a class="btn" href="/contact/">Enquire</a>
+{switch}
+      <a class="btn" href="{base}/contact/">{enquire}</a>
     </nav>
   </div>
 </header>"""
@@ -187,17 +254,47 @@ FOOTER = """<footer class="site-footer">
       <a href="/coaching/">Coaching</a>
       <a href="/speaking/">Speaking and workshops</a>
       <a href="/contact/">Contact</a>
+      <a href="/ar/" hreflang="ar" lang="ar">العربية</a>
       <a href="https://www.linkedin.com/in/hishamelsaied/" target="_blank" rel="noopener">LinkedIn</a>
     </div>
   </div>
 </footer>"""
 
 
-def head(page):
+FOOTER_AR = """<footer class="site-footer">
+  <div class="wrap">
+    <div>
+      <a class="brand" href="/ar/"><b>هشام السعيد</b><span>كوتش تنفيذي &nbsp;·&nbsp; دبي، الإمارات</span></a>
+      <p class="foot-note">كوتشينج تنفيذي وكلمات رئيسية وورش عمل في الإمارات والسعودية وعُمان والكويت وقطر والبحرين. بالعربية والإنجليزية.</p>
+    </div>
+    <div class="foot-links">
+      <a href="/ar/about/">نبذة عني</a>
+      <a href="/ar/coaching/">الكوتشينج</a>
+      <a href="/ar/speaking/">المحاضرات وورش العمل</a>
+      <a href="/ar/contact/">تواصل معي</a>
+      <a href="/" hreflang="en" lang="en">English</a>
+      <a href="https://www.linkedin.com/in/hishamelsaied/" target="_blank" rel="noopener">LinkedIn</a>
+    </div>
+  </div>
+</footer>"""
+
+
+def head(page, ar=False):
     url = SITE + page["path"]
-    ld = json.dumps(graph(page), ensure_ascii=False, indent=1)
+    ld = json.dumps(graph(page, ar), ensure_ascii=False, indent=1)
+    if page["key"] == "404":
+        alts = ""
+    else:
+        en_url = SITE + (counterpart(page, ar) if ar else page["path"])
+        ar_url = SITE + (page["path"] if ar else counterpart(page, ar))
+        alts = (f'<link rel="alternate" hreflang="en" href="{en_url}">\n'
+                f'<link rel="alternate" hreflang="ar" href="{ar_url}">\n'
+                f'<link rel="alternate" hreflang="x-default" href="{en_url}">\n')
+    fonts = "family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&family=Montserrat:wght@500;600;700"
+    if ar:
+        fonts = "family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=Noto+Kufi+Arabic:wght@500;600;700&" + fonts
     return f"""<!DOCTYPE html>
-<html lang="en">
+<html lang="{'ar' if ar else 'en'}" dir="{'rtl' if ar else 'ltr'}">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -205,16 +302,18 @@ def head(page):
 <meta name="description" content="{page["desc"]}">
 <meta name="author" content="Hisham Elsaied">
 <link rel="canonical" href="{url}">
+{alts}
 <meta name="robots" content="index, follow, max-image-preview:large">
 <meta property="og:type" content="{'profile' if page['key'] == 'about' else 'website'}">
-<meta property="og:site_name" content="Hisham Elsaied">
+<meta property="og:site_name" content="{'هشام السعيد' if ar else 'Hisham Elsaied'}">
 <meta property="og:title" content="{page["title"]}">
 <meta property="og:description" content="{page["desc"]}">
 <meta property="og:url" content="{url}">
 <meta property="og:image" content="{SITE}/img/og-image.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:locale" content="en_AE">
+<meta property="og:locale" content="{'ar_AE' if ar else 'en_AE'}">
+<meta property="og:locale:alternate" content="{'en_AE' if ar else 'ar_AE'}">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="{page["title"]}">
 <meta name="twitter:description" content="{page["desc"]}">
@@ -226,7 +325,7 @@ def head(page):
 <link rel="apple-touch-icon" href="/img/apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&family=Montserrat:wght@500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?{fonts}&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/assets/site.css?v={UPDATED}">
 <script type="application/ld+json">
 {ld}
@@ -241,15 +340,18 @@ def build():
     css = open(os.path.join(SRC, "site.css"), encoding="utf-8").read()
     css = re.sub(r"\.page \{[^}]*\}\n\.page\.active \{[^}]*\}\n", "", css)
     css += "\n.foot-note { margin-top: 10px; max-width: 46ch; font-size: 0.92rem; color: var(--mist); }\n"
+    css += open(os.path.join(SRC, "rtl.css"), encoding="utf-8").read()
     open(os.path.join(ROOT, "assets", "site.css"), "w", encoding="utf-8").write(css)
     shutil.copy(os.path.join(SRC, "site.js"), os.path.join(ROOT, "assets", "site.js"))
-    for page in PAGES:
-        body = open(os.path.join(SRC, page["key"] + ".html"), encoding="utf-8").read()
-        html = head(page) + header(page) + "\n\n<main>\n" + body.rstrip() + "\n</main>\n\n" + FOOTER + \
-            f'\n\n<script src="/assets/site.js?v={UPDATED}" defer></script>\n</body>\n</html>\n'
-        out = os.path.join(ROOT, page["path"].strip("/"), "index.html") if page["path"] != "/" else os.path.join(ROOT, "index.html")
-        os.makedirs(os.path.dirname(out), exist_ok=True)
-        open(out, "w", encoding="utf-8").write(html)
+    for ar, pages in ((False, PAGES), (True, PAGES_AR)):
+        for page in pages:
+            src = os.path.join(SRC, "ar" if ar else "", page["key"] + ".html")
+            body = open(src, encoding="utf-8").read()
+            html = head(page, ar) + header(page, ar) + "\n\n<main>\n" + body.rstrip() + "\n</main>\n\n" + (FOOTER_AR if ar else FOOTER) + \
+                f'\n\n<script src="/assets/site.js?v={UPDATED}" defer></script>\n</body>\n</html>\n'
+            out = os.path.join(ROOT, page["path"].strip("/"), "index.html")
+            os.makedirs(os.path.dirname(out), exist_ok=True)
+            open(out, "w", encoding="utf-8").write(html)
     # 404
     nf = {"key": "404", "path": "/404.html", "nav": None, "title": "Page not found | Hisham Elsaied",
           "desc": "This page doesn't exist. Go to the home page of Hisham Elsaied, executive coach in Dubai."}
@@ -268,13 +370,20 @@ def build():
         f'\n\n<script src="/assets/site.js?v={UPDATED}" defer></script>\n</body>\n</html>\n'
     open(os.path.join(ROOT, "404.html"), "w", encoding="utf-8").write(html)
     # sitemap + robots
-    urls = "\n".join(
-        f"  <url><loc>{SITE}{p['path']}</loc><lastmod>{UPDATED}</lastmod><priority>{'1.0' if p['key'] == 'home' else '0.8'}</priority></url>"
-        for p in PAGES)
-    open(os.path.join(ROOT, "sitemap.xml"), "w").write(
-        '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' + urls + "\n</urlset>\n")
+    rows = []
+    for p in PAGES:
+        par = next(x for x in PAGES_AR if x["key"] == p["key"])
+        for loc, pri in ((p["path"], "1.0" if p["key"] == "home" else "0.8"), (par["path"], "0.9" if p["key"] == "home" else "0.7")):
+            rows.append(
+                f"  <url><loc>{SITE}{loc}</loc><lastmod>{UPDATED}</lastmod><priority>{pri}</priority>"
+                f'<xhtml:link rel="alternate" hreflang="en" href="{SITE}{p["path"]}"/>'
+                f'<xhtml:link rel="alternate" hreflang="ar" href="{SITE}{par["path"]}"/>'
+                f'<xhtml:link rel="alternate" hreflang="x-default" href="{SITE}{p["path"]}"/></url>')
+    open(os.path.join(ROOT, "sitemap.xml"), "w", encoding="utf-8").write(
+        '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">\n'
+        + "\n".join(rows) + "\n</urlset>\n")
     open(os.path.join(ROOT, "robots.txt"), "w").write(f"User-agent: *\nAllow: /\n\nSitemap: {SITE}/sitemap.xml\n")
-    print("built", [p["path"] for p in PAGES] + ["/404.html", "/sitemap.xml", "/robots.txt"])
+    print("built", [p["path"] for p in PAGES + PAGES_AR] + ["/404.html", "/sitemap.xml", "/robots.txt"])
 
 
 if __name__ == "__main__":

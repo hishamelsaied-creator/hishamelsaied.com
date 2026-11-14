@@ -1,5 +1,21 @@
 (function () {
   // Old single-page links (hishamelsaied.com/#coaching) go to the new pages.
+  var AR = document.documentElement.lang === "ar";
+  var T = AR ? {
+    copied: "تم النسخ.",
+    copyFail: "تعذّر النسخ. يرجى تحديد النص ونسخه.",
+    missing: "يرجى كتابة اسمك وبريدك الإلكتروني وبضعة أسطر عما تريده.",
+    badEmail: "يبدو أن البريد الإلكتروني غير صحيح. يرجى التحقق منه.",
+    notSent: "هذا النموذج غير مفعّل بعد، لذلك لم يُرسل استفسارك. يرجى التواصل عبر hisham@hishamelsaied.com حالياً.",
+    photo: "صورة "
+  } : {
+    copied: "Copied.",
+    copyFail: "Couldn't copy. Please select the text and copy it.",
+    missing: "Please add your name, your email and a few lines about what you'd like.",
+    badEmail: "That email address doesn't look right. Please check it.",
+    notSent: "This form is not connected yet, so your enquiry has not been sent. Please email hisham@hishamelsaied.com for now.",
+    photo: "Photo "
+  };
   var legacy = { about: "/about/", coaching: "/coaching/", articles: "/speaking/", speaking: "/speaking/", contact: "/contact/" };
   var h = (location.hash || "").replace("#", "");
   if (location.pathname === "/" && legacy[h]) { location.replace(legacy[h]); return; }
@@ -31,7 +47,7 @@
     slides.forEach(function (sl, n) {
       var b = document.createElement("button");
       b.type = "button";
-      b.setAttribute("aria-label", "Photo " + (n + 1));
+      b.setAttribute("aria-label", T.photo + (n + 1));
       b.addEventListener("click", function () { go(n); play(); });
       dots.appendChild(b);
     });
@@ -46,12 +62,12 @@
       var text = document.getElementById("bio-text").textContent;
       try {
         navigator.clipboard.writeText(text).then(function () {
-          copyNote.textContent = "Copied.";
+          copyNote.textContent = T.copied;
         }, function () {
-          copyNote.textContent = "Couldn't copy. Please select the text and copy it.";
+          copyNote.textContent = T.copyFail;
         });
       } catch (e) {
-        copyNote.textContent = "Couldn't copy. Please select the text and copy it.";
+        copyNote.textContent = T.copyFail;
       }
     });
   }
@@ -67,14 +83,14 @@
       var text = document.getElementById("f-msg").value.trim();
       msg.classList.add("show");
       if (!name || !email || !text) {
-        msg.textContent = "Please add your name, your email and a few lines about what you'd like.";
+        msg.textContent = T.missing;
         return;
       }
       if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) {
-        msg.textContent = "That email address doesn't look right. Please check it.";
+        msg.textContent = T.badEmail;
         return;
       }
-      msg.textContent = "This form is not connected yet, so your enquiry has not been sent. Please email hisham@hishamelsaied.com for now.";
+      msg.textContent = T.notSent;
     });
   }
 })();

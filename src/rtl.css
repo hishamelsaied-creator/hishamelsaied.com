@@ -1,0 +1,45 @@
+
+/* Language switch link */
+.nav a.lang { font-weight: 600; color: var(--gold); }
+
+/* ---------- Arabic (right-to-left) ---------- */
+[dir="rtl"] {
+  --display: "Noto Kufi Arabic", "Montserrat", "Segoe UI", Tahoma, sans-serif;
+  --body: "IBM Plex Sans Arabic", "DM Sans", "Segoe UI", Tahoma, sans-serif;
+}
+/* Letter-spacing breaks the joins between Arabic letters, so it is off everywhere in Arabic. */
+[dir="rtl"] *, [dir="rtl"] *::before, [dir="rtl"] *::after { letter-spacing: 0 !important; }
+[dir="rtl"] body { line-height: 1.85; }
+[dir="rtl"] h1, [dir="rtl"] h2, [dir="rtl"] h3 { line-height: 1.5; font-weight: 600; }
+[dir="rtl"] h1 { font-size: clamp(1.9rem, 4vw, 3.1rem); }
+[dir="rtl"] h2 { font-size: clamp(1.55rem, 2.8vw, 2.2rem); }
+[dir="rtl"] h3 { font-size: 1.2rem; }
+[dir="rtl"] .label { font-size: 0.92rem; text-transform: none; font-weight: 600; }
+[dir="rtl"] .situation .n, [dir="rtl"] .wall .cat, [dir="rtl"] .talk .when,
+[dir="rtl"] label, [dir="rtl"] .contact-lines small, [dir="rtl"] .creds-line { text-transform: none; font-size: 0.92rem; }
+[dir="rtl"] .brand b { font-size: 1.3rem; }
+[dir="rtl"] .brand span { font-family: var(--body); }
+[dir="rtl"] .stat b { font-family: var(--display); }
+[dir="rtl"] .quote blockquote { line-height: 1.7; }
+[dir="rtl"] .wall li { font-size: 1.08rem; line-height: 1.6; }
+[dir="rtl"] summary { font-size: 1.12rem; line-height: 1.6; }
+[dir="rtl"] .nav a { font-size: 1rem; }
+
+/* Mirror the layout details that were set for left-to-right */
+[dir="rtl"] .show { margin-left: 0; margin-right: auto; }
+[dir="rtl"] .dots { left: auto; right: 0; }
+[dir="rtl"] .stat { padding: 40px 0 40px 28px; border-right: 0; border-left: 1px solid var(--navy-line); margin-right: 0; margin-left: 28px; }
+[dir="rtl"] .stat:last-child { border-left: 0; margin-left: 0; }
+[dir="rtl"] .dl span { text-align: left; }
+[dir="rtl"] summary { padding: 24px 0 24px 40px; }
+[dir="rtl"] summary::after { right: auto; left: 4px; }
+[dir="rtl"] .form-msg { border-left: 0; border-right: 3px solid var(--gold-deep); }
+[dir="rtl"] .steps li::before { content: counter(s, arabic-indic); }
+[dir="rtl"] .contact-lines a[dir="ltr"] { text-align: right; unicode-bidi: plaintext; }
+[dir="rtl"] input[dir="ltr"] { text-align: left; }
+@media (max-width: 900px) {
+  [dir="rtl"] .show, [dir="rtl"] .photo { margin: 0 0 0 auto; }
+  [dir="rtl"] .show { margin-bottom: 44px; }
+  [dir="rtl"] .stat { padding: 28px 0 28px 16px; margin-left: 16px; }
+  [dir="rtl"] .stat:nth-child(2) { border-left: 0; margin-left: 0; }
+}
