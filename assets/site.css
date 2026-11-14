@@ -330,3 +330,11 @@ html[dir="rtl"] .lg { font-family: var(--display); letter-spacing: 0; }
 .books .lead { color: var(--ink); }
 .books .note { color: var(--slate); font-size: 1rem; }
 @media (max-width: 860px) { .with-book { grid-template-columns: 1fr; gap: 40px; } .book { max-width: 260px; } }
+.shelf { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; }
+.vol { display: grid; grid-template-columns: 210px 1fr; gap: 34px; align-items: start; }
+.vol h3 { font-size: 1.7rem; line-height: 1.15; }
+.vol .lead { font-size: 1.08rem; }
+.vol p:not(.lead) { color: var(--slate); font-size: 1rem; }
+html[dir="rtl"] .vol h3 { text-align: right; font-family: Montserrat, sans-serif; }
+@media (max-width: 1000px) { .shelf { grid-template-columns: 1fr; gap: 48px; } }
+@media (max-width: 520px) { .vol { grid-template-columns: 1fr; } .vol .book { max-width: 220px; } }
