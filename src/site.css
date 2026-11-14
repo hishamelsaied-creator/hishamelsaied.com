@@ -210,7 +210,7 @@ input, select, textarea { font: 400 1.05rem var(--body); color: var(--ink); back
 textarea { min-height: 150px; resize: vertical; }
 form .btn { background: var(--night); border-color: var(--night); color: var(--ivory); }
 form .btn:hover { background: var(--navy); }
-.form-msg { display: none; padding: 16px 18px; background: #fff; border-left: 3px solid var(--gold-deep); color: var(--ink); font-size: 1rem; }
+.form-msg { display: none; align-self: start; padding: 16px 18px; background: #fff; border-left: 3px solid var(--gold-deep); color: var(--ink); font-size: 1rem; }
 .form-msg.show { display: block; }
 @media (max-width: 560px) { form { padding: 28px 22px; } }
 .contact-lines { display: flex; flex-direction: column; border-top: 1px solid var(--navy-line); }
