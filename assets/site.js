@@ -6,14 +6,18 @@
     copyFail: "تعذّر النسخ. يرجى تحديد النص ونسخه.",
     missing: "يرجى كتابة اسمك وبريدك الإلكتروني وبضعة أسطر عما تريده.",
     badEmail: "يبدو أن البريد الإلكتروني غير صحيح. يرجى التحقق منه.",
-    notSent: "هذا النموذج غير مفعّل بعد، لذلك لم يُرسل استفسارك. يرجى التواصل عبر hisham@hishamelsaied.com حالياً.",
+    sending: "جارٍ الإرسال...",
+    sent: "شكراً لك. وصلني استفسارك وسأرد عليك شخصياً.",
+    notSent: "تعذّر إرسال استفسارك. يرجى مراسلتي مباشرة على hisham@hishamelsaied.com.",
     photo: "صورة "
   } : {
     copied: "Copied.",
     copyFail: "Couldn't copy. Please select the text and copy it.",
     missing: "Please add your name, your email and a few lines about what you'd like.",
     badEmail: "That email address doesn't look right. Please check it.",
-    notSent: "This form is not connected yet, so your enquiry has not been sent. Please email hisham@hishamelsaied.com for now.",
+    sending: "Sending...",
+    sent: "Thank you. Your enquiry has reached me and I will reply personally.",
+    notSent: "Your enquiry could not be sent. Please email me directly at hisham@hishamelsaied.com.",
     photo: "Photo "
   };
   var legacy = { about: "/about/", coaching: "/coaching/", articles: "/speaking/", speaking: "/speaking/", media: "/media/", contact: "/contact/" };
@@ -72,25 +76,43 @@
     });
   }
 
-  // Contact page: enquiry form (not yet connected to a form service)
+  // Contact page: enquiry form, delivered by email
   var form = document.getElementById("enquiry-form");
   if (form) {
     var msg = document.getElementById("form-msg");
+    var val = function (id) { var el = document.getElementById(id); return el ? el.value.trim() : ""; };
     form.addEventListener("submit", function (e) {
       e.preventDefault();
-      var name = document.getElementById("f-name").value.trim();
-      var email = document.getElementById("f-email").value.trim();
-      var text = document.getElementById("f-msg").value.trim();
+      var name = val("f-name"), email = val("f-email"), text = val("f-msg");
       msg.classList.add("show");
-      if (!name || !email || !text) {
-        msg.textContent = T.missing;
-        return;
-      }
-      if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) {
-        msg.textContent = T.badEmail;
-        return;
-      }
-      msg.textContent = T.notSent;
+      if (!name || !email || !text) { msg.textContent = T.missing; return; }
+      if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) { msg.textContent = T.badEmail; return; }
+      if (val("f-hp")) { msg.textContent = T.sent; return; }
+      var btn = form.querySelector("button[type=submit]");
+      btn.disabled = true;
+      msg.textContent = T.sending;
+      fetch("https://formsubmit.co/ajax/hisham@hishamelsaied.com", {
+        method: "POST",
+        headers: { "Content-Type": "application/json", "Accept": "application/json" },
+        body: JSON.stringify({
+          _subject: "Website enquiry from " + name,
+          _template: "table",
+          _captcha: "false",
+          Name: name,
+          "Job title and organisation": val("f-role"),
+          email: email,
+          "Preferred language": val("f-lang"),
+          About: val("f-type"),
+          Message: text,
+          Page: location.href
+        })
+      }).then(function (r) { return r.json().catch(function () { return {}; }).then(function (d) { return { ok: r.ok, d: d }; }); })
+        .then(function (res) {
+          if (res.ok && String(res.d.success) !== "false") { msg.textContent = T.sent; form.reset(); }
+          else { msg.textContent = T.notSent; }
+        })
+        .catch(function () { msg.textContent = T.notSent; })
+        .then(function () { btn.disabled = false; });
     });
   }
 })();
