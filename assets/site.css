@@ -350,3 +350,19 @@ html[dir="rtl"] .vol h3 { text-align: right; font-family: Montserrat, sans-serif
 .vol .book { max-width: 250px; }
 @media (max-width: 1000px) { .shelf { grid-template-columns: 1fr; gap: 48px; } .vol { grid-template-columns: 170px 1fr; gap: 28px; } }
 @media (max-width: 520px) { .vol { grid-template-columns: 1fr; } .vol .book { max-width: 220px; } }
+
+/* Videos */
+.vids { display: grid; grid-template-columns: repeat(2, 1fr); gap: 44px 40px; }
+.vid { margin: 0; display: flex; flex-direction: column; gap: 16px; }
+.yt { position: relative; display: block; width: 100%; aspect-ratio: 16 / 9; padding: 0; border: 1px solid var(--navy-line); border-radius: 10px; overflow: hidden; background: var(--night); cursor: pointer; }
+.yt img { width: 100%; height: 100%; object-fit: cover; display: block; opacity: 0.86; transition: opacity .2s, transform .4s; }
+.yt:hover img { opacity: 1; transform: scale(1.03); }
+.yt .play { position: absolute; left: 50%; top: 50%; width: 74px; height: 74px; margin: -37px 0 0 -37px; border-radius: 50%; background: var(--gold); box-shadow: 0 10px 30px rgba(0,0,0,.45); }
+.yt .play::after { content: ""; position: absolute; left: 30px; top: 23px; border-style: solid; border-width: 14px 0 14px 22px; border-color: transparent transparent transparent var(--night); }
+.vid iframe { width: 100%; aspect-ratio: 16 / 9; border: 0; border-radius: 10px; display: block; }
+.vid .when { font-size: 0.78rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold); }
+.vid h3 { font-size: 1.2rem; line-height: 1.3; margin-top: 6px; }
+.vid h3 a { color: inherit; text-decoration: none; }
+.vid h3 a:hover { color: var(--gold); }
+html[dir="rtl"] .vid .when { letter-spacing: 0; }
+@media (max-width: 760px) { .vids { grid-template-columns: 1fr; gap: 36px; } }

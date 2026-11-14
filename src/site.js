@@ -94,3 +94,14 @@
     });
   }
 })();
+
+document.addEventListener("click", function (e) {
+  var b = e.target.closest ? e.target.closest(".yt") : null;
+  if (!b) return;
+  var f = document.createElement("iframe");
+  f.src = "https://www.youtube-nocookie.com/embed/" + b.getAttribute("data-id") + "?autoplay=1&rel=0&start=" + (b.getAttribute("data-t") || 0);
+  f.title = b.getAttribute("aria-label") || "Video";
+  f.allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share";
+  f.allowFullscreen = true;
+  b.parentNode.replaceChild(f, b);
+});

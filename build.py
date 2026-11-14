@@ -115,6 +115,11 @@ MEDIA = [
     ("Article", "Situational Leadership: Do leaders have to be consistent?", "https://www.linkedin.com/pulse/situational-leadership-do-leaders-have-consistent-hisham-elsaied", "2022-07-19", "LinkedIn"),
     ("PodcastEpisode", "Redefining Employee Experience in a Multicultural Workforce", "https://audioboom.com/posts/8797374", "2025-10-29", "greytFM"),
     ("PodcastEpisode", "What Makes Cross-Cultural Collaboration Work?", "https://www.vantagecircle.com/en/blog/podcasts/vantage-influencers/what-makes-cross-cultural-collaboration-work/", "2024-11-28", "Vantage Circle"),
+    ("VideoObject", 'Eclectic Leadership Movement Podcast', "https://www.youtube.com/watch?v=vZPfe2Lh18I", None, 'Eclectic Leadership'),
+    ("VideoObject", "5 O'Clock Tea Talks, episode 31, with host Seda Tekeci", "https://www.youtube.com/watch?v=3u2RgcnxhOU", None, 'Coach Magazine Global'),
+    ("VideoObject", 'Cross-cultural awareness', "https://www.youtube.com/watch?v=S2xIsEFlZDY", None, 'cultureA Podcast'),
+    ("VideoObject", 'Interview like a pro: inside the mind of your HR interviewer', "https://www.youtube.com/watch?v=ojHBFPRFzeU", None, 'Alchemy Search'),
+    ("VideoObject", 'Beyond benefits: how AI is redefining employee happiness', "https://www.youtube.com/watch?v=z_S9lsvSaCY", None, 'Employee Happiness Awards'),
 ]
 
 
@@ -232,8 +237,11 @@ def graph(page, ar=False):
                       "inLanguage": "en", "image": SITE + img, "about": about, "url": SITE + ("/ar/" if ar else "/") + "#books"})
     if k == "media":
         g.append({"@type": "ItemList", "name": "Articles and podcasts by Hisham Elsaied", "itemListElement": [
-            {"@type": "ListItem", "position": i + 1, "item": {"@type": t, "name": n, "url": u, "datePublished": d,
-             ("author" if t == "Article" else "actor"): {"@id": PERSON_ID}, "publisher": {"@type": "Organization", "name": pub}}}
+            {"@type": "ListItem", "position": i + 1, "item": dict({"@type": t, "name": n, "url": u, ("author" if t == "Article" else "actor"): {"@id": PERSON_ID},
+                   "publisher": {"@type": "Organization", "name": pub}},
+                  **({"datePublished": d} if d else {}),
+                  **({"embedUrl": u.replace("watch?v=", "embed/"), "thumbnailUrl": "https://i.ytimg.com/vi/" + u.split("=")[-1] + "/hqdefault.jpg",
+                      "description": n + ", with Hisham Elsaied."} if t == "VideoObject" else {}))}
             for i, (t, n, u, d, pub) in enumerate(MEDIA)]})
     if k == "about":
         g.append({"@type": "ProfilePage", "url": SITE + page["path"], "inLanguage": "ar" if ar else "en", "mainEntity": {"@id": PERSON_ID}})
