@@ -12,7 +12,7 @@ import shutil
 ROOT = os.path.dirname(os.path.abspath(__file__))
 SRC = os.path.join(ROOT, "src")
 SITE = "https://hishamelsaied.com"
-UPDATED = "2026-11-14"
+UPDATED = "2026-11-14b"
 
 PERSON_ID = SITE + "/#person"
 BUSINESS_ID = SITE + "/#business"
@@ -33,6 +33,11 @@ PAGES = [
         "key": "speaking", "path": "/speaking/", "nav": "Speaking and workshops",
         "title": "Leadership and HR Speaker, Keynotes and Workshops | UAE and GCC",
         "desc": "Keynotes, masterclasses and workshops on leading people, HR capability, and talent and assessment. Bilingual speaker and facilitator based in Dubai.",
+    },
+    {
+        "key": "media", "path": "/media/", "nav": "Media",
+        "title": "Media: Articles, Podcasts and Interviews | Hisham Elsaied",
+        "desc": "Articles, podcasts and talks by Hisham Elsaied on leadership, HR and working across cultures: Campaign Middle East, HBR Arabia, The HR Observer, greytFM.",
     },
     {
         "key": "about", "path": "/about/", "nav": "About",
@@ -61,6 +66,11 @@ PAGES_AR = [
         "key": "speaking", "path": "/ar/speaking/", "nav": "المحاضرات وورش العمل",
         "title": "متحدث ومدرب في القيادة والموارد البشرية | الإمارات والخليج",
         "desc": "كلمات رئيسية ومحاضرات وورش عمل حول قيادة الأفراد وقدرات الموارد البشرية والمواهب والتقييم. متحدث ومدرب ثنائي اللغة مقيم في دبي.",
+    },
+    {
+        "key": "media", "path": "/ar/media/", "nav": "الإعلام",
+        "title": "الإعلام: مقالات وبودكاست ومقابلات | هشام السعيد",
+        "desc": "مقالات وبودكاست وكلمات ومقابلات لهشام السعيد حول القيادة والموارد البشرية والعمل بين الثقافات: هارفارد بزنس ريفيو العربية وCampaign Middle East وغيرها.",
     },
     {
         "key": "about", "path": "/ar/about/", "nav": "نبذة عني",
@@ -113,7 +123,6 @@ def person(ar=False):
         "description": ("كوتش تنفيذي مقيم في دبي ومدير إقليمي سابق للموارد البشرية. يعمل مع مديري ومديرات الموارد البشرية في دول الخليج، ويتحدث في القيادة وقدرات الموارد البشرية والمواهب والتقييم، بالعربية والإنجليزية."
                         if ar else "Dubai-based executive coach and former regional HR director. Coaches HR managers and directors across the GCC and speaks on leadership, HR capability, and talent and assessment, in Arabic and English."),
         "email": "mailto:hisham@hishamelsaied.com",
-        "telephone": "+971563294418",
         "address": {"@type": "PostalAddress", "addressLocality": "Dubai", "addressCountry": "AE"},
         "knowsLanguage": ["en", "ar"],
         "knowsAbout": [
@@ -143,7 +152,6 @@ def business(ar=False):
                         if ar else "Executive coaching for HR managers and directors, plus keynotes, masterclasses and workshops for leaders and HR teams. Dubai, UAE and the wider GCC. Arabic and English."),
         "founder": {"@id": PERSON_ID},
         "email": "hisham@hishamelsaied.com",
-        "telephone": "+971563294418",
         "address": {"@type": "PostalAddress", "addressLocality": "Dubai", "addressCountry": "AE"},
         "areaServed": [{"@type": "Country", "name": c} for c in GCC],
         "availableLanguage": ["English", "Arabic"],
@@ -218,7 +226,7 @@ def counterpart(page, ar):
 def header(page, ar=False):
     pages = PAGES_AR if ar else PAGES
     base = "/ar" if ar else ""
-    order = ["about", "coaching", "speaking", "contact"]
+    order = ["about", "coaching", "speaking", "media", "contact"]
     links = []
     for key in order:
         p = next(x for x in pages if x["key"] == key)
@@ -237,6 +245,7 @@ def header(page, ar=False):
     <nav class="nav" id="nav" aria-label="{'القائمة الرئيسية' if ar else 'Main'}">
 {chr(10).join(links)}
 {switch}
+      <a class="li" href="https://www.linkedin.com/in/hishamelsaied/" target="_blank" rel="noopener" aria-label="LinkedIn"><svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9h4v12H3zM9 9h3.8v1.7h.1c.5-1 1.8-2 3.7-2 4 0 4.7 2.6 4.7 6V21h-4v-5.5c0-1.3 0-3-1.8-3s-2.1 1.4-2.1 2.9V21H9z"/></svg></a>
       <a class="btn" href="{base}/contact/">{enquire}</a>
     </nav>
   </div>
@@ -253,9 +262,10 @@ FOOTER = """<footer class="site-footer">
       <a href="/about/">About</a>
       <a href="/coaching/">Coaching</a>
       <a href="/speaking/">Speaking and workshops</a>
+      <a href="/media/">Media</a>
       <a href="/contact/">Contact</a>
       <a href="/ar/" hreflang="ar" lang="ar">العربية</a>
-      <a href="https://www.linkedin.com/in/hishamelsaied/" target="_blank" rel="noopener">LinkedIn</a>
+      <a class="li" href="https://www.linkedin.com/in/hishamelsaied/" target="_blank" rel="noopener" aria-label="LinkedIn"><svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9h4v12H3zM9 9h3.8v1.7h.1c.5-1 1.8-2 3.7-2 4 0 4.7 2.6 4.7 6V21h-4v-5.5c0-1.3 0-3-1.8-3s-2.1 1.4-2.1 2.9V21H9z"/></svg></a>
     </div>
   </div>
 </footer>"""
@@ -271,9 +281,10 @@ FOOTER_AR = """<footer class="site-footer">
       <a href="/ar/about/">نبذة عني</a>
       <a href="/ar/coaching/">الكوتشينج</a>
       <a href="/ar/speaking/">المحاضرات وورش العمل</a>
+      <a href="/ar/media/">الإعلام</a>
       <a href="/ar/contact/">تواصل معي</a>
       <a href="/" hreflang="en" lang="en">English</a>
-      <a href="https://www.linkedin.com/in/hishamelsaied/" target="_blank" rel="noopener">LinkedIn</a>
+      <a class="li" href="https://www.linkedin.com/in/hishamelsaied/" target="_blank" rel="noopener" aria-label="LinkedIn"><svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9h4v12H3zM9 9h3.8v1.7h.1c.5-1 1.8-2 3.7-2 4 0 4.7 2.6 4.7 6V21h-4v-5.5c0-1.3 0-3-1.8-3s-2.1 1.4-2.1 2.9V21H9z"/></svg></a>
     </div>
   </div>
 </footer>"""
@@ -375,7 +386,7 @@ def build():
         par = next(x for x in PAGES_AR if x["key"] == p["key"])
         for loc, pri in ((p["path"], "1.0" if p["key"] == "home" else "0.8"), (par["path"], "0.9" if p["key"] == "home" else "0.7")):
             rows.append(
-                f"  <url><loc>{SITE}{loc}</loc><lastmod>{UPDATED}</lastmod><priority>{pri}</priority>"
+                f"  <url><loc>{SITE}{loc}</loc><lastmod>2026-11-14</lastmod><priority>{pri}</priority>"
                 f'<xhtml:link rel="alternate" hreflang="en" href="{SITE}{p["path"]}"/>'
                 f'<xhtml:link rel="alternate" hreflang="ar" href="{SITE}{par["path"]}"/>'
                 f'<xhtml:link rel="alternate" hreflang="x-default" href="{SITE}{p["path"]}"/></url>')

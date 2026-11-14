@@ -43,3 +43,20 @@
   [dir="rtl"] .stat { padding: 28px 0 28px 16px; margin-left: 16px; }
   [dir="rtl"] .stat:nth-child(2) { border-left: 0; margin-left: 0; }
 }
+
+/* Media page, press strip, LinkedIn icon */
+.talk h3 a, .dl b a { color: inherit; text-decoration: underline; text-decoration-color: var(--gold); text-decoration-thickness: 1px; text-underline-offset: 5px; }
+.talk h3 a:hover, .dl b a:hover { color: var(--gold); }
+.light .talk, .light .talk:last-child { border-color: var(--ivory-line); }
+.light .talk .when { color: var(--gold-deep); }
+.light .talk p { color: var(--slate); }
+.light .talk h3 a:hover { color: var(--gold-deep); }
+.press { padding: 34px 0; border-bottom: 1px solid var(--navy-line); }
+.press .wrap { display: flex; align-items: center; gap: 18px 36px; flex-wrap: wrap; }
+.press ul { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 8px 30px; flex: 1; }
+.press li { font-family: var(--display); font-weight: 600; font-size: 1rem; color: var(--mist); }
+.press a { font-size: 0.95rem; font-weight: 600; color: var(--gold); white-space: nowrap; }
+.nav a.li, .foot-links a.li { display: inline-flex; align-items: center; color: var(--mist); border-bottom: 0; }
+.nav a.li:hover, .foot-links a.li:hover { color: var(--gold); border-bottom: 0; }
+.contact-lines a.li-row { display: inline-flex; align-items: center; gap: 10px; }
+@media (max-width: 1100px) and (min-width: 901px) { .nav { gap: 20px; } .nav a { font-size: 0.92rem; } }

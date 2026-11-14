@@ -16,7 +16,7 @@
     notSent: "This form is not connected yet, so your enquiry has not been sent. Please email hisham@hishamelsaied.com for now.",
     photo: "Photo "
   };
-  var legacy = { about: "/about/", coaching: "/coaching/", articles: "/speaking/", speaking: "/speaking/", contact: "/contact/" };
+  var legacy = { about: "/about/", coaching: "/coaching/", articles: "/speaking/", speaking: "/speaking/", media: "/media/", contact: "/contact/" };
   var h = (location.hash || "").replace("#", "");
   if (location.pathname === "/" && legacy[h]) { location.replace(legacy[h]); return; }
 
