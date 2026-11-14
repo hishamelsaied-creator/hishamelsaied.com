@@ -12,7 +12,8 @@ import shutil
 ROOT = os.path.dirname(os.path.abspath(__file__))
 SRC = os.path.join(ROOT, "src")
 SITE = "https://hishamelsaied.com"
-UPDATED = "2026-11-14b"
+import hashlib as _h
+UPDATED = _h.md5(b"".join(open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "src", f), "rb").read() for f in ("site.css", "rtl.css", "site.js"))).hexdigest()[:10]
 
 PERSON_ID = SITE + "/#person"
 BUSINESS_ID = SITE + "/#business"
