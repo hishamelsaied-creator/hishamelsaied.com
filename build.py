@@ -46,6 +46,11 @@ PAGES = [
         "desc": "Former regional HR director, 20+ years across the GCC, Europe and North America. ICF PCC, FCIPD, Hogan Certified. Adjunct Faculty at PwC Academy and EY.",
     },
     {
+        "key": "arabic-coach", "path": "/arabic-speaking-executive-coach-uae/", "nav": "Arabic-speaking coach",
+        "title": "Arabic-Speaking Executive Coach in Dubai, UAE | Hisham Elsaied",
+        "desc": "ICF PCC executive coach in Dubai who coaches in Arabic and English. For HR leaders and senior leaders across the UAE, Saudi Arabia and the Gulf.",
+    },
+    {
         "key": "contact", "path": "/contact/", "nav": "Contact",
         "title": "Contact Hisham Elsaied | Executive Coaching and Speaking, Dubai",
         "desc": "Enquire about executive coaching, keynotes or workshops. Based in Dubai, working across the UAE and the GCC in Arabic and English.",
@@ -79,11 +84,19 @@ PAGES_AR = [
         "desc": "مدير إقليمي سابق للموارد البشرية بخبرة تزيد على ٢٠ عاماً في الخليج وأوروبا وأمريكا الشمالية. معتمد ICF PCC وFCIPD وHogan. عضو هيئة تدريس في أكاديمية PwC وEY.",
     },
     {
+        "key": "arabic-coach", "path": "/ar/arabic-speaking-executive-coach-uae/", "nav": "كوتش تنفيذي عربي",
+        "title": "كوتش تنفيذي عربي في دبي والإمارات | هشام السعيد",
+        "desc": "كوتش تنفيذي معتمد ICF PCC في دبي يعمل بالعربية والإنجليزية مع قادة الموارد البشرية والقيادات العليا في الإمارات والسعودية ودول الخليج.",
+    },
+    {
         "key": "contact", "path": "/ar/contact/", "nav": "تواصل معي",
         "title": "تواصل مع هشام السعيد | الكوتشينج التنفيذي والمحاضرات، دبي",
         "desc": "استفسر عن الكوتشينج التنفيذي أو الكلمات الرئيسية أو ورش العمل. مقيم في دبي ويعمل في الإمارات ودول الخليج بالعربية والإنجليزية.",
     },
 ]
+
+ARQA_EN = [('Is there an executive coach in the UAE who coaches in Arabic?', 'Yes. Hisham Elsaied is an ICF Professional Certified Coach (PCC) based in Dubai who coaches in Arabic and English. He works with leaders across the UAE, Saudi Arabia, Oman, Kuwait, Qatar and Bahrain.'), ('Can a session move between Arabic and English?', 'Yes. Many clients run their working day in English and think through difficult decisions in Arabic. Sessions can be in either language, or move between the two.'), ('Who does he coach?', 'HR managers and directors are the people he works with most. He also coaches senior leaders in government, semi-government and corporate roles across the Gulf.'), ('What are his credentials?', 'ICF Professional Certified Coach (PCC) with more than 600 coaching hours, Chartered Fellow of the CIPD (FCIPD), Hogan certified assessor and Cultural Intelligence (CQ) certified trainer, with 20 years in HR leadership roles.'), ('Do I need to be in Dubai?', 'No. Sessions run online or in person in Dubai. Clients are based across the UAE and the wider Gulf.'), ('How do I start?', 'Send a short enquiry through the contact page. The first conversation carries no obligation.')]
+ARQA_AR = [('هل يوجد كوتش تنفيذي في الإمارات يعمل باللغة العربية؟', 'نعم. هشام السعيد كوتش محترف معتمد من الاتحاد الدولي للكوتشينج (ICF PCC)، مقيم في دبي ويعمل بالعربية والإنجليزية مع قادة في الإمارات والسعودية وعُمان والكويت وقطر والبحرين.'), ('هل يمكن أن تنتقل الجلسة بين العربية والإنجليزية؟', 'نعم. كثير من العملاء يديرون يوم عملهم بالإنجليزية ويفكرون في القرارات الصعبة بالعربية. يمكن أن تكون الجلسة بأي من اللغتين أو بكلتيهما.'), ('مع من يعمل؟', 'أكثر من يعمل معهم هم مديرو ومديرات الموارد البشرية. ويعمل أيضاً مع قيادات عليا في الجهات الحكومية وشبه الحكومية والشركات في دول الخليج.'), ('ما مؤهلاته؟', 'كوتش محترف معتمد ICF PCC بأكثر من ٦٠٠ ساعة كوتشينج، وزميل معتمد في CIPD، ومقيّم معتمد في Hogan، ومدرب معتمد في الذكاء الثقافي (CQ)، مع عشرين عاماً في مناصب قيادية في الموارد البشرية.'), ('هل يجب أن أكون في دبي؟', 'لا. تُعقد الجلسات عبر الإنترنت أو حضورياً في دبي، والعملاء موزعون في الإمارات ودول الخليج.'), ('كيف أبدأ؟', 'أرسل استفساراً قصيراً من صفحة التواصل. المحادثة الأولى بلا أي التزام.')]
 
 FAQ_AR = [
     ("هل يمكن أن نعمل باللغة العربية؟", "نعم. أعمل بالعربية والإنجليزية، وكثير من عملائي ينتقلون بين اللغتين في الجلسة نفسها."),
@@ -222,6 +235,12 @@ def graph(page, ar=False):
             faq = FAQ
         g.append({"@type": "FAQPage", "inLanguage": "ar" if ar else "en", "mainEntity": [
             {"@type": "Question", "name": q, "acceptedAnswer": {"@type": "Answer", "text": a}} for q, a in faq]})
+    if k == "arabic-coach":
+        g.append(service("كوتشينج تنفيذي باللغة العربية" if ar else "Executive coaching in Arabic and English",
+                         "كوتشينج تنفيذي فردي بالعربية والإنجليزية لقادة في الإمارات ودول الخليج." if ar else "One-to-one executive coaching in Arabic and English for leaders in the UAE and the Gulf.",
+                         page["path"], "كوتشينج تنفيذي" if ar else "Executive coaching"))
+        g.append({"@type": "FAQPage", "inLanguage": "ar" if ar else "en", "mainEntity": [
+            {"@type": "Question", "name": q, "acceptedAnswer": {"@type": "Answer", "text": a}} for q, a in (ARQA_AR if ar else ARQA_EN)]})
     if k == "speaking":
         if ar:
             g.append(service("كلمات رئيسية ومحاضرات وورش عمل",
@@ -297,6 +316,7 @@ FOOTER = """<footer class="site-footer">
       <a href="/coaching/">Coaching</a>
       <a href="/speaking/">Speaking and workshops</a>
       <a href="/media/">Media</a>
+      <a href="/arabic-speaking-executive-coach-uae/">Arabic-speaking coach</a>
       <a href="/contact/">Contact</a>
       <a href="/ar/" hreflang="ar" lang="ar">العربية</a>
       <a class="li" href="https://www.linkedin.com/in/hishamelsaied/" target="_blank" rel="noopener" aria-label="LinkedIn"><svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9h4v12H3zM9 9h3.8v1.7h.1c.5-1 1.8-2 3.7-2 4 0 4.7 2.6 4.7 6V21h-4v-5.5c0-1.3 0-3-1.8-3s-2.1 1.4-2.1 2.9V21H9z"/></svg></a>
@@ -316,6 +336,7 @@ FOOTER_AR = """<footer class="site-footer">
       <a href="/ar/coaching/">الكوتشينج</a>
       <a href="/ar/speaking/">المحاضرات وورش العمل</a>
       <a href="/ar/media/">الإعلام</a>
+      <a href="/ar/arabic-speaking-executive-coach-uae/">كوتش تنفيذي عربي</a>
       <a href="/ar/contact/">تواصل معي</a>
       <a href="/" hreflang="en" lang="en">English</a>
       <a class="li" href="https://www.linkedin.com/in/hishamelsaied/" target="_blank" rel="noopener" aria-label="LinkedIn"><svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9h4v12H3zM9 9h3.8v1.7h.1c.5-1 1.8-2 3.7-2 4 0 4.7 2.6 4.7 6V21h-4v-5.5c0-1.3 0-3-1.8-3s-2.1 1.4-2.1 2.9V21H9z"/></svg></a>
