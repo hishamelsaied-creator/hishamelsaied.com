@@ -366,3 +366,15 @@ html[dir="rtl"] .vol h3 { text-align: right; font-family: Montserrat, sans-serif
 .vid h3 a:hover { color: var(--gold); }
 html[dir="rtl"] .vid .when { letter-spacing: 0; }
 @media (max-width: 760px) { .vids { grid-template-columns: 1fr; gap: 36px; } }
+
+/* Testimonials */
+.voices { padding-bottom: 40px; }
+.voices + .light { padding-top: 56px; }
+.tcards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; }
+.tcard { margin: 0; padding: 34px 30px 30px; background: #fff; border: 1px solid var(--ivory-line); border-top: 3px solid var(--gold-deep); display: flex; flex-direction: column; gap: 26px; }
+.tcard blockquote { margin: 0; font-size: 1.08rem; line-height: 1.62; color: var(--ink); }
+.tcard figcaption { margin-top: auto; font-weight: 700; font-size: 0.95rem; color: var(--night); }
+.tcard figcaption span { display: block; font-weight: 500; color: var(--slate); margin-top: 3px; }
+.voices .note { font-size: 0.95rem; color: var(--slate); }
+.voices .note a { color: var(--gold-deep); font-weight: 600; }
+@media (max-width: 960px) { .tcards { grid-template-columns: 1fr; } }
