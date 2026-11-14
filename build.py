@@ -103,6 +103,19 @@ FAQ = [
 ]
 
 
+BOOKS = [
+    ("The Moving Line", "The 300-year race to build a thinking machine", "/img/book-the-moving-line.jpg", "History of artificial intelligence"),
+    ("Coaching in the Middle East", "What works with leaders in a region of many cultures", "/img/book-coaching-in-the-middle-east.jpg", "Executive coaching in the Middle East"),
+]
+MEDIA = [
+    ("Article", "Why the Middle East needs a new kind of creative leadership", "https://campaignme.com/why-the-middle-east-needs-a-new-kind-of-creative-leadership/", "2025-07-31", "Campaign Middle East"),
+    ("Article", "From Ancient History to the Digital Age: The Evolving Models of the HR Function", "https://www.thehrobserver.com/indepth/from-ancient-history-to-the-digital-age-the-evolving-models-of-the-hr-function/", "2024-09-16", "The HR Observer"),
+    ("Article", "Situational Leadership: Do leaders have to be consistent?", "https://www.linkedin.com/pulse/situational-leadership-do-leaders-have-consistent-hisham-elsaied", "2022-07-19", "LinkedIn"),
+    ("PodcastEpisode", "Redefining Employee Experience in a Multicultural Workforce", "https://audioboom.com/posts/8797374", "2025-10-29", "greytFM"),
+    ("PodcastEpisode", "What Makes Cross-Cultural Collaboration Work?", "https://www.vantagecircle.com/en/blog/podcasts/vantage-influencers/what-makes-cross-cultural-collaboration-work/", "2024-11-28", "Vantage Circle"),
+]
+
+
 def person(ar=False):
     creds = [
         ("ICF Professional Certified Coach (PCC)", "International Coaching Federation"),
@@ -129,14 +142,16 @@ def person(ar=False):
             "Executive coaching", "Leadership development", "Manager to leader transition",
             "Executive presence", "Strategic HR", "HR business partnering", "Workforce planning",
             "Succession planning", "Assessment centres", "Hogan assessments",
-            "Cultural intelligence", "AI in HR",
+            "Cultural intelligence", "AI in HR", "Coaching in the Middle East", "History of artificial intelligence",
         ],
         "hasCredential": [
             {"@type": "EducationalOccupationalCredential", "name": n,
              "recognizedBy": {"@type": "Organization", "name": o}} for n, o in creds
         ],
-        "award": ["Recognised among the Top 200 HR Leaders globally", "CIPD award winner"],
-        "sameAs": ["https://www.linkedin.com/in/hishamelsaied/"],
+        "award": ["Recognised among the Top 200 HR Leaders globally", "CIPD award winner", "Top 20 HR Influencers in the UAE 2025 (Favikon)"],
+        "sameAs": ["https://www.linkedin.com/in/hishamelsaied/", "https://x.com/hishamelsaied",
+                   "https://informaconnect.com/hr-summit-expo/speakers/hisham-elsaied-fcipd/",
+                   "https://www.gleac.com/mentors/hisham-elsaied"],
     }
 
 
@@ -209,6 +224,15 @@ def graph(page, ar=False):
             g.append(service("Keynotes, masterclasses and workshops",
                              "Keynotes, conference masterclasses and half-day or one-day workshops on leading people, HR capability, and talent and assessment, in Arabic or English.",
                              page["path"], "Leadership and HR speaking and workshops"))
+    if k == "home":
+        for name, sub_, img, about in BOOKS:
+            g.append({"@type": "Book", "name": name, "alternativeHeadline": sub_, "author": {"@id": PERSON_ID},
+                      "inLanguage": "en", "image": SITE + img, "about": about, "url": SITE + ("/ar/" if ar else "/") + "#books"})
+    if k == "media":
+        g.append({"@type": "ItemList", "name": "Articles and podcasts by Hisham Elsaied", "itemListElement": [
+            {"@type": "ListItem", "position": i + 1, "item": {"@type": t, "name": n, "url": u, "datePublished": d,
+             ("author" if t == "Article" else "actor"): {"@id": PERSON_ID}, "publisher": {"@type": "Organization", "name": pub}}}
+            for i, (t, n, u, d, pub) in enumerate(MEDIA)]})
     if k == "about":
         g.append({"@type": "ProfilePage", "url": SITE + page["path"], "inLanguage": "ar" if ar else "en", "mainEntity": {"@id": PERSON_ID}})
     if page["nav"]:
@@ -393,7 +417,7 @@ def build():
     open(os.path.join(ROOT, "sitemap.xml"), "w", encoding="utf-8").write(
         '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">\n'
         + "\n".join(rows) + "\n</urlset>\n")
-    open(os.path.join(ROOT, "robots.txt"), "w").write(f"User-agent: *\nAllow: /\n\nSitemap: {SITE}/sitemap.xml\n")
+    open(os.path.join(ROOT, "robots.txt"), "w").write("".join(f"User-agent: {b}\nAllow: /\n\n" for b in ["*", "GPTBot", "OAI-SearchBot", "ChatGPT-User", "ClaudeBot", "Claude-SearchBot", "PerplexityBot", "Google-Extended", "Bingbot", "Applebot-Extended", "CCBot"]) + f"Sitemap: {SITE}/sitemap.xml\n")
     print("built", [p["path"] for p in PAGES + PAGES_AR] + ["/404.html", "/sitemap.xml", "/robots.txt"])
 
 
