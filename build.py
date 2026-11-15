@@ -31,6 +31,11 @@ PAGES = [
         "desc": "Coaching for HR managers and directors stepping into a bigger role or feeling stuck. ICF PCC coach in Dubai, across the GCC, in Arabic and English.",
     },
     {
+        "key": "organisations", "path": "/coaching-for-organisations/", "nav": "For organisations",
+        "title": "Executive Coaching for Organisations in the UAE | Hisham Elsaied",
+        "desc": "How Hisham Elsaied, ICF PCC executive coach in Dubai, coaches leaders for organisations: three-way goals, clear confidentiality, and measured change.",
+    },
+    {
         "key": "speaking", "path": "/speaking/", "nav": "Speaking and workshops",
         "title": "Leadership and HR Speaker, Keynotes and Workshops | UAE and GCC",
         "desc": "Keynotes, masterclasses and workshops on leading people, HR capability, and talent and assessment. Bilingual speaker and facilitator based in Dubai.",
@@ -97,6 +102,11 @@ PAGES_AR = [
         "key": "coaching", "path": "/ar/coaching/", "nav": "الكوتشينج",
         "title": "الكوتشينج التنفيذي لمديري الموارد البشرية | دبي، الإمارات",
         "desc": "كوتشينج فردي لمديري ومديرات الموارد البشرية في دور جديد أو تحت ضغط. مدرب تنفيذي معتمد ICF PCC في دبي، يعمل في دول الخليج بالعربية والإنجليزية.",
+    },
+    {
+        "key": "organisations", "path": "/ar/coaching-for-organisations/", "nav": "للمؤسسات",
+        "title": "كوتشينج تنفيذي للمؤسسات في الإمارات | هشام السعيد",
+        "desc": "كيف يعمل هشام السعيد، الكوتش التنفيذي المعتمد في دبي، مع المؤسسات: أهداف في لقاء ثلاثي، وسرية واضحة، وقياس لما تغيّر.",
     },
     {
         "key": "speaking", "path": "/ar/speaking/", "nav": "المحاضرات وورش العمل",
@@ -232,7 +242,8 @@ def person(ar=False):
         "award": ["Recognised among the Top 200 HR Leaders globally", "CIPD award winner", "Top 20 HR Influencers in the UAE 2025 (Favikon)"],
         "sameAs": ["https://www.linkedin.com/in/hishamelsaied/", "https://x.com/hishamelsaied",
                    "https://informaconnect.com/hr-summit-expo/speakers/hisham-elsaied-fcipd/",
-                   "https://www.gleac.com/mentors/hisham-elsaied"],
+                   "https://www.gleac.com/mentors/hisham-elsaied",
+                   "https://bookboon.com/en/hisham-elsaied-author"],
     }
 
 
@@ -296,6 +307,11 @@ def graph(page, ar=False):
             faq = FAQ
         g.append({"@type": "FAQPage", "inLanguage": "ar" if ar else "en", "mainEntity": [
             {"@type": "Question", "name": q, "acceptedAnswer": {"@type": "Answer", "text": a}} for q, a in faq]})
+    if k == "organisations":
+        g.append(service("الكوتشينج التنفيذي للمؤسسات" if ar else "Executive coaching for organisations",
+                         page["desc"], page["path"], "كوتشينج تنفيذي" if ar else "Executive coaching"))
+        g.append({"@type": "FAQPage", "inLanguage": "ar" if ar else "en", "mainEntity": [
+            {"@type": "Question", "name": q, "acceptedAnswer": {"@type": "Answer", "text": a}} for q, a in ([('كم يستغرق برنامج الكوتشينج التنفيذي مع هشام السعيد؟', 'ثلاثة أشهر تقريباً في العادة، مع لقاء ثلاثي لتحديد الأهداف في البداية، ومراجعتين ثلاثيتين في المنتصف والنهاية.'), ('ما الذي تعرفه المؤسسة من الكوتشينج التنفيذي؟', 'الأهداف المتفق عليها، وما إذا كانت الجلسات تُعقد، والتقدم الذي يُناقش في المراجعات. أما محتوى الجلسات فيبقى سرياً وفق ميثاق أخلاقيات ICF.'), ('كيف يُقاس التغيير الناتج عن الكوتشينج؟', 'يقيّم المدير وعدد من الزملاء القائد على الأهداف المتفق عليها في البداية والنهاية، فترى المؤسسة إن كان الآخرون قد لاحظوا التغيير. ويمكن إضافة تقييم Hogan أو ٣٦٠.'), ('هل يمكن تقديم الكوتشينج التنفيذي بالعربية في الإمارات؟', 'نعم. يعمل هشام السعيد بالعربية والإنجليزية، حضورياً في الإمارات، وعبر الإنترنت أو حضورياً في دول الخليج.')] if ar else [('How long does an executive coaching engagement with Hisham Elsaied last?', 'Usually about three months, with a three-way goal-setting meeting at the start and three-way reviews at the midpoint and the end.'), ('What does the organisation hear from executive coaching?', 'The goals agreed in the three-way meeting, whether sessions are taking place, and progress discussed openly at the reviews. The content of sessions stays confidential under the ICF Code of Ethics.'), ('How is the change from coaching measured?', 'The manager and a few colleagues rate the leader on the agreed goals at the start and the end, so the organisation sees whether others noticed the change. A Hogan assessment or 360 can be added.'), ('Can executive coaching be delivered in Arabic in the UAE?', 'Yes. Hisham Elsaied coaches in Arabic and English, in person in the UAE and online or in person across the GCC.')])]})
     if k == "arabic-coach":
         g.append(service("كوتشينج تنفيذي باللغة العربية" if ar else "Executive coaching in Arabic and English",
                          "كوتشينج تنفيذي فردي بالعربية والإنجليزية لقادة في الإمارات ودول الخليج." if ar else "One-to-one executive coaching in Arabic and English for leaders in the UAE and the Gulf.",
@@ -344,12 +360,13 @@ def counterpart(page, ar):
 def header(page, ar=False):
     pages = PAGES_AR if ar else PAGES
     base = "/ar" if ar else ""
-    order = ["about", "coaching", "speaking", "media", "contact"]
+    order = ["coaching", "organisations", "speaking", "insights", "about", "contact"]
     links = []
     for key in order:
         p = next(x for x in pages if x["key"] == key)
         cur = ' aria-current="page"' if p["key"] == page["key"] else ""
-        links.append(f'      <a href="{p["path"]}"{cur}>{p["nav"]}</a>')
+        short = {"speaking": "المحاضرات" if ar else "Speaking", "organisations": "للمؤسسات" if ar else "Organisations"}.get(key, p["nav"])
+        links.append(f'      <a href="{p["path"]}"{cur}>{short}</a>')
     switch = (f'      <a class="lang" href="{counterpart(page, ar)}" hreflang="en" lang="en">English</a>' if ar
               else f'      <a class="lang" href="{counterpart(page, ar)}" hreflang="ar" lang="ar">العربية</a>')
     brand = ('<b>هشام السعيد</b><span>FCIPD &nbsp;·&nbsp; ICF PCC</span>' if ar
@@ -382,6 +399,7 @@ FOOTER = """<footer class="site-footer">
       <a href="/speaking/">Speaking and workshops</a>
       <a href="/media/">Media</a>
       <a href="/books/">Books</a>
+      <a href="/coaching-for-organisations/">For organisations</a>
       <a href="/insights/">Insights</a>
       <a href="/arabic-speaking-executive-coach-uae/">Arabic-speaking coach</a>
       <a href="/hr-self-check/">HR self-check</a>
@@ -405,6 +423,7 @@ FOOTER_AR = """<footer class="site-footer">
       <a href="/ar/speaking/">المحاضرات وورش العمل</a>
       <a href="/ar/media/">الإعلام</a>
       <a href="/ar/books/">الكتب</a>
+      <a href="/ar/coaching-for-organisations/">للمؤسسات</a>
       <a href="/ar/insights/">مقالات</a>
       <a href="/ar/arabic-speaking-executive-coach-uae/">كوتش تنفيذي عربي</a>
       <a href="/ar/hr-self-check/">تقييم ذاتي</a>
