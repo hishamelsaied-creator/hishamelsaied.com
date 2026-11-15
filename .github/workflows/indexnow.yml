@@ -12,6 +12,6 @@ jobs:
       - name: Tell Bing and other IndexNow engines about every page
         shell: bash {0}
         run: |
-          URLS=$(grep -o '<loc>[^<]*' sitemap.xml | sed 's/<loc>//' | python3 -c "import sys,json;print(json.dumps([l.strip() for l in sys.stdin if l.strip()]+['https://hishamelsaied.com/llms.txt']))")
+          URLS=$(grep -o '<loc>[^<]*' sitemap.xml | sed 's/<loc>//' | python3 -c "import sys,json;print(json.dumps([l.strip() for l in sys.stdin if l.strip()]+['http://hishamelsaied.com/llms.txt']))")
           curl -sS -X POST https://api.indexnow.org/indexnow -H "Content-Type: application/json; charset=utf-8" \
-            -d "{\"host\":\"hishamelsaied.com\",\"key\":\"877572828004e0cec02248ef47d2038d\",\"keyLocation\":\"https://hishamelsaied.com/877572828004e0cec02248ef47d2038d.txt\",\"urlList\":$URLS}" -w "\nHTTP %{http_code}\n"
+            -d "{\"host\":\"hishamelsaied.com\",\"key\":\"877572828004e0cec02248ef47d2038d\",\"keyLocation\":\"http://hishamelsaied.com/877572828004e0cec02248ef47d2038d.txt\",\"urlList\":$URLS}" -w "\nHTTP %{http_code}\n"

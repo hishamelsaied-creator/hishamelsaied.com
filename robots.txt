@@ -31,4 +31,4 @@ Allow: /
 User-agent: CCBot
 Allow: /
 
-Sitemap: https://hishamelsaied.com/sitemap.xml
+Sitemap: http://hishamelsaied.com/sitemap.xml

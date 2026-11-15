@@ -169,7 +169,7 @@
   $("sc-send").onclick = function () {
     var name = $("sc-n").value.trim(), email = $("sc-e").value.trim(), role = $("sc-t").value.trim(), btn = $("sc-send");
     if (!name || !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) { $("sc-err").textContent = D.err; return; }
-    var r = calc(ans), link = "https://hishamelsaied.com" + D.path + "#r=" + ans.join("");
+    var r = calc(ans), link = "http://hishamelsaied.com" + D.path + "#r=" + ans.join("");
     var done = function () {
       $("sc-donel").textContent = D.donel.replace("{e}", email);
       $("sc-quick").textContent = num(r.p) + " " + D.of100;
