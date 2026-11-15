@@ -105,12 +105,12 @@ PAGES_AR = [
     },
 ]
 
-ARQA_EN = [('Is there an executive coach in the UAE who coaches in Arabic?', 'Yes. Hisham Elsaied is an ICF Professional Certified Coach (PCC) based in Dubai who coaches in Arabic and English. He works with leaders across the UAE, Saudi Arabia, Oman, Kuwait, Qatar and Bahrain.'), ('Can a session move between Arabic and English?', 'Yes. Many clients run their working day in English and think through difficult decisions in Arabic. Sessions can be in either language, or move between the two.'), ('Who does he coach?', 'HR managers and directors are the people he works with most. He also coaches senior leaders in government, semi-government and corporate roles across the Gulf.'), ('What are his credentials?', 'ICF Professional Certified Coach (PCC) with more than 600 coaching hours, Chartered Fellow of the CIPD (FCIPD), Hogan certified assessor and Cultural Intelligence (CQ) certified trainer, with 20 years in HR leadership roles.'), ('Do I need to be in Dubai?', 'No. Sessions run online or in person in Dubai. Clients are based across the UAE and the wider Gulf.'), ('How do I start?', 'Send a short enquiry through the contact page. The first conversation carries no obligation.')]
-ARQA_AR = [('هل يوجد كوتش تنفيذي في الإمارات يعمل باللغة العربية؟', 'نعم. هشام السعيد كوتش محترف معتمد من الاتحاد الدولي للكوتشينج (ICF PCC)، مقيم في دبي ويعمل بالعربية والإنجليزية مع قادة في الإمارات والسعودية وعُمان والكويت وقطر والبحرين.'), ('هل يمكن أن تنتقل الجلسة بين العربية والإنجليزية؟', 'نعم. كثير من العملاء يديرون يوم عملهم بالإنجليزية ويفكرون في القرارات الصعبة بالعربية. يمكن أن تكون الجلسة بأي من اللغتين أو بكلتيهما.'), ('مع من يعمل؟', 'أكثر من يعمل معهم هم مديرو ومديرات الموارد البشرية. ويعمل أيضاً مع قيادات عليا في الجهات الحكومية وشبه الحكومية والشركات في دول الخليج.'), ('ما مؤهلاته؟', 'كوتش محترف معتمد ICF PCC بأكثر من ٦٠٠ ساعة كوتشينج، وزميل معتمد في CIPD، ومقيّم معتمد في Hogan، ومدرب معتمد في الذكاء الثقافي (CQ)، مع عشرين عاماً في مناصب قيادية في الموارد البشرية.'), ('هل يجب أن أكون في دبي؟', 'لا. تُعقد الجلسات عبر الإنترنت أو حضورياً في دبي، والعملاء موزعون في الإمارات ودول الخليج.'), ('كيف أبدأ؟', 'أرسل استفساراً قصيراً من صفحة التواصل. المحادثة الأولى بلا أي التزام.')]
+ARQA_EN = [('Is there an executive coach in the UAE who coaches in Arabic?', 'Yes. Hisham Elsaied is an ICF Professional Certified Coach (PCC) based in Dubai who coaches in Arabic and English. He works with leaders across the UAE, Saudi Arabia, Oman, Kuwait, Qatar and Bahrain.'), ('Can a session move between Arabic and English?', 'Yes. Many clients run their working day in English and think through difficult decisions in Arabic. Sessions can be in either language, or move between the two.'), ('Who does he coach?', 'HR managers and directors are the people he works with most. He also coaches senior leaders in government, semi-government and corporate roles across the Gulf.'), ('What are his credentials?', 'ICF Professional Certified Coach (PCC) with more than 600 coaching hours, Chartered Fellow of the CIPD (FCIPD), Hogan certified assessor and Cultural Intelligence (CQ) certified trainer, and 20 years in HR.'), ('Do I need to be in Dubai?', 'No. Sessions run online or in person in Dubai. Clients are based across the UAE and the wider Gulf.'), ('How do I start?', 'Send a short enquiry through the contact page. The first conversation carries no obligation.')]
+ARQA_AR = [('هل يوجد كوتش تنفيذي في الإمارات يعمل باللغة العربية؟', 'نعم. هشام السعيد كوتش محترف معتمد من الاتحاد الدولي للكوتشينج (ICF PCC)، مقيم في دبي ويعمل بالعربية والإنجليزية مع قادة في الإمارات والسعودية وعُمان والكويت وقطر والبحرين.'), ('هل يمكن أن تنتقل الجلسة بين العربية والإنجليزية؟', 'نعم. كثير من العملاء يديرون يوم عملهم بالإنجليزية ويفكرون في القرارات الصعبة بالعربية. يمكن أن تكون الجلسة بأي من اللغتين أو بكلتيهما.'), ('مع من يعمل؟', 'أكثر من يعمل معهم هم مديرو ومديرات الموارد البشرية. ويعمل أيضاً مع قيادات عليا في الجهات الحكومية وشبه الحكومية والشركات في دول الخليج.'), ('ما مؤهلاته؟', 'كوتش محترف معتمد ICF PCC بأكثر من ٦٠٠ ساعة كوتشينج، وزميل معتمد في CIPD، ومقيّم معتمد في Hogan، ومدرب معتمد في الذكاء الثقافي (CQ)، مع عشرين عاماً في الموارد البشرية.'), ('هل يجب أن أكون في دبي؟', 'لا. تُعقد الجلسات عبر الإنترنت أو حضورياً في دبي، والعملاء موزعون في الإمارات ودول الخليج.'), ('كيف أبدأ؟', 'أرسل استفساراً قصيراً من صفحة التواصل. المحادثة الأولى بلا أي التزام.')]
 
 FAQ_AR = [
     ("هل يمكن أن نعمل باللغة العربية؟", "نعم. أعمل بالعربية والإنجليزية، وكثير من عملائي ينتقلون بين اللغتين في الجلسة نفسها."),
-    ("هل الكوتشينج سري؟", "نعم. ألتزم بميثاق أخلاقيات الاتحاد الدولي للكوتشينج (ICF). ما نناقشه يبقى بيننا، حتى حين تكون جهة عملك هي من تدفع."),
+    ("هل الكوتشينج سري؟", "نعم. ألتزم بميثاق أخلاقيات الاتحاد الدولي للكوتشينج (ICF). ما نناقشه يبقى بيننا، حتى حين تكون جهة عملك هي من تدفع، إلا إذا ألزم القانون بغير ذلك."),
     ("هل يمكن لمؤسستي أن تتحمل التكلفة؟", "نعم. كثير من عملائي ترعاهم جهات عملهم، وآخرون يدفعون بأنفسهم."),
     ("كم تستغرق مدة الكوتشينج؟", "يعتمد ذلك على ما تريد تغييره. نتفق على المدة بعد المحادثة الأولى."),
     ("كم تبلغ التكلفة؟", "لأن كل برنامج مصمم حسب الحاجة، أشارك الرسوم بعد المحادثة الأولى."),
@@ -119,7 +119,7 @@ FAQ_AR = [
 
 FAQ = [
     ("Can we work in Arabic?", "Yes. I coach in Arabic and English, and many clients move between the two in the same session."),
-    ("Is coaching confidential?", "Yes. I work to the ICF Code of Ethics. What we discuss stays between us, including when your employer is paying, and we agree at the start what, if anything, is reported back."),
+    ("Is coaching confidential?", "Yes. I work to the ICF Code of Ethics. What we discuss stays between us, including when your employer is paying, unless the law requires otherwise, and we agree at the start what, if anything, is reported back."),
     ("Can my organisation pay for coaching?", "Yes. Many clients are sponsored by their employer and others pay themselves."),
     ("How long does a coaching engagement last?", "It depends on what you want to change. We agree the length after the first conversation."),
     ("What does executive coaching cost?", "Each engagement is tailored, so fees are shared after the first conversation."),
@@ -162,7 +162,7 @@ def person(ar=False):
         "alternateName": "Hisham Elsaied" if ar else "هشام السعيد",
         "url": SITE + ("/ar/" if ar else "/"),
         "image": SITE + "/img/hisham-closeup.jpg",
-        "jobTitle": "كوتش تنفيذي ومستشار في تطوير القيادات" if ar else "Executive Coach and Leadership Development Consultant",
+        "jobTitle": "كوتش تنفيذي ومتحدث ومؤلف" if ar else "Executive Coach, Speaker and Author",
         "description": ("كوتش تنفيذي مقيم في دبي ومدير إقليمي سابق للموارد البشرية. يعمل مع مديري ومديرات الموارد البشرية في دول الخليج، ويتحدث في القيادة وقدرات الموارد البشرية والمواهب والتقييم، بالعربية والإنجليزية."
                         if ar else "Dubai-based executive coach and former regional HR director. Coaches HR managers and directors across the GCC and speaks on leadership, HR capability, and talent and assessment, in Arabic and English."),
         "email": "mailto:hisham@hishamelsaied.com",
@@ -178,7 +178,7 @@ def person(ar=False):
             {"@type": "EducationalOccupationalCredential", "name": n,
              "recognizedBy": {"@type": "Organization", "name": o}} for n, o in creds
         ],
-        "award": ["Recognised among the Top 200 HR Leaders globally", "CIPD award winner", "Top 20 HR Influencers in the UAE 2025 (Favikon)"],
+        "award": ["Top 200 Global Power Leaders in HR 2023 (White Page International)", "CIPD award winner", "Top 20 HR Influencers in the UAE 2025 (Favikon)"],
         "sameAs": ["https://www.linkedin.com/in/hishamelsaied/", "https://x.com/hishamelsaied",
                    "https://informaconnect.com/hr-summit-expo/speakers/hisham-elsaied-fcipd/",
                    "https://www.gleac.com/mentors/hisham-elsaied"],
