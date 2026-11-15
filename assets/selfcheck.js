@@ -2,6 +2,7 @@
   var root = document.getElementById("sc");
   if (!root) return;
   var AR = document.documentElement.lang === "ar";
+  var BOOK = "https://app.cronofy.com/add_to_calendar/scheduling/ZOT6eIZc";
   var BASE = location.hostname === "hishamelsaied.com" ? location.origin : "http://hishamelsaied.com";
   var num = function (x) { return AR ? String(x).replace(/\d/g, function (d) { return "٠١٢٣٤٥٦٧٨٩"[d]; }) : String(x); };
   var esc = function (s) { return String(s).replace(/[&<>"]/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]; }); };
@@ -31,7 +32,7 @@
     cmpmsg: "أقوم بتقييم لطريقة عمل الموارد البشرية مع فريق القيادة، وأقدّر رأيك الصريح. ١٥ سؤالاً قصيراً تستغرق نحو ٣ دقائق: ",
     cmpsub: "رأيك في طريقة عمل الموارد البشرية معك",
     pdf: "حمّل التقرير (PDF)", pdfn: "اختر «حفظ بصيغة PDF» في الشاشة التالية.",
-    ctah: "هل تريد الحديث عن نتيجتك؟", ctal: "أرسل لي رسالة وأخبرني بالمجال الذي تريد العمل عليه.", ctab: "تواصل معي",
+    ctah: "هل تريد الحديث عن نتيجتك؟", ctal: "أرسل لي رسالة وأخبرني بالمجال الذي تريد العمل عليه.", ctab: "تواصل معي", bookb: "احجز مكالمة لمدة ٣٠ دقيقة",
     note: "هذا تقييم ذاتي مبني على إجاباتك، وليس اختباراً نفسياً.", again: "أعد التقييم",
     ceoh: "{n} يطلب رأيك", ceoh0: "طُلب رأيك",
     ceolead: "١٥ سؤالاً قصيراً عن طريقة عمل الموارد البشرية معك ومع فريق القيادة. يستغرق نحو ٣ دقائق. أجب بحسب الواقع اليوم، لا بحسب ما ينبغي أن يكون.",
@@ -104,12 +105,12 @@
         "\n\nمجالا الأولوية: " + m.a1 + " و" + m.a2 + ".\nهذا الأسبوع: " + m.wk +
         "\n\nتقريرك الكامل، مع خطة ٩٠ يوماً وخمسة أسئلة تطرحها على رئيسك التنفيذي (يمكنك حفظه بصيغة PDF):\n" + m.link +
         "\n\nهل تريد رأي رئيسك التنفيذي؟ أرسل إليه هذه النسخة القصيرة. حين ينتهي، يصلك تقرير يضع رؤيتيكما جنباً إلى جنب:\n" + m.ceo +
-        "\n\nإذا أردت الحديث عن نتيجتك، اكتب لي على hisham@hishamelsaied.com\n\nهشام السعيد\nhishamelsaied.com";
+        "\n\nإذا أردت الحديث عن نتيجتك، احجز مكالمة لمدة ٣٠ دقيقة:\n" + BOOK + "\nأو اكتب لي على hisham@hishamelsaied.com\n\nهشام السعيد\nhishamelsaied.com";
     },
     mail2: function (m) {
       return "مرحباً " + m.name + "،\n\n" + m.who + " أكمل التقييم الخاص بطريقة عمل الموارد البشرية معه.\n\nرؤيتك: " + m.p1 + " من ١٠٠. رؤيته: " + m.p2 + " من ١٠٠.\n\n" + m.lines +
         "\n\nأين تختلف رؤيتاكما أكثر:\n" + m.gaps + "\n\nالرؤيتان جنباً إلى جنب:\n" + m.link +
-        "\n\nإذا أردت مناقشة الفجوات، اكتب لي على hisham@hishamelsaied.com\n\nهشام السعيد\nhishamelsaied.com";
+        "\n\nإذا أردت مناقشة الفجوات، احجز مكالمة لمدة ٣٠ دقيقة:\n" + BOOK + "\nأو اكتب لي على hisham@hishamelsaied.com\n\nهشام السعيد\nhishamelsaied.com";
     }
   } : {
     path: "/hr-self-check/", contact: "/contact/",
@@ -134,7 +135,7 @@
     cmpmsg: "I'm reviewing how HR works with the leadership team and would value your honest view. It's 15 short questions and takes about 3 minutes: ",
     cmpsub: "Your view on how HR works with you",
     pdf: "Download the report (PDF)", pdfn: "Choose 'Save as PDF' on the next screen.",
-    ctah: "Want to talk through your result?", ctal: "Send me a note and tell me which area you want to work on.", ctab: "Get in touch",
+    ctah: "Want to talk through your result?", ctal: "Send me a note and tell me which area you want to work on.", ctab: "Get in touch", bookb: "Book a 30-minute call",
     note: "This is a self-check based on your own answers. It is not a psychometric assessment.", again: "Take it again",
     ceoh: "{n} has asked for your view", ceoh0: "You've been asked for your view",
     ceolead: "15 short questions about how HR works with you and the leadership team. It takes about 3 minutes. Answer for how things are today, not how they should be.",
@@ -207,12 +208,12 @@
         "\n\nYour two priority areas: " + m.a1 + " and " + m.a2 + ".\nThis week: " + m.wk +
         "\n\nYour full report, with your 90-day plan and five questions to ask your CEO (you can save it as a PDF):\n" + m.link +
         "\n\nWant your CEO's view? Send them this 2-minute version. When they finish, you'll get both views side by side:\n" + m.ceo +
-        "\n\nIf you'd like to talk through your result, write to me at hisham@hishamelsaied.com\n\nHisham Elsaied\nhishamelsaied.com";
+        "\n\nIf you'd like to talk through your result, book a 30-minute call:\n" + BOOK + "\nor write to me at hisham@hishamelsaied.com\n\nHisham Elsaied\nhishamelsaied.com";
     },
     mail2: function (m) {
       return "Hello " + m.name + ",\n\n" + m.who + " has completed the self-check about how HR works with them.\n\nYour view: " + m.p1 + " out of 100. Their view: " + m.p2 + " out of 100.\n\n" + m.lines +
         "\n\nWhere your views differ most:\n" + m.gaps + "\n\nSee both views side by side:\n" + m.link +
-        "\n\nIf you'd like to work through the gaps, write to me at hisham@hishamelsaied.com\n\nHisham Elsaied\nhishamelsaied.com";
+        "\n\nIf you'd like to work through the gaps, book a 30-minute call:\n" + BOOK + "\nor write to me at hisham@hishamelsaied.com\n\nHisham Elsaied\nhishamelsaied.com";
     }
   };
 
@@ -250,11 +251,11 @@
     '<p class="sc-q" id="sc-qtext"></p><div class="sc-opts" id="sc-opts"></div><div class="sc-nav"><button type="button" class="sc-ghost" id="sc-back">' + D.back + '</button><span class="sc-small">' + D.tap + '</span></div>';
   $("sc-details").innerHTML = CEO
     ? '<h2>' + fill(D.ceodh) + '</h2><p class="lead">' + fill(D.ceodl) + '</p>' +
-      '<div style="position:absolute;left:-9999px" aria-hidden="true"><input id="sc-hp" type="text" tabindex="-1" autocomplete="off"></div>' +
+      '<div style="position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%)" aria-hidden="true"><input id="sc-hp" type="text" tabindex="-1" autocomplete="off"></div>' +
       '<label for="sc-t">' + D.ceoname + '</label><input type="text" id="sc-t" autocomplete="name">' +
       '<p class="sc-small" style="margin-top:16px">' + fill(D.ceoconsent) + '</p><div class="sc-err" id="sc-err" role="status"></div><button type="button" class="btn" id="sc-send">' + D.ceosend + '</button>'
     : '<h2>' + D.dh + '</h2><p class="lead">' + D.dl + '</p>' +
-      '<div style="position:absolute;left:-9999px" aria-hidden="true"><input id="sc-hp" type="text" tabindex="-1" autocomplete="off"></div>' +
+      '<div style="position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%)" aria-hidden="true"><input id="sc-hp" type="text" tabindex="-1" autocomplete="off"></div>' +
       '<label for="sc-n">' + D.name + '</label><input type="text" id="sc-n" autocomplete="name">' +
       '<label for="sc-e">' + D.email + '</label><input type="email" id="sc-e" autocomplete="email" dir="ltr">' +
       '<label for="sc-t">' + D.role + '</label><input type="text" id="sc-t" autocomplete="organization-title">' +
@@ -320,7 +321,7 @@
       '<h3 class="sc-sub">' + D.heat + '</h3>' + heat(a) +
       '<h3 class="sc-sub">' + D.ceoq + '</h3><p>' + D.ceoql + '</p><ol class="sc-cq">' + D.cq.map(function (q) { return "<li>" + q + "</li>"; }).join("") + '</ol>' +
       cmp +
-      '<div class="sc-cta sc-noprint"><h3>' + D.ctah + '</h3><p class="lead">' + D.ctal + '</p><a class="btn" href="' + D.contact + '">' + D.ctab + '</a></div>' +
+      '<div class="sc-cta sc-noprint"><h3>' + D.ctah + '</h3><p class="lead">' + D.ctal + '</p><div class="sc-btns" style="justify-content:center"><a class="btn" href="' + BOOK + '" target="_blank" rel="noopener">' + D.bookb + '</a><a class="btn line" href="' + D.contact + '">' + D.ctab + '</a></div></div>' +
       '<p class="sc-small">' + D.note + ' <a class="sc-noprint" href="' + D.path + '">' + D.again + '</a></p>';
     $("sc-pdf").onclick = function () { window.print(); };
     if ($("sc-copy")) $("sc-copy").onclick = function () {
@@ -355,7 +356,7 @@
       '<h3 class="sc-sub">' + D.gaps + '</h3><p>' + D.gapl + '</p>' + g +
       '<h3 class="sc-sub">' + D.areas + '</h3><div class="sc-rows">' + rows + '</div>' +
       '<h3 class="sc-sub">' + D.ceoq + '</h3><ol class="sc-cq">' + D.cq.map(function (q) { return "<li>" + q + "</li>"; }).join("") + '</ol>' +
-      '<div class="sc-cta sc-noprint"><p class="lead">' + D.cmpcta + '</p><a class="btn" href="' + D.contact + '">' + D.ctab + '</a></div>' +
+      '<div class="sc-cta sc-noprint"><p class="lead">' + D.cmpcta + '</p><div class="sc-btns" style="justify-content:center"><a class="btn" href="' + BOOK + '" target="_blank" rel="noopener">' + D.bookb + '</a><a class="btn line" href="' + D.contact + '">' + D.ctab + '</a></div></div>' +
       '<p class="sc-small">' + D.note + '</p>';
     $("sc-pdf").onclick = function () { window.print(); };
     show("sc-dash");
