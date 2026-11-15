@@ -1,7 +1,16 @@
+== CAA
+hishamelsaied-creator.github.io.
+0 issue "digicert.com"
+0 issue "letsencrypt.org"
+0 issue "sectigo.com"
+0 issuewild "digicert.com"
+0 issuewild "letsencrypt.org"
+0 issuewild "sectigo.com"
+== AAAA
 == DNS
+185.199.110.153
 185.199.109.153
 185.199.108.153
-185.199.110.153
 185.199.111.153
 hishamelsaied-creator.github.io.
 185.199.108.153
@@ -9,8 +18,8 @@ hishamelsaied-creator.github.io.
 185.199.110.153
 185.199.111.153
 50 mx3.zoho.com.
-10 mx.zoho.com.
 20 mx2.zoho.com.
+10 mx.zoho.com.
 == https://hishamelsaied.com/robots.txt
 curl: (60) SSL: no alternative certificate subject name matches target hostname 'hishamelsaied.com'
 More details here: https://curl.se/docs/sslcerts.html
