@@ -125,6 +125,12 @@
       if (h > 0 && window.scrollY / h >= 0.4) show();
     };
     window.addEventListener("scroll", onScroll, { passive: true });
+    var t0 = Date.now();
+    if (window.matchMedia && window.matchMedia("(hover: hover) and (pointer: fine)").matches) {
+      document.addEventListener("mouseout", function (e) {
+        if (!e.relatedTarget && e.clientY <= 0 && Date.now() - t0 > 5000) show();
+      });
+    }
     setTimeout(show, 30000);
   })();
 
