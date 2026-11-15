@@ -3,8 +3,6 @@ on:
   push:
     paths: [".github/workflows/https.yml"]
   workflow_dispatch:
-  schedule:
-    - cron: "0 */3 * * *"
 permissions:
   pages: write
   contents: write
@@ -16,16 +14,17 @@ jobs:
       - name: Check Pages and enforce HTTPS
         env:
           GH_TOKEN: ${{ github.token }}
+        shell: bash {0}
         run: |
           R=${{ github.repository }}
           {
-            echo "time: $(date -u +%FT%TZ)"
+            echo "run: 2"; echo "time: $(date -u +%FT%TZ)"
             echo "--- pages"
             gh api repos/$R/pages 2>&1 | head -c 1500
             echo; echo "--- health"
             gh api repos/$R/pages/health 2>&1 | head -c 2500
             echo; echo "--- enforce"
-            gh api -X PUT repos/$R/pages -F https_enforced=true 2>&1 | head -c 600
+            gh api -X PUT repos/$R/pages -F https_enforced=true -f cname=hishamelsaied.com 2>&1 | head -c 600
             echo; echo "--- https test"
             curl -sS -o /dev/null -w "%{http_code} ssl=%{ssl_verify_result}\n" https://hishamelsaied.com 2>&1
           } > https-status.txt
