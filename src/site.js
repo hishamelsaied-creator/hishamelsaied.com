@@ -102,19 +102,21 @@
     var seen = false;
     try { seen = !!localStorage.getItem("sc-invite"); } catch (e) {}
     if (seen) return;
-    var P = AR ? { l: "تقييم ذاتي مجاني", h: "كيف يرى رئيسك التنفيذي الموارد البشرية؟", p: "١٥ سؤالاً في نحو ٣ دقائق. تصلك لوحة النتائج والخريطة الحرارية على بريدك الإلكتروني خلال ٣ دقائق.", b: "ابدأ التقييم", n: "ليس الآن", x: "إغلاق", u: "/ar/hr-self-check/" }
-      : { l: "Free self-check", h: "How does your CEO see HR?", p: "15 questions, about 3 minutes. Your results dashboard and heat map reach you by email within 3 minutes.", b: "Start the self-check", n: "Not now", x: "Close", u: "/hr-self-check/" };
+    var P = AR ? { l: "تقييم ذاتي مجاني", h: "كيف يرى رئيسك التنفيذي الموارد البشرية؟", p: "١٥ سؤالاً صريحاً تجيب عنها في نحو ٣ دقائق، تكشف كيف يُنظر إلى دورك في الإدارة العليا.", g: ["درجتك من ١٠٠ في خمسة مجالات", "خريطة حرارية لنقاط قوتك والفجوات", "خطوة عملية تبدأ بها هذا الأسبوع", "تصلك النتائج على بريدك الإلكتروني خلال ٣ دقائق"], b: "ابدأ التقييم", n: "ليس الآن", x: "إغلاق", u: "/ar/hr-self-check/" }
+      : { l: "Free self-check", h: "How does your CEO see HR?", p: "15 honest questions, about 3 minutes. Find out how your role is really seen at the top table.", g: ["Your score out of 100 across five areas", "A heat map of your strengths and gaps", "One practical step to start this week", "Your results by email within 3 minutes"], b: "Start the self-check", n: "Not now", x: "Close", u: "/hr-self-check/" };
     setTimeout(function () {
-      var d = document.createElement("div");
-      d.className = "pop"; d.setAttribute("role", "dialog"); d.setAttribute("aria-label", P.h);
-      d.innerHTML = '<button type="button" class="pop-x" aria-label="' + P.x + '">&times;</button><span class="label">' + P.l + '</span><h2>' + P.h + '</h2><p>' + P.p + '</p><a class="btn" href="' + P.u + '">' + P.b + '</a><button type="button" class="pop-no">' + P.n + '</button>';
-      document.body.appendChild(d);
-      var close = function () { d.parentNode && d.parentNode.removeChild(d); };
-      d.querySelector(".pop-x").onclick = close;
-      d.querySelector(".pop-no").onclick = close;
+      var bg = document.createElement("div");
+      bg.className = "pop-bg";
+      var cells = ["#4f8f72","#c9ae82","#b9783c","#c9ae82","#8f3b34","#4f8f72","#b9783c","#4f8f72","#c9ae82"].map(function (c) { return '<i style="background:' + c + '"></i>'; }).join("");
+      bg.innerHTML = '<div class="pop" role="dialog" aria-modal="true" aria-label="' + P.h + '"><button type="button" class="pop-x" aria-label="' + P.x + '">&times;</button><span class="label">' + P.l + '</span><h2>' + P.h + '</h2><p>' + P.p + '</p><div class="pop-map" aria-hidden="true">' + cells + '</div><ul>' + P.g.map(function (x) { return "<li>" + x + "</li>"; }).join("") + '</ul><a class="btn" href="' + P.u + '">' + P.b + '</a><button type="button" class="pop-no">' + P.n + '</button></div>';
+      document.body.appendChild(bg);
+      var close = function () { bg.parentNode && bg.parentNode.removeChild(bg); };
+      bg.querySelector(".pop-x").onclick = close;
+      bg.querySelector(".pop-no").onclick = close;
+      bg.addEventListener("click", function (e) { if (e.target === bg) close(); });
       document.addEventListener("keydown", function (e) { if (e.key === "Escape") close(); });
       try { localStorage.setItem("sc-invite", "1"); } catch (e) {}
-      setTimeout(function () { d.classList.add("in"); }, 30);
+      setTimeout(function () { bg.classList.add("in"); bg.querySelector(".btn").focus(); }, 30);
     }, 15000);
   })();
 

@@ -233,16 +233,23 @@ html[lang="ar"] .sc h2, html[lang="ar"] .sc .sc-h1, html[lang="ar"] .sc-q, html[
 }
 
 /* Self-check invitation, shown once after 15 seconds */
-.pop { position: fixed; z-index: 60; inset-inline-end: 20px; bottom: 20px; width: min(380px, calc(100vw - 24px)); background: var(--navy); border: 1px solid var(--gold-deep); box-shadow: 0 18px 50px rgba(0, 0, 0, .55); padding: 22px 22px 20px; color: var(--ivory); transform: translateY(20px); opacity: 0; transition: transform .35s, opacity .35s; }
-.pop.in { transform: none; opacity: 1; }
-.pop .label { display: block; margin-bottom: 8px; }
-.pop h2 { font: 700 1.25rem/1.25 var(--display); margin: 0 0 8px; color: var(--ivory); padding-inline-end: 28px; }
-.pop p { margin: 0 0 16px; font-size: 0.97rem; color: #d7dde6; }
-.pop .btn { padding: 12px 22px; }
-.pop .pop-no { background: none; border: 0; color: var(--mist); font: 500 0.92rem var(--body); margin-inline-start: 14px; cursor: pointer; text-decoration: underline; }
-.pop .pop-x { position: absolute; top: 8px; inset-inline-end: 10px; background: none; border: 0; color: var(--mist); font-size: 1.6rem; line-height: 1; cursor: pointer; padding: 6px; }
-@media (max-width: 560px) { .pop { inset-inline: 12px; bottom: 12px; width: auto; } }
-@media (prefers-reduced-motion: reduce) { .pop { transition: none; } }
+.pop-bg { position: fixed; inset: 0; z-index: 60; background: rgba(5, 10, 20, .72); display: grid; place-items: center; padding: 16px; opacity: 0; transition: opacity .3s; }
+.pop-bg.in { opacity: 1; }
+.pop { position: relative; width: min(600px, 100%); max-height: calc(100vh - 32px); overflow-y: auto; background: var(--navy); border: 1px solid var(--gold-deep); box-shadow: 0 30px 80px rgba(0, 0, 0, .6); padding: 40px 40px 34px; color: var(--ivory); transform: scale(.96); transition: transform .3s; }
+.pop-bg.in .pop { transform: none; }
+.pop .label { display: block; margin-bottom: 12px; }
+.pop h2 { font: 700 clamp(1.7rem, 5vw, 2.3rem)/1.15 var(--display); margin: 0 0 14px; color: var(--ivory); padding-inline-end: 30px; }
+.pop p { margin: 0 0 20px; font-size: 1.08rem; line-height: 1.6; color: #d7dde6; }
+.pop-map { display: grid; grid-template-columns: repeat(3, 1fr); gap: 5px; max-width: 220px; margin: 0 0 22px; }
+.pop-map i { height: 22px; display: block; }
+.pop ul { list-style: none; padding: 0; margin: 0 0 26px; }
+.pop li { position: relative; padding-inline-start: 26px; margin: 0 0 10px; font-size: 1.02rem; color: var(--ivory); }
+.pop li::before { content: ""; position: absolute; inset-inline-start: 0; top: .55em; width: 12px; height: 2px; background: var(--gold); }
+.pop .btn { padding: 16px 30px; font-size: 1.05rem; }
+.pop .pop-no { background: none; border: 0; color: var(--mist); font: 500 0.98rem var(--body); margin-inline-start: 16px; cursor: pointer; text-decoration: underline; }
+.pop .pop-x { position: absolute; top: 12px; inset-inline-end: 14px; background: none; border: 0; color: var(--mist); font-size: 2rem; line-height: 1; cursor: pointer; padding: 6px; }
+@media (max-width: 560px) { .pop { padding: 30px 22px 24px; } .pop .btn { display: block; text-align: center; } .pop .pop-no { display: block; margin: 14px auto 0; } }
+@media (prefers-reduced-motion: reduce) { .pop-bg, .pop { transition: none; } }
 
 /* Buy buttons under books on light sections */
 .light .x-vol .btn.line { color: var(--night); border-color: var(--gold-deep); padding: 12px 22px; font-size: .95rem; }
