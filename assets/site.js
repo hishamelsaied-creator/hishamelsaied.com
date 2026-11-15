@@ -104,7 +104,9 @@
     if (seen) return;
     var P = AR ? { l: "تقييم ذاتي مجاني", h: "كيف يرى رئيسك التنفيذي الموارد البشرية؟", p: "١٥ سؤالاً صريحاً تجيب عنها في نحو ٣ دقائق، تكشف كيف يُنظر إلى دورك في الإدارة العليا.", g: ["درجتك من ١٠٠ في خمسة مجالات", "خريطة حرارية لنقاط قوتك والفجوات", "خطوة عملية تبدأ بها هذا الأسبوع", "تصلك النتائج على بريدك الإلكتروني خلال ٣ دقائق"], b: "ابدأ التقييم", n: "ليس الآن", x: "إغلاق", u: "/ar/hr-self-check/" }
       : { l: "Free self-check", h: "How does your CEO see HR?", p: "15 honest questions, about 3 minutes. Find out how your role is really seen at the top table.", g: ["Your score out of 100 across five areas", "A heat map of your strengths and gaps", "One practical step to start this week", "Your results by email within 3 minutes"], b: "Start the self-check", n: "Not now", x: "Close", u: "/hr-self-check/" };
-    setTimeout(function () {
+    var shown = false, show = function () {
+      if (shown) return; shown = true;
+      window.removeEventListener("scroll", onScroll);
       var bg = document.createElement("div");
       bg.className = "pop-bg";
       var cells = ["#4f8f72","#c9ae82","#b9783c","#c9ae82","#8f3b34","#4f8f72","#b9783c","#4f8f72","#c9ae82"].map(function (c) { return '<i style="background:' + c + '"></i>'; }).join("");
@@ -117,7 +119,13 @@
       document.addEventListener("keydown", function (e) { if (e.key === "Escape") close(); });
       try { localStorage.setItem("sc-invite", "1"); } catch (e) {}
       setTimeout(function () { bg.classList.add("in"); bg.querySelector(".btn").focus(); }, 30);
-    }, 15000);
+    };
+    var onScroll = function () {
+      var h = document.documentElement.scrollHeight - window.innerHeight;
+      if (h > 0 && window.scrollY / h >= 0.4) show();
+    };
+    window.addEventListener("scroll", onScroll, { passive: true });
+    setTimeout(show, 30000);
   })();
 
   // Contact page: enquiry form, delivered by email
