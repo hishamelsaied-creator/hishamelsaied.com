@@ -13,7 +13,7 @@ ROOT = os.path.dirname(os.path.abspath(__file__))
 SRC = os.path.join(ROOT, "src")
 SITE = "https://hishamelsaied.com"
 import hashlib as _h
-UPDATED = _h.md5(b"".join(open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "src", f), "rb").read() for f in ("site.css", "rtl.css", "site.js"))).hexdigest()[:10]
+UPDATED = _h.md5(b"".join(open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "src", f), "rb").read() for f in ("site.css", "rtl.css", "site.js", "selfcheck.js"))).hexdigest()[:10]
 
 PERSON_ID = SITE + "/#person"
 BUSINESS_ID = SITE + "/#business"
@@ -49,6 +49,11 @@ PAGES = [
         "key": "arabic-coach", "path": "/arabic-speaking-executive-coach-uae/", "nav": "Arabic-speaking coach",
         "title": "Arabic-Speaking Executive Coach in Dubai, UAE | Hisham Elsaied",
         "desc": "ICF PCC executive coach in Dubai who coaches in Arabic and English. For HR leaders and senior leaders across the UAE, Saudi Arabia and the Gulf.",
+    },
+    {
+        "key": "self-check", "path": "/hr-self-check/", "nav": "HR self-check",
+        "title": "How Does Your CEO See HR? Free Self-Check | Hisham Elsaied",
+        "desc": "A free 3-minute self-check for HR managers and directors in the Gulf. 15 questions, with a results dashboard and heat map sent to you by email.",
     },
     {
         "key": "contact", "path": "/contact/", "nav": "Contact",
@@ -87,6 +92,11 @@ PAGES_AR = [
         "key": "arabic-coach", "path": "/ar/arabic-speaking-executive-coach-uae/", "nav": "كوتش تنفيذي عربي",
         "title": "كوتش تنفيذي عربي في دبي والإمارات | هشام السعيد",
         "desc": "كوتش تنفيذي معتمد ICF PCC في دبي يعمل بالعربية والإنجليزية مع قادة الموارد البشرية والقيادات العليا في الإمارات والسعودية ودول الخليج.",
+    },
+    {
+        "key": "self-check", "path": "/ar/hr-self-check/", "nav": "تقييم ذاتي لقادة الموارد البشرية",
+        "title": "كيف يرى رئيسك التنفيذي الموارد البشرية؟ تقييم ذاتي مجاني",
+        "desc": "تقييم ذاتي مجاني في ٣ دقائق لمديري الموارد البشرية في الخليج. ١٥ سؤالاً، وتصلك لوحة النتائج والخريطة الحرارية على بريدك الإلكتروني.",
     },
     {
         "key": "contact", "path": "/ar/contact/", "nav": "تواصل معي",
@@ -317,6 +327,7 @@ FOOTER = """<footer class="site-footer">
       <a href="/speaking/">Speaking and workshops</a>
       <a href="/media/">Media</a>
       <a href="/arabic-speaking-executive-coach-uae/">Arabic-speaking coach</a>
+      <a href="/hr-self-check/">HR self-check</a>
       <a href="/contact/">Contact</a>
       <a href="/ar/" hreflang="ar" lang="ar">العربية</a>
       <a class="li" href="https://www.linkedin.com/in/hishamelsaied/" target="_blank" rel="noopener" aria-label="LinkedIn"><svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9h4v12H3zM9 9h3.8v1.7h.1c.5-1 1.8-2 3.7-2 4 0 4.7 2.6 4.7 6V21h-4v-5.5c0-1.3 0-3-1.8-3s-2.1 1.4-2.1 2.9V21H9z"/></svg></a>
@@ -337,6 +348,7 @@ FOOTER_AR = """<footer class="site-footer">
       <a href="/ar/speaking/">المحاضرات وورش العمل</a>
       <a href="/ar/media/">الإعلام</a>
       <a href="/ar/arabic-speaking-executive-coach-uae/">كوتش تنفيذي عربي</a>
+      <a href="/ar/hr-self-check/">تقييم ذاتي</a>
       <a href="/ar/contact/">تواصل معي</a>
       <a href="/" hreflang="en" lang="en">English</a>
       <a class="li" href="https://www.linkedin.com/in/hishamelsaied/" target="_blank" rel="noopener" aria-label="LinkedIn"><svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9h4v12H3zM9 9h3.8v1.7h.1c.5-1 1.8-2 3.7-2 4 0 4.7 2.6 4.7 6V21h-4v-5.5c0-1.3 0-3-1.8-3s-2.1 1.4-2.1 2.9V21H9z"/></svg></a>
@@ -409,10 +421,11 @@ def build():
     css += open(os.path.join(SRC, "rtl.css"), encoding="utf-8").read()
     open(os.path.join(ROOT, "assets", "site.css"), "w", encoding="utf-8").write(css)
     shutil.copy(os.path.join(SRC, "site.js"), os.path.join(ROOT, "assets", "site.js"))
+    shutil.copy(os.path.join(SRC, "selfcheck.js"), os.path.join(ROOT, "assets", "selfcheck.js"))
     for ar, pages in ((False, PAGES), (True, PAGES_AR)):
         for page in pages:
             src = os.path.join(SRC, "ar" if ar else "", page["key"] + ".html")
-            body = open(src, encoding="utf-8").read()
+            body = open(src, encoding="utf-8").read().replace("__V__", UPDATED)
             html = head(page, ar) + header(page, ar) + "\n\n<main>\n" + body.rstrip() + "\n</main>\n\n" + (FOOTER_AR if ar else FOOTER) + \
                 f'\n\n<script src="/assets/site.js?v={UPDATED}" defer></script>\n</body>\n</html>\n'
             out = os.path.join(ROOT, page["path"].strip("/"), "index.html")
@@ -441,7 +454,7 @@ def build():
         par = next(x for x in PAGES_AR if x["key"] == p["key"])
         for loc, pri in ((p["path"], "1.0" if p["key"] == "home" else "0.8"), (par["path"], "0.9" if p["key"] == "home" else "0.7")):
             rows.append(
-                f"  <url><loc>{SITE}{loc}</loc><lastmod>2026-11-14</lastmod><priority>{pri}</priority>"
+                f"  <url><loc>{SITE}{loc}</loc><lastmod>2026-11-15</lastmod><priority>{pri}</priority>"
                 f'<xhtml:link rel="alternate" hreflang="en" href="{SITE}{p["path"]}"/>'
                 f'<xhtml:link rel="alternate" hreflang="ar" href="{SITE}{par["path"]}"/>'
                 f'<xhtml:link rel="alternate" hreflang="x-default" href="{SITE}{p["path"]}"/></url>')

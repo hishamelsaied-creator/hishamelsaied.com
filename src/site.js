@@ -76,6 +76,28 @@
     });
   }
 
+  // Invitation to the self-check: once per visitor, after 15 seconds
+  (function () {
+    if (/self-check|contact/.test(location.pathname)) return;
+    var seen = false;
+    try { seen = !!localStorage.getItem("sc-invite"); } catch (e) {}
+    if (seen) return;
+    var P = AR ? { l: "تقييم ذاتي مجاني", h: "كيف يرى رئيسك التنفيذي الموارد البشرية؟", p: "١٥ سؤالاً في نحو ٣ دقائق. تصلك لوحة النتائج والخريطة الحرارية على بريدك الإلكتروني خلال ٣ دقائق.", b: "ابدأ التقييم", n: "ليس الآن", x: "إغلاق", u: "/ar/hr-self-check/" }
+      : { l: "Free self-check", h: "How does your CEO see HR?", p: "15 questions, about 3 minutes. Your results dashboard and heat map reach you by email within 3 minutes.", b: "Start the self-check", n: "Not now", x: "Close", u: "/hr-self-check/" };
+    setTimeout(function () {
+      var d = document.createElement("div");
+      d.className = "pop"; d.setAttribute("role", "dialog"); d.setAttribute("aria-label", P.h);
+      d.innerHTML = '<button type="button" class="pop-x" aria-label="' + P.x + '">&times;</button><span class="label">' + P.l + '</span><h2>' + P.h + '</h2><p>' + P.p + '</p><a class="btn" href="' + P.u + '">' + P.b + '</a><button type="button" class="pop-no">' + P.n + '</button>';
+      document.body.appendChild(d);
+      var close = function () { d.parentNode && d.parentNode.removeChild(d); };
+      d.querySelector(".pop-x").onclick = close;
+      d.querySelector(".pop-no").onclick = close;
+      document.addEventListener("keydown", function (e) { if (e.key === "Escape") close(); });
+      try { localStorage.setItem("sc-invite", "1"); } catch (e) {}
+      setTimeout(function () { d.classList.add("in"); }, 30);
+    }, 15000);
+  })();
+
   // Contact page: enquiry form, delivered by email
   var form = document.getElementById("enquiry-form");
   if (form) {
