@@ -368,7 +368,7 @@ def head(page, ar=False):
         alts = (f'<link rel="alternate" hreflang="en" href="{en_url}">\n'
                 f'<link rel="alternate" hreflang="ar" href="{ar_url}">\n'
                 f'<link rel="alternate" hreflang="x-default" href="{en_url}">\n')
-    fonts = "family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&family=Montserrat:wght@500;600;700"
+    fonts = "family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600"
     if ar:
         fonts = "family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=Noto+Kufi+Arabic:wght@500;600;700&" + fonts
     return f"""<!DOCTYPE html>

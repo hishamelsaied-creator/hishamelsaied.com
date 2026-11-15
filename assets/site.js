@@ -33,6 +33,26 @@
     });
   }
 
+
+  // Home page testimonials
+  var xq = Array.prototype.slice.call(document.querySelectorAll("#x-quotes .x-q"));
+  var xd = document.getElementById("x-dots");
+  if (xq.length && xd) {
+    var xi = 0, xt = null;
+    var xgo = function (n) {
+      xq[xi].classList.remove("on"); xd.children[xi].classList.remove("on");
+      xi = n; xq[xi].classList.add("on"); xd.children[xi].classList.add("on");
+    };
+    xq.forEach(function (_, n) {
+      var b = document.createElement("button");
+      b.type = "button"; b.setAttribute("aria-label", String(n + 1));
+      if (!n) b.className = "on";
+      b.addEventListener("click", function () { clearInterval(xt); xgo(n); });
+      xd.appendChild(b);
+    });
+    if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) xt = setInterval(function () { xgo((xi + 1) % xq.length); }, 7000);
+  }
+
   // Home page photo slideshow
   var slides = Array.prototype.slice.call(document.querySelectorAll("#show .slide"));
   var dots = document.getElementById("dots");
