@@ -134,3 +134,40 @@ html[dir="rtl"] .vid .when { letter-spacing: 0; }
 .dark.books .lead { color: var(--ivory); }
 .dark.books .vol p:not(.lead) { color: var(--mist); }
 .dark.books .book img { box-shadow: 0 30px 60px -22px rgba(0,0,0,.8), 0 0 0 1px rgba(201,174,130,.35); }
+
+/* Proof directly under the hero */
+.hero { padding-top: 64px; }
+.hero-grid { padding-bottom: 64px; gap: 72px; }
+.show { max-width: 340px; }
+.proof { padding: 0; border-top: 1px solid var(--navy-line); border-bottom: 1px solid var(--navy-line); background: var(--navy); }
+.proof-row { display: grid; grid-template-columns: 200px 1fr; align-items: center; }
+.proof-row + .proof-row { border-top: 1px solid var(--navy-line); }
+.proof-row .label { padding-inline-start: max(28px, calc((100vw - 1180px) / 2)); white-space: nowrap; }
+.proof-row .label::before { display: none; }
+.proof .lg { height: 66px; font-size: 1.08rem; padding: 0 34px; color: var(--ivory); opacity: .88; }
+.proof .marquee { -webkit-mask-image: linear-gradient(90deg, transparent, #000 5%, #000 93%, transparent); mask-image: linear-gradient(90deg, transparent, #000 5%, #000 93%, transparent); }
+.statband { padding: 0; }
+.statband .stats { border-top: 0; }
+.statband .stat { padding: 30px 28px 30px 0; }
+.statband .stat b { font-size: clamp(2.2rem, 3.6vw, 3.1rem); }
+.hero-photo-m { display: none; }
+@media (max-width: 900px) {
+  .hero { padding-top: 40px; }
+  .hero-grid { padding-bottom: 40px; gap: 0; }
+  .hero .show { display: none; }
+  .hero .creds-line { display: none; }
+  .proof-row { grid-template-columns: 1fr; }
+  .proof-row .label { padding: 14px 24px 0; font-size: 0.68rem; }
+  .proof .lg { height: 50px; font-size: 0.98rem; padding: 0 22px; }
+  .hero-photo-m { display: block; padding: 40px 0 8px; }
+  .hero-photo-m .photo { max-width: 300px; margin: 0 auto; }
+}
+@media (min-width: 901px) {
+  .hero { padding-top: 44px; }
+  .hero-grid { padding-bottom: 44px; grid-template-columns: 1.5fr 270px; align-items: center; }
+  .hero h1 { font-size: clamp(2rem, 3.1vw, 2.85rem); line-height: 1.12; }
+  .hero .lead { font-size: 1.06rem; }
+  .hero .stack-lg { gap: 26px; }
+  .hero .show { max-width: 270px; aspect-ratio: 4 / 5; }
+  .proof .lg { height: 58px; }
+}
