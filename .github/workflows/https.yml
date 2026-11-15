@@ -13,7 +13,7 @@ jobs:
       - shell: bash {0}
         run: |
           {
-          echo "== DNS"; dig +short hishamelsaied.com A; dig +short www.hishamelsaied.com; dig +short hishamelsaied.com MX
+          echo "== CAA"; dig +short hishamelsaied.com CAA; dig +short www.hishamelsaied.com CAA; echo "== AAAA"; dig +short hishamelsaied.com AAAA; echo "== DNS"; dig +short hishamelsaied.com A; dig +short www.hishamelsaied.com; dig +short hishamelsaied.com MX
           for u in https://hishamelsaied.com/robots.txt https://www.hishamelsaied.com/ http://hishamelsaied.com/ https://hishamelsaied.com/insights/; do
             echo "== $u"; curl -sS -o /dev/null -m 20 -w "%{http_code} redirect=%{redirect_url}\n" "$u" 2>&1
           done
