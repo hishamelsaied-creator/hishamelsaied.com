@@ -1,0 +1,44 @@
+== DNS
+185.199.109.153
+185.199.108.153
+185.199.110.153
+185.199.111.153
+hishamelsaied-creator.github.io.
+185.199.108.153
+185.199.109.153
+185.199.110.153
+185.199.111.153
+50 mx3.zoho.com.
+10 mx.zoho.com.
+20 mx2.zoho.com.
+== https://hishamelsaied.com/robots.txt
+curl: (60) SSL: no alternative certificate subject name matches target hostname 'hishamelsaied.com'
+More details here: https://curl.se/docs/sslcerts.html
+
+curl failed to verify the legitimacy of the server and therefore could not
+establish a secure connection to it. To learn more about this situation and
+how to fix it, please visit the webpage mentioned above.
+000 redirect=
+== https://www.hishamelsaied.com/
+curl: (60) SSL: no alternative certificate subject name matches target hostname 'www.hishamelsaied.com'
+More details here: https://curl.se/docs/sslcerts.html
+
+curl failed to verify the legitimacy of the server and therefore could not
+establish a secure connection to it. To learn more about this situation and
+how to fix it, please visit the webpage mentioned above.
+000 redirect=
+== http://hishamelsaied.com/
+200 redirect=
+== https://hishamelsaied.com/insights/
+curl: (60) SSL: no alternative certificate subject name matches target hostname 'hishamelsaied.com'
+More details here: https://curl.se/docs/sslcerts.html
+
+curl failed to verify the legitimacy of the server and therefore could not
+establish a secure connection to it. To learn more about this situation and
+how to fix it, please visit the webpage mentioned above.
+000 redirect=
+== cert
+subject=CN=*.github.io
+issuer=C=US, O=Let's Encrypt, CN=YR1
+notBefore=Sep 30 23:44:46 2026 GMT
+notAfter=Dec 29 23:44:45 2026 GMT
