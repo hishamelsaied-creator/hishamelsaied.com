@@ -376,6 +376,7 @@ def header(page, ar=False):
     return f"""<header class="site-header">
   <div class="wrap">
     <a class="brand" href="{base}/">{brand}</a>
+    <a class="btn book-m" href="https://app.cronofy.com/add_to_calendar/scheduling/ZOT6eIZc" target="_blank" rel="noopener">{enquire}</a>
     <button class="menu-toggle" id="menu-toggle" type="button" aria-expanded="false" aria-controls="nav">{menu}</button>
     <nav class="nav" id="nav" aria-label="{'القائمة الرئيسية' if ar else 'Main'}">
 {chr(10).join(links)}
