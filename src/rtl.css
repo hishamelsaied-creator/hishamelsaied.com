@@ -129,3 +129,8 @@ html[dir="rtl"] .vid .when { letter-spacing: 0; }
 .voices .note { font-size: 0.95rem; color: var(--slate); }
 .voices .note a { color: var(--gold-deep); font-weight: 600; }
 @media (max-width: 960px) { .tcards { grid-template-columns: 1fr; } }
+
+/* Books on a dark band */
+.dark.books .lead { color: var(--ivory); }
+.dark.books .vol p:not(.lead) { color: var(--mist); }
+.dark.books .book img { box-shadow: 0 30px 60px -22px rgba(0,0,0,.8), 0 0 0 1px rgba(201,174,130,.35); }
