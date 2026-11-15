@@ -110,7 +110,7 @@ ARQA_AR = [('هل يوجد كوتش تنفيذي في الإمارات يعمل 
 
 FAQ_AR = [
     ("هل يمكن أن نعمل باللغة العربية؟", "نعم. أعمل بالعربية والإنجليزية، وكثير من عملائي ينتقلون بين اللغتين في الجلسة نفسها."),
-    ("هل الكوتشينج سري؟", "نعم. ألتزم بميثاق أخلاقيات الاتحاد الدولي للكوتشينج (ICF). ما نناقشه يبقى بيننا، حتى حين تكون جهة عملك هي من تدفع، إلا إذا ألزم القانون بغير ذلك."),
+    ("هل الكوتشينج سري؟", "نعم. ألتزم بميثاق أخلاقيات الاتحاد الدولي للكوتشينج (ICF). ما نناقشه يبقى بيننا، حتى حين تكون جهة عملك هي من تدفع."),
     ("هل يمكن لمؤسستي أن تتحمل التكلفة؟", "نعم. كثير من عملائي ترعاهم جهات عملهم، وآخرون يدفعون بأنفسهم."),
     ("كم تستغرق مدة الكوتشينج؟", "يعتمد ذلك على ما تريد تغييره. نتفق على المدة بعد المحادثة الأولى."),
     ("كم تبلغ التكلفة؟", "لأن كل برنامج مصمم حسب الحاجة، أشارك الرسوم بعد المحادثة الأولى."),
@@ -119,7 +119,7 @@ FAQ_AR = [
 
 FAQ = [
     ("Can we work in Arabic?", "Yes. I coach in Arabic and English, and many clients move between the two in the same session."),
-    ("Is coaching confidential?", "Yes. I work to the ICF Code of Ethics. What we discuss stays between us, including when your employer is paying, unless the law requires otherwise, and we agree at the start what, if anything, is reported back."),
+    ("Is coaching confidential?", "Yes. I work to the ICF Code of Ethics. What we discuss stays between us, including when your employer is paying, and we agree at the start what, if anything, is reported back."),
     ("Can my organisation pay for coaching?", "Yes. Many clients are sponsored by their employer and others pay themselves."),
     ("How long does a coaching engagement last?", "It depends on what you want to change. We agree the length after the first conversation."),
     ("What does executive coaching cost?", "Each engagement is tailored, so fees are shared after the first conversation."),
@@ -162,7 +162,7 @@ def person(ar=False):
         "alternateName": "Hisham Elsaied" if ar else "هشام السعيد",
         "url": SITE + ("/ar/" if ar else "/"),
         "image": SITE + "/img/hisham-closeup.jpg",
-        "jobTitle": "كوتش تنفيذي ومتحدث ومؤلف" if ar else "Executive Coach, Speaker and Author",
+        "jobTitle": "كوتش تنفيذي ومستشار في تطوير القيادات" if ar else "Executive Coach and Leadership Development Consultant",
         "description": ("كوتش تنفيذي مقيم في دبي ومدير إقليمي سابق للموارد البشرية. يعمل مع مديري ومديرات الموارد البشرية في دول الخليج، ويتحدث في القيادة وقدرات الموارد البشرية والمواهب والتقييم، بالعربية والإنجليزية."
                         if ar else "Dubai-based executive coach and former regional HR director. Coaches HR managers and directors across the GCC and speaks on leadership, HR capability, and talent and assessment, in Arabic and English."),
         "email": "mailto:hisham@hishamelsaied.com",
@@ -178,7 +178,7 @@ def person(ar=False):
             {"@type": "EducationalOccupationalCredential", "name": n,
              "recognizedBy": {"@type": "Organization", "name": o}} for n, o in creds
         ],
-        "award": ["Top 200 Global Power Leaders in HR 2023 (White Page International)", "CIPD award winner", "Top 20 HR Influencers in the UAE 2025 (Favikon)"],
+        "award": ["Recognised among the Top 200 HR Leaders globally", "CIPD award winner", "Top 20 HR Influencers in the UAE 2025 (Favikon)"],
         "sameAs": ["https://www.linkedin.com/in/hishamelsaied/", "https://x.com/hishamelsaied",
                    "https://informaconnect.com/hr-summit-expo/speakers/hisham-elsaied-fcipd/",
                    "https://www.gleac.com/mentors/hisham-elsaied"],
