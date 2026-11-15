@@ -1,35 +1,24 @@
-name: HTTPS check
+name: Site check
 on:
   push:
     paths: [".github/workflows/https.yml"]
   workflow_dispatch:
 permissions:
-  pages: write
   contents: write
 jobs:
-  https:
+  check:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Check Pages and enforce HTTPS
-        env:
-          GH_TOKEN: ${{ github.token }}
-        shell: bash {0}
+      - shell: bash {0}
         run: |
-          R=${{ github.repository }}
           {
-            echo "run: 5"; echo "time: $(date -u +%FT%TZ)"
-            echo "--- pages"
-            gh api repos/$R/pages 2>&1 | head -c 1500
-            echo; echo "--- health"
-            gh api repos/$R/pages/health 2>&1 | head -c 2500
-            echo; echo "--- enforce"
-            gh api -X PUT repos/$R/pages -F https_enforced=true -f cname=hishamelsaied.com 2>&1 | head -c 600
-            echo; echo "--- https test"
-            curl -sS -o /dev/null -w "%{http_code} ssl=%{ssl_verify_result}\n" https://hishamelsaied.com 2>&1
-          } > https-status.txt
-          cat https-status.txt
+          echo "== DNS"; dig +short hishamelsaied.com A; dig +short www.hishamelsaied.com; dig +short hishamelsaied.com MX
+          for u in https://hishamelsaied.com/robots.txt https://www.hishamelsaied.com/ http://hishamelsaied.com/ https://hishamelsaied.com/insights/; do
+            echo "== $u"; curl -sS -o /dev/null -m 20 -w "%{http_code} redirect=%{redirect_url}\n" "$u" 2>&1
+          done
+          echo "== cert"; echo | openssl s_client -connect hishamelsaied.com:443 -servername hishamelsaied.com 2>/dev/null | openssl x509 -noout -subject -issuer -dates 2>&1
+          } > site-check.txt
+          cat site-check.txt
           git config user.name "Hisham Elsaied"; git config user.email "hisham@hishamelsaied.com"
-          git add https-status.txt
-          git commit -m "HTTPS status" || exit 0
-          git push
+          git add site-check.txt && git commit -m "Site check" && git push
