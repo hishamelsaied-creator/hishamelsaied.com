@@ -642,3 +642,20 @@ html[lang="ar"] .sc h2, html[lang="ar"] .sc .sc-h1, html[lang="ar"] .sc-q, html[
 /* Buy buttons under books on light sections */
 .light .x-vol .btn.line { color: var(--night); border-color: var(--gold-deep); padding: 12px 22px; font-size: .95rem; }
 .light .x-vol .btn.line:hover { background: rgba(140, 111, 67, 0.12); }
+
+/* Long-form articles and the insights list */
+.prose { max-width: 720px; }
+.prose h2 { font-size: clamp(1.35rem, 2.6vw, 1.7rem); margin: 44px 0 14px; line-height: 1.25; }
+.prose p, .prose li { font-size: 1.06rem; line-height: 1.75; }
+.prose p { margin: 0 0 18px; }
+.prose ul, .prose ol { margin: 0 0 20px; padding-inline-start: 22px; }
+.prose li { margin-bottom: 8px; }
+.prose a { color: var(--gold-deep); text-decoration: underline; text-underline-offset: 3px; }
+.prose .meta { font-size: .9rem; color: var(--slate); margin-bottom: 28px; }
+.prose .note { font-size: .92rem; color: var(--slate); border-top: 1px solid var(--ivory-line); padding-top: 18px; margin-top: 36px; }
+.x-list { display: grid; gap: 26px; max-width: 760px; }
+.x-list a { display: block; padding: 24px 26px; border: 1px solid var(--ivory-line); text-decoration: none; color: var(--ink); background: #fff; }
+.x-list a:hover { border-color: var(--gold-deep); }
+.x-list h3 { font-size: 1.25rem; margin: 6px 0 8px; }
+.x-list p { margin: 0; font-size: .98rem; color: var(--slate); line-height: 1.6; }
+.x-list .x-tag { display: block; }

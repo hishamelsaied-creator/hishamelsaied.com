@@ -56,6 +56,31 @@ PAGES = [
         "desc": "A free 3-minute self-check for HR managers and directors in the Gulf. 15 questions, with a results dashboard and heat map sent to you by email.",
     },
     {
+        "key": "books", "path": "/books/", "nav": "Books",
+        "title": "Books by Hisham Elsaied | The Moving Line, The Hidden Board",
+        "desc": "Books by Hisham Elsaied, executive coach in Dubai: The Moving Line, on the race to build a thinking machine, The Hidden Board, and a book on leadership and AI.",
+    },
+    {
+        "key": "insights", "path": "/insights/", "nav": "Insights",
+        "title": "Insights on Coaching, Leadership and HR in the Gulf | Hisham Elsaied",
+        "desc": "Articles by Hisham Elsaied, ICF PCC executive coach in Dubai, on choosing a coach, coaching in Arabic, and what AI changes for leaders in the Gulf.",
+    },
+    {
+        "key": "art-choose-coach", "path": "/insights/how-to-choose-an-executive-coach-uae/", "nav": "How to choose an executive coach in the UAE",
+        "title": "How to Choose an Executive Coach in the UAE: 6 Checks",
+        "desc": "Six checks before hiring an executive coach in Dubai or the UAE: credential, coaching hours, business experience, culture, language and fit.",
+    },
+    {
+        "key": "art-coaching-in-arabic", "path": "/insights/coaching-in-arabic/", "nav": "Coaching in Arabic",
+        "title": "Coaching in Arabic: Why the Language of the Session Matters",
+        "desc": "Why coaching in Arabic and English helps leaders in the Gulf, what research says about language and decisions, and how a bilingual coach uses both.",
+    },
+    {
+        "key": "art-ai-leaders", "path": "/insights/ai-and-leadership-gulf/", "nav": "What AI changes for leaders in the Gulf, and what it doesn't",
+        "title": "What AI Changes for Leaders in the Gulf, and What It Doesn't",
+        "desc": "AI is changing work fastest in the Gulf. What leaders bring to coaching now, and the parts of leadership a machine can't carry.",
+    },
+    {
         "key": "contact", "path": "/contact/", "nav": "Contact",
         "title": "Contact Hisham Elsaied | Executive Coaching and Speaking, Dubai",
         "desc": "Enquire about executive coaching, keynotes or workshops. Based in Dubai, working across the UAE and the GCC in Arabic and English.",
@@ -97,6 +122,31 @@ PAGES_AR = [
         "key": "self-check", "path": "/ar/hr-self-check/", "nav": "تقييم ذاتي لقادة الموارد البشرية",
         "title": "كيف يرى رئيسك التنفيذي الموارد البشرية؟ تقييم ذاتي مجاني",
         "desc": "تقييم ذاتي مجاني في ٣ دقائق لمديري الموارد البشرية في الخليج. ١٥ سؤالاً، وتصلك لوحة النتائج والخريطة الحرارية على بريدك الإلكتروني.",
+    },
+    {
+        "key": "books", "path": "/ar/books/", "nav": "الكتب",
+        "title": "كتب هشام السعيد | The Moving Line و The Hidden Board",
+        "desc": "كتب هشام السعيد، الكوتش التنفيذي في دبي، عن الذكاء الاصطناعي والعقل البشري والقيادة في الشرق الأوسط.",
+    },
+    {
+        "key": "insights", "path": "/ar/insights/", "nav": "مقالات",
+        "title": "مقالات عن الكوتشينج والقيادة والموارد البشرية في الخليج",
+        "desc": "مقالات لهشام السعيد، الكوتش التنفيذي المعتمد في دبي، عن اختيار الكوتش، والكوتشينج بالعربية، وأثر الذكاء الاصطناعي على القادة.",
+    },
+    {
+        "key": "art-choose-coach", "path": "/ar/insights/how-to-choose-an-executive-coach-uae/", "nav": "كيف تختار كوتش تنفيذي في الإمارات",
+        "title": "كيف تختار كوتش تنفيذي في الإمارات: ٦ أمور تتحقق منها",
+        "desc": "ستة أمور تتحقق منها قبل التعاقد مع كوتش تنفيذي في دبي أو الإمارات: الاعتماد والساعات والخبرة والثقافة واللغة والملاءمة.",
+    },
+    {
+        "key": "art-coaching-in-arabic", "path": "/ar/insights/coaching-in-arabic/", "nav": "الكوتشينج بالعربية",
+        "title": "الكوتشينج بالعربية: لماذا تهم لغة الجلسة",
+        "desc": "لماذا يفيد الكوتشينج بالعربية والإنجليزية القادة في الخليج، وماذا تقول الأبحاث عن اللغة والقرار، وكيف يستخدم الكوتش اللغتين.",
+    },
+    {
+        "key": "art-ai-leaders", "path": "/ar/insights/ai-and-leadership-gulf/", "nav": "ما الذي يغيّره الذكاء الاصطناعي للقادة في الخليج",
+        "title": "ما الذي يغيّره الذكاء الاصطناعي للقادة في الخليج",
+        "desc": "الذكاء الاصطناعي يغيّر العمل في الخليج بسرعة. ما الذي يحمله القادة إلى الكوتشينج اليوم، وما الذي لا تستطيع الآلة حمله.",
     },
     {
         "key": "contact", "path": "/ar/contact/", "nav": "تواصل معي",
@@ -261,10 +311,14 @@ def graph(page, ar=False):
             g.append(service("Keynotes, masterclasses and workshops",
                              "Keynotes, conference masterclasses and half-day or one-day workshops on leading people, HR capability, and talent and assessment, in Arabic or English.",
                              page["path"], "Leadership and HR speaking and workshops"))
-    if k == "home":
+    if k.startswith("art-"):
+        g.append({"@type": "Article", "headline": page["title"], "description": page["desc"], "inLanguage": "ar" if ar else "en",
+                  "author": {"@id": PERSON_ID}, "publisher": {"@id": PERSON_ID}, "datePublished": "2026-11-15",
+                  "image": SITE + "/img/og-image.jpg", "mainEntityOfPage": SITE + page["path"]})
+    if k in ("home", "books"):
         for name, sub_, img, about in BOOKS:
             g.append({"@type": "Book", "name": name, "alternativeHeadline": sub_, "author": {"@id": PERSON_ID},
-                      "inLanguage": "en", "image": SITE + img, "about": about, "url": SITE + ("/ar/" if ar else "/") + "#books", **({"sameAs": AMAZON[name]} if name in AMAZON else {})})
+                      "inLanguage": "en", "image": SITE + img, "about": about, "url": SITE + ("/ar/books/" if ar else "/books/"), **({"sameAs": AMAZON[name]} if name in AMAZON else {})})
     if k == "media":
         g.append({"@type": "ItemList", "name": "Articles and podcasts by Hisham Elsaied", "itemListElement": [
             {"@type": "ListItem", "position": i + 1, "item": dict({"@type": t, "name": n, "url": u, ("author" if t == "Article" else "actor"): {"@id": PERSON_ID},
@@ -327,6 +381,8 @@ FOOTER = """<footer class="site-footer">
       <a href="/coaching/">Coaching</a>
       <a href="/speaking/">Speaking and workshops</a>
       <a href="/media/">Media</a>
+      <a href="/books/">Books</a>
+      <a href="/insights/">Insights</a>
       <a href="/arabic-speaking-executive-coach-uae/">Arabic-speaking coach</a>
       <a href="/hr-self-check/">HR self-check</a>
       <a href="/contact/">Contact</a>
@@ -348,6 +404,8 @@ FOOTER_AR = """<footer class="site-footer">
       <a href="/ar/coaching/">الكوتشينج</a>
       <a href="/ar/speaking/">المحاضرات وورش العمل</a>
       <a href="/ar/media/">الإعلام</a>
+      <a href="/ar/books/">الكتب</a>
+      <a href="/ar/insights/">مقالات</a>
       <a href="/ar/arabic-speaking-executive-coach-uae/">كوتش تنفيذي عربي</a>
       <a href="/ar/hr-self-check/">تقييم ذاتي</a>
       <a href="/ar/contact/">تواصل معي</a>
