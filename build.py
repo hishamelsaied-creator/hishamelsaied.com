@@ -130,7 +130,7 @@ FAQ = [
 BOOKS = [
     ("The Moving Line", "The 300-year race to build a thinking machine", "/img/book-the-moving-line.jpg", "History of artificial intelligence"),
     ("The Hidden Board", "How Your Brain Plays the Game of Being Human", "/img/book-the-hidden-board.jpg", "Psychology and popular science"),
-    ("The Right Fit", "Executive coaching for leaders and HR teams in the Middle East", "/img/book-the-right-fit.jpg", "Executive coaching in the Middle East"),
+    ("You Can't Fire the Machine", "Experience, blame and the future of leadership in the Middle East", "/img/book-you-cant-fire-the-machine.jpg", "Leadership and artificial intelligence in the Middle East"),
 ]
 AMAZON = {"The Moving Line": "https://www.amazon.com/dp/B0HRS7CQFY", "The Hidden Board": "https://www.amazon.com/dp/B0HR2QLZD5"}
 MEDIA = [
