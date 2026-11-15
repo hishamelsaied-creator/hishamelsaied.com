@@ -18,7 +18,7 @@ jobs:
         run: |
           R=${{ github.repository }}
           {
-            echo "run: 4 (domain re-added)"; echo "time: $(date -u +%FT%TZ)"
+            echo "run: 5"; echo "time: $(date -u +%FT%TZ)"
             echo "--- pages"
             gh api repos/$R/pages 2>&1 | head -c 1500
             echo; echo "--- health"
