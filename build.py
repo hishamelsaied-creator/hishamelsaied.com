@@ -130,7 +130,7 @@ FAQ = [
 BOOKS = [
     ("The Moving Line", "The 300-year race to build a thinking machine", "/img/book-the-moving-line.jpg", "History of artificial intelligence"),
     ("The Hidden Board", "How Your Brain Plays the Game of Being Human", "/img/book-the-hidden-board.jpg", "Psychology and popular science"),
-    ("Coaching in the Middle East", "What works with leaders in a region of many cultures", "/img/book-coaching-in-the-middle-east.jpg", "Executive coaching in the Middle East"),
+    ("The Right Fit", "Executive coaching for leaders and HR teams in the Middle East", "/img/book-the-right-fit.jpg", "Executive coaching in the Middle East"),
 ]
 MEDIA = [
     ("Article", "Why the Middle East needs a new kind of creative leadership", "https://campaignme.com/why-the-middle-east-needs-a-new-kind-of-creative-leadership/", "2025-07-31", "Campaign Middle East"),
@@ -172,7 +172,7 @@ def person(ar=False):
             "Executive coaching", "Leadership development", "Manager to leader transition",
             "Executive presence", "Strategic HR", "HR business partnering", "Workforce planning",
             "Succession planning", "Assessment centres", "Hogan assessments",
-            "Cultural intelligence", "AI in HR", "Coaching in the Middle East", "History of artificial intelligence",
+            "Cultural intelligence", "AI in HR", "Executive coaching in the Middle East", "History of artificial intelligence",
         ],
         "hasCredential": [
             {"@type": "EducationalOccupationalCredential", "name": n,
