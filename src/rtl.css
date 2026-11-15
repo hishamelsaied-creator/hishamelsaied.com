@@ -243,3 +243,7 @@ html[lang="ar"] .sc h2, html[lang="ar"] .sc .sc-h1, html[lang="ar"] .sc-q, html[
 .pop .pop-x { position: absolute; top: 8px; inset-inline-end: 10px; background: none; border: 0; color: var(--mist); font-size: 1.6rem; line-height: 1; cursor: pointer; padding: 6px; }
 @media (max-width: 560px) { .pop { inset-inline: 12px; bottom: 12px; width: auto; } }
 @media (prefers-reduced-motion: reduce) { .pop { transition: none; } }
+
+/* Buy buttons under books on light sections */
+.light .x-vol .btn.line { color: var(--night); border-color: var(--gold-deep); padding: 12px 22px; font-size: .95rem; }
+.light .x-vol .btn.line:hover { background: rgba(140, 111, 67, 0.12); }
