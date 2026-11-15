@@ -132,6 +132,7 @@ BOOKS = [
     ("The Hidden Board", "How Your Brain Plays the Game of Being Human", "/img/book-the-hidden-board.jpg", "Psychology and popular science"),
     ("The Right Fit", "Executive coaching for leaders and HR teams in the Middle East", "/img/book-the-right-fit.jpg", "Executive coaching in the Middle East"),
 ]
+AMAZON = {"The Moving Line": "https://www.amazon.com/dp/B0HRS7CQFY", "The Hidden Board": "https://www.amazon.com/dp/B0HR2QLZD5"}
 MEDIA = [
     ("Article", "Why the Middle East needs a new kind of creative leadership", "https://campaignme.com/why-the-middle-east-needs-a-new-kind-of-creative-leadership/", "2025-07-31", "Campaign Middle East"),
     ("Article", "From Ancient History to the Digital Age: The Evolving Models of the HR Function", "https://www.thehrobserver.com/indepth/from-ancient-history-to-the-digital-age-the-evolving-models-of-the-hr-function/", "2024-09-16", "The HR Observer"),
@@ -263,7 +264,7 @@ def graph(page, ar=False):
     if k == "home":
         for name, sub_, img, about in BOOKS:
             g.append({"@type": "Book", "name": name, "alternativeHeadline": sub_, "author": {"@id": PERSON_ID},
-                      "inLanguage": "en", "image": SITE + img, "about": about, "url": SITE + ("/ar/" if ar else "/") + "#books"})
+                      "inLanguage": "en", "image": SITE + img, "about": about, "url": SITE + ("/ar/" if ar else "/") + "#books", **({"sameAs": AMAZON[name]} if name in AMAZON else {})})
     if k == "media":
         g.append({"@type": "ItemList", "name": "Articles and podcasts by Hisham Elsaied", "itemListElement": [
             {"@type": "ListItem", "position": i + 1, "item": dict({"@type": t, "name": n, "url": u, ("author" if t == "Article" else "actor"): {"@id": PERSON_ID},
