@@ -3,22 +3,10 @@ on:
   push:
     paths: [".github/workflows/https.yml"]
   workflow_dispatch:
-permissions:
-  contents: write
 jobs:
   check:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
       - shell: bash {0}
         run: |
-          {
-          echo "== CAA"; dig +short hishamelsaied.com CAA; dig +short www.hishamelsaied.com CAA; echo "== AAAA"; dig +short hishamelsaied.com AAAA; echo "== DNS"; dig +short hishamelsaied.com A; dig +short www.hishamelsaied.com; dig +short hishamelsaied.com MX
-          for u in https://hishamelsaied.com/robots.txt https://www.hishamelsaied.com/ http://hishamelsaied.com/ https://hishamelsaied.com/insights/; do
-            echo "== $u"; curl -sS -o /dev/null -m 20 -w "%{http_code} redirect=%{redirect_url}\n" "$u" 2>&1
-          done
-          echo "== cert"; echo | openssl s_client -connect hishamelsaied.com:443 -servername hishamelsaied.com 2>/dev/null | openssl x509 -noout -subject -issuer -dates 2>&1
-          } > site-check.txt
-          cat site-check.txt
-          git config user.name "Hisham Elsaied"; git config user.email "hisham@hishamelsaied.com"
-          git add site-check.txt && git commit -m "Site check" && git push
+          curl -sS -m 30 -X POST https://formsubmit.co/ajax/hisham@hishamelsaied.com -H "Content-Type: application/json" -H "Accept: application/json" -H "Referer: http://hishamelsaied.com/hr-self-check/" -H "Origin: http://hishamelsaied.com" -d '{"name":"Hisham Elsaied","email":"hisham@hishamelsaied.com","Note":"Test entry to activate the self-check form","_captcha":"false"}'
