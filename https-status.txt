@@ -1,8 +1,0 @@
-== cert
-subject=CN=*.github.io
-notBefore=Sep 30 23:44:46 2026 GMT
-notAfter=Dec 29 23:44:45 2026 GMT
-== https
-000
-== www
-000 
