@@ -137,6 +137,10 @@
   // Contact page: enquiry form, delivered by email
   var form = document.getElementById("enquiry-form");
   if (form) {
+    if (/[?&]interest=anytime/.test(location.search)) {
+      var ft = document.getElementById("f-type");
+      if (ft) ft.value = "Hisham Anytime early access";
+    }
     var msg = document.getElementById("form-msg");
     var val = function (id) { var el = document.getElementById(id); return el ? el.value.trim() : ""; };
     form.addEventListener("submit", function (e) {

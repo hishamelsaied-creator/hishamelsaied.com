@@ -392,6 +392,18 @@ html[dir="ltr"] .stat b, html[dir="ltr"] .steps li::before { font-weight: 400; }
 html[dir="ltr"] .quote blockquote { font-weight: 400; }
 html[dir="ltr"] .lg { font-weight: 500; }
 
+/* Hisham Anytime: coming-soon section */
+.x-replica { background: radial-gradient(900px 600px at 80% 20%, #16294a 0%, rgba(10, 20, 36, 0) 65%), var(--night); border-top: 1px solid var(--navy-line); }
+.x-replica-grid { display: grid; grid-template-columns: 1.05fr .95fr; gap: 72px; align-items: center; }
+.x-replica .txt { display: flex; flex-direction: column; gap: 22px; align-items: flex-start; }
+.x-replica .txt > p:not(.lead) { color: var(--mist); }
+.x-rfacts { list-style: none; margin: 4px 0 6px; padding: 0; display: flex; flex-direction: column; gap: 12px; color: var(--mist); }
+.x-rfacts b { color: var(--ivory); font-weight: 600; }
+.x-rfacts li { padding-inline-start: 22px; position: relative; }
+.x-rfacts li::before { content: ""; position: absolute; inset-inline-start: 0; top: .8em; width: 10px; height: 1px; background: var(--gold); }
+.x-rimg img { display: block; width: 100%; height: auto; border-radius: 4px; box-shadow: 0 30px 70px rgba(0, 0, 0, .45); }
+@media (max-width: 1000px) { .x-replica-grid { grid-template-columns: 1fr; gap: 48px; } .x-rimg { max-width: 520px; } }
+
 .foot-note { margin-top: 10px; max-width: 46ch; font-size: 0.92rem; color: var(--mist); }
 
 /* Language switch link */
