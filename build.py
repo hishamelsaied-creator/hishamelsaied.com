@@ -353,6 +353,8 @@ def graph(page, ar=False):
 def counterpart(page, ar):
     if page["key"] == "404":
         return "/" if ar else "/ar/"
+    if page["key"] == "session-booked":
+        return "/session-booked/" if ar else "/ar/session-booked/"
     other = PAGES if ar else PAGES_AR
     return next(p["path"] for p in other if p["key"] == page["key"])
 
@@ -530,6 +532,49 @@ def build():
         + header(nf) + "\n\n<main>\n" + body + "\n</main>\n\n" + FOOTER + \
         f'\n\n<script src="/assets/site.js?v={UPDATED}" defer></script>\n</body>\n</html>\n'
     open(os.path.join(ROOT, "404.html"), "w", encoding="utf-8").write(html)
+    # Thank-you pages after paying for a single session (noindex, not in the sitemap)
+    ty = {
+        False: {"key": "session-booked", "path": "/session-booked/", "nav": None, "title": "Your session is booked | Hisham Elsaied",
+                "desc": "Thank you for booking a single coaching session with Hisham Elsaied.",
+                "body": """  <section class="dark hero" style="padding-bottom:110px">
+    <div class="wrap stack-lg" style="max-width:860px">
+      <div class="stack">
+        <span class="label">Payment received</span>
+        <h1>Thank you. Your session is booked.</h1>
+        <p class="lead">One more step: choose a time that suits you.</p>
+      </div>
+      <ol class="ty-steps">
+        <li><b>Pick your time.</b> Choose a start time that works for you. I'll keep the full hour for you.<div style="margin-top:16px"><a class="btn" href="CAL" target="_blank" rel="noopener">Choose your time</a></div></li>
+        <li><b>Check your email.</b> Your receipt is on its way from Stripe. The calendar invite follows once you've picked a time.</li>
+        <li><b>Before we meet.</b> Think about the one issue you most want to work on. If there's background I should read first, reply to the calendar invite and tell me.</li>
+      </ol>
+      <p style="color:var(--mist)">Can't find a time that works? Email <a href="mailto:hisham@hishamelsaied.com">hisham@hishamelsaied.com</a> and I'll sort it out. &nbsp;·&nbsp; <a href="/ar/session-booked/" lang="ar" style="color:var(--gold)">العربية</a></p>
+    </div>
+  </section>"""},
+        True: {"key": "session-booked", "path": "/ar/session-booked/", "nav": None, "title": "تم حجز جلستك | هشام السعيد",
+               "desc": "شكراً لحجز جلسة كوتشينج واحدة مع هشام السعيد.",
+               "body": """  <section class="dark hero" style="padding-bottom:110px">
+    <div class="wrap stack-lg" style="max-width:860px">
+      <div class="stack">
+        <span class="label">تم استلام الدفع</span>
+        <h1>شكراً لك. تم حجز جلستك.</h1>
+        <p class="lead">بقيت خطوة واحدة: اختر الوقت الذي يناسبك.</p>
+      </div>
+      <ol class="ty-steps">
+        <li><b>اختر وقتك.</b> اختر وقت البدء الذي يناسبك، وسأحجز لك الساعة كاملة.<div style="margin-top:16px"><a class="btn" href="CAL" target="_blank" rel="noopener">اختر وقتك</a></div></li>
+        <li><b>راجع بريدك الإلكتروني.</b> يصلك الإيصال من Stripe، ثم دعوة التقويم بعد أن تختار الوقت.</li>
+        <li><b>قبل أن نلتقي.</b> فكّر في الموضوع الأهم الذي تريد العمل عليه. وإن كانت هناك خلفية يجب أن أطّلع عليها، ردّ على دعوة التقويم وأخبرني.</li>
+      </ol>
+      <p style="color:var(--mist)">لم تجد وقتاً مناسباً؟ راسلني على <a href="mailto:hisham@hishamelsaied.com">hisham@hishamelsaied.com</a> وسأرتّب الأمر. &nbsp;·&nbsp; <a href="/session-booked/" lang="en" style="color:var(--gold)">English</a></p>
+    </div>
+  </section>"""}}
+    for ar, tp in ty.items():
+        html = head(tp, ar).replace('<meta name="robots" content="index, follow, max-image-preview:large">', '<meta name="robots" content="noindex">') \
+            + header(tp, ar) + "\n\n<main>\n" + tp["body"].replace("CAL", "https://app.cronofy.com/add_to_calendar/scheduling/ZOT6eIZc") + "\n</main>\n\n" + (FOOTER_AR if ar else FOOTER) + \
+            f'\n\n<script src="/assets/site.js?v={UPDATED}" defer></script>\n</body>\n</html>\n'
+        out = os.path.join(ROOT, tp["path"].strip("/"), "index.html")
+        os.makedirs(os.path.dirname(out), exist_ok=True)
+        open(out, "w", encoding="utf-8").write(html)
     # sitemap + robots
     rows = []
     for p in PAGES:

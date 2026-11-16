@@ -415,6 +415,27 @@ html[dir="ltr"] .lg { font-weight: 500; }
 @media (max-width: 1280px) and (min-width: 1101px) { .nav { gap: 18px; } .nav a { font-size: 0.9rem; } .nav a.btn { padding: 11px 16px; } .nav a.nav-ai { padding: 6px 11px; } }
 @media (max-width: 1100px) { .nav a.nav-ai { padding: 10px 16px; margin: 6px 0; } }
 
+/* Single paid session */
+.x-one { background: var(--ivory); color: var(--ink); }
+.x-one-grid { display: grid; grid-template-columns: 300px 1fr; gap: 72px; align-items: center; }
+.x-one-photo img { display: block; width: 100%; height: auto; border-radius: 2px; }
+.x-one .txt { display: flex; flex-direction: column; gap: 22px; align-items: flex-start; }
+.x-one h2 { color: var(--night); }
+.x-one .label { color: var(--gold-deep); }
+.x-one .label::before { background: var(--gold-deep); }
+.x-one .txt p { color: var(--slate); }
+.x-one .txt p.x-one-how { color: var(--ink); font-weight: 600; }
+.x-one .btn.line { color: var(--night); border-color: var(--gold-deep); background: transparent; }
+.x-one .btn.line:hover { background: rgba(140, 111, 67, 0.12); }
+@media (max-width: 860px) { .x-one-grid { grid-template-columns: 1fr; gap: 36px; } .x-one-photo { max-width: 240px; } }
+/* Second pop-up: single session */
+.pop .pop-face { width: 84px; height: 84px; border-radius: 50%; object-fit: cover; object-position: 50% 18%; border: 2px solid var(--gold); display: block; margin: 0 0 18px; }
+.ty-steps { list-style: none; counter-reset: t; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 26px; }
+.ty-steps li { counter-increment: t; position: relative; padding-inline-start: 58px; font-size: 1.1rem; line-height: 1.6; color: var(--mist); }
+.ty-steps li b { color: var(--ivory); }
+.ty-steps li::before { content: counter(t); position: absolute; inset-inline-start: 0; top: -2px; width: 38px; height: 38px; border: 1px solid var(--gold); border-radius: 50%; display: grid; place-items: center; color: var(--gold); font-family: var(--display); font-size: 1.1rem; }
+[dir="rtl"] .ty-steps li::before { content: counter(t, arabic-indic); }
+
 .foot-note { margin-top: 10px; max-width: 46ch; font-size: 0.92rem; color: var(--mist); }
 
 /* Language switch link */

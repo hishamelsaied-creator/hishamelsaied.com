@@ -137,6 +137,34 @@
     setTimeout(show, 30000);
   })();
 
+  // Second invitation: a single paid session, for visitors who stay longer
+  (function () {
+    if (/self-check|contact|session-booked/.test(location.pathname)) return;
+    var start = Date.now();
+    try {
+      if (localStorage.getItem("ss-invite")) return;
+      var s0 = parseInt(sessionStorage.getItem("visit-start"), 10);
+      if (s0) start = s0; else sessionStorage.setItem("visit-start", String(start));
+    } catch (e) {}
+    var P = AR ? { l: "جلسة واحدة", h: "هل يشغلك أمر ما الآن؟", p: "احجز جلسة واحدة معي مدتها ٦٠ دقيقة حول موضوع حقيقي واحد. عبر الإنترنت، بالعربية أو الإنجليزية. تدفع بأمان، ثم تختار وقتك.", g: ["محادثة صعبة قادمة", "قرار ترقية أو مسار مهني", "دور جديد، أو مدير لا تفهم ما يريده"], b: "احجز جلسة واحدة", n: "ليس الآن", x: "إغلاق" }
+      : { l: "One session", h: "Something on your mind right now?", p: "Book a single 60-minute session with me on one real issue. Online, in Arabic or English. Pay securely, then choose your time.", g: ["A difficult conversation coming up", "A promotion or career decision", "A new role, or a manager you can't read"], b: "Book a single session", n: "Not now", x: "Close" };
+    var show = function () {
+      if (document.querySelector(".pop-bg")) { setTimeout(show, 20000); return; }
+      try { if (!localStorage.getItem("sc-invite")) { setTimeout(show, 20000); return; } localStorage.setItem("ss-invite", "1"); } catch (e) {}
+      var bg = document.createElement("div");
+      bg.className = "pop-bg";
+      bg.innerHTML = '<div class="pop" role="dialog" aria-modal="true" aria-label="' + P.h + '"><button type="button" class="pop-x" aria-label="' + P.x + '">&times;</button><img class="pop-face" src="/img/hisham-closeup.jpg" alt="" width="84" height="84"><span class="label">' + P.l + '</span><h2>' + P.h + '</h2><p>' + P.p + '</p><ul>' + P.g.map(function (x) { return "<li>" + x + "</li>"; }).join("") + '</ul><a class="btn" href="https://buy.stripe.com/3cIfZh2dR7u1g8xfaM6Vq01" rel="noopener">' + P.b + '</a><button type="button" class="pop-no">' + P.n + '</button></div>';
+      document.body.appendChild(bg);
+      var close = function () { bg.parentNode && bg.parentNode.removeChild(bg); };
+      bg.querySelector(".pop-x").onclick = close;
+      bg.querySelector(".pop-no").onclick = close;
+      bg.addEventListener("click", function (e) { if (e.target === bg) close(); });
+      document.addEventListener("keydown", function (e) { if (e.key === "Escape") close(); });
+      setTimeout(function () { bg.classList.add("in"); bg.querySelector(".btn").focus(); }, 30);
+    };
+    setTimeout(show, Math.max(5000, 120000 - (Date.now() - start)));
+  })();
+
   // Contact page: enquiry form, delivered by email
   var form = document.getElementById("enquiry-form");
   if (form) {
