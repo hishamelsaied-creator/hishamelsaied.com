@@ -640,3 +640,10 @@ html[dir="ltr"] .lg { font-weight: 500; }
 @media (max-width: 1240px) { .nav { max-height: calc(100vh - 83px); max-height: calc(100dvh - 83px); overflow-y: auto; overscroll-behavior: contain; } }
 .ph-banner { max-width: 1000px; }
 @media (max-width: 900px) { .ph-banner picture { aspect-ratio: 1000 / 315; } .ph-gallery figure:last-child:nth-child(odd) { grid-column: 1 / -1; } .ph-gallery figure:last-child:nth-child(odd) picture { aspect-ratio: 16 / 9; } }
+.x-toolbox { margin: 36px 0 28px; padding: 22px 24px; background: #fff; border: 1px solid var(--ivory-line); border-inline-start: 3px solid var(--gold-deep); display: flex; flex-direction: column; gap: 12px; }
+.x-toolbox a { display: flex; flex-direction: column; gap: 2px; text-decoration: none; padding: 8px 0; border-top: 1px solid var(--ivory-line); }
+.x-toolbox a:first-of-type { border-top: 0; padding-top: 0; }
+.x-toolbox a b { color: var(--night); font-size: 1.06rem; }
+.x-toolbox a span { color: var(--slate); font-size: .95rem; }
+.x-toolbox a:hover b { color: var(--gold-deep); text-decoration: underline; }
+.prose .x-toolbox a, .x-toolbox a { text-decoration: none; }

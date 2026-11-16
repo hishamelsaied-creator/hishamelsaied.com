@@ -334,7 +334,7 @@ def person(ar=False):
         "name": "هشام السعيد" if ar else "Hisham Elsaied",
         "alternateName": "Hisham Elsaied" if ar else "هشام السعيد",
         "url": SITE + ("/ar/" if ar else "/"),
-        "image": SITE + "/img/hisham-closeup.jpg",
+        "image": [SITE + "/img/hisham-closeup.jpg", SITE + "/img/ph-hrse-podium.jpg", SITE + "/img/ph-nice-qa.jpg", SITE + "/img/ph-speak-blue.jpg"],
         "jobTitle": "كوتش تنفيذي ومستشار في تطوير القيادات" if ar else "Executive Coach and Leadership Development Consultant",
         "description": ("كوتش تنفيذي مقيم في دبي ومدير إقليمي سابق للموارد البشرية. يعمل مع مديري ومديرات الموارد البشرية في دول الخليج، ويتحدث في القيادة وقدرات الموارد البشرية والمواهب والتقييم، بالعربية والإنجليزية."
                         if ar else "Dubai-based executive coach and former regional HR director. Coaches HR managers and directors across the GCC and speaks on leadership, HR capability, and talent and assessment, in Arabic and English."),
@@ -440,6 +440,17 @@ def graph(page, ar=False):
                              "Keynotes, conference masterclasses and half-day or one-day workshops on leading people, HR capability, and talent and assessment, in Arabic or English.",
                              page["path"], "Leadership and HR speaking and workshops"))
         g[-1]["areaServed"] = g[-1]["areaServed"] + [{"@type": "Country", "name": "France"}]
+    if k in ("res-picker", "res-planner", "res-feedback", "res-transition"):
+        g.append({"@type": "WebApplication", "name": page["nav"], "description": page["desc"], "url": SITE + page["path"],
+                  "applicationCategory": "BusinessApplication", "operatingSystem": "Any", "inLanguage": "ar" if ar else "en",
+                  "isAccessibleForFree": True, "offers": {"@type": "Offer", "price": "0", "priceCurrency": "AED"},
+                  "author": {"@id": PERSON_ID}, "publisher": {"@id": PERSON_ID}})
+    if k == "resources":
+        tools = [x for x in (PAGES_AR if ar else PAGES) if x["key"] in ("res-picker", "res-planner", "res-feedback", "res-transition", "self-check")]
+        g.append({"@type": "CollectionPage", "name": ("أدوات ونماذج وأدلة للقادة والموارد البشرية" if ar else "Tools, templates and guides for leaders and HR"), "description": page["desc"], "url": SITE + page["path"],
+                  "inLanguage": "ar" if ar else "en", "author": {"@id": PERSON_ID},
+                  "mainEntity": {"@type": "ItemList", "itemListElement": [
+                      {"@type": "ListItem", "position": i + 1, "name": t["nav"], "url": SITE + t["path"]} for i, t in enumerate(tools)]}})
     if k.startswith("art-"):
         g.append({"@type": "Article", "headline": page["title"], "description": page["desc"], "inLanguage": "ar" if ar else "en",
                   "author": {"@id": PERSON_ID}, "publisher": {"@id": PERSON_ID}, "datePublished": ART_DATES.get(k, "2026-11-15"),
@@ -557,6 +568,9 @@ FOOTER_AR = """<footer class="site-footer">
 </footer>"""
 
 
+OG = {"speaking": "og-speaking.jpg", "about": "og-about.jpg", "media": "og-media.jpg", "organisations": "og-organisations.jpg"}
+
+
 def head(page, ar=False):
     url = SITE + page["path"]
     ld = json.dumps(graph(page, ar), ensure_ascii=False, indent=1)
@@ -587,15 +601,16 @@ def head(page, ar=False):
 <meta property="og:title" content="{page["title"]}">
 <meta property="og:description" content="{page["desc"]}">
 <meta property="og:url" content="{url}">
-<meta property="og:image" content="{SITE}/img/og-image.jpg">
+<meta property="og:image" content="{SITE}/img/{OG.get(page["key"], "og-image.jpg")}">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="{'هشام السعيد، كوتش تنفيذي ومتحدث في دبي' if ar else 'Hisham Elsaied, executive coach and speaker in Dubai'}">
 <meta property="og:locale" content="{'ar_AE' if ar else 'en_AE'}">
 <meta property="og:locale:alternate" content="{'en_AE' if ar else 'ar_AE'}">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="{page["title"]}">
 <meta name="twitter:description" content="{page["desc"]}">
-<meta name="twitter:image" content="{SITE}/img/og-image.jpg">
+<meta name="twitter:image" content="{SITE}/img/{OG.get(page["key"], "og-image.jpg")}">
 <meta name="geo.region" content="AE-DU">
 <meta name="geo.placename" content="Dubai">
 <meta name="theme-color" content="#0a1424">
@@ -693,17 +708,28 @@ def build():
         os.makedirs(os.path.dirname(out), exist_ok=True)
         open(out, "w", encoding="utf-8").write(html)
     # sitemap + robots
+    import datetime
+    def lastmod(key, ar):
+        f = os.path.join(SRC, "ar" if ar else "", key + ".html")
+        return datetime.date.fromtimestamp(os.path.getmtime(f)).isoformat() if os.path.exists(f) else "2026-11-16"
+    def images(key, ar):
+        f = os.path.join(SRC, "ar" if ar else "", key + ".html")
+        if not os.path.exists(f): return ""
+        srcs = []
+        for m in re.findall(r'<img src="(/img/[^"]+\.jpg)"', open(f, encoding="utf-8").read()):
+            if m not in srcs: srcs.append(m)
+        return "".join(f"<image:image><image:loc>{SITE}{m}</image:loc></image:image>" for m in srcs[:12])
     rows = []
     for p in PAGES:
         par = next(x for x in PAGES_AR if x["key"] == p["key"])
-        for loc, pri in ((p["path"], "1.0" if p["key"] == "home" else "0.8"), (par["path"], "0.9" if p["key"] == "home" else "0.7")):
+        for loc, pri, isar in ((p["path"], "1.0" if p["key"] == "home" else "0.8", False), (par["path"], "0.9" if p["key"] == "home" else "0.7", True)):
             rows.append(
-                f"  <url><loc>{SITE}{loc}</loc><lastmod>2026-11-15</lastmod><priority>{pri}</priority>"
+                f"  <url><loc>{SITE}{loc}</loc><lastmod>{lastmod(p['key'], isar)}</lastmod><priority>{pri}</priority>"
                 f'<xhtml:link rel="alternate" hreflang="en" href="{SITE}{p["path"]}"/>'
                 f'<xhtml:link rel="alternate" hreflang="ar" href="{SITE}{par["path"]}"/>'
-                f'<xhtml:link rel="alternate" hreflang="x-default" href="{SITE}{p["path"]}"/></url>')
+                f'<xhtml:link rel="alternate" hreflang="x-default" href="{SITE}{p["path"]}"/>{images(p["key"], isar)}</url>')
     open(os.path.join(ROOT, "sitemap.xml"), "w", encoding="utf-8").write(
-        '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">\n'
+        '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">\n'
         + "\n".join(rows) + "\n</urlset>\n")
     open(os.path.join(ROOT, "robots.txt"), "w").write("".join(f"User-agent: {b}\nDisallow: /library/\nAllow: /\n\n" for b in ["*", "GPTBot", "OAI-SearchBot", "ChatGPT-User", "ClaudeBot", "Claude-SearchBot", "PerplexityBot", "Google-Extended", "Bingbot", "Applebot-Extended", "CCBot"]) + f"Sitemap: {SITE}/sitemap.xml\n")
     print("built", [p["path"] for p in PAGES + PAGES_AR] + ["/404.html", "/sitemap.xml", "/robots.txt"])
