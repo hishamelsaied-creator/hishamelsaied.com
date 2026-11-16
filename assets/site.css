@@ -443,6 +443,28 @@ html[dir="ltr"] .lg { font-weight: 500; }
 .ty-steps li::before { content: counter(t); position: absolute; inset-inline-start: 0; top: -2px; width: 38px; height: 38px; border: 1px solid var(--gold); border-radius: 50%; display: grid; place-items: center; color: var(--gold); font-family: var(--display); font-size: 1.1rem; }
 [dir="rtl"] .ty-steps li::before { content: counter(t, arabic-indic); }
 
+/* Testimonials with video */
+.x-voices .wrap { max-width: 1120px; }
+.x-vgrid { display: grid; grid-template-columns: 300px 1fr; gap: 64px; align-items: center; margin-top: 30px; text-align: start; }
+.x-video { margin: 0; }
+.x-video video { display: block; width: 100%; height: auto; aspect-ratio: 480 / 784; object-fit: cover; background: #0f1d33; border: 1px solid var(--navy-line); border-radius: 4px; }
+.x-video figcaption { margin-top: 12px; font-size: .92rem; color: var(--mist); }
+.x-video figcaption b { color: var(--ivory); font-weight: 600; }
+.x-vquotes .x-quotes { margin-top: 0; }
+.x-vquotes .x-q { align-items: flex-start; gap: 22px; }
+.x-vquotes .x-q blockquote { font-size: clamp(1.2rem, 1.9vw, 1.6rem); }
+[dir="rtl"] .x-vquotes .x-q blockquote { font-size: clamp(1.15rem, 1.7vw, 1.45rem); }
+.x-vquotes .x-q figcaption { display: flex; align-items: center; gap: 14px; text-align: start; }
+.x-av { width: 56px; height: 56px; border-radius: 50%; object-fit: cover; border: 1px solid var(--gold); flex: none; }
+.x-who { display: block; }
+.x-vquotes .x-dots { justify-content: flex-start; }
+@media (max-width: 860px) {
+  .x-vgrid { grid-template-columns: 1fr; gap: 40px; }
+  .x-video { max-width: 300px; margin: 0 auto; }
+}
+.x-q figcaption .x-who { display: block; margin: 0; font-size: 1rem; font-weight: 600; color: var(--ivory); }
+.x-q figcaption .x-who span { display: block; margin-top: 2px; font-weight: 400; font-size: .92rem; color: var(--gold); }
+
 .foot-note { margin-top: 10px; max-width: 46ch; font-size: 0.92rem; color: var(--mist); }
 
 /* Language switch link */
