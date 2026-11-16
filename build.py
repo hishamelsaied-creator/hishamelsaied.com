@@ -367,6 +367,8 @@ def header(page, ar=False):
         cur = ' aria-current="page"' if p["key"] == page["key"] else ""
         short = {"speaking": "المحاضرات" if ar else "Speaking", "organisations": "للمؤسسات" if ar else "Organisations"}.get(key, p["nav"])
         links.append(f'      <a href="{p["path"]}"{cur}>{short}</a>')
+    ask = ('      <a class="nav-ai" href="/ar/#ask-hisham"><b>اسأل هشام</b><small>كوتش ذكي · قريباً</small></a>' if ar
+           else '      <a class="nav-ai" href="/#ask-hisham"><b>Ask Hisham</b><small>AI coach · soon</small></a>')
     switch = (f'      <a class="lang" href="{counterpart(page, ar)}" hreflang="en" lang="en">English</a>' if ar
               else f'      <a class="lang" href="{counterpart(page, ar)}" hreflang="ar" lang="ar">العربية</a>')
     brand = ('<b>هشام السعيد</b><span>FCIPD &nbsp;·&nbsp; ICF PCC</span>' if ar
@@ -380,6 +382,7 @@ def header(page, ar=False):
     <button class="menu-toggle" id="menu-toggle" type="button" aria-expanded="false" aria-controls="nav">{menu}</button>
     <nav class="nav" id="nav" aria-label="{'القائمة الرئيسية' if ar else 'Main'}">
 {chr(10).join(links)}
+{ask}
 {switch}
       <a class="li" href="https://www.linkedin.com/in/hishamelsaied/" target="_blank" rel="noopener" aria-label="LinkedIn"><svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9h4v12H3zM9 9h3.8v1.7h.1c.5-1 1.8-2 3.7-2 4 0 4.7 2.6 4.7 6V21h-4v-5.5c0-1.3 0-3-1.8-3s-2.1 1.4-2.1 2.9V21H9z"/></svg></a>
       <a class="btn" href="https://app.cronofy.com/add_to_calendar/scheduling/ZOT6eIZc" target="_blank" rel="noopener">{enquire}</a>
