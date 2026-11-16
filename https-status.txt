@@ -6,3 +6,21 @@ notAfter=Dec 29 23:44:45 2026 GMT
 000
 == www
 000 
+== http
+200 
+== https error
+how to fix it, please visit the webpage mentioned above.
+== NS
+nsc1.squarespacedns.com.
+nsc2.squarespacedns.com.
+nsc3.squarespacedns.com.
+nsc4.squarespacedns.com.
+== A
+185.199.109.153
+185.199.108.153
+185.199.110.153
+185.199.111.153
+== AAAA
+== CAA
+== www CNAME
+hishamelsaied-creator.github.io.
