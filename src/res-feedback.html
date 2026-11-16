@@ -1,0 +1,29 @@
+  <section class="dark hero" style="padding-bottom:72px">
+    <div class="wrap stack">
+      <span class="label"><a href="/resources/">Resources</a> &nbsp;·&nbsp; Tool</span>
+      <h1>Feedback conversation builder</h1>
+      <p class="lead">Write down what happened, and it turns your notes into a clear, respectful way to say it. Nothing you type leaves this page.</p>
+    </div>
+  </section>
+  <section class="light">
+    <div class="wrap rs-tool">
+      <form id="fb" class="pl" onsubmit="return false">
+        <fieldset class="pk-q fb-type"><legend>What kind of feedback is it?</legend>
+          <label class="pk-opt"><input type="radio" name="kind" value="dev" checked><span>Something I'd like to change</span></label>
+          <label class="pk-opt"><input type="radio" name="kind" value="pos"><span>Something I'd like them to keep doing</span></label>
+        </fieldset>
+        <div class="pl-phase">
+          <div class="field"><label for="fb-name">Their first name</label><input id="fb-name" name="name"></div>
+          <div class="field"><label for="fb-sit">The situation</label><small>When and where did it happen?</small><textarea id="fb-sit" name="sit" rows="2" placeholder="In Tuesday's meeting with the finance team"></textarea></div>
+          <div class="field"><label for="fb-beh">What they did</label><small>What you saw or heard. Facts, not labels.</small><textarea id="fb-beh" name="beh" rows="2" placeholder="you presented the numbers before checking them with me"></textarea></div>
+          <p class="fb-warn" id="fb-warn" hidden></p>
+          <div class="field"><label for="fb-imp">The impact</label><small>What it meant for the work, the team or customers.</small><textarea id="fb-imp" name="imp" rows="2" placeholder="the CFO questioned two figures and we lost some credibility"></textarea></div>
+          <div class="fb-dev"><div class="field"><label for="fb-ask">What you'd like instead</label><small>One clear, specific request.</small><textarea id="fb-ask" name="ask" rows="2" placeholder="share the figures with me a day before any senior meeting"></textarea></div></div>
+        </div>
+        <div><button class="btn x-dark" type="button" id="fb-go">Build my conversation</button></div>
+      </form>
+      <div id="fb-out" class="pk-result" hidden aria-live="polite"></div>
+      <p class="pk-small">Need to plan a harder conversation? The <a href="/resources/#library">difficult conversation sheet</a> is in the free library.</p>
+    </div>
+  </section>
+  <script src="/assets/resources.js?v=__V__" defer></script>

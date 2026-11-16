@@ -133,6 +133,16 @@ PAGES = [
         "desc": "A free planner for your first three months in a new leadership role: who to meet, early wins and what success looks like. Save it as a PDF.",
     },
     {
+        "key": "res-feedback", "path": "/resources/feedback-builder/", "nav": "Feedback conversation builder",
+        "title": "Feedback Conversation Builder for Managers (Free Tool)",
+        "desc": "A free tool that turns your notes into a clear, respectful feedback conversation, for praise or for something you'd like to change. In English and Arabic.",
+    },
+    {
+        "key": "res-transition", "path": "/resources/leadership-transition-check/", "nav": "Leadership transition check",
+        "title": "Leadership Transition Check: 10 Questions for New Leaders",
+        "desc": "Ten questions for anyone in their first months as a director, head of function or GM. See where you're on track and where to focus next. Free.",
+    },
+    {
         "key": "contact", "path": "/contact/", "nav": "Contact",
         "title": "Contact Hisham Elsaied | Executive Coaching and Speaking, Dubai",
         "desc": "Enquire about executive coaching, keynotes or workshops. Based in Dubai, working across the UAE and the GCC in Arabic and English.",
@@ -249,6 +259,16 @@ PAGES_AR = [
         "key": "res-planner", "path": "/ar/resources/90-day-planner/", "nav": "مخطط أول ٩٠ يوماً",
         "title": "مخطط أول ٩٠ يوماً للقادة الجدد (أداة مجانية)",
         "desc": "مخطط مجاني لأشهرك الثلاثة الأولى في دور قيادي جديد: من تقابل، والنجاحات المبكرة، وكيف يبدو النجاح. احفظه كملف PDF.",
+    },
+    {
+        "key": "res-feedback", "path": "/ar/resources/feedback-builder/", "nav": "أداة صياغة محادثة الملاحظات",
+        "title": "أداة صياغة محادثة الملاحظات للمديرين (مجانية)",
+        "desc": "أداة مجانية تحوّل ملاحظاتك إلى محادثة واضحة ومحترمة، سواء للثناء أو لأمر تريد أن يتغيّر. بالعربية والإنجليزية.",
+    },
+    {
+        "key": "res-transition", "path": "/ar/resources/leadership-transition-check/", "nav": "مراجعة الانتقال إلى دور قيادي",
+        "title": "مراجعة الانتقال إلى دور قيادي: ١٠ أسئلة للقادة الجدد",
+        "desc": "عشرة أسئلة لكل من في أشهره الأولى كمدير أو رئيس إدارة أو مدير عام. اعرف أين تسير على المسار الصحيح وأين تركّز. والأداة مجانية.",
     },
     {
         "key": "contact", "path": "/ar/contact/", "nav": "تواصل معي",

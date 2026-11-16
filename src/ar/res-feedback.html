@@ -1,0 +1,29 @@
+  <section class="dark hero" style="padding-bottom:72px">
+    <div class="wrap stack">
+      <span class="label"><a href="/ar/resources/">المصادر</a> &nbsp;·&nbsp; أداة</span>
+      <h1>أداة صياغة محادثة الملاحظات</h1>
+      <p class="lead">اكتب ما حدث، وستحوّل الأداة ملاحظاتك إلى صياغة واضحة ومحترمة. ما تكتبه يبقى في هذه الصفحة ولا يُرسل إلى أي جهة.</p>
+    </div>
+  </section>
+  <section class="light">
+    <div class="wrap rs-tool">
+      <form id="fb" class="pl" onsubmit="return false">
+        <fieldset class="pk-q fb-type"><legend>ما نوع الملاحظات؟</legend>
+          <label class="pk-opt"><input type="radio" name="kind" value="dev" checked><span>أمر أريد أن يتغيّر</span></label>
+          <label class="pk-opt"><input type="radio" name="kind" value="pos"><span>أمر أريده أن يستمر</span></label>
+        </fieldset>
+        <div class="pl-phase">
+          <div class="field"><label for="fb-name">الاسم الأول</label><input id="fb-name" name="name"></div>
+          <div class="field"><label for="fb-sit">الموقف</label><small>متى وأين حدث ذلك؟</small><textarea id="fb-sit" name="sit" rows="2" placeholder="في اجتماع الثلاثاء مع فريق المالية"></textarea></div>
+          <div class="field"><label for="fb-beh">التصرف الذي لاحظته</label><small>ما رأيته أو سمعته. وقائع، لا أوصاف.</small><textarea id="fb-beh" name="beh" rows="2" placeholder="عرضت الأرقام قبل أن تراجعها معي"></textarea></div>
+          <p class="fb-warn" id="fb-warn" hidden></p>
+          <div class="field"><label for="fb-imp">الأثر</label><small>كيف أثّر ذلك في العمل أو الفريق أو العملاء؟</small><textarea id="fb-imp" name="imp" rows="2" placeholder="شكّك المدير المالي في رقمين وخسرنا بعض المصداقية"></textarea></div>
+          <div class="fb-dev"><div class="field"><label for="fb-ask">ما الذي تريده بدلاً من ذلك</label><small>طلب واحد واضح ومحدد، يبدأ بـ«أن».</small><textarea id="fb-ask" name="ask" rows="2" placeholder="أن ترسل لي الأرقام قبل أي اجتماع مع الإدارة العليا بيوم"></textarea></div></div>
+        </div>
+        <div><button class="btn x-dark" type="button" id="fb-go">ابنِ المحادثة</button></div>
+      </form>
+      <div id="fb-out" class="pk-result" hidden aria-live="polite"></div>
+      <p class="pk-small">تحتاج إلى التخطيط لمحادثة أصعب؟ <a href="/ar/resources/#library">ورقة الاستعداد لمحادثة صعبة</a> متاحة في المكتبة المجانية.</p>
+    </div>
+  </section>
+  <script src="/assets/resources.js?v=__V__" defer></script>
