@@ -13,7 +13,7 @@ ROOT = os.path.dirname(os.path.abspath(__file__))
 SRC = os.path.join(ROOT, "src")
 SITE = "https://hishamelsaied.com"
 import hashlib as _h
-UPDATED = _h.md5(b"".join(open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "src", f), "rb").read() for f in ("site.css", "rtl.css", "site.js", "selfcheck.js"))).hexdigest()[:10]
+UPDATED = _h.md5(b"".join(open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "src", f), "rb").read() for f in ("site.css", "rtl.css", "site.js", "selfcheck.js", "resources.js"))).hexdigest()[:10]
 
 PERSON_ID = SITE + "/#person"
 BUSINESS_ID = SITE + "/#business"
@@ -118,6 +118,21 @@ PAGES = [
         "desc": "The common mistakes leaders make in their first general manager or enterprise role, why they happen, and what helps, from an executive coach in Dubai.",
     },
     {
+        "key": "resources", "path": "/resources/", "nav": "Resources",
+        "title": "Free Tools, Templates and Guides for Leaders and HR | Hisham Elsaied",
+        "desc": "Free tools, templates and guides for HR leaders and senior leaders in the Gulf, in English and Arabic: planners, checklists, coaching questions and more.",
+    },
+    {
+        "key": "res-picker", "path": "/resources/which-support/", "nav": "Coaching, mentoring or training?",
+        "title": "Coaching, Mentoring or Training? A Free 2-Minute Tool",
+        "desc": "Six questions to work out whether you, or a leader in your team, needs coaching, mentoring or training, with clear next steps.",
+    },
+    {
+        "key": "res-planner", "path": "/resources/90-day-planner/", "nav": "First 90 days planner",
+        "title": "First 90 Days Planner for New Leaders (Free Tool)",
+        "desc": "A free planner for your first three months in a new leadership role: who to meet, early wins and what success looks like. Save it as a PDF.",
+    },
+    {
         "key": "contact", "path": "/contact/", "nav": "Contact",
         "title": "Contact Hisham Elsaied | Executive Coaching and Speaking, Dubai",
         "desc": "Enquire about executive coaching, keynotes or workshops. Based in Dubai, working across the UAE and the GCC in Arabic and English.",
@@ -219,6 +234,21 @@ PAGES_AR = [
         "key": "art-first-gm", "path": "/ar/insights/first-time-general-manager-mistakes/", "nav": "مدير عام لأول مرة: الأخطاء الأكثر شيوعاً",
         "title": "مدير عام لأول مرة: الأخطاء التي أراها أكثر من غيرها",
         "desc": "الأخطاء الشائعة التي يقع فيها القادة في أول منصب مدير عام أو منصب تنفيذي يدير الشركة كلها، ولماذا تحدث، وما الذي يساعد، من كوتش تنفيذي في دبي.",
+    },
+    {
+        "key": "resources", "path": "/ar/resources/", "nav": "المصادر",
+        "title": "أدوات ونماذج وأدلة مجانية للقادة والموارد البشرية | هشام السعيد",
+        "desc": "أدوات ونماذج وأدلة مجانية لقادة الموارد البشرية وكبار القادة في الخليج بالعربية والإنجليزية: مخططات وقوائم تحقق وأسئلة كوتشينج وغيرها.",
+    },
+    {
+        "key": "res-picker", "path": "/ar/resources/which-support/", "nav": "كوتشينج أم إرشاد أم تدريب؟",
+        "title": "كوتشينج أم إرشاد أم تدريب؟ أداة مجانية في دقيقتين",
+        "desc": "ستة أسئلة لتعرف هل تحتاج أنت أو أحد القادة في فريقك إلى الكوتشينج أم الإرشاد أم التدريب، مع خطوات واضحة.",
+    },
+    {
+        "key": "res-planner", "path": "/ar/resources/90-day-planner/", "nav": "مخطط أول ٩٠ يوماً",
+        "title": "مخطط أول ٩٠ يوماً للقادة الجدد (أداة مجانية)",
+        "desc": "مخطط مجاني لأشهرك الثلاثة الأولى في دور قيادي جديد: من تقابل، والنجاحات المبكرة، وكيف يبدو النجاح. احفظه كملف PDF.",
     },
     {
         "key": "contact", "path": "/ar/contact/", "nav": "تواصل معي",
@@ -424,7 +454,7 @@ def counterpart(page, ar):
 def header(page, ar=False):
     pages = PAGES_AR if ar else PAGES
     base = "/ar" if ar else ""
-    order = ["coaching", "organisations", "speaking", "insights", "about", "contact"]
+    order = ["coaching", "organisations", "speaking", "insights", "resources", "about", "contact"]
     links = []
     for key in order:
         p = next(x for x in pages if x["key"] == key)
@@ -470,6 +500,7 @@ FOOTER = """<footer class="site-footer">
       <a href="/books/">Books</a>
       <a href="/coaching-for-organisations/">For organisations</a>
       <a href="/insights/">Insights</a>
+      <a href="/resources/">Free resources</a>
       <a href="/arabic-speaking-executive-coach-uae/">Arabic-speaking coach</a>
       <a href="/hr-self-check/">HR self-check</a>
       <a href="/contact/">Contact</a>
@@ -494,6 +525,7 @@ FOOTER_AR = """<footer class="site-footer">
       <a href="/ar/books/">الكتب</a>
       <a href="/ar/coaching-for-organisations/">للمؤسسات</a>
       <a href="/ar/insights/">مقالات</a>
+      <a href="/ar/resources/">مصادر مجانية</a>
       <a href="/ar/arabic-speaking-executive-coach-uae/">كوتش تنفيذي عربي</a>
       <a href="/ar/hr-self-check/">تقييم ذاتي</a>
       <a href="/ar/contact/">تواصل معي</a>
@@ -569,6 +601,7 @@ def build():
     open(os.path.join(ROOT, "assets", "site.css"), "w", encoding="utf-8").write(css)
     shutil.copy(os.path.join(SRC, "site.js"), os.path.join(ROOT, "assets", "site.js"))
     shutil.copy(os.path.join(SRC, "selfcheck.js"), os.path.join(ROOT, "assets", "selfcheck.js"))
+    shutil.copy(os.path.join(SRC, "resources.js"), os.path.join(ROOT, "assets", "resources.js"))
     for ar, pages in ((False, PAGES), (True, PAGES_AR)):
         for page in pages:
             src = os.path.join(SRC, "ar" if ar else "", page["key"] + ".html")
@@ -651,7 +684,7 @@ def build():
     open(os.path.join(ROOT, "sitemap.xml"), "w", encoding="utf-8").write(
         '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">\n'
         + "\n".join(rows) + "\n</urlset>\n")
-    open(os.path.join(ROOT, "robots.txt"), "w").write("".join(f"User-agent: {b}\nAllow: /\n\n" for b in ["*", "GPTBot", "OAI-SearchBot", "ChatGPT-User", "ClaudeBot", "Claude-SearchBot", "PerplexityBot", "Google-Extended", "Bingbot", "Applebot-Extended", "CCBot"]) + f"Sitemap: {SITE}/sitemap.xml\n")
+    open(os.path.join(ROOT, "robots.txt"), "w").write("".join(f"User-agent: {b}\nDisallow: /library/\nAllow: /\n\n" for b in ["*", "GPTBot", "OAI-SearchBot", "ChatGPT-User", "ClaudeBot", "Claude-SearchBot", "PerplexityBot", "Google-Extended", "Bingbot", "Applebot-Extended", "CCBot"]) + f"Sitemap: {SITE}/sitemap.xml\n")
     print("built", [p["path"] for p in PAGES + PAGES_AR] + ["/404.html", "/sitemap.xml", "/robots.txt"])
 
 

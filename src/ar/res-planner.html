@@ -1,0 +1,38 @@
+  <section class="dark hero" style="padding-bottom:72px">
+    <div class="wrap stack">
+      <span class="label"><a href="/ar/resources/">المصادر</a> &nbsp;·&nbsp; أداة</span>
+      <h1>مخطط أول ٩٠ يوماً</h1>
+      <p class="lead">خطط لأشهرك الثلاثة الأولى في دور قيادي جديد. ما تكتبه يُحفظ على هذا الجهاز فقط، ويمكنك حفظه كملف PDF.</p>
+    </div>
+  </section>
+  <section class="light">
+    <div class="wrap rs-tool">
+      <form id="planner" class="pl" onsubmit="return false">
+        <div class="pl-top">
+          <div class="field"><label for="p-role">دوري الجديد</label><input id="p-role" name="role"></div>
+          <div class="field"><label for="p-start">تاريخ البدء</label><input id="p-start" name="start" type="date"></div>
+        </div>
+        <div class="pl-phase"><div class="pl-head"><span class="x-tag">الأيام ١ إلى ٣٠</span><h2>استمع وتعلّم</h2><small data-day="30"></small></div>
+          <div class="field"><label>الأشخاص الذين سأقابلهم على انفراد</label><small>مديرك، وكل عضو في الفريق القيادي، وفريقك، والأشخاص المهمون في الإدارات الأخرى.</small><div class="pl-row"><input name="who1" aria-label="الاسم والمنصب 1" placeholder="الاسم والمنصب"><input name="learn1" aria-label="ما أريد أن أعرفه 1" placeholder="ما أريد أن أعرفه منه"></div><div class="pl-row"><input name="who2" aria-label="الاسم والمنصب 2" placeholder="الاسم والمنصب"><input name="learn2" aria-label="ما أريد أن أعرفه 2" placeholder="ما أريد أن أعرفه منه"></div><div class="pl-row"><input name="who3" aria-label="الاسم والمنصب 3" placeholder="الاسم والمنصب"><input name="learn3" aria-label="ما أريد أن أعرفه 3" placeholder="ما أريد أن أعرفه منه"></div><div class="pl-row"><input name="who4" aria-label="الاسم والمنصب 4" placeholder="الاسم والمنصب"><input name="learn4" aria-label="ما أريد أن أعرفه 4" placeholder="ما أريد أن أعرفه منه"></div><div class="pl-row"><input name="who5" aria-label="الاسم والمنصب 5" placeholder="الاسم والمنصب"><input name="learn5" aria-label="ما أريد أن أعرفه 5" placeholder="ما أريد أن أعرفه منه"></div><div class="pl-row"><input name="who6" aria-label="الاسم والمنصب 6" placeholder="الاسم والمنصب"><input name="learn6" aria-label="ما أريد أن أعرفه 6" placeholder="ما أريد أن أعرفه منه"></div></div>
+          <div class="field"><label for="p-decisions">كيف تُتخذ القرارات فعلاً هنا</label><small>بمن يتصل الرئيس التنفيذي قبل أن يقرر؟ ومن صاحب الرأي المسموع؟</small><textarea id="p-decisions" name="decisions" rows="3"></textarea></div>
+          <div class="field"><label for="p-heard">ما الذي أسمعه</label><small>المواضيع التي تتكرر.</small><textarea id="p-heard" name="heard" rows="3"></textarea></div>
+        </div>
+        <div class="pl-phase"><div class="pl-head"><span class="x-tag">الأيام ٣١ إلى ٦٠</span><h2>نجاحات مبكرة</h2><small data-day="60"></small></div>
+          <div class="field"><label for="p-win1">النجاح المبكر الأول</label><small>ما هو، ولماذا يهم المؤسسة، ومن يجب أن يشارك.</small><textarea id="p-win1" name="win1" rows="3"></textarea></div>
+          <div class="field"><label for="p-win2">النجاح المبكر الثاني</label><textarea id="p-win2" name="win2" rows="3"></textarea></div>
+        </div>
+        <div class="pl-phase"><div class="pl-head"><span class="x-tag">الأيام ٦١ إلى ٩٠</span><h2>اتفق وخطط</h2><small data-day="90"></small></div>
+          <div class="field"><label for="p-success">كيف يبدو النجاح بعد ١٢ شهراً، بكلمات مديري</label><small>أمران أو ثلاثة. اتفق عليها مع مديرك، وراجعها كل ثلاثة أشهر.</small><textarea id="p-success" name="success" rows="3"></textarea></div>
+          <div class="field"><label for="p-plan">الخطة الأكبر التي سأقدّمها، بناءً على ما سمعته</label><textarea id="p-plan" name="plan" rows="3"></textarea></div>
+          <div class="field"><label for="p-stop">ما الذي سأتوقف عن فعله</label><textarea id="p-stop" name="stop" rows="2"></textarea></div>
+        </div>
+        <div class="pl-phase pl-traps"><div class="pl-head"><span class="x-tag">انتبه إلى</span><h2>ثلاثة فخاخ شائعة</h2></div>
+          <ul><li>نسخ ما نجح في مؤسستك السابقة دون أن تسأل.</li><li>أن تُحسب مبكراً على طرف واحد وتبدو ناقلاً لرسائله.</li><li>الغرق في العمليات اليومية.</li></ul>
+          <div class="field"><label for="p-risks">ملاحظاتي</label><textarea id="p-risks" name="risks" rows="2"></textarea></div>
+        </div>
+        <div class="pl-acts"><button type="button" class="btn x-dark" id="pl-print">احفظ كملف PDF أو اطبع</button><button type="button" class="btn line-d" id="pl-clear">مسح الكل</button><span id="pl-saved" class="pl-saved" aria-live="polite"></span></div>
+      </form>
+      <p class="pk-small">هل تريد معرفة المنطق وراء هذا المخطط؟ اقرأ <a href="/ar/insights/first-90-days-hr-director-gulf/">أول ٩٠ يوماً لك كمدير موارد بشرية في الخليج</a>.</p>
+    </div>
+  </section>
+  <script src="/assets/resources.js?v=__V__" defer></script>
