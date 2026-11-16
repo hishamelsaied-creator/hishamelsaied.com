@@ -486,3 +486,25 @@ html[dir="ltr"] .lg { font-weight: 500; }
 @media (max-width: 600px) { .x-eb2 { display: none; } }
 @media (max-width: 1000px) { .x-photo { min-height: 340px; } .x-photo img { object-position: 50% 12%; } .x-hero-text { padding-top: 40px; } }
 @media (max-width: 1000px) { .x-photo { order: 0; min-height: 360px; } }
+
+/* Not in HR? strip */
+.x-also { margin-top: 32px; display: grid; grid-template-columns: 1.2fr .8fr; gap: 48px; align-items: center; background: var(--night); color: var(--ivory); padding: 42px 44px; border-top: 3px solid var(--gold); }
+.x-also > * { min-width: 0; }
+.x-also-txt { display: flex; flex-direction: column; gap: 14px; align-items: flex-start; }
+.x-also .n { font-size: .74rem; font-weight: 700; letter-spacing: .2em; text-transform: uppercase; color: var(--gold); }
+[dir="rtl"] .x-also .n { font-size: .88rem; letter-spacing: 0; text-transform: none; }
+.x-also h3 { color: var(--ivory); }
+.x-also p { color: var(--mist); margin: 0; }
+.x-tlink2 { color: var(--ivory); font-weight: 600; text-decoration: underline; text-decoration-color: var(--gold); text-underline-offset: 5px; }
+.x-tlink2:hover { color: var(--gold); }
+.x-also-q { margin: 0; border-inline-start: 2px solid var(--gold); padding-inline-start: 22px; }
+.x-also-q blockquote { margin: 0 0 16px; font-family: var(--display); font-size: 1.25rem; line-height: 1.45; color: var(--ivory); }
+[dir="rtl"] .x-also-q blockquote { font-family: inherit; font-size: 1.15rem; line-height: 1.8; }
+.x-also-q figcaption { display: flex; align-items: center; gap: 14px; font-weight: 600; color: var(--ivory); font-size: .98rem; }
+.x-also-q figcaption small { display: block; font-weight: 400; color: var(--gold); font-size: .88rem; margin-top: 2px; }
+.x-also-note { margin: 8px 0 0; font-size: 1.02rem; color: var(--slate); border-inline-start: 2px solid var(--gold-deep); padding-inline-start: 16px; }
+.x-also-note b { color: var(--night); }
+@media (max-width: 860px) { .x-also { grid-template-columns: minmax(0, 1fr); gap: 32px; padding: 32px 24px; } }
+.x-also-note a { color: var(--night); font-weight: 600; text-decoration: underline; text-decoration-color: var(--gold-deep); text-underline-offset: 4px; }
+@media (max-width: 600px) { .x-also { padding: 28px 20px; } .x-also-q { padding-inline-start: 16px; } }
+.x-also-note { margin: 0; }

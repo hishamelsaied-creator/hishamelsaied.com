@@ -23,7 +23,7 @@ PAGES = [
     {
         "key": "home", "path": "/", "nav": None,
         "title": "Hisham Elsaied | Executive Coach in Dubai for HR Leaders",
-        "desc": "Executive coaching for HR managers and directors in Dubai, the UAE and the GCC, from a former regional HR director. ICF PCC and FCIPD. Arabic and English.",
+        "desc": "Executive coach in Dubai for HR managers and directors, and senior leaders in a new or bigger role. ICF PCC, FCIPD. Arabic and English.",
     },
     {
         "key": "coaching", "path": "/coaching/", "nav": "Coaching",
@@ -96,7 +96,7 @@ PAGES_AR = [
     {
         "key": "home", "path": "/ar/", "nav": None,
         "title": "هشام السعيد | كوتش تنفيذي في دبي لقادة الموارد البشرية",
-        "desc": "كوتشينج تنفيذي لمديري ومديرات الموارد البشرية في دبي والإمارات ودول الخليج، من مدير إقليمي سابق للموارد البشرية. معتمد ICF PCC وFCIPD. بالعربية والإنجليزية.",
+        "desc": "كوتش تنفيذي في دبي لمديري الموارد البشرية ولكبار القادة في أدوار جديدة أو أكبر. معتمد ICF PCC وFCIPD. بالعربية والإنجليزية.",
     },
     {
         "key": "coaching", "path": "/ar/coaching/", "nav": "الكوتشينج",
