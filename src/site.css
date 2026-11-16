@@ -466,3 +466,11 @@ html[dir="ltr"] .lg { font-weight: 500; }
 }
 .x-q figcaption .x-who { display: block; margin: 0; font-size: 1rem; font-weight: 600; color: var(--ivory); }
 .x-q figcaption .x-who span { display: block; margin-top: 2px; font-weight: 400; font-size: .92rem; color: var(--gold); }
+
+.x-hq { margin: 4px 0 0; max-width: 560px; font-size: .95rem; line-height: 1.55; color: var(--mist); border-inline-start: 2px solid var(--gold); padding-inline-start: 14px; }
+.x-hq span { display: block; font-family: var(--display); font-style: italic; font-size: 1.08rem; color: var(--ivory); margin-bottom: 4px; }
+[dir="rtl"] .x-hq span { font-style: normal; }
+.x-hq b { color: var(--gold); font-weight: 600; }
+.x-one .txt p.x-oneq { font-family: var(--display); font-style: italic; font-size: 1.15rem; color: var(--night); border-inline-start: 2px solid var(--gold-deep); padding-inline-start: 14px; }
+[dir="rtl"] .x-one .txt p.x-oneq { font-style: normal; }
+.x-oneq b { display: block; font-family: var(--body); font-style: normal; font-size: .9rem; font-weight: 600; color: var(--gold-deep); margin-top: 4px; }
