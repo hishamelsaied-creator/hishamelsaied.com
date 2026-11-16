@@ -19,6 +19,8 @@ PERSON_ID = SITE + "/#person"
 BUSINESS_ID = SITE + "/#business"
 GCC = ["United Arab Emirates", "Saudi Arabia", "Oman", "Kuwait", "Qatar", "Bahrain"]
 
+ART_DATES = {"art-first-90-days": "2026-11-16", "art-coaching-mentoring": "2026-11-16", "art-future-of-work": "2026-11-16", "art-ai-coaching": "2026-11-16", "art-ceo-ai": "2026-11-16", "art-first-gm": "2026-11-16"}
+
 PAGES = [
     {
         "key": "home", "path": "/", "nav": None,
@@ -84,6 +86,36 @@ PAGES = [
         "key": "art-ai-leaders", "path": "/insights/ai-and-leadership-gulf/", "nav": "What AI changes for leaders in the Gulf, and what it doesn't",
         "title": "What AI Changes for Leaders in the Gulf, and What It Doesn't",
         "desc": "AI is changing work fastest in the Gulf. What leaders bring to coaching now, and the parts of leadership a machine can't carry.",
+    },
+    {
+        "key": "art-first-90-days", "path": "/insights/first-90-days-hr-director-gulf/", "nav": "Your first 90 days as an HR director in the Gulf",
+        "title": "Your First 90 Days as an HR Director in the Gulf",
+        "desc": "What to do and what to avoid in your first three months as an HR director in the UAE or GCC, from a former regional HR director turned executive coach.",
+    },
+    {
+        "key": "art-coaching-mentoring", "path": "/insights/coaching-mentoring-or-training/", "nav": "Coaching, mentoring or training: which do you need?",
+        "title": "Executive Coaching, Mentoring or Training: Which One Do You Need?",
+        "desc": "The difference between executive coaching, mentoring and training, when each one works, and how to choose for yourself or a leader in your team.",
+    },
+    {
+        "key": "art-future-of-work", "path": "/insights/future-of-work-gcc-hr-leaders/", "nav": "The future of work in the GCC: what changes for HR leaders",
+        "title": "The Future of Work in the GCC: What Changes for HR Leaders by 2030",
+        "desc": "What the research says about jobs, skills and AI in the Gulf to 2030, and what it means for HR leaders in the UAE and the GCC in practice.",
+    },
+    {
+        "key": "art-ai-coaching", "path": "/insights/will-ai-replace-human-coaches/", "nav": "Will AI coaching replace human coaches?",
+        "title": "Will AI Coaching Replace Human Coaches? An Honest Answer from a Coach",
+        "desc": "What the research says about AI coaching versus human coaching, where AI helps, where it falls short, and what that means if you are choosing a coach.",
+    },
+    {
+        "key": "art-ceo-ai", "path": "/insights/leading-when-the-ceo-wants-ai-results/", "nav": "Leading people when the CEO wants AI results yesterday",
+        "title": "Leading People When the CEO Wants AI Results Yesterday",
+        "desc": "How leaders and HR can handle pressure for fast AI results without losing their people: what research says about AI returns, and a practical way through.",
+    },
+    {
+        "key": "art-first-gm", "path": "/insights/first-time-general-manager-mistakes/", "nav": "First-time general manager: the mistakes I see most",
+        "title": "First-Time General Manager: The Mistakes I See Most",
+        "desc": "The common mistakes leaders make in their first general manager or enterprise role, why they happen, and what helps, from an executive coach in Dubai.",
     },
     {
         "key": "contact", "path": "/contact/", "nav": "Contact",
@@ -157,6 +189,36 @@ PAGES_AR = [
         "key": "art-ai-leaders", "path": "/ar/insights/ai-and-leadership-gulf/", "nav": "ما الذي يغيّره الذكاء الاصطناعي للقادة في الخليج",
         "title": "ما الذي يغيّره الذكاء الاصطناعي للقادة في الخليج",
         "desc": "الذكاء الاصطناعي يغيّر العمل في الخليج بسرعة. ما الذي يحمله القادة إلى الكوتشينج اليوم، وما الذي لا تستطيع الآلة حمله.",
+    },
+    {
+        "key": "art-first-90-days", "path": "/ar/insights/first-90-days-hr-director-gulf/", "nav": "أول ٩٠ يوماً لك كمدير موارد بشرية في الخليج",
+        "title": "أول ٩٠ يوماً لك كمدير موارد بشرية في الخليج",
+        "desc": "ما الذي تفعله وما الذي تتجنبه في أشهرك الثلاثة الأولى كمدير موارد بشرية في الإمارات أو الخليج، من مدير موارد بشرية إقليمي سابق أصبح كوتشاً تنفيذياً.",
+    },
+    {
+        "key": "art-coaching-mentoring", "path": "/ar/insights/coaching-mentoring-or-training/", "nav": "الكوتشينج أم الإرشاد أم التدريب؟",
+        "title": "الكوتشينج التنفيذي أم الإرشاد أم التدريب: أيها تحتاج فعلاً؟",
+        "desc": "الفرق بين الكوتشينج التنفيذي والإرشاد (المنتورينج) والتدريب، ومتى ينفع كل منها، وكيف تختار لنفسك أو لقائد في مؤسستك في الخليج.",
+    },
+    {
+        "key": "art-future-of-work", "path": "/ar/insights/future-of-work-gcc-hr-leaders/", "nav": "مستقبل العمل في الخليج: ما الذي يتغير لقادة الموارد البشرية",
+        "title": "مستقبل العمل في الخليج: ما الذي يتغير لقادة الموارد البشرية بحلول ٢٠٣٠",
+        "desc": "ماذا تقول الأبحاث عن الوظائف والمهارات والذكاء الاصطناعي في الخليج حتى ٢٠٣٠، وماذا يعني ذلك عملياً لقادة الموارد البشرية في الإمارات ودول الخليج.",
+    },
+    {
+        "key": "art-ai-coaching", "path": "/ar/insights/will-ai-replace-human-coaches/", "nav": "هل يحل الكوتش الآلي محل الكوتش البشري؟",
+        "title": "هل سيحل الكوتشينج بالذكاء الاصطناعي محل الكوتش البشري؟ إجابة صريحة من كوتش",
+        "desc": "ماذا تقول الأبحاث عن الكوتشينج بالذكاء الاصطناعي مقارنة بالكوتش البشري، وأين يفيد وأين يقصر، وماذا يعني ذلك إذا كنت تختار كوتشاً.",
+    },
+    {
+        "key": "art-ceo-ai", "path": "/ar/insights/leading-when-the-ceo-wants-ai-results/", "nav": "قيادة الناس حين يريد الرئيس التنفيذي نتائج الذكاء الاصطناعي فوراً",
+        "title": "قيادة الناس حين يريد الرئيس التنفيذي نتائج الذكاء الاصطناعي فوراً",
+        "desc": "كيف يتعامل القادة والموارد البشرية مع الضغط لتحقيق نتائج سريعة من الذكاء الاصطناعي دون خسارة فرقهم: ماذا تقول الأبحاث عن العائد، وطريقة عملية للتعامل معه.",
+    },
+    {
+        "key": "art-first-gm", "path": "/ar/insights/first-time-general-manager-mistakes/", "nav": "مدير عام لأول مرة: الأخطاء الأكثر شيوعاً",
+        "title": "مدير عام لأول مرة: الأخطاء التي أراها أكثر من غيرها",
+        "desc": "الأخطاء الشائعة التي يقع فيها القادة في أول منصب مدير عام أو منصب تنفيذي يدير الشركة كلها، ولماذا تحدث، وما الذي يساعد، من كوتش تنفيذي في دبي.",
     },
     {
         "key": "contact", "path": "/ar/contact/", "nav": "تواصل معي",
@@ -329,7 +391,7 @@ def graph(page, ar=False):
                              page["path"], "Leadership and HR speaking and workshops"))
     if k.startswith("art-"):
         g.append({"@type": "Article", "headline": page["title"], "description": page["desc"], "inLanguage": "ar" if ar else "en",
-                  "author": {"@id": PERSON_ID}, "publisher": {"@id": PERSON_ID}, "datePublished": "2026-11-15",
+                  "author": {"@id": PERSON_ID}, "publisher": {"@id": PERSON_ID}, "datePublished": ART_DATES.get(k, "2026-11-15"),
                   "image": SITE + "/img/og-image.jpg", "mainEntityOfPage": SITE + page["path"]})
     if k in ("home", "books"):
         for name, sub_, img, about in BOOKS:
