@@ -1,15 +1,14 @@
 == cert
-subject=CN=*.github.io
-notBefore=Sep 30 23:44:46 2026 GMT
-notAfter=Dec 29 23:44:45 2026 GMT
+subject=CN=hishamelsaied.com
+notBefore=Nov 16 06:09:30 2026 GMT
+notAfter=Feb 14 06:09:29 2027 GMT
 == https
-000
+200
 == www
-000 
+301 https://hishamelsaied.com/
 == http
 200 
 == https error
-how to fix it, please visit the webpage mentioned above.
 == NS
 nsc1.squarespacedns.com.
 nsc2.squarespacedns.com.
@@ -17,9 +16,9 @@ nsc3.squarespacedns.com.
 nsc4.squarespacedns.com.
 == A
 185.199.109.153
-185.199.108.153
-185.199.110.153
 185.199.111.153
+185.199.110.153
+185.199.108.153
 == AAAA
 == CAA
 == www CNAME
