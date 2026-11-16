@@ -11,7 +11,7 @@ import shutil
 
 ROOT = os.path.dirname(os.path.abspath(__file__))
 SRC = os.path.join(ROOT, "src")
-SITE = "http://hishamelsaied.com"  # back to https once GitHub issues the certificate
+SITE = "https://hishamelsaied.com"
 import hashlib as _h
 UPDATED = _h.md5(b"".join(open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "src", f), "rb").read() for f in ("site.css", "rtl.css", "site.js", "selfcheck.js"))).hexdigest()[:10]
 

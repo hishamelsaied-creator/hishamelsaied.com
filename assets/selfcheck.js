@@ -3,7 +3,7 @@
   if (!root) return;
   var AR = document.documentElement.lang === "ar";
   var BOOK = "https://app.cronofy.com/add_to_calendar/scheduling/ZOT6eIZc";
-  var BASE = location.hostname === "hishamelsaied.com" ? location.origin : "http://hishamelsaied.com";
+  var BASE = location.hostname === "hishamelsaied.com" ? location.origin : "https://hishamelsaied.com";
   var num = function (x) { return AR ? String(x).replace(/\d/g, function (d) { return "٠١٢٣٤٥٦٧٨٩"[d]; }) : String(x); };
   var esc = function (s) { return String(s).replace(/[&<>"]/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]; }); };
   var enc = function (s) { try { return btoa(unescape(encodeURIComponent(s))).replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/, ""); } catch (e) { return ""; } };
