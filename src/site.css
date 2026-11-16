@@ -9,7 +9,7 @@
   --ivory: #f5f0e6;
   --ivory-line: #ddd3c0;
   --gold: #c9ae82;
-  --gold-deep: #8c6f43;
+  --gold-deep: #7a5f36;
   --ink: #17202c;
   --mist: #aab6c6;
   --slate: #566170;
@@ -481,3 +481,8 @@ html[dir="ltr"] .lg { font-weight: 500; }
 .x-vgrid > * { min-width: 0; }
 @media (max-width: 860px) { .x-vgrid { grid-template-columns: minmax(0, 1fr); } }
 .x-q blockquote, .x-who { overflow-wrap: anywhere; }
+
+.x-cta-acts { justify-content: center; align-items: center; margin-top: 8px; }
+@media (max-width: 600px) { .x-eb2 { display: none; } }
+@media (max-width: 1000px) { .x-photo { min-height: 340px; } .x-photo img { object-position: 50% 12%; } .x-hero-text { padding-top: 40px; } }
+@media (max-width: 1000px) { .x-photo { order: 0; min-height: 360px; } }

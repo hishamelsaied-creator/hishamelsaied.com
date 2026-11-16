@@ -48,12 +48,17 @@
     };
     xq.forEach(function (_, n) {
       var b = document.createElement("button");
-      b.type = "button"; b.setAttribute("aria-label", String(n + 1));
+      b.type = "button"; b.setAttribute("aria-label", (AR ? "الشهادة " + (n + 1) + " من " + xq.length : "Testimonial " + (n + 1) + " of " + xq.length));
       if (!n) b.className = "on";
       b.addEventListener("click", function () { clearInterval(xt); xgo(n); });
       xd.appendChild(b);
     });
-    if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) xt = setInterval(function () { xgo((xi + 1) % xq.length); }, 7000);
+    var xstart = function () { clearInterval(xt); if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) xt = setInterval(function () { xgo((xi + 1) % xq.length); }, 10000); };
+    var xbox = xd.parentNode;
+    xbox.addEventListener("mouseenter", function () { clearInterval(xt); });
+    xbox.addEventListener("mouseleave", xstart);
+    xbox.addEventListener("focusin", function () { clearInterval(xt); });
+    xstart();
   }
 
   // Home page photo slideshow
@@ -99,14 +104,14 @@
     });
   }
 
-  // Invitation to the self-check: once per visitor, after 15 seconds
+  // Invitation to the self-check: once per visitor, after 30 seconds or a scroll
   (function () {
-    if (/self-check|contact/.test(location.pathname)) return;
+    if (/self-check|contact|session-booked/.test(location.pathname)) return;
     var seen = false;
     try { seen = !!localStorage.getItem("sc-invite") || !!sessionStorage.getItem("pop-shown"); } catch (e) {}
     if (seen) return;
-    var P = AR ? { l: "تقييم ذاتي مجاني", h: "كيف يرى رئيسك التنفيذي الموارد البشرية؟", p: "١٥ سؤالاً عن مواقف حقيقية في نحو ٣ دقائق. يصلك تقريرك على بريدك الإلكتروني خلال ٣ دقائق.", g: ["المستوى الذي يراك فيه رئيسك التنفيذي على الأرجح", "خطة ٩٠ يوماً لمجالي الأولوية، بصيغة PDF", "خمسة أسئلة تطرحها على رئيسك التنفيذي", "اختياري: قارن رؤيتك برؤيته"], b: "ابدأ التقييم", n: "ليس الآن", x: "إغلاق", u: "/ar/hr-self-check/" }
-      : { l: "Free self-check", h: "How does your CEO see HR?", p: "15 questions about real situations, about 3 minutes. Your report reaches you by email within 3 minutes.", g: ["The level your CEO probably sees you at", "A 90-day plan for your two priority areas, as a PDF", "Five questions to ask your CEO", "Optional: compare your view with your CEO's"], b: "Start the self-check", n: "Not now", x: "Close", u: "/hr-self-check/" };
+    var P = AR ? { l: "تقييم ذاتي مجاني", h: "كيف يرى رئيسك التنفيذي الموارد البشرية؟", p: "١٥ سؤالاً عن مواقف حقيقية في نحو ٣ دقائق. يصلك تقريرك على بريدك الإلكتروني خلال ٣ دقائق.", g: ["درجتك في خمسة مجالات، مع خريطة حرارية لإجاباتك", "خطة ٩٠ يوماً لمجالي الأولوية، بصيغة PDF", "خمسة أسئلة تطرحها على رئيسك التنفيذي", "اختياري: قارن رؤيتك برؤيته"], b: "ابدأ التقييم", n: "ليس الآن", x: "إغلاق", u: "/ar/hr-self-check/" }
+      : { l: "Free self-check", h: "How does your CEO see HR?", p: "15 questions about real situations, about 3 minutes. Your report reaches you by email within 3 minutes.", g: ["Your score in five areas, with a heat map of your answers", "A 90-day plan for your two priority areas, as a PDF", "Five questions to ask your CEO", "Optional: compare your view with your CEO's"], b: "Start the self-check", n: "Not now", x: "Close", u: "/hr-self-check/" };
     var shown = false, show = function () {
       if (shown) return; shown = true;
       window.removeEventListener("scroll", onScroll);
@@ -115,11 +120,17 @@
       var cells = ["#4f8f72","#c9ae82","#b9783c","#c9ae82","#8f3b34","#4f8f72","#b9783c","#4f8f72","#c9ae82"].map(function (c) { return '<i style="background:' + c + '"></i>'; }).join("");
       bg.innerHTML = '<div class="pop" role="dialog" aria-modal="true" aria-label="' + P.h + '"><button type="button" class="pop-x" aria-label="' + P.x + '">&times;</button><span class="label">' + P.l + '</span><h2>' + P.h + '</h2><p>' + P.p + '</p><div class="pop-map" aria-hidden="true">' + cells + '</div><ul>' + P.g.map(function (x) { return "<li>" + x + "</li>"; }).join("") + '</ul><a class="btn" href="' + P.u + '">' + P.b + '</a><button type="button" class="pop-no">' + P.n + '</button></div>';
       document.body.appendChild(bg);
-      var close = function () { bg.parentNode && bg.parentNode.removeChild(bg); };
+      var onKey = function (e) {
+        if (e.key === "Escape") close();
+        if (e.key === "Tab") { var f = bg.querySelectorAll("a, button"), a = f[0], z = f[f.length - 1];
+          if (e.shiftKey && document.activeElement === a) { e.preventDefault(); z.focus(); }
+          else if (!e.shiftKey && document.activeElement === z) { e.preventDefault(); a.focus(); } }
+      };
+      var close = function () { document.removeEventListener("keydown", onKey); bg.parentNode && bg.parentNode.removeChild(bg); };
       bg.querySelector(".pop-x").onclick = close;
       bg.querySelector(".pop-no").onclick = close;
       bg.addEventListener("click", function (e) { if (e.target === bg) close(); });
-      document.addEventListener("keydown", function (e) { if (e.key === "Escape") close(); });
+      document.addEventListener("keydown", onKey);
       try { localStorage.setItem("sc-invite", "1"); sessionStorage.setItem("pop-shown", "1"); } catch (e) {}
       setTimeout(function () { bg.classList.add("in"); bg.querySelector(".btn").focus(); }, 30);
     };
@@ -155,11 +166,17 @@
       bg.className = "pop-bg";
       bg.innerHTML = '<div class="pop pop-split" role="dialog" aria-modal="true" aria-label="' + P.h + '"><button type="button" class="pop-x" aria-label="' + P.x + '">&times;</button><img class="pop-face" src="/img/hisham-closeup.jpg" alt="Hisham Elsaied" width="483" height="724"><div class="pop-body"><span class="label">' + P.l + '</span><h2>' + P.h + '</h2><p>' + P.p + '</p><ul>' + P.g.map(function (x) { return "<li>" + x + "</li>"; }).join("") + '</ul><a class="btn" href="https://buy.stripe.com/3cIfZh2dR7u1g8xfaM6Vq01" rel="noopener">' + P.b + '</a><button type="button" class="pop-no">' + P.n + '</button></div></div>';
       document.body.appendChild(bg);
-      var close = function () { bg.parentNode && bg.parentNode.removeChild(bg); };
+      var onKey = function (e) {
+        if (e.key === "Escape") close();
+        if (e.key === "Tab") { var f = bg.querySelectorAll("a, button"), a = f[0], z = f[f.length - 1];
+          if (e.shiftKey && document.activeElement === a) { e.preventDefault(); z.focus(); }
+          else if (!e.shiftKey && document.activeElement === z) { e.preventDefault(); a.focus(); } }
+      };
+      var close = function () { document.removeEventListener("keydown", onKey); bg.parentNode && bg.parentNode.removeChild(bg); };
       bg.querySelector(".pop-x").onclick = close;
       bg.querySelector(".pop-no").onclick = close;
       bg.addEventListener("click", function (e) { if (e.target === bg) close(); });
-      document.addEventListener("keydown", function (e) { if (e.key === "Escape") close(); });
+      document.addEventListener("keydown", onKey);
       setTimeout(function () { bg.classList.add("in"); bg.querySelector(".btn").focus(); }, 30);
     };
     setTimeout(show, Math.max(5000, 120000 - (Date.now() - start)));

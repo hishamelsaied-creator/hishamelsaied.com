@@ -535,14 +535,14 @@ def build():
     open(os.path.join(ROOT, "404.html"), "w", encoding="utf-8").write(html)
     # Thank-you pages after paying for a single session (noindex, not in the sitemap)
     ty = {
-        False: {"key": "session-booked", "path": "/session-booked/", "nav": None, "title": "Your session is booked | Hisham Elsaied",
+        False: {"key": "session-booked", "path": "/session-booked/", "nav": None, "title": "Payment received | Hisham Elsaied",
                 "desc": "Thank you for booking a single coaching session with Hisham Elsaied.",
                 "body": """  <section class="dark hero" style="padding-bottom:110px">
     <div class="wrap stack-lg" style="max-width:860px">
       <div class="stack">
         <span class="label">Payment received</span>
-        <h1>Thank you. Your session is booked.</h1>
-        <p class="lead">One more step: choose a time that suits you.</p>
+        <h1>Thank you. Your payment is received.</h1>
+        <p class="lead">Now choose a time for your session.</p>
       </div>
       <ol class="ty-steps">
         <li><b>Pick your time.</b> Choose a start time that works for you. I'll keep the full hour for you.<div style="margin-top:16px"><a class="btn" href="CAL" target="_blank" rel="noopener">Choose your time</a></div></li>
@@ -552,14 +552,14 @@ def build():
       <p style="color:var(--mist)">Can't find a time that works? Email <a href="mailto:hisham@hishamelsaied.com">hisham@hishamelsaied.com</a> and I'll sort it out. &nbsp;·&nbsp; <a href="/ar/session-booked/" lang="ar" style="color:var(--gold)">العربية</a></p>
     </div>
   </section>"""},
-        True: {"key": "session-booked", "path": "/ar/session-booked/", "nav": None, "title": "تم حجز جلستك | هشام السعيد",
+        True: {"key": "session-booked", "path": "/ar/session-booked/", "nav": None, "title": "تم استلام الدفع | هشام السعيد",
                "desc": "شكراً لحجز جلسة كوتشينج واحدة مع هشام السعيد.",
                "body": """  <section class="dark hero" style="padding-bottom:110px">
     <div class="wrap stack-lg" style="max-width:860px">
       <div class="stack">
         <span class="label">تم استلام الدفع</span>
-        <h1>شكراً لك. تم حجز جلستك.</h1>
-        <p class="lead">بقيت خطوة واحدة: اختر الوقت الذي يناسبك.</p>
+        <h1>شكراً لك. تم استلام الدفع.</h1>
+        <p class="lead">الآن اختر وقتاً لجلستك.</p>
       </div>
       <ol class="ty-steps">
         <li><b>اختر وقتك.</b> اختر وقت البدء الذي يناسبك، وسأحجز لك الساعة كاملة.<div style="margin-top:16px"><a class="btn" href="CAL" target="_blank" rel="noopener">اختر وقتك</a></div></li>
