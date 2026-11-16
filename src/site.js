@@ -164,7 +164,7 @@
       try { if (!localStorage.getItem("sc-invite") || sessionStorage.getItem("pop-shown")) return; localStorage.setItem("ss-invite", "1"); sessionStorage.setItem("pop-shown", "1"); } catch (e) {}
       var bg = document.createElement("div");
       bg.className = "pop-bg";
-      bg.innerHTML = '<div class="pop pop-split" role="dialog" aria-modal="true" aria-label="' + P.h + '"><button type="button" class="pop-x" aria-label="' + P.x + '">&times;</button><img class="pop-face" src="/img/hisham-closeup.jpg" alt="Hisham Elsaied" width="483" height="724"><div class="pop-body"><span class="label">' + P.l + '</span><h2>' + P.h + '</h2><p>' + P.p + '</p><ul>' + P.g.map(function (x) { return "<li>" + x + "</li>"; }).join("") + '</ul><a class="btn" href="https://buy.stripe.com/3cIfZh2dR7u1g8xfaM6Vq01" rel="noopener">' + P.b + '</a><button type="button" class="pop-no">' + P.n + '</button></div></div>';
+      bg.innerHTML = '<div class="pop pop-split" role="dialog" aria-modal="true" aria-label="' + P.h + '"><button type="button" class="pop-x" aria-label="' + P.x + '">&times;</button><img class="pop-face" src="/img/hisham-closeup.jpg" alt="' + (AR ? "هشام السعيد" : "Hisham Elsaied") + '" width="483" height="724"><div class="pop-body"><span class="label">' + P.l + '</span><h2>' + P.h + '</h2><p>' + P.p + '</p><ul>' + P.g.map(function (x) { return "<li>" + x + "</li>"; }).join("") + '</ul><a class="btn" href="https://buy.stripe.com/3cIfZh2dR7u1g8xfaM6Vq01" rel="noopener">' + P.b + '</a><button type="button" class="pop-no">' + P.n + '</button></div></div>';
       document.body.appendChild(bg);
       var onKey = function (e) {
         if (e.key === "Escape") close();

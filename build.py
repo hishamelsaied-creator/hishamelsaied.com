@@ -39,8 +39,8 @@ PAGES = [
     },
     {
         "key": "speaking", "path": "/speaking/", "nav": "Speaking and workshops",
-        "title": "Leadership and HR Speaker, Keynotes and Workshops | UAE and GCC",
-        "desc": "Keynotes, masterclasses and workshops on leading people, HR capability, and talent and assessment. Bilingual speaker and facilitator based in Dubai.",
+        "title": "Leadership and HR Speaker in the UAE, GCC and Europe",
+        "desc": "Keynotes, masterclasses and workshops on leading people, HR capability and talent. Bilingual speaker based in Dubai, speaking across the GCC and Europe.",
     },
     {
         "key": "media", "path": "/media/", "nav": "Media",
@@ -69,7 +69,7 @@ PAGES = [
     },
     {
         "key": "insights", "path": "/insights/", "nav": "Insights",
-        "title": "Insights on Coaching, Leadership and HR in the Gulf | Hisham Elsaied",
+        "title": "Coaching, Leadership and HR Insights | Hisham Elsaied",
         "desc": "Articles by Hisham Elsaied, ICF PCC executive coach in Dubai, on choosing a coach, coaching in Arabic, and what AI changes for leaders in the Gulf.",
     },
     {
@@ -99,12 +99,12 @@ PAGES = [
     },
     {
         "key": "art-future-of-work", "path": "/insights/future-of-work-gcc-hr-leaders/", "nav": "The future of work in the GCC: what changes for HR leaders",
-        "title": "The Future of Work in the GCC: What Changes for HR Leaders by 2030",
+        "title": "Future of Work in the GCC: What Changes for HR Leaders by 2030",
         "desc": "What the research says about jobs, skills and AI in the Gulf to 2030, and what it means for HR leaders in the UAE and the GCC in practice.",
     },
     {
         "key": "art-ai-coaching", "path": "/insights/will-ai-replace-human-coaches/", "nav": "Will AI coaching replace human coaches?",
-        "title": "Will AI Coaching Replace Human Coaches? An Honest Answer from a Coach",
+        "title": "Will AI Coaching Replace Human Coaches? A Coach's Answer",
         "desc": "What the research says about AI coaching versus human coaching, where AI helps, where it falls short, and what that means if you are choosing a coach.",
     },
     {
@@ -119,7 +119,7 @@ PAGES = [
     },
     {
         "key": "resources", "path": "/resources/", "nav": "Resources",
-        "title": "Free Tools, Templates and Guides for Leaders and HR | Hisham Elsaied",
+        "title": "Free Tools and Templates for Leaders and HR | Hisham Elsaied",
         "desc": "Free tools, templates and guides for HR leaders and senior leaders in the Gulf, in English and Arabic: planners, checklists, coaching questions and more.",
     },
     {
@@ -167,8 +167,8 @@ PAGES_AR = [
     },
     {
         "key": "speaking", "path": "/ar/speaking/", "nav": "المحاضرات وورش العمل",
-        "title": "متحدث ومدرب في القيادة والموارد البشرية | الإمارات والخليج",
-        "desc": "كلمات رئيسية ومحاضرات وورش عمل حول قيادة الأفراد وقدرات الموارد البشرية والمواهب والتقييم. متحدث ومدرب ثنائي اللغة مقيم في دبي.",
+        "title": "متحدث في القيادة والموارد البشرية | الإمارات والخليج وأوروبا",
+        "desc": "كلمات رئيسية ومحاضرات وورش عمل حول قيادة الأفراد وقدرات الموارد البشرية والمواهب والتقييم. متحدث ثنائي اللغة مقيم في دبي، يتحدث في الخليج وأوروبا.",
     },
     {
         "key": "media", "path": "/ar/media/", "nav": "الإعلام",
@@ -227,12 +227,12 @@ PAGES_AR = [
     },
     {
         "key": "art-future-of-work", "path": "/ar/insights/future-of-work-gcc-hr-leaders/", "nav": "مستقبل العمل في الخليج: ما الذي يتغير لقادة الموارد البشرية",
-        "title": "مستقبل العمل في الخليج: ما الذي يتغير لقادة الموارد البشرية بحلول ٢٠٣٠",
+        "title": "مستقبل العمل في الخليج: ما الذي يتغير لقادة الموارد البشرية",
         "desc": "ماذا تقول الأبحاث عن الوظائف والمهارات والذكاء الاصطناعي في الخليج حتى ٢٠٣٠، وماذا يعني ذلك عملياً لقادة الموارد البشرية في الإمارات ودول الخليج.",
     },
     {
         "key": "art-ai-coaching", "path": "/ar/insights/will-ai-replace-human-coaches/", "nav": "هل يحل الكوتش الآلي محل الكوتش البشري؟",
-        "title": "هل سيحل الكوتشينج بالذكاء الاصطناعي محل الكوتش البشري؟ إجابة صريحة من كوتش",
+        "title": "هل سيحل الكوتشينج بالذكاء الاصطناعي محل الكوتش البشري؟",
         "desc": "ماذا تقول الأبحاث عن الكوتشينج بالذكاء الاصطناعي مقارنة بالكوتش البشري، وأين يفيد وأين يقصر، وماذا يعني ذلك إذا كنت تختار كوتشاً.",
     },
     {
@@ -351,7 +351,7 @@ def person(ar=False):
             {"@type": "EducationalOccupationalCredential", "name": n,
              "recognizedBy": {"@type": "Organization", "name": o}} for n, o in creds
         ],
-        "award": ["Recognised among the Top 200 HR Leaders globally", "CIPD award winner", "Top 20 HR Influencers in the UAE 2025 (Favikon)"],
+        "award": ["Top 100 Global Power Leaders in HR, White Page International (2023)", "CIPD award winner", "Top 20 HR Influencers in the UAE 2025 (Favikon)"],
         "sameAs": ["https://www.linkedin.com/in/hishamelsaied/", "https://x.com/hishamelsaied",
                    "https://informaconnect.com/hr-summit-expo/speakers/hisham-elsaied-fcipd/",
                    "https://www.gleac.com/mentors/hisham-elsaied",
@@ -439,6 +439,7 @@ def graph(page, ar=False):
             g.append(service("Keynotes, masterclasses and workshops",
                              "Keynotes, conference masterclasses and half-day or one-day workshops on leading people, HR capability, and talent and assessment, in Arabic or English.",
                              page["path"], "Leadership and HR speaking and workshops"))
+        g[-1]["areaServed"] = g[-1]["areaServed"] + [{"@type": "Country", "name": "France"}]
     if k.startswith("art-"):
         g.append({"@type": "Article", "headline": page["title"], "description": page["desc"], "inLanguage": "ar" if ar else "en",
                   "author": {"@id": PERSON_ID}, "publisher": {"@id": PERSON_ID}, "datePublished": ART_DATES.get(k, "2026-11-15"),
@@ -474,7 +475,7 @@ def counterpart(page, ar):
 def header(page, ar=False):
     pages = PAGES_AR if ar else PAGES
     base = "/ar" if ar else ""
-    order = ["coaching", "organisations", "speaking", "insights", "resources", "about", "contact"]
+    order = ["coaching", "organisations", "speaking", "media", "insights", "resources", "about", "contact"]
     links = []
     for key in order:
         p = next(x for x in pages if x["key"] == key)
