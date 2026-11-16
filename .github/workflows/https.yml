@@ -16,6 +16,10 @@ jobs:
           echo "== cert"; echo | openssl s_client -connect hishamelsaied.com:443 -servername hishamelsaied.com 2>/dev/null | openssl x509 -noout -subject -dates 2>&1
           echo "== https"; curl -sS -o /dev/null -m 20 -w "%{http_code}\n" https://hishamelsaied.com/ 2>&1 | tail -1
           echo "== www"; curl -sS -o /dev/null -m 20 -w "%{http_code} %{redirect_url}\n" https://www.hishamelsaied.com/ 2>&1 | tail -1
+          echo "== http"; curl -sS -o /dev/null -m 20 -w "%{http_code} %{redirect_url}\n" http://hishamelsaied.com/ 2>&1 | tail -1
+          echo "== https error"; curl -sS -o /dev/null -m 20 https://hishamelsaied.com/ 2>&1 | tail -1
+          for t in NS A AAAA CAA; do echo "== $t"; dig +short $t hishamelsaied.com; done
+          echo "== www CNAME"; dig +short CNAME www.hishamelsaied.com
           } > https-status.txt
           cat https-status.txt
           git config user.name "Hisham Elsaied"; git config user.email "hisham@hishamelsaied.com"
