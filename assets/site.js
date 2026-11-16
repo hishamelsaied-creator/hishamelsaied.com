@@ -137,15 +137,17 @@
   // Contact page: enquiry form, delivered by email
   var form = document.getElementById("enquiry-form");
   if (form) {
-    if (/[?&]interest=anytime/.test(location.search)) {
+    if (/[?&]interest=ask-hisham/.test(location.search)) {
       var ft = document.getElementById("f-type");
-      if (ft) ft.value = "Hisham Anytime early access";
+      if (ft) ft.value = "Ask Hisham waiting list";
     }
     var msg = document.getElementById("form-msg");
     var val = function (id) { var el = document.getElementById(id); return el ? el.value.trim() : ""; };
     form.addEventListener("submit", function (e) {
       e.preventDefault();
       var name = val("f-name"), email = val("f-email"), text = val("f-msg");
+      var waitlist = val("f-type") === "Ask Hisham waiting list";
+      if (waitlist && !text) text = "Please tell me when Ask Hisham launches.";
       msg.classList.add("show");
       if (!name || !email || !text) { msg.textContent = T.missing; return; }
       if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) { msg.textContent = T.badEmail; return; }
@@ -157,7 +159,7 @@
         method: "POST",
         headers: { "Content-Type": "application/json", "Accept": "application/json" },
         body: JSON.stringify({
-          _subject: "Website enquiry from " + name,
+          _subject: (waitlist ? "Ask Hisham waiting list: " : "Website enquiry from ") + name,
           _template: "table",
           _captcha: "false",
           Name: name,

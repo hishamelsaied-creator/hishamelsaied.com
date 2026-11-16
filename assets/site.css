@@ -392,7 +392,7 @@ html[dir="ltr"] .stat b, html[dir="ltr"] .steps li::before { font-weight: 400; }
 html[dir="ltr"] .quote blockquote { font-weight: 400; }
 html[dir="ltr"] .lg { font-weight: 500; }
 
-/* Hisham Anytime: coming-soon section */
+/* Ask Hisham: coming-soon section */
 .x-replica { background: radial-gradient(900px 600px at 80% 20%, #16294a 0%, rgba(10, 20, 36, 0) 65%), var(--night); border-top: 1px solid var(--navy-line); }
 .x-replica-grid { display: grid; grid-template-columns: 1.05fr .95fr; gap: 72px; align-items: center; }
 .x-replica .txt { display: flex; flex-direction: column; gap: 22px; align-items: flex-start; }
