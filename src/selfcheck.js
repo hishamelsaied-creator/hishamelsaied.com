@@ -32,7 +32,7 @@
     cmpmsg: "أقوم بتقييم لطريقة عمل الموارد البشرية مع فريق القيادة، وأقدّر رأيك الصريح. ١٥ سؤالاً قصيراً تستغرق نحو ٣ دقائق: ",
     cmpsub: "رأيك في طريقة عمل الموارد البشرية معك",
     pdf: "حمّل التقرير (PDF)", pdfn: "اختر «حفظ بصيغة PDF» في الشاشة التالية.",
-    ctah: "هل تريد الحديث عن نتيجتك؟", ctal: "أرسل لي رسالة وأخبرني بالمجال الذي تريد العمل عليه.", ctab: "تواصل معي", bookb: "احجز مكالمة لمدة ٣٠ دقيقة",
+    ctah: "هل تريد الحديث عن نتيجتك؟", ctal: "أرسل لي رسالة وأخبرني بالمجال الذي تريد العمل عليه.", ctab: "تواصل معي", bookb: "احجز مكالمة مجانية لمدة ٣٠ دقيقة",
     note: "هذا تقييم ذاتي مبني على إجاباتك، وليس اختباراً نفسياً.", again: "أعد التقييم",
     ceoh: "{n} يطلب رأيك", ceoh0: "طُلب رأيك",
     ceolead: "١٥ سؤالاً قصيراً عن طريقة عمل الموارد البشرية معك ومع فريق القيادة. يستغرق نحو ٣ دقائق. أجب بحسب الواقع اليوم، لا بحسب ما ينبغي أن يكون.",
@@ -105,12 +105,12 @@
         "\n\nمجالا الأولوية: " + m.a1 + " و" + m.a2 + ".\nهذا الأسبوع: " + m.wk +
         "\n\nتقريرك الكامل، مع خطة ٩٠ يوماً وخمسة أسئلة تطرحها على رئيسك التنفيذي (يمكنك حفظه بصيغة PDF):\n" + m.link +
         "\n\nهل تريد رأي رئيسك التنفيذي؟ أرسل إليه هذه النسخة القصيرة. حين ينتهي، يصلك تقرير يضع رؤيتيكما جنباً إلى جنب:\n" + m.ceo +
-        "\n\nإذا أردت الحديث عن نتيجتك، احجز مكالمة لمدة ٣٠ دقيقة:\n" + BOOK + "\nأو اكتب لي على hisham@hishamelsaied.com\n\nهشام السعيد\nhishamelsaied.com";
+        "\n\nإذا أردت الحديث عن نتيجتك، احجز مكالمة مجانية لمدة ٣٠ دقيقة:\n" + BOOK + "\nأو اكتب لي على hisham@hishamelsaied.com\n\nهشام السعيد\nhishamelsaied.com";
     },
     mail2: function (m) {
       return "مرحباً " + m.name + "،\n\n" + m.who + " أكمل التقييم الخاص بطريقة عمل الموارد البشرية معه.\n\nرؤيتك: " + m.p1 + " من ١٠٠. رؤيته: " + m.p2 + " من ١٠٠.\n\n" + m.lines +
         "\n\nأين تختلف رؤيتاكما أكثر:\n" + m.gaps + "\n\nالرؤيتان جنباً إلى جنب:\n" + m.link +
-        "\n\nإذا أردت مناقشة الفجوات، احجز مكالمة لمدة ٣٠ دقيقة:\n" + BOOK + "\nأو اكتب لي على hisham@hishamelsaied.com\n\nهشام السعيد\nhishamelsaied.com";
+        "\n\nإذا أردت مناقشة الفجوات، احجز مكالمة مجانية لمدة ٣٠ دقيقة:\n" + BOOK + "\nأو اكتب لي على hisham@hishamelsaied.com\n\nهشام السعيد\nhishamelsaied.com";
     }
   } : {
     path: "/hr-self-check/", contact: "/contact/",
@@ -135,7 +135,7 @@
     cmpmsg: "I'm reviewing how HR works with the leadership team and would value your honest view. It's 15 short questions and takes about 3 minutes: ",
     cmpsub: "Your view on how HR works with you",
     pdf: "Download the report (PDF)", pdfn: "Choose 'Save as PDF' on the next screen.",
-    ctah: "Want to talk through your result?", ctal: "Send me a note and tell me which area you want to work on.", ctab: "Get in touch", bookb: "Book a 30-minute call",
+    ctah: "Want to talk through your result?", ctal: "Send me a note and tell me which area you want to work on.", ctab: "Get in touch", bookb: "Book a free 30-minute call",
     note: "This is a self-check based on your own answers. It is not a psychometric assessment.", again: "Take it again",
     ceoh: "{n} has asked for your view", ceoh0: "You've been asked for your view",
     ceolead: "15 short questions about how HR works with you and the leadership team. It takes about 3 minutes. Answer for how things are today, not how they should be.",
@@ -208,12 +208,12 @@
         "\n\nYour two priority areas: " + m.a1 + " and " + m.a2 + ".\nThis week: " + m.wk +
         "\n\nYour full report, with your 90-day plan and five questions to ask your CEO (you can save it as a PDF):\n" + m.link +
         "\n\nWant your CEO's view? Send them this 2-minute version. When they finish, you'll get both views side by side:\n" + m.ceo +
-        "\n\nIf you'd like to talk through your result, book a 30-minute call:\n" + BOOK + "\nor write to me at hisham@hishamelsaied.com\n\nHisham Elsaied\nhishamelsaied.com";
+        "\n\nIf you'd like to talk through your result, book a free 30-minute call:\n" + BOOK + "\nor write to me at hisham@hishamelsaied.com\n\nHisham Elsaied\nhishamelsaied.com";
     },
     mail2: function (m) {
       return "Hello " + m.name + ",\n\n" + m.who + " has completed the self-check about how HR works with them.\n\nYour view: " + m.p1 + " out of 100. Their view: " + m.p2 + " out of 100.\n\n" + m.lines +
         "\n\nWhere your views differ most:\n" + m.gaps + "\n\nSee both views side by side:\n" + m.link +
-        "\n\nIf you'd like to work through the gaps, book a 30-minute call:\n" + BOOK + "\nor write to me at hisham@hishamelsaied.com\n\nHisham Elsaied\nhishamelsaied.com";
+        "\n\nIf you'd like to work through the gaps, book a free 30-minute call:\n" + BOOK + "\nor write to me at hisham@hishamelsaied.com\n\nHisham Elsaied\nhishamelsaied.com";
     }
   };
 

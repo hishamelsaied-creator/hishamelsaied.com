@@ -474,3 +474,10 @@ html[dir="ltr"] .lg { font-weight: 500; }
 .x-one .txt p.x-oneq { font-family: var(--display); font-style: italic; font-size: 1.15rem; color: var(--night); border-inline-start: 2px solid var(--gold-deep); padding-inline-start: 14px; }
 [dir="rtl"] .x-one .txt p.x-oneq { font-style: normal; }
 .x-oneq b { display: block; font-family: var(--body); font-style: normal; font-size: .9rem; font-weight: 600; color: var(--gold-deep); margin-top: 4px; }
+
+.hero-actions .x-tlink { align-self: center; color: var(--ivory); font-weight: 600; font-size: .98rem; text-decoration: underline; text-decoration-color: var(--gold); text-underline-offset: 5px; padding: 6px 4px; }
+.hero-actions .x-tlink:hover { color: var(--gold); }
+.x-reassure { margin: -6px 0 0; font-size: .92rem; color: var(--mist); }
+.x-vgrid > * { min-width: 0; }
+@media (max-width: 860px) { .x-vgrid { grid-template-columns: minmax(0, 1fr); } }
+.x-q blockquote, .x-who { overflow-wrap: anywhere; }

@@ -376,11 +376,12 @@ def header(page, ar=False):
     brand = ('<b>هشام السعيد</b><span>FCIPD &nbsp;·&nbsp; ICF PCC</span>' if ar
              else '<b>Hisham Elsaied</b><span>FCIPD &nbsp;·&nbsp; ICF PCC</span>')
     menu = "القائمة" if ar else "Menu"
-    enquire = "احجز مكالمة" if ar else "Book a call"
+    enquire = "احجز مكالمة مجانية" if ar else "Book a free call"
+    enquire_m = "مكالمة مجانية" if ar else "Free call"
     return f"""<header class="site-header">
   <div class="wrap">
     <a class="brand" href="{base}/">{brand}</a>
-    <a class="btn book-m" href="https://app.cronofy.com/add_to_calendar/scheduling/ZOT6eIZc" target="_blank" rel="noopener">{enquire}</a>
+    <a class="btn book-m" href="https://app.cronofy.com/add_to_calendar/scheduling/ZOT6eIZc" target="_blank" rel="noopener">{enquire_m}</a>
     <button class="menu-toggle" id="menu-toggle" type="button" aria-expanded="false" aria-controls="nav">{menu}</button>
     <nav class="nav" id="nav" aria-label="{'القائمة الرئيسية' if ar else 'Main'}">
 {chr(10).join(links)}

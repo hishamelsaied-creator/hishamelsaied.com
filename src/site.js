@@ -103,7 +103,7 @@
   (function () {
     if (/self-check|contact/.test(location.pathname)) return;
     var seen = false;
-    try { seen = !!localStorage.getItem("sc-invite"); } catch (e) {}
+    try { seen = !!localStorage.getItem("sc-invite") || !!sessionStorage.getItem("pop-shown"); } catch (e) {}
     if (seen) return;
     var P = AR ? { l: "تقييم ذاتي مجاني", h: "كيف يرى رئيسك التنفيذي الموارد البشرية؟", p: "١٥ سؤالاً عن مواقف حقيقية في نحو ٣ دقائق. يصلك تقريرك على بريدك الإلكتروني خلال ٣ دقائق.", g: ["المستوى الذي يراك فيه رئيسك التنفيذي على الأرجح", "خطة ٩٠ يوماً لمجالي الأولوية، بصيغة PDF", "خمسة أسئلة تطرحها على رئيسك التنفيذي", "اختياري: قارن رؤيتك برؤيته"], b: "ابدأ التقييم", n: "ليس الآن", x: "إغلاق", u: "/ar/hr-self-check/" }
       : { l: "Free self-check", h: "How does your CEO see HR?", p: "15 questions about real situations, about 3 minutes. Your report reaches you by email within 3 minutes.", g: ["The level your CEO probably sees you at", "A 90-day plan for your two priority areas, as a PDF", "Five questions to ask your CEO", "Optional: compare your view with your CEO's"], b: "Start the self-check", n: "Not now", x: "Close", u: "/hr-self-check/" };
@@ -120,7 +120,7 @@
       bg.querySelector(".pop-no").onclick = close;
       bg.addEventListener("click", function (e) { if (e.target === bg) close(); });
       document.addEventListener("keydown", function (e) { if (e.key === "Escape") close(); });
-      try { localStorage.setItem("sc-invite", "1"); } catch (e) {}
+      try { localStorage.setItem("sc-invite", "1"); sessionStorage.setItem("pop-shown", "1"); } catch (e) {}
       setTimeout(function () { bg.classList.add("in"); bg.querySelector(".btn").focus(); }, 30);
     };
     var onScroll = function () {
@@ -150,7 +150,7 @@
       : { l: "One session", h: "Something on your mind right now?", p: "Book a single 60-minute session with me on one real issue. Online, in Arabic or English. Pay securely, then choose your time.", g: ["A difficult conversation coming up", "A promotion or career decision", "A new role, or a manager you can't read"], b: "Book a single session", n: "Not now", x: "Close" };
     var show = function () {
       if (document.querySelector(".pop-bg")) { setTimeout(show, 20000); return; }
-      try { if (!localStorage.getItem("sc-invite")) { setTimeout(show, 20000); return; } localStorage.setItem("ss-invite", "1"); } catch (e) {}
+      try { if (!localStorage.getItem("sc-invite") || sessionStorage.getItem("pop-shown")) return; localStorage.setItem("ss-invite", "1"); sessionStorage.setItem("pop-shown", "1"); } catch (e) {}
       var bg = document.createElement("div");
       bg.className = "pop-bg";
       bg.innerHTML = '<div class="pop pop-split" role="dialog" aria-modal="true" aria-label="' + P.h + '"><button type="button" class="pop-x" aria-label="' + P.x + '">&times;</button><img class="pop-face" src="/img/hisham-closeup.jpg" alt="Hisham Elsaied" width="483" height="724"><div class="pop-body"><span class="label">' + P.l + '</span><h2>' + P.h + '</h2><p>' + P.p + '</p><ul>' + P.g.map(function (x) { return "<li>" + x + "</li>"; }).join("") + '</ul><a class="btn" href="https://buy.stripe.com/3cIfZh2dR7u1g8xfaM6Vq01" rel="noopener">' + P.b + '</a><button type="button" class="pop-no">' + P.n + '</button></div></div>';
