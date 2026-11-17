@@ -19,7 +19,7 @@ PERSON_ID = SITE + "/#person"
 BUSINESS_ID = SITE + "/#business"
 GCC = ["United Arab Emirates", "Saudi Arabia", "Oman", "Kuwait", "Qatar", "Bahrain"]
 
-ART_DATES = {"art-first-90-days": "2026-11-16", "art-coaching-mentoring": "2026-11-16", "art-future-of-work": "2026-11-16", "art-ai-coaching": "2026-11-16", "art-ceo-ai": "2026-11-16", "art-first-gm": "2026-11-16"}
+ART_DATES = {"art-first-90-days": "2026-11-16", "art-coaching-mentoring": "2026-11-16", "art-future-of-work": "2026-11-16", "art-ai-coaching": "2026-11-16", "art-ceo-ai": "2026-11-16", "art-first-gm": "2026-11-16", "art-numbers": "2026-11-17"}
 
 PAGES = [
     {
@@ -126,6 +126,11 @@ PAGES = [
         "key": "art-first-gm", "path": "/insights/first-time-general-manager-mistakes/", "nav": "First-time general manager: the mistakes I see most",
         "title": "First-Time General Manager: The Mistakes I See Most",
         "desc": "The common mistakes leaders make in their first general manager or enterprise role, why they happen, and what helps, from an executive coach in Dubai.",
+    },
+    {
+        "key": "art-numbers", "path": "/insights/executive-coaching-gulf-statistics/", "nav": "Executive coaching in the Gulf: what the numbers say",
+        "title": "Executive Coaching in the Gulf: Statistics and What They Mean",
+        "desc": "Key figures on coaching in the Middle East from the ICF 2025 Global Coaching Study, and what they mean for HR leaders hiring an executive coach.",
     },
     {
         "key": "resources", "path": "/resources/", "nav": "Resources",
@@ -264,6 +269,11 @@ PAGES_AR = [
         "key": "art-first-gm", "path": "/ar/insights/first-time-general-manager-mistakes/", "nav": "مدير عام لأول مرة: الأخطاء الأكثر شيوعاً",
         "title": "مدير عام لأول مرة: الأخطاء التي أراها أكثر من غيرها",
         "desc": "الأخطاء الشائعة التي يقع فيها القادة في أول منصب مدير عام أو منصب تنفيذي يدير الشركة كلها، ولماذا تحدث، وما الذي يساعد، من كوتش تنفيذي في دبي.",
+    },
+    {
+        "key": "art-numbers", "path": "/ar/insights/executive-coaching-gulf-statistics/", "nav": "الكوتشينج التنفيذي في الخليج: ماذا تقول الأرقام",
+        "title": "الكوتشينج التنفيذي في الخليج: أرقام وإحصاءات وما تعنيه",
+        "desc": "أهم أرقام الكوتشينج في الشرق الأوسط من الدراسة العالمية للاتحاد الدولي للكوتشينج ٢٠٢٥، وما تعنيه لقادة الموارد البشرية عند اختيار كوتش تنفيذي.",
     },
     {
         "key": "resources", "path": "/ar/resources/", "nav": "المصادر",
@@ -541,6 +551,10 @@ def graph(page, ar=False):
                   "author": {"@id": PERSON_ID}, "publisher": {"@id": PERSON_ID}, "datePublished": ART_DATES.get(k, "2026-11-15"),
                   "dateModified": gitdate(k, ar), "isPartOf": {"@id": SITE + ("/ar/#website" if ar else "/#website")},
                   "image": SITE + "/img/og-image.jpg", "mainEntityOfPage": SITE + page["path"]})
+        if k == "art-numbers":
+            g[-1]["citation"] = [
+                {"@type": "CreativeWork", "name": "2025 ICF Global Coaching Study", "url": "https://coachingfederation.org/research/global-coaching-study", "publisher": {"@type": "Organization", "name": "International Coaching Federation"}},
+                {"@type": "CreativeWork", "name": "2023 ICF Global Coaching Study, Executive Summary", "url": "https://coachingfederation.org/app/uploads/2023/04/2023ICFGlobalCoachingStudy_ExecutiveSummary.pdf", "publisher": {"@type": "Organization", "name": "International Coaching Federation"}}]
     if k in ("home", "books"):
         for name, sub_, img, about in BOOKS:
             g.append({"@type": "Book", "name": name, "alternativeHeadline": sub_, "author": {"@id": PERSON_ID},
@@ -730,6 +744,18 @@ def head(page, ar=False):
 <body>
 """
 
+# Old site (before Nov 2026) URLs, sent to their nearest new page
+OLD_REDIRECTS = {
+    "/blog": "/insights/", "/blog-guide-to-find-the-right-coach-60": "/insights/how-to-choose-an-executive-coach-uae/",
+    "/blog-benefits-of-coaching-65": "/insights/coaching-mentoring-or-training/", "/blog-self-awareness-for-leaders-62": "/insights/",
+    "/blog-self-confidence-64": "/insights/", "/blog-transitions-through-coaching-66": "/insights/first-time-general-manager-mistakes/",
+}
+OLD_FILES = {"/about.php": "/about/", "/blog.php": "/insights/", "/contact.php": "/contact/", "/contactform2.php": "/contact/",
+             "/gallery.php": "/media/", "/individual-solutions.php": "/coaching/", "/solutions.php": "/coaching/",
+             "/solutions-for-teams.php": "/coaching-for-organisations/", "/platform-presence.php": "/speaking/",
+             "/testimonials.php": "/", "/privacy-policy.php": "/", "/404.php": "/",
+             "/guide-to-find-the-right-coach.pdf": "/insights/how-to-choose-an-executive-coach-uae/"}
+
 
 def build():
     os.makedirs(os.path.join(ROOT, "assets"), exist_ok=True)
@@ -765,10 +791,18 @@ def build():
       <div class="hero-actions"><a class="btn" href="/">Go to the home page</a><a class="btn line" href="/contact/">Contact</a></div>
     </div>
   </section>"""
+    body += "\n<script>(function(){var m=" + json.dumps(OLD_FILES) + ";var p=location.pathname.replace(/\\/$/,'');if(m[p])location.replace(m[p]);})()</script>"
     html = head(nf).replace('<meta name="robots" content="index, follow, max-image-preview:large">', '<meta name="robots" content="noindex">') \
         + header(nf) + "\n\n<main>\n" + body + "\n</main>\n\n" + FOOTER + \
         f'\n\n<script src="/assets/site.js?v={UPDATED}" defer></script>\n</body>\n</html>\n'
     open(os.path.join(ROOT, "404.html"), "w", encoding="utf-8").write(html)
+    # Redirect stubs for the old site's extensionless URLs
+    for old_path, target in OLD_REDIRECTS.items():
+        d = os.path.join(ROOT, old_path.strip("/")); os.makedirs(d, exist_ok=True)
+        open(os.path.join(d, "index.html"), "w", encoding="utf-8").write(
+            f'<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><title>Moved</title>'
+            f'<link rel="canonical" href="{SITE}{target}"><meta http-equiv="refresh" content="0; url={target}">'
+            f'<script>location.replace("{target}")</script></head><body><a href="{target}">This page has moved.</a></body></html>\n')
     # Thank-you pages after paying for a single session (noindex, not in the sitemap)
     ty = {
         False: {"key": "session-booked", "path": "/session-booked/", "nav": None, "title": "Payment received | Hisham Elsaied",
