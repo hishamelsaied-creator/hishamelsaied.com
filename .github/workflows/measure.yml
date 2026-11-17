@@ -5,6 +5,8 @@ on:
       label:
         description: "Label for this measurement (e.g. before, after)"
         default: "run"
+permissions:
+  contents: write
 jobs:
   lighthouse:
     runs-on: ubuntu-latest
@@ -61,9 +63,12 @@ jobs:
             curl -sS -o /dev/null -m 20 -w "$u %{http_code} -> %{redirect_url} %{time_total}s\n" "$u"
           done | tee http.txt
           curl -sSI https://hishamelsaied.com/ | tee -a http.txt
-      - uses: actions/upload-artifact@v4
-        with:
-          name: measure-${{ github.event.inputs.label }}
-          path: |
-            summary.json
-            http.txt
+      - name: Save results to the measure-results branch
+        shell: bash {0}
+        run: |
+          L="${{ github.event.inputs.label }}"
+          git init -q res && cd res
+          git remote add origin "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}.git"
+          git fetch -q --depth=1 origin measure-results && git checkout -q -b measure-results FETCH_HEAD || git checkout -q --orphan measure-results
+          mkdir -p "$L" && cp ../summary.json ../http.txt "$L/"
+          git add -A && git -c user.name="Hisham Elsaied" -c user.email="hisham@hishamelsaied.com" commit -qm "Measurement: $L" && git push -q origin HEAD:measure-results
