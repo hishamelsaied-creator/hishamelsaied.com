@@ -120,7 +120,7 @@ details.theory p{margin:8px 0 0;font-size:15.5px}
 .mail.unread .s::before{content:"";display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--cmp);margin-left:8px;vertical-align:middle}
 .mail .b{margin-top:6px;font-size:15.5px}
 .mail .from{font-size:13.5px;color:var(--muted)}
-.member{display:flex;gap:12px;align-items:center;padding:10px 0;border-bottom:1px solid var(--line)}
+.member{display:flex;gap:12px;align-items:flex-start;padding:10px 0;border-bottom:1px solid var(--line)}
 .member:last-child{border-bottom:0}
 .member .info{flex:1}
 .rel{height:7px;background:#E5ECEA;border-radius:4px;overflow:hidden;margin-top:4px}
@@ -139,7 +139,7 @@ details.theory p{margin:8px 0 0;font-size:15.5px}
 .dist .bar span{display:block;height:100%}
 
 /* interruptions */
-#toasts{position:fixed;top:132px;left:0;right:0;z-index:40;display:flex;justify-content:center;pointer-events:none;padding:0 12px}
+#toasts{position:fixed;top:150px;left:0;right:0;z-index:40;display:flex;justify-content:center;pointer-events:none;padding:0 12px}
 .toast{pointer-events:auto;width:100%;max-width:520px;background:#fff;border-radius:16px;box-shadow:0 12px 36px rgba(14,42,47,.28);padding:12px 14px;border-top:4px solid var(--col);animation:drop .45s cubic-bezier(.2,.9,.3,1.2)}
 .toast.call{border-top-color:var(--neg)}.toast.mail{border-top-color:var(--ctl)}
 @keyframes drop{from{opacity:0;transform:translateY(-24px)}to{opacity:1;transform:none}}
@@ -159,6 +159,7 @@ details.theory p{margin:8px 0 0;font-size:15.5px}
 .gate{max-width:420px;margin:12vh auto 0;text-align:center}
 .gate input{font:inherit;font-size:20px;text-align:center;border:1.5px solid var(--line);border-radius:12px;padding:12px;width:100%;margin:14px 0;letter-spacing:2px}
 /* nav */
+nav.tabs[hidden]{display:none!important}
 nav.tabs{position:fixed;bottom:0;left:0;right:0;background:#fff;border-top:1px solid var(--line);display:flex;justify-content:center;z-index:30}
 nav.tabs .in{display:flex;max-width:820px;width:100%}
 nav.tabs button{flex:1;background:none;border:0;padding:10px 4px 12px;color:var(--muted);font-size:14px;font-weight:600;position:relative}
@@ -181,11 +182,11 @@ nav.tabs button.on::after{content:"";position:absolute;top:0;left:25%;right:25%;
 <header class="hud" id="hud" hidden>
   <div class="hud-in">
     <div class="hud-top">
-      <div><div class="org">هيئة الواحة للخدمات · إدارة التراخيص</div><div class="when" id="when"></div><div class="org" id="clock"></div></div>
+      <div><div class="org">هيئة الواحة للخدمات · إدارة التراخيص</div><div class="when" id="when"></div><div class="org" id="clock"></div><div id="cd" hidden style="display:none;margin-top:2px;background:#F0B04A;color:#0E2A2F;border-radius:8px;padding:1px 10px;font-weight:700;font-size:13.5px;gap:10px;align-items:center"><span id="cdt"></span><span id="cdn" dir="ltr"></span></div></div>
       <button id="mute" aria-label="كتم الصوت" style="background:none;border:0;color:#fff;padding:4px;opacity:.8"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 9v6h4l5 4V5L8 9z"/><path id="mwave" d="M16 9a4 4 0 0 1 0 6M18.5 6.5a8 8 0 0 1 0 11"/></svg></button>
       <div class="hours"><svg class="clock" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg><div><b id="hrs"></b> <span id="hrsl">ساعة</span></div></div>
     </div>
-    <div class="ind" id="ind"></div>
+        <div class="ind" id="ind"></div>
   </div>
 </header>
 
@@ -240,18 +241,41 @@ return `<svg viewBox="0 0 100 100" width="${size}" height="${size}" style="flex:
 
 /* ---------- inbox ---------- */
 const MAIL=[
- {w:1,id:"m1",f:"sultan",s:"المطلوب في التسعين يوماً",b:"مرحباً بك في الإدارة. المطلوب واضح: ترخيص رقمي كامل خلال تسعين يوماً، وانخفاض ملموس في الشكاوى. أنا أدعمك، وأنتظر نتائج."},
- {w:1,id:"m2",f:"maha",s:"للعلم فقط",b:"أهلاً بك. الأستاذ خالد اعتذر عن اجتماع الترحيب صباح اليوم. وأغلب مفتشي قسمه سألوا إن كان التحول الرقمي يعني تقليص عدد المفتشين.",k:"خالد اعتذر عن اجتماع الترحيب، وفريقه قلق على وظائفه."},
- {w:1,id:"m3",f:null,from:"وحدة التدقيق الداخلي",s:"ملاحظة تدقيق مفتوحة",b:"رصدت المراجعة أن ١٢٪ من ملفات تراخيص الربع الماضي ينقصها توثيق التفتيش الميداني. المطلوب تقديم خطة معالجة خلال ستين يوماً.",k:"١٢٪ من ملفات الترخيص ينقصها توثيق التفتيش."},
- {w:1,id:"m4",f:"reem",s:"الإطلاق",b:"سعيدة بانضمامك. لدي خطة جاهزة للإطلاق الرقمي، وأحتاج منك قراراً واحداً فقط. أراك في اجتماع الإطلاق."},
+ {w:1,id:"m1",f:"sultan",s:"المطلوب في التسعين يوماً",b:"مرحباً بك في إدارة التراخيص.\nأكتب إليك باختصار قبل أن نلتقي غداً. رئيس الهيئة أعلن أمام المجلس أن الترخيص سيصبح رقمياً بالكامل خلال تسعين يوماً، وهذه الإدارة هي التي ستنفّذ الوعد.\nأريد منك ثلاثة أشياء: خطة واضحة أستطيع أن أدافع عنها، وانخفاضاً ملموساً في شكاوى المتعاملين، وألا أسمع عن مشكلة من خارج الإدارة قبل أن أسمعها منك.\nلديك فريق جيد، وبعضهم لن يرحّب بالتغيير. هذا متوقع. أنا أدعمك، وأنتظر نتائج.\nسلطان",k:"سلطان لا يريد أن يسمع عن مشكلة من غيرك قبل أن يسمعها منك."},
+ {w:1,id:"m2",f:"maha",s:"للعلم فقط",b:"أهلاً بك، وأتمنى لك بداية موفقة.\nأردتُ أن أضعك في الصورة قبل أن تسمع من غيري. الأستاذ خالد اعتذر عن اجتماع الترحيب صباح اليوم، وقال إن لديه جولة تفتيش. الجولة لم تكن في جدول الأسبوع.\nوأغلب مفتشي قسمه سألوني أمس، كلٌّ على حدة، إن كان التحول الرقمي يعني تقليص عدد المفتشين. لم أعرف بماذا أجيب.\nجدولك لهذا الأسبوع على مكتبك. إن أردتَ لقاء أي شخص على انفراد، أخبرني لأرتّب الموعد.\nمها",k:"خالد اعتذر عن اجتماع الترحيب، وفريقه قلق على وظائفه."},
+ {w:1,id:"m3",f:null,from:"وحدة التدقيق الداخلي",s:"ملاحظة تدقيق مفتوحة",b:"السيد مدير إدارة التراخيص المحترم،\nبالإشارة إلى مراجعة الربع الماضي، رصدت الوحدة أن ١٢٪ من ملفات التراخيص الصادرة ينقصها توثيق التفتيش الميداني.\nتفصيل الملفات الناقصة: ٧٠٪ منها لأنشطة منخفضة المخاطر (مكاتب ومحال تجزئة)، و٣٠٪ لأنشطة مرتفعة المخاطر (مطاعم وورش ومستودعات).\nالمطلوب: تقديم خطة معالجة موقّعة من مدير الإدارة خلال ستين يوماً من تاريخه. تبقى الملاحظة مفتوحة حتى تعتمد الوحدة خطة المعالجة، ويترتب على ذلك ما تنص عليه اللائحة المالية بشأن التحويلات.\nوحدة التدقيق الداخلي",k:"١٢٪ من ملفات الترخيص ينقصها توثيق التفتيش، وقرابة ثلث الناقص لأنشطة مرتفعة المخاطر كالمطاعم والورش."},
+ {w:1,id:"m4",f:"reem",s:"الإطلاق",b:"سعيدة بانضمامك، وأقولها بصدق: انتظرنا مديراً يريد هذا المشروع.\nالخطة جاهزة منذ أشهر. اختُبر النظام على ثلاثة أنواع من التراخيص، والفريق مستعد. ما ينقصنا الآن قرار واحد، ثم عقد المورّد: أن يصدر الترخيص للأنشطة منخفضة المخاطر دون انتظار التفتيش المسبق، مع تفتيش لاحق بالعينة.\nأعرف أن قسم التفتيش سيعترض. اعترض في المرتين السابقتين أيضاً. لكن ما يشكو منه الناس هو انتظار أسبوعين لكل ترخيص.\nأراك في اجتماع الإطلاق.\nريم",k:"ريم تقول إن خطتها تعطّلت مرتين من قبل بسبب اعتراض قسم التفتيش."},
  {w:1,id:"n1",f:null,from:"تقنية المعلومات",s:"صيانة مجدولة للأنظمة",b:"تتوقف أنظمة الأرشفة مساء الخميس من الثامنة حتى منتصف الليل لأعمال صيانة دورية."},
  {w:2,id:"n2",f:null,from:"لجنة الفعاليات",s:"دعوة: يوم الموظف",b:"ندعوكم وفريقكم إلى فعالية يوم الموظف في القاعة الكبرى نهاية الشهر. يُرجى تأكيد عدد الحضور."},
  {w:3,id:"n3",f:null,from:"الخدمات العامة",s:"تنظيم المواقف",b:"يُعاد ترقيم مواقف السيارات اعتباراً من الأسبوع القادم. المخطط الجديد مرفق."},
- {w:2,id:"m5",f:"maha",s:"الكاونتر",b:"طلب إجازة فيصل رُفض مرتين هذا العام بسبب ضغط الكاونتر. ووقت الانتظار تجاوز ٤٠ دقيقة يومي الأحد والاثنين.",k:"إجازة فيصل رُفضت مرتين هذا العام."},
- {w:2,id:"m6",f:"faisal",s:"طلب لقاء",b:"أستاذ، هل لديك عشر دقائق نهاية اليوم؟ موضوع شخصي."},
- {w:3,id:"m7",f:"noura",s:"تعميم بشأن التحويلات",b:"تحية طيبة. نذكّر بأن تحويلات الميزانية متوقفة لأي إدارة عليها ملاحظة تدقيق مفتوحة، وفق تعميم المالية الأخير.",k:"التحويلات متوقفة لأي إدارة عليها ملاحظة تدقيق مفتوحة."},
- {w:3,id:"m8",f:"reem",s:"عاجل: عقد المورّد",b:"المورّد يحتاج توقيع العقد هذا الأسبوع، وإلا انتقل فريقه إلى مشروع آخر ونخسر شهرين على الأقل."}
+ {w:2,id:"m5",f:"maha",s:"الكاونتر",b:"صباح الخير.\nثلاثة أمور عن الكاونتر أظن أنك تريد أن تعرفها.\nأولاً، وقت الانتظار تجاوز ٤٠ دقيقة يومي الأحد والاثنين، والمعدل المعتاد ١٥ دقيقة.\nثانياً، اثنان من الموظفين الجدد ما زالا تحت التدريب، ومن يدرّبهما فعلياً هو فيصل.\nثالثاً، طلب إجازة فيصل رُفض مرتين هذا العام بسبب ضغط العمل. لم يشتكِ، لكني لاحظت أنه لم يعد يتناول غداءه مع الزملاء.\nمها",k:"إجازة فيصل رُفضت مرتين هذا العام."},
+ {w:2,id:"m6",f:"faisal",s:"طلب لقاء",b:"أستاذ، السلام عليكم.\nهل لديك عشر دقائق نهاية اليوم؟ الموضوع شخصي، وأفضّل أن أقوله لك مباشرة.\nفيصل"},
+ {w:3,id:"m7",f:"noura",s:"تعميم بشأن التحويلات",b:"السادة مديرو الإدارات المحترمون،\nتحية طيبة. مع اقتراب نهاية الربع، نذكّر بما ورد في تعميم المالية الأخير.\nتتوقف تحويلات الميزانية بين البنود لأي إدارة عليها ملاحظة تدقيق مفتوحة، إلى أن تُعتمد خطة المعالجة.\nتُستثنى من ذلك الطلبات المقدَّمة مع خطة صرف موثّقة وجدول زمني للمعالجة، وتُدرس كل حالة على حدة.\nنرجو تقديم الطلبات قبل نهاية الأسبوع.\nنورة، الخدمات المساندة",k:"التحويلات متوقفة لأي إدارة عليها ملاحظة تدقيق مفتوحة، إلا إذا قُدّم الطلب مع خطة صرف موثّقة وجدول للمعالجة."},
+ {w:3,id:"m10",f:"sultan",s:"متابعة",k:"سلطان طمأن رئيس الهيئة بأن المشروع يسير وفق الخطة، ولا يريد أن يكون مخطئاً.",b:"رئيس الهيئة سألني اليوم عن موقفنا من الموعد. قلتُ له إننا نسير وفق الخطة.\nلا أريد أن أكون مخطئاً. في اجتماع نهاية الشهر أريد أن أسمع منك بوضوح: أين نحن، وما الذي يقلقك.\nسلطان"},
+ {w:3,id:"m8",f:"reem",s:"عاجل: عقد المورّد",b:"أحتاج إلى قرارك اليوم إن أمكن.\nالمورّد أبلغني أن فريقه محجوز لنا حتى نهاية هذا الأسبوع فقط. إذا لم يُوقَّع العقد فسينتقل الفريق إلى مشروع آخر ونخسر شهرين على الأقل.\nالمبلغ موجود في ميزانية الإدارة لكنه تحت بند آخر، والتحويل يحتاج إلى توقيع الخدمات المساندة. حاولتُ مع مكتب الأستاذة نورة ولم أصل إلى شيء.\nأعرف أن هناك طريقاً أسرع عبر المدير التنفيذي. القرار لك.\nريم"}
 ];
+
+/* ---------- what you learn when you spend time with people ---------- */
+const BIO={
+ sultan:[["بدأ سلطان مهندساً في البلدية، وانتقل إلى الهيئة قبل اثني عشر عاماً. يقول إنه لا يحب الاجتماعات الطويلة، ويقرأ التقارير في السيارة.","سلطان يفضّل الخلاصة القصيرة والأرقام على الشرح الطويل."],
+  ["وعد سلطان رئيس الهيئة شخصياً بموعد التسعين يوماً، بعد أن تأخر مشروعان سابقان في إدارات أخرى. يشعر أن سمعته على المحك هذه المرة.","سلطان وعد الرئيس بالموعد شخصياً، وتأخُّر مشروعين سابقين يجعله حساساً لأي تأجيل."],
+  ["اعترف لك سلطان بأنه هو من رشّحك للمنصب بدلاً من خالد، لأنه أراد شخصاً من خارج الإدارة. قال: «خالد أفضل مفتش عرفته، لكني لم أره يوماً يغيّر شيئاً.»","سلطان هو من اختارك بدلاً من خالد، لأنه يريد تغييراً يأتي من الخارج."]],
+ khalid:[["التحق خالد بالهيئة مفتشاً ميدانياً قبل ثمانية عشر عاماً، ودرّب بنفسه أكثر من نصف المفتشين الحاليين. مكتبه مليء بصور فرق التفتيش القديمة.","خالد درّب بنفسه أكثر من نصف المفتشين الحاليين، وولاؤهم له شخصي."],
+  ["قبل تسع سنوات وقع حريق في مستودع رُخّص له دون تفتيش، بعد ضغط لتسريع المعاملات. كان خالد في لجنة التحقيق، ولم ينسَ ما رآه.","خالد شارك في التحقيق في حريق مستودع رُخّص له دون تفتيش. لتمسّكه بالتفتيش المسبق سبب."],
+  ["قال لك خالد إنه لم يطلب المنصب طمعاً في اللقب. تبقّى له أربع سنوات على التقاعد، وأراد أن يترك قسماً لا ينهار بعده. يخشى أن يُذكَر على أنه الرجل الذي عطّل التحول.","خالد يتقاعد بعد أربع سنوات، وما يهمه هو ما سيتركه خلفه."]],
+ reem:[["انضمت ريم إلى الهيئة قبل ثلاث سنوات قادمةً من شركة اتصالات. فريقها أصغر فرق الإدارة سناً، ومعظم أفراده يعملون حتى المساء باختيارهم.","ريم جاءت من القطاع الخاص، وفريقها شاب ومتحمس ويعمل ساعات طويلة."],
+  ["قدّمت ريم خطة الترخيص الرقمي مرتين من قبل، ورُفضت في المرتين بحجة أن الوقت غير مناسب. تقول: «تعلّمتُ أن أنصاف الحلول هنا تموت بهدوء.»","خطة ريم رُفضت مرتين من قبل، ولذلك تقاوم أي حل جزئي أو تأجيل."],
+  ["أخبرتك ريم أن جهة أخرى عرضت عليها منصباً أعلى الشهر الماضي. لم تقرر بعد، وقالت إن قرارها يتوقف على ما سيحدث في هذا المشروع.","لدى ريم عرض عمل من جهة أخرى، وبقاؤها مرتبط بنجاح المشروع."]],
+ faisal:[["يعمل فيصل في خدمة المتعاملين منذ أحد عشر عاماً، ويعرف كثيراً من المتعاملين بأسمائهم. الموظفون الجدد يتعلمون منه أكثر مما يتعلمون من الدورات.","فيصل هو من يدرّب الموظفين الجدد فعلياً على الكاونتر."],
+  ["يدرس فيصل مساءً للحصول على شهادة جامعية في الإدارة، وتبقّى له فصلان. اختباراته النهائية الشهر القادم، ولم يخبر أحداً في الإدارة.","فيصل يدرس مساءً واختباراته الشهر القادم. الإجازة التي يطلبها ليست للراحة فقط."],
+  ["قال فيصل إنه تقدّم لوظيفة مشرف مرتين ولم يصله رد في أيٍّ منهما. «لا أريد لقباً، أريد أن يقول لي أحد إلى أين أتجه.»","فيصل تقدّم لوظيفة مشرف مرتين دون رد. ما ينقصه مسار واضح، لا مكافأة."]],
+ maha:[["تعمل مها منسقة لمكتب الإدارة منذ سبع سنوات، وعملت مع ثلاثة مديرين قبلك. تعرف من يتحدث مع من، ومن لا يتحدث.","مها عملت مع ثلاثة مديرين قبلك، وتعرف ما يجري في الإدارة قبل أن يصل إليك."],
+  ["أخبرتك مها أن المدير السابق كان يعلم بملاحظة التدقيق منذ أشهر، وأجّل معالجتها حتى غادر. «الناس هنا ينتظرون ليروا إن كنت ستفعل مثله.»","المدير السابق أجّل ملاحظة التدقيق حتى غادر، والموظفون يراقبون إن كنت ستكرر ذلك."],
+  ["قالت مها إنها تحب عملها لكنها تشعر بأن أحداً لا يلتفت إلى عملها: ترسل المعلومات ولا تعرف إن كانت قُرئت. «حين تردّ على رسائلي، أعرف ماذا أرسل لك في المرة القادمة.»","مها تقدّر أن تردّ على رسائلها، حتى بكلمة."]],
+ noura:[["تدير نورة الخدمات المساندة منذ خمس سنوات، وهي محاسبة قانونية في الأصل. معروفة بأنها لا توقّع ورقة لم تقرأها كاملة.","نورة محاسبة قانونية ولا توقّع ما لم تقرأه كاملاً. الطلبات الواضحة والموثّقة تمر أسرع."],
+  ["قبل عامين وافقت نورة على استثناء عاجل لإدارة أخرى بطلب من مدير تلك الإدارة، ثم سُجّلت ملاحظة باسمها في تقرير التدقيق. منذ ذلك اليوم لا تمنح استثناءات.","سُجّلت على نورة ملاحظة تدقيق بسبب استثناء وافقت عليه لغيرها. رفضها للاستثناءات ليس عناداً."],
+  ["قالت نورة إنها لا تعارض التحول، لكنها تريد أن تُستشار في بدايته، لا أن يُطلب منها التوقيع في نهايته. «أعطني خطة صرف لثلاثة أشهر، وسأجد لك طريقاً.»","نورة مستعدة للمساعدة إذا حصلت مسبقاً على خطة صرف واضحة لثلاثة أشهر."]]
+};
 
 /* ---------- state ---------- */
 let S;
@@ -260,14 +284,14 @@ function newState(){
     ind:{col:50,cre:45,cmp:50,ctl:45},start:null,
     prof:{col:0,cre:0,cmp:0,ctl:0},
     rel:Object.fromEntries(Object.keys(C).map(k=>[k,C[k].rel])),
-    flags:{},read:new Set(),log:[],chat:null,alloc:[],pending:[],missed:[],live:new Set(),time:480,t0:Date.now(),pred:null,saved:false,snz:[],remind:new Set()};
+    flags:{},read:new Set(),log:[],chat:null,alloc:[],pending:[],missed:[],live:new Set(),time:480,t0:Date.now(),pred:null,saved:false,snz:[],remind:new Set(),open:new Set(),know:Object.fromEntries(Object.keys(C).map(k=>[k,0]))};
   S.start={...S.ind};
 }
 
 /* ---------- HUD ---------- */
 function hud(d){
   $("hud").hidden=false;$("tabs").hidden=false;
-  $("when").textContent=AR(`اليوم ${S.day} من ٩٠ · الأسبوع ${S.week}`);
+  $("when").textContent=AR(`اليوم ${S.day} من ٩٠، الأسبوع ${S.week}`);
   $("hrs").textContent=AR(S.hours);drawClock();
   $("ind").innerHTML=QK.map(k=>`<div><small><i style="background:${HB[k]}"></i>${Q[k].s}</small><span class="v">${AR(S.ind[k])}</span>
    <div class="bar"><span style="width:${S.ind[k]}%;background:${HB[k]}"></span></div>
@@ -289,6 +313,7 @@ function apply(o){
 function tab(t){
   document.querySelectorAll("nav.tabs button").forEach(b=>b.classList.toggle("on",b.dataset.t===t));
   ["scene","inbox","team","compass","trainer"].forEach(v=>$("v-"+v).hidden=v!==t);
+  if(t==="scene"&&CUR&&!CUR.done)CUR.paint();
   if(t==="inbox")renderInbox();if(t==="team")renderTeam();if(t==="compass")renderCompass();if(t==="trainer")renderTrainer();
   window.scrollTo({top:0});
 }
@@ -297,14 +322,16 @@ document.querySelectorAll("nav.tabs button").forEach(b=>b.onclick=()=>tab(b.data
 function renderInbox(){
   const ms=MAIL.filter(m=>m.w<=S.week&&(!m.live||S.live.has(m.id))).reverse().sort((a,b)=>b.w-a.w);
   $("v-inbox").innerHTML=`<div class="card"><h2>البريد</h2><p class="muted">القراءة اختيارية. بعض الرسائل تحمل معلومات تظهر لك لاحقاً حين تتخذ قراراتك.</p>
-  ${ms.map(m=>`<div class="mail ${S.read.has(m.id)?"":"unread"}" data-id="${m.id}" tabindex="0" role="button"><div class="h"><span class="s">${m.s}</span><span class="from">${m.f?C[m.f].n:m.from} · ${AR("الأسبوع "+m.w)}</span></div>
-  ${S.read.has(m.id)?`<div class="b">${m.b}</div>`:`<div class="from">اضغط للقراءة</div>`}</div>`).join("")}</div>`;
-  document.querySelectorAll(".mail").forEach(e=>{e.onclick=()=>{S.read.add(e.dataset.id);renderInbox();hud();};e.onkeydown=k=>{if(k.key==="Enter"||k.key===" "){k.preventDefault();e.onclick();}};});
+  ${ms.map(m=>`<div class="mail ${S.read.has(m.id)?"":"unread"}" data-id="${m.id}" tabindex="0" role="button"><div class="h"><span class="s">${m.s}</span><span class="from">${m.f?C[m.f].n:m.from}، ${AR("الأسبوع "+m.w)}</span></div>
+  ${S.read.has(m.id)&&S.open.has(m.id)?`<div class="b">${m.b.split("\n").map(x=>`<p style="margin:0 0 8px">${x}</p>`).join("")}</div>`:`<div class="from">${S.read.has(m.id)?"قُرئت. اضغط لفتحها من جديد":"اضغط للقراءة"}</div>`}</div>`).join("")}</div>`;
+  document.querySelectorAll(".mail").forEach(e=>{e.onclick=()=>{const id=e.dataset.id;if(S.open.has(id))S.open.delete(id);else{S.open.add(id);S.read.add(id);}renderInbox();hud();};e.onkeydown=k=>{if(k.key==="Enter"||k.key===" "){k.preventDefault();e.onclick();}};});
 }
 function stanceWord(v,k){const w=v>=65?"شريك":v>=50?"متعاون":v>=35?"متحفّظ":"مقاوم";return k&&C[k].p.g==="f"?w+"ة":w;}
 function renderTeam(){
-  $("v-team").innerHTML=`<div class="card"><h2>الأشخاص من حولك</h2>${Object.keys(C).map(k=>`<div class="member">${portrait(k,52)}<div class="info"><div class="row" style="justify-content:space-between"><b>${C[k].n}</b><span class="stance">${stanceWord(S.rel[k],k)}</span></div><div class="stance">${C[k].r}</div>
-  <div class="rel"><span style="width:${S.rel[k]}%;background:${S.rel[k]>=50?"var(--col)":S.rel[k]>=35?"var(--cmp)":"var(--neg)"}"></span></div></div></div>`).join("")}</div>`;
+  $("v-team").innerHTML=`<div class="card"><h2>الأشخاص من حولك</h2><p class="muted" style="font-size:15px">ما تعرفه عن كل شخص يزداد حين تخصص وقتاً للقائه في خطة الأسبوع.</p>${Object.keys(C).map(k=>`<div class="member">${portrait(k,52)}<div class="info"><div class="row" style="justify-content:space-between"><b>${C[k].n}</b><span class="stance">${stanceWord(S.rel[k],k)}</span></div><div class="stance">${C[k].r}</div>
+  <div class="rel"><span style="width:${S.rel[k]}%;background:${S.rel[k]>=50?"var(--col)":S.rel[k]>=35?"var(--cmp)":"var(--neg)"}"></span></div>
+  ${BIO[k].slice(0,S.know[k]).map(b=>`<p style="margin:8px 0 0;font-size:15px">${b[0]}</p>`).join("")}
+  <div class="stance" style="margin-top:6px">${S.know[k]>=3?"تعرفه جيداً الآن.".replace("تعرفه",C[k].p.g==="f"?"تعرفها":"تعرفه"):S.know[k]?"لقاء فردي آخر يكشف لك المزيد.":"لم تلتقِ به على انفراد بعد.".replace("به",C[k].p.g==="f"?"بها":"به")}</div></div></div>`).join("")}</div>`;
 }
 
 /* ---------- compass ---------- */
@@ -349,10 +376,11 @@ function renderCompass(){
 
 /* ---------- steps ---------- */
 const STEPS=[intro,()=>plan(1),d1,chatScene,()=>plan(2),d2,()=>plan(3),d3,d4,predict,report];
-function go(){resolvePending();clearTimers();S.step++;STEPS[S.step]();tab("scene");schedule();showMissed();
+function go(){CUR=null;resolvePending();clearTimers();S.step++;STEPS[S.step]();tab("scene");schedule();showMissed();
   S.snz.slice().forEach((e,i)=>TIMERS.push(setTimeout(()=>{if(S.snz.includes(e)){S.snz=S.snz.filter(x=>x!==e);fire(e);}},6000+i*4000)));}
 
 function intro(){
+  CUR=null;
   if(typeof clearTimers==='function'&&S)clearTimers();SHOWING=null;
   newState();
   $("hud").hidden=true;$("tabs").hidden=true;
@@ -361,11 +389,17 @@ function intro(){
     <svg class="q4" viewBox="0 0 100 100"><rect width="50" height="50" fill="#1F7A60"/><rect x="50" width="50" height="50" fill="#7446C4"/><rect x="50" y="50" width="50" height="50" fill="#9A5B00"/><rect y="50" width="50" height="50" fill="#3772C4"/></svg>
     <div class="kufi" style="opacity:.75;font-size:15px">محاكاة القيادة · الفصل الأول من ثلاثة</div>
     <h1>أول ٩٠ يوماً</h1>
+    <p class="kufi" style="font-size:18px;font-weight:700;max-width:560px;color:#F0B04A">جرّب أن تقود قبل أن تقود: قرارات واقعية، وأشخاص يتذكرون، ونتائج تعود إليك.</p>
     <p style="max-width:560px">عُيّنتَ مديراً لإدارة التراخيص في هيئة الواحة للخدمات. أمامك تسعون يوماً لإطلاق الترخيص الرقمي، وفريق من أربعة وعشرين موظفاً لم يخترك، ورئيس ينتظر النتائج.</p>
     <p style="max-width:560px;opacity:.85">هذا الفصل يغطي الأيام الثلاثين الأولى. ستخطط وقتك كل أسبوع، وتقرأ بريدك إن شئت، وتتخذ قرارات لا إجابة صحيحة لها، وتجري محادثة صعبة مع خالد. قراراتك الأولى ستعود إليك لاحقاً.</p>
     <p style="max-width:560px;opacity:.7;font-size:14.5px">تُحفظ نتائجك تلقائياً في نهاية الفصل وتُرسل إلى مدرّب البرنامج لأغراض النقاش فقط.</p>
     <button class="btn alt" id="startBtn">ابدأ اليوم الأول</button>
   </div>
+  <div class="card"><h3>كيف تسير المحاكاة</h3>
+   <ol class="trail" style="margin:0;padding-right:22px"><li><b>تخطّط أسبوعك.</b> أربعون ساعة توزّعها بين الفريق والتحول والإنجاز والجودة. الوقت الذي تمنحه للفريق يتحول إلى لقاءات فردية تعرّفك بالناس.</li>
+   <li><b>تعيش الأسبوع.</b> بريد ورسائل واتصالات تقاطعك، وبعضها لا ينتظر.</li>
+   <li><b>تقرّر.</b> كل قرار يقدّم قيمة على أخرى، وما تعرفه عن الناس يفتح لك خيارات لا يراها غيرك.</li>
+   <li><b>ترى بوصلتك.</b> في النهاية تعرف أي الأساليب القيادية تميل إليه، وأيها تتجنب.</li></ol></div>
   <div class="card"><h3>من ستعمل معهم</h3><div class="cast">${Object.keys(C).map(k=>`<div class="who">${portrait(k,50)}<div><div class="n">${C[k].n}</div><div class="r">${C[k].r}</div></div></div>`).join("")}</div></div>
   <div class="card"><h3>ما الذي تقيسه المحاكاة</h3>
   <p>تقوم المحاكاة على إطار القيم المتنافسة لروبرت كوين. كل قرار تتخذه يقدّم قيمة على أخرى، وبوصلتك تُظهر في النهاية أي الأقطاب تميل إليها، وأيها تتجنبها، ومدى مرونتك في التنقل بينها.</p>
@@ -374,7 +408,7 @@ function intro(){
 }
 
 /* weekly planner */
-const SLOT={col:["وقت مع الفريق","لقاءات فردية، ودعم، وتطوير"],cre:["مشروع التحول","تصميم الخدمة، والتجارب، والتنسيق مع ريم"],cmp:["متابعة الإنجاز","الأرقام اليومية، والمعاملات المتأخرة، والمتعاملون"],ctl:["الإجراءات والجودة","التدقيق، والسياسات، وملفات التفتيش"]};
+const SLOT={col:["وقت مع الفريق","٨ ساعات تمنحك لقاءً فردياً واحداً، و١٤ ساعة لقاءين، و٢٠ ساعة ثلاثة لقاءات"],cre:["مشروع التحول","تصميم الخدمة، والتجارب، والتنسيق مع ريم"],cmp:["متابعة الإنجاز","الأرقام اليومية، والمعاملات المتأخرة، والمتعاملون"],ctl:["الإجراءات والجودة","التدقيق، والسياسات، وملفات التفتيش"]};
 const SLOTN={col:"الفريق",cre:"مشروع التحول",cmp:"متابعة الإنجاز",ctl:"الإجراءات والجودة"};
 function hrs(n,c){n=Math.abs(n);const t=n===1?"ساعة واحدة":n===2?(c?"ساعتين":"ساعتان"):n<=10?AR(n+" ساعات"):AR(n+" ساعة");return c?(n<=2?"ب":"بـ")+t:t;}
 function plan(w){
@@ -405,31 +439,53 @@ function plan(w){
       ${notes.length?`<div class="flag">ما أهملته هذا الأسبوع: ${notes.map(k=>SLOTN[k]).join(" و")}. ${notes.includes("col")?"لاحظت مها أن بابك بقي مغلقاً معظم الأسبوع.":"تراكمت الملفات في هذا الجانب."}</div>`:""}
       <div class="say" style="margin:10px 0"><div class="bub" style="border-radius:16px"><b>ما يُقال في الممرات</b>${pulse()}</div></div>
       <p class="muted">${w===1?"وصلتك رسائل جديدة في البريد.":"تحقق من بريدك قبل القرار القادم."}</p>
+      <div id="meet"></div>
       <button class="btn" id="nx">تابع</button></div>`;$("nx").onclick=go;
+      meetings(a.col>=20?3:a.col>=14?2:a.col>=8?1:0);
     };
   };
   draw();
 }
 
 /* decision engine */
-function know(ids){const k=ids.filter(i=>S.read.has(i)).map(i=>MAIL.find(m=>m.id===i).k);
-  return k.length?`<div class="know"><b>ما تعرفه من بريدك:</b> ${k.join(" ")}</div>`:"";}
+function meetings(n){
+  const met=new Set(),said=[];
+  const away=k=>k==="faisal"&&S.flags.faisalLeave;
+  const draw=(last)=>{
+    const left=n-met.size;
+    $("meet").innerHTML=`<div style="border-top:1px dashed var(--line);margin:14px 0;padding-top:14px"><h3>لقاءات فردية</h3>
+     ${n===0?`<p class="muted">لم تخصص للفريق وقتاً يكفي للقاء فردي هذا الأسبوع. تحتاج ٨ ساعات على الأقل.</p>`
+       :`<p class="muted">${left>0?(left===1?"لديك وقت للقاء واحد":left===2?"لديك وقت للقاءين":"لديك وقت لثلاثة لقاءات")+". اختر من تجلس معه. ما تعرفه عن الناس يظهر لك في قراراتك القادمة، وقد يفتح لك خيارات لا يراها غيرك.":"انتهى وقت اللقاءات لهذا الأسبوع."}</p>
+       <div class="cast">${Object.keys(C).map(k=>`<button class="who mt" data-k="${k}" ${left<=0||met.has(k)||S.know[k]>=3||away(k)?"disabled":""} style="background:#fff;border:1.5px solid var(--line);border-radius:12px;padding:8px;text-align:right;${left<=0||met.has(k)||S.know[k]>=3||away(k)?"opacity:.45":""}">${portrait(k,40)}<div><div class="n">${C[k].n}</div><div class="r">${away(k)?"في إجازة":S.know[k]?AR("لقاء "+S.know[k]+" من 3"):"لم تلتقيا بعد"}</div></div></button>`).join("")}</div>`}
+     <div id="said">${said.map(([k,t])=>`<div class="say" style="margin-top:12px">${portrait(k,48)}<div class="bub"><b>لقاؤك مع ${C[k].n}</b>${t}</div></div>`).join("")}</div></div>`;
+    document.querySelectorAll(".mt").forEach(b=>b.onclick=()=>{const k=b.dataset.k;met.add(k);
+      if(S.rel[k]<30){apply({rel:{[k]:2}});said.push([k,"جلس معك عشر دقائق وأجاب عن أسئلتك باقتضاب، ولم يقل شيئاً عن نفسه. الثقة بينكما لا تكفي بعد لحديث كهذا."]);}
+      else{S.know[k]++;apply({rel:{[k]:3}});said.push([k,BIO[k][S.know[k]-1][0]]);}
+      S.log.push({t:"لقاء فردي: "+C[k].n,tags:["col"]});hud();draw(k);
+      const el=$("said").lastElementChild;if(el)el.scrollIntoView({behavior:"smooth",block:"center"});});
+  };
+  draw(null);
+}
+function know(ids,who){const k=ids.filter(i=>S.read.has(i)).map(i=>MAIL.find(m=>m.id===i).k).filter(Boolean);
+  const p=(who||[]).filter(w=>S.know[w]>0).map(w=>`<div style="margin-top:4px"><b>ما تعرفه عن ${C[w].n}:</b> ${BIO[w][S.know[w]-1][1]}</div>`).join("");
+  return k.length||p?`<div class="know">${k.length?`<b>ما تعرفه من بريدك:</b> ${k.join(" ")}`:""}${p}</div>`:"";}
 function decision(cfg){
-  S.day=cfg.day;hud();
+  S.day=cfg.day;hud();let opts=cfg.opts.filter(o=>!o.need||o.need());
+  const optsHTML=()=>opts.map((o,i)=>`<button class="opt" data-i="${i}">${o.tag?`<span class="tag" style="background:var(--col);display:inline-block;margin-bottom:4px">${o.tag}</span><br>`:""}${o.t}</button>`).join("");
   $("v-scene").innerHTML=`<div class="card">
-   <div class="scene-head"><span class="place">${AR("اليوم "+cfg.day)} · ${cfg.place}</span></div>
-   ${cfg.wait?`<div class="stance" id="tml">${C[cfg.wait.who].n} ينتظر جوابك</div><div class="timer" id="tm"><span style="width:100%"></span></div>`:""}
+   <div class="scene-head"><span class="place">${AR("اليوم "+cfg.day)}، ${cfg.place}</span></div>
+   ${cfg.wait?`<div class="timer" id="tm"><span style="width:100%"></span></div><div class="stance" style="margin:-6px 0 10px">إذا انتهى الوقت قبل أن تجيب، تتراجع ثقة ${C[cfg.wait.who].n} بك.</div>`:""}
    <h2>${cfg.title}</h2><p>${cfg.text}</p>
    ${cfg.lines.map(([k,t])=>`<div class="say">${portrait(k,48)}<div class="bub"><b>${C[k].n}</b>«${t}»</div></div>`).join("")}
    ${cfg.after?`<p>${cfg.after}</p>`:""}
-   ${know(cfg.know||[])}
+   <div id="kn">${know(cfg.know||[],cfg.who)}</div>
    <h3 style="margin-top:16px">ماذا ستفعل؟</h3>
-   <div class="opts">${cfg.opts.map((o,i)=>`<button class="opt" data-i="${i}">${o.t}</button>`).join("")}</div>
+   <div class="opts" id="op">${optsHTML()}</div>
    <div id="res"></div></div>`;
   if(cfg.wait)startWait(cfg.wait);
-  document.querySelectorAll(".opt").forEach(b=>b.onclick=()=>{
-    stopWait();TIMERS.forEach(clearTimeout);TIMERS=[];UNFIRED=[];
-    const o=cfg.opts[+b.dataset.i];const fx=typeof o.fx==="function"?o.fx():o.fx;
+  const bind=()=>document.querySelectorAll("#op .opt").forEach(b=>b.onclick=()=>{
+    CUR.done=true;stopWait();EVT.forEach(clearTimeout);EVT=[];UNFIRED=[];
+    const o=opts[+b.dataset.i];const fx=typeof o.fx==="function"?o.fx():o.fx;
     document.querySelectorAll(".opt").forEach(x=>{x.disabled=true;x.classList.add(x===b?"on":"off")});
     const {d,rd}=apply(fx);hud(d);
     if(fx.carry)S.carry+=fx.carry;
@@ -444,18 +500,20 @@ function decision(cfg){
      <div style="margin-top:14px"><button class="btn" id="nx">${cfg.next||"تابع"}</button></div></div>`;
     $("nx").onclick=()=>{const w=$("why");if(w&&w.value.trim())entry.why=w.value.trim();go();};$("res").scrollIntoView({behavior:"smooth",block:"start"});
   });
+  CUR={done:false,paint:()=>{opts=cfg.opts.filter(o=>!o.need||o.need());$("kn").innerHTML=know(cfg.know||[],cfg.who);$("op").innerHTML=optsHTML();bind();}};
+  bind();
 }
 
-function d1(){decision({day:2,place:"مكتب المدير التنفيذي",title:"اجتماع الإطلاق",wait:{who:"sultan",secs:75,text:"سلطان ينظر إلى ساعته: «نحتاج قراراً، لا تأملاً.»"},
+function d1(){decision({day:2,place:"مكتب المدير التنفيذي",title:"اجتماع الإطلاق",wait:{who:"sultan",secs:90,text:"سلطان ينظر إلى ساعته: «نحتاج قراراً، لا تأملاً.»"},
  text:"في مكتب سلطان، ومعك ريم. خالد لم يُدعَ إلى الاجتماع.",
  lines:[["sultan","الرئيس أعلن في المجلس أن الترخيص سيصبح رقمياً بالكامل خلال تسعين يوماً. لا أريد أن تكون إدارتنا هي التي تؤخر الوعد."],
         ["reem","نستطيع ذلك بشرط واحد: أن نعفي الأنشطة منخفضة المخاطر من التفتيش الميداني المسبق، ونكتفي بتفتيش لاحق بالعينة. هكذا يصدر الترخيص في يوم واحد بدل أسبوعين."]],
- after:"سلطان ينظر إليك ينتظر جوابك.",know:["m3","m2"],
+ after:"سلطان ينظر إليك ينتظر جوابك.",know:["m3","m2","m4"],who:["sultan","reem","khalid"],
  opts:[
   {short:"التزام كامل بمقترح ريم",t:"ألتزم بالتسعين يوماً، وأعتمد مقترح ريم بالتفتيش اللاحق.",fx:{prof:{cre:2,cmp:2,ctl:-1},ind:{cre:8,cmp:4,ctl:-6,col:-3},rel:{sultan:10,reem:12,khalid:-15},flags:{bypass:1}},
    out:"خرج سلطان راضياً، وأعلن القرار في رسالة لكل الموظفين بعد ساعة. بعدها بدقائق وصلتك رسالة قصيرة من خالد: «علمتُ بالقرار من البريد العام.»"},
   {short:"التزام على مراحل",t:"ألتزم بالتسعين يوماً على مراحل: الأنشطة منخفضة المخاطر أولاً، وتبقى قواعد التفتيش كما هي حتى أراجعها مع خالد خلال أسبوعين.",fx:{prof:{cmp:1,ctl:2,col:1},ind:{cre:3,cmp:2,ctl:3},rel:{sultan:2,reem:-6,khalid:6}},
-   out:"وافق سلطان على مضض: «المراحل مقبولة، التأخير غير مقبول.» وبدت ريم محبطة، فهي ترى أن نصف الحلول لا يصنع تحولاً."},
+   out:"وافق سلطان على مضض: «المراحل مقبولة، التأخير غير مقبول.» وبدت ريم محبطة، فهي ترى أن أنصاف الحلول لا تصنع تحولاً."},
   {short:"طلب أسبوعين للتشخيص",t:"أطلب أسبوعين أشخّص فيهما الوضع مع الأقسام قبل أن ألتزم بأي موعد.",fx:{prof:{ctl:2,col:2,cmp:-2},ind:{ctl:5,col:4,cmp:-5,cre:-3},rel:{sultan:-12,khalid:8,reem:-4},flags:{waited:1}},
    out:"صمت سلطان لحظة ثم قال: «أسبوعان. وبعدها أريد موعداً، لا رأياً.» ولاحظتَ أنه لم يرافقك إلى الباب كعادته."}],
  theory:"الابتكار والضبط قطبان متقابلان في الإطار: المرونة والتغيير في جهة، والاستقرار والسيطرة في الجهة الأخرى. لا يوجد خيار يكسب القطبين معاً. السؤال هو أيهما تقدّم الآن، وكيف تعوّض الآخر في الأسابيع القادمة."});}
@@ -463,9 +521,11 @@ function d1(){decision({day:2,place:"مكتب المدير التنفيذي",tit
 function d2(){decision({day:10,place:"مكتبك، نهاية الدوام",title:"فيصل يطلب النقل",
  text:"الكاونتر تحت ضغط واضح منذ الإعلان عن التحول الرقمي. فيصل، أسرع موظفيك وأكثرهم خبرة مع المتعاملين، يدخل مكتبك بعد انصراف الجميع.",
  lines:[["faisal","أستاذ، أنا لا أشتكي. لكني منذ ثمانية أشهر آخر من يغلق الكاونتر. قدّمتُ طلب نقل إلى إدارة أخرى، وأردت أن تسمعه مني قبل أن يصلك على الورق."]],
- know:["m5"],
+ know:["m5"],who:["faisal"],
  opts:[
-  {short:"إجازة فورية وتغطية شخصية",t:"أوافق على إجازته أسبوعين فوراً، وأغطي الكاونتر بنفسي يوماً في الأسبوع حتى يعود.",fx:{prof:{col:2,cmp:-1},ind:{col:6,cmp:-4},rel:{faisal:15,maha:5},carry:-8,flags:{faisalAway:1}},
+  {short:"إجازة للاختبارات وخطة لما بعد الإطلاق",need:()=>S.know.faisal>=2,tag:"متاح لأنك تعرف فيصلاً",t:"أضمن له إجازة لاختباراته الشهر القادم، وأتفق معه الآن على خطة واضحة لمساره بعد الإطلاق.",fx:{prof:{col:2,ctl:1},ind:{col:5,cmp:-1},rel:{faisal:18,maha:3}},
+   out:"صمت فيصل لحظة ثم قال: «لم يسألني أحد من قبل عما أريد.» قال إنه سيسحب طلب النقل غداً. سيبقى على الكاونتر حتى الإطلاق، وهذه المرة باختياره."},
+  {short:"إجازة فورية وتغطية شخصية",t:"أوافق على إجازته أسبوعين فوراً، وأغطي الكاونتر بنفسي يوماً في الأسبوع حتى يعود.",fx:{prof:{col:2,cmp:-1},ind:{col:6,cmp:-4},rel:{faisal:15,maha:5},carry:-8,flags:{faisalAway:1,faisalLeave:1}},
    out:"سحب فيصل طلب النقل قبل أن يغادر. انتشرت في الإدارة صورة لك خلف الكاونتر، لكن أسبوعك القادم أقصر بثماني ساعات."},
   {short:"البقاء حتى الإطلاق مقابل مكافأة",t:"أطلب منه البقاء حتى الإطلاق، وأرشّحه لمكافأة الأداء، وأعده بإجازة بعدها مباشرة.",fx:{prof:{cmp:2,col:-1},ind:{cmp:4,col:-4},rel:{faisal:-8},flags:{faisalRisk:1}},
    out:"وافق فيصل بأدب. بعد أيام لاحظت مها أنه صار يغادر في موعده بالضبط، وتوقف عن تدريب الموظفين الجدد كما كان يفعل."},
@@ -479,8 +539,10 @@ function d3(){
  text:"عقد المورّد الذي تحتاجه ريم للنظام الجديد يتطلب تحويلاً من الميزانية. ذهبتَ إلى نورة بنفسك.",
  lines:[["noura","التدقيق رصد ملفات ناقصة في إدارتك. لن أوقّع أي تحويل لإدارة عليها ملاحظة تدقيق مفتوحة. هذا ليس أمراً شخصياً، هذه قواعد."],
         ["reem","إذا لم يُوقَّع العقد هذا الأسبوع، يذهب فريق المورّد إلى مشروع آخر ونخسر شهرين."]],
- know:["m7","m3"],
+ know:["m7","m3"],who:["noura","khalid","reem"],
  opts:[
+  {short:"طلب موثّق ضمن القواعد",need:()=>S.know.noura>=2||S.read.has("m7"),tag:"متاح لأنك تعرف القاعدة أو تعرف نورة",t:"لا أطلب استثناءً. أقدّم لنورة طلباً كاملاً ضمن القواعد: خطة صرف موثّقة لثلاثة أشهر، وجدولاً لمعالجة ملاحظة التدقيق، وتحويلاً على مراحل.",fx:{prof:{ctl:2,cre:1,col:1},ind:{ctl:5,cre:4,cmp:-3},rel:{noura:12,reem:4}},
+   out:"قرأت نورة الطلب كاملاً، ثم قالت: «هذا أول طلب يصلني من إدارتكم لا أحتاج إلى أن أسأل عنه.» وقّعت تحويل المرحلة الأولى في اليوم نفسه. إعداد الخطة أخذ منك يومين كاملين، وتأخرت خلالهما متابعة المعاملات اليومية."},
   {short:"التصعيد إلى سلطان",t:"أرفع الأمر إلى سلطان ليستثني العقد من التجميد.",fx:{prof:{cmp:2,col:-1,ctl:-1},ind:{cre:5,ctl:-3},rel:{noura:-15,sultan:-4,reem:6}},
    out:"وقّع سلطان الاستثناء، لكنه قال لك: «لا أحب أن أكون حَكَماً بين مديريّ.» ونورة ستتذكر هذا في كل طلب قادم."},
   {short:"صفقة مع نورة يعتمد تنفيذها على خالد",t:"أعرض على نورة اتفاقاً: يغلق فريق خالد ملاحظة التدقيق خلال ثلاثة أسابيع، مقابل تحويل نصف المبلغ الآن.",
@@ -496,7 +558,7 @@ function d3(){
 
 function d4(){
  S.week=4;const rh=S.rel.reem>=55;
- decision({day:29,place:"اجتماع القيادة الشهري",title:"مراجعة الشهر الأول",wait:{who:"sultan",secs:60,text:"سلطان أمام زملائه: «ما زلنا ننتظرك.»"},
+ decision({day:29,place:"اجتماع القيادة الشهري",title:"مراجعة الشهر الأول",know:["m1","m10"],who:["sultan"],wait:{who:"sultan",secs:75,text:"سلطان أمام زملائه: «ما زلنا ننتظرك.»"},
  text:"اجتماع مديري الهيئة الشهري. مؤشرات إدارتك معروضة على الشاشة أمام الجميع.",
  lines:[["sultan","أعطني الصورة في خمس دقائق. أين نحن من الوعد؟"]],
  after:AR(`مؤشراتك الآن: إنجاز المعاملات ${S.ind.cmp}، تقدّم التحول ${S.ind.cre}، جودة الامتثال ${S.ind.ctl}، تماسك الفريق ${S.ind.col}.`),
@@ -532,10 +594,11 @@ function chatScene(){
 function drawChat(){
   const ch=S.chat,[mw,mc]=moodOf(ch.trust);
   $("v-scene").innerHTML=`<div class="card">
-   <div class="scene-head"><span class="place">${AR("اليوم "+S.day)} · مكتبك</span><span class="mood" style="background:${mc};color:#fff">خالد: ${mw}</span></div>
+   <div class="scene-head"><span class="place">${AR("اليوم "+S.day)}، مكتبك</span><span class="mood" style="background:${mc};color:#fff">خالد: ${mw}</span></div>
    <h2>محادثة مع خالد</h2>
    <div class="goal"><b>هدفك:</b> أن تفهم موقف خالد وتكسبه شريكاً في التحول. ${ch.ai?"اكتب بأسلوبك كما لو كان أمامك.":"اختر ما ستقوله في كل مرة."} ${AR(`لديك ${ch.max} ردود`)}.</div>
    
+   ${know([],["khalid"])}
    <div class="chat" id="chat">${ch.hist.map(m=>m.r==="k"?`<div class="row" style="align-items:flex-end;gap:8px">${portrait("khalid",34,ch.trust)}<div class="msg k">${AR(m.t)}</div></div>`:`<div class="msg u">${m.t}</div>`).join("")}</div>
    <div id="ctl"></div></div>`;
   const ctl=$("ctl");
@@ -546,8 +609,8 @@ function drawChat(){
     $("send").onclick=sendAI;$("endc").onclick=()=>{ch.done=true;drawChat();};
     $("ta").addEventListener("keydown",e=>{if(e.key==="Enter"&&!e.shiftKey){e.preventDefault();sendAI();}});
   } else {
-    const t=SCRIPT[ch.turns];
-    ctl.innerHTML=`<div class="opts">${t.map((o,i)=>`<button class="opt" data-i="${i}">${o.u}</button>`).join("")}</div>`;
+    const t=SCRIPT[ch.turns].concat(ch.turns===0&&S.know.khalid>=1?[{tag:1,u:"أعرف أنك درّبت بنفسك أكثر من نصف مفتشي هذا القسم. لا أريد تحولاً يُفرض عليهم من فوق. أريدك أن تختار منهم من يشاركنا في تصميمه.",d:12,roles:["mentor","facilitator"],hi:"... لم أتوقع أن تبدأ من هنا. إن كان هذا ما تريده فعلاً، فلدينا ما نتحدث عنه.",lo:"كلام لم أسمعه من قبل. لكني سمعت وعوداً كثيرة. من سيقرر في النهاية، هم أم ريم؟"}]:[]);
+    ctl.innerHTML=`<div class="opts">${t.map((o,i)=>`<button class="opt" data-i="${i}">${o.tag?`<span class="tag" style="background:var(--col);display:inline-block;margin-bottom:4px">متاح لأنك تعرف خالداً</span><br>`:""}${o.u}</button>`).join("")}</div>`;
     document.querySelectorAll("#ctl .opt").forEach(b=>b.onclick=()=>{const o=t[+b.dataset.i];
       const dd=typeof o.d==="function"?o.d(ch.trust):o.d;ch.trust=clamp(ch.trust+dd);
       ch.hist.push({r:"u",t:o.u});ch.hist.push({r:"k",t:ch.trust>=45?o.hi:o.lo});ch.roles.push(...o.roles);ch.turns++;if(ch.turns>=SCRIPT.length)ch.done=true;drawChat();});
@@ -634,7 +697,7 @@ function report(){
   if(S.rel.reem<45)carry.push("ريم تفكر في عرض من جهة أخرى.");
   if(!carry.length)carry.push("بدايتك متوازنة. في الفصل الثاني يقترب موعد الإطلاق، ويزداد ضغط المتعاملين.");
   $("v-scene").innerHTML=`
-  <div class="card dark"><div class="kufi" style="opacity:.75;font-size:15px">نهاية الفصل الأول · اليوم ٣٠</div><h1>تقرير أيامك الثلاثين الأولى</h1>
+  <div class="card dark"><div class="kufi" style="opacity:.75;font-size:15px">نهاية الفصل الأول، اليوم ٣٠</div><h1>تقرير أيامك الثلاثين الأولى</h1>
    <p style="opacity:.85;margin:0">هذا التقرير يصف كيف قُدت، لا إن كنت أصبت أو أخطأت.</p></div>
   <div class="card"><div class="compass-wrap"><div>${compassSVG(sh,320,ghost)}${ghost?`<p class="muted" style="font-size:13.5px;text-align:center;margin:0">الشكل الرمادي المتقطع: محاولتك السابقة</p>`:""}</div><div>
    <h3>المرونة السلوكية</h3><div class="score">${AR(rs)}<span style="font-size:20px;color:var(--muted)"> / ١٠٠</span></div>
@@ -691,15 +754,15 @@ function renderTrainer(){
 /* ---------- live clock & interruptions ---------- */
 const DAYS=["الأحد","الاثنين","الثلاثاء","الأربعاء","الخميس","الجمعة","السبت"];
 const START_TIME={1:480,2:600,3:780,4:480,5:930,6:480,7:660,8:540};
-let TIMERS=[],TICK=null,WAIT=null,UNFIRED=[];
+let TIMERS=[],EVT=[],TICK=null,WAIT=null,UNFIRED=[],CUR=null;
 function drawClock(){const m=S.time,h=Math.floor(m/60),mm=m%60;const h12=((h+11)%12)+1;
-  $("clock").textContent=AR(`${DAYS[(S.day-1)%7]} · ${h12}:${String(mm).padStart(2,"0")} ${h<12?"ص":"م"}`);}
-function clearTimers(){TIMERS.forEach(clearTimeout);TIMERS=[];stopWait();$("toasts").innerHTML="";Q_T.length=0;}
+  $("clock").textContent=AR(`${DAYS[(S.day-1)%7]}، ${h12}:${String(mm).padStart(2,"0")} ${h<12?"ص":"م"}`);}
+function clearTimers(){TIMERS.concat(EVT).forEach(clearTimeout);TIMERS=[];EVT=[];stopWait();$("toasts").innerHTML="";Q_T.length=0;}
 function schedule(){
   S.time=START_TIME[S.step]||540;
   if(!TICK)TICK=setInterval(()=>{if(!S||$("hud").hidden)return;S.time=Math.min(S.time+1,1080);drawClock();},1000);
   UNFIRED=EVENTS.filter(e=>e.step===S.step&&(!e.when||e.when()));
-  UNFIRED.forEach(e=>TIMERS.push(setTimeout(()=>{UNFIRED=UNFIRED.filter(x=>x!==e);fire(e);},e.at*1000)));
+  UNFIRED.forEach(e=>EVT.push(setTimeout(()=>{UNFIRED=UNFIRED.filter(x=>x!==e);fire(e);},e.at*1000)));
 }
 const Q_T=[];let SHOWING=null;
 function fire(e){if(e.live&&!e.live())return;Q_T.push(e);if(!SHOWING)nextToast();}
@@ -708,13 +771,14 @@ function nextToast(){
   if(e.mail){S.live.add(e.mail);hud();}
   ping(e.type);
   const icon=e.type==="call"?`<svg class="ring" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#D14B4B" stroke-width="2"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/></svg>`:"";
+  $("toasts").style.top=($("hud").offsetHeight+8)+"px";
   const rem=S.remind.has(e);
-  const ch=(e.type==="call"?"اتصال وارد":e.type==="mail"?"بريد جديد":"رسالة واتساب")+(rem?" · تذكير: ما زال ينتظر ردّك":"");
+  const ch=(e.type==="call"?"اتصال وارد":e.type==="mail"?"بريد جديد":"رسالة واتساب")+(rem?"، تذكير: الرسالة ما زالت تنتظر ردّك":"");
   $("toasts").innerHTML=`<div class="toast ${e.type}" role="alert"><div class="h">${e.from?portrait(e.from,38):""}<div style="flex:1"><b>${e.from?C[e.from].n:e.sender}</b><div class="ch">${ch}</div></div>${icon}</div>
    <div class="tx">${e.text}</div><div class="acts">${(e.acts||[]).map((a,i)=>`<button data-i="${i}">${a.t}</button>`).join("")}<button class="later" data-i="x">${e.acts?(rem||!e.ignore?"تجاهل":"لاحقاً"):"حسناً"}</button></div></div>`;
   $("toasts").querySelectorAll("button").forEach(b=>b.onclick=()=>{
-    if(b.dataset.i==="x"){if(e.acts&&e.ignore)later(e,true);}
-    else{const a=e.acts[+b.dataset.i];const fx=typeof a.fx==="function"?a.fx():a.fx;const r=apply(fx);hud(r.d);if(fx.carry)S.carry+=fx.carry;
+    if(b.dataset.i==="x"&&e.dismiss==null){if(e.acts&&e.ignore)later(e,true);}
+    else{const a=e.acts[b.dataset.i==="x"?e.dismiss:+b.dataset.i];const fx=typeof a.fx==="function"?a.fx():a.fx;const r=apply(fx);hud(r.d);if(fx.carry)S.carry+=fx.carry;
       S.log.push({t:"مقاطعة: "+(e.from?C[e.from].n:e.sender),c:a.short,tags:QK.filter(k=>(fx.prof||{})[k]>0)});
       if(a.after){SHOWING={};$("toasts").innerHTML=`<div class="toast ${e.type}"><div class="tx">${a.after}</div></div>`;TIMERS.push(setTimeout(nextToast,3200));return;}}
     nextToast();});
@@ -740,19 +804,20 @@ function showMissed(){
   const v=$("v-scene");v.insertBefore(box,v.firstChild);S.missed=[];
 }
 function startWait(w){
-  let left=w.secs;const bar=()=>$("tm")&&($("tm").firstElementChild.style.width=(left/w.secs*100)+"%");
-  WAIT=setInterval(()=>{left--;bar();if(left<=0){stopWait();$("tm")&&$("tm").classList.add("late");
+  let left=w.secs;const cd=$("cd");cd.hidden=false;cd.style.display="inline-flex";$("clock").style.display="none";cd.style.background="#F0B04A";cd.style.color="#0E2A2F";$("cdt").textContent=C[w.who].n+" ينتظر جوابك";
+  const bar=()=>{$("tm")&&($("tm").firstElementChild.style.width=(left/w.secs*100)+"%");$("cdn").textContent=AR(Math.floor(left/60)+":"+String(left%60).padStart(2,"0"));if(left<=15){cd.style.background="#B03434";cd.style.color="#fff";}};bar();
+  WAIT=setInterval(()=>{left--;bar();if(left<=0){stopWait(true);$("tm")&&$("tm").classList.add("late");
     const r=apply({rel:{[w.who]:-5}});S.log.push({t:"تأخرتَ في الرد على "+C[w.who].n,c:"انتهى وقت الانتظار",tags:[]});if($("tml"))$("tml").textContent="تأخرتَ في الرد";fire({type:"wa",from:w.who,text:w.text+AR(" (ثقة "+C[w.who].n+" −٥)")});}},1000);
 }
-function stopWait(){if(WAIT){clearInterval(WAIT);WAIT=null;}}
+function stopWait(late){if(WAIT){clearInterval(WAIT);WAIT=null;}const cd=$("cd"),off=()=>{cd.hidden=true;cd.style.display="none";$("clock").style.display="";};if(late){$("cdt").textContent="تأخرتَ في الرد";$("cdn").textContent="";setTimeout(()=>{if(!WAIT)off();},4000);}else off();}
 
 const EVENTS=[
  {step:1,at:9,type:"wa",from:"maha",text:"صباح الخير. فريق التفتيش يسأل إن كان لديك وقت لزيارتهم هذا الأسبوع. الأستاذ خالد لم يطلب، لكنهم يسألون.",
   acts:[{t:"سأمرّ عليهم اليوم",short:"زيارة فريق التفتيش",fx:{prof:{col:1},rel:{khalid:5,maha:3},ind:{col:2},carry:-2},after:"وصلتهم رسالتك. خصمنا ساعتين من أسبوعك القادم للزيارة."},
         {t:"أبلغيهم أن لقاءً سيُحدَّد قريباً",short:"وعد بلقاء",fx:{prof:{ctl:.5},rel:{maha:1}}}],
   ignore:{rel:{khalid:-4,maha:-2}},note:"لم تردّ على مها بشأن فريق التفتيش. فُهم الصمت على أنه عدم اهتمام، ووصل ذلك إلى خالد."},
- {step:2,at:22,type:"wa",from:"reem",text:"أرجو ألا تتراجع أمامه. هذه فرصتنا الوحيدة لنثبت أن الهيئة قادرة."},
- {step:3,at:28,type:"call",from:"sultan",live:()=>S.chat&&!S.chat.done,text:"سلطان يتصل بك الآن، وخالد أمامك في منتصف الحديث.",
+ {step:3,at:10,type:"wa",from:"reem",text:"سمعتُ أنك مع خالد الآن. أرجو ألا تتراجع أمامه. هذه فرصتنا الوحيدة لنثبت أن الهيئة قادرة."},
+ {step:3,at:28,type:"call",dismiss:1,from:"sultan",live:()=>S.chat&&!S.chat.done,text:"سلطان يتصل بك الآن، وخالد أمامك في منتصف الحديث.",
   acts:[{t:"أرد على سلطان",short:"قطع اللقاء للرد",fx:()=>{if(S.chat&&!S.chat.done){S.chat.trust=clamp(S.chat.trust-6);S.chat.hist.push({r:"k",t:"... تفضّل، يبدو أن المكالمة أهم."});drawChat();}return{rel:{sultan:3},prof:{cmp:.5}}},after:"أنهيتَ المكالمة في دقيقتين. حين عدت، كان خالد قد أسند ظهره إلى الكرسي."},
         {t:"أرفض الاتصال وأكمل",short:"البقاء مع خالد",fx:()=>{if(S.chat&&!S.chat.done){S.chat.trust=clamp(S.chat.trust+3);}return{rel:{sultan:-2},prof:{col:.5}}},after:"لاحظ خالد أنك قلبت الهاتف على الطاولة."}]},
  {step:4,at:12,type:"mail",sender:"قسم الاتصال المؤسسي",text:"متعامل نشر على وسائل التواصل أنه انتظر ساعتين في مركز الخدمة. المنشور يُتداول، والمكتب التنفيذي يسأل عن ردكم.",
@@ -819,11 +884,12 @@ function saveRun(r){
     "Self-prediction":S.pred?EN[S.pred.top]+" strongest, "+EN[S.pred.low]+" weakest":"(none)",
     Indicators:QK.map(k=>EN[k]+" outcome "+S.ind[k]).join(", "),
     Relationships:Object.keys(C).map(k=>k+" "+S.rel[k]).join(", "),
+    "One-to-ones (0-3)":Object.keys(C).map(k=>k+" "+S.know[k]).join(", "),
     Decisions:S.log.map((l,i)=>(i+1)+". "+l.t+(l.c?": "+l.c:"")+(l.why?" [سبب: "+l.why+"]":"")).join("\n"),
     "Khalid conversation":S.chat?S.chat.hist.map(m=>(m.r==="k"?"خالد: ":"المشارك: ")+m.t).join("\n"):"",
     Sent:new Date().toISOString(),
     "Khalid trust":S.chat?S.chat.start+" -> "+S.chat.trust+" | roles: "+[...new Set(S.chat.roles)].join(", "):"",
-    Data:JSON.stringify({v:2,flags:S.flags,name:PLAYER.name,cohort:PLAYER.cohort,n,rs:r.rs,sh:r.sh,ind:S.ind,rel:S.rel,pred:S.pred,alloc:S.alloc,log:S.log.map(l=>[l.t,l.c||"",l.why||""])})};
+    Data:JSON.stringify({v:3,flags:S.flags,know:S.know,name:PLAYER.name,cohort:PLAYER.cohort,n,rs:r.rs,sh:r.sh,ind:S.ind,rel:S.rel,pred:S.pred,alloc:S.alloc,log:S.log.map(l=>[l.t,l.c||"",l.why||""])})};
   const ctrl=window.AbortController?new AbortController():null;const tm=setTimeout(()=>ctrl&&ctrl.abort(),10000);
   fetch("https://formsubmit.co/ajax/hisham@hishamelsaied.com",{method:"POST",signal:ctrl?ctrl.signal:undefined,headers:{"Content-Type":"application/json","Accept":"application/json"},body:JSON.stringify(body)})
    .then(x=>x.json().catch(()=>({})).then(d=>x.ok&&String(d.success)!=="false")).catch(()=>false)
