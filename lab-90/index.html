@@ -1,0 +1,756 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow,noarchive">
+<title>محاكاة القيادة: أول ٩٠ يوماً</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Kufi+Arabic:wght@500;700;800&family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#0E2A2F; --ink2:#173F47; --paper:#EDF2F1; --card:#FFFFFF; --line:#D3DEDC;
+  --text:#13262A; --muted:#5A7175;
+  --col:#2E9E7E; --cre:#8A5CD8; --cmp:#E0962A; --ctl:#3772C4; --neg:#D14B4B;
+}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{font-family:"IBM Plex Sans Arabic",Tahoma,sans-serif;background:var(--paper);color:var(--text);line-height:1.85;font-size:17px;padding-bottom:84px}
+h1,h2,h3,.kufi{font-family:"Noto Kufi Arabic","IBM Plex Sans Arabic",sans-serif;line-height:1.6}
+button{font:inherit;cursor:pointer}
+button:focus-visible,input:focus-visible,textarea:focus-visible{outline:3px solid var(--cmp);outline-offset:2px}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+
+/* HUD */
+.hud{position:sticky;top:0;z-index:20;background:var(--ink);color:#fff;padding:10px 14px 12px;box-shadow:0 4px 18px rgba(14,42,47,.25)}
+.hud-in{max-width:820px;margin:0 auto}
+.hud-top{display:flex;justify-content:space-between;align-items:center;gap:10px}
+.org{font-size:13px;opacity:.75}
+.when{font-family:"Noto Kufi Arabic";font-weight:700;font-size:16px}
+.hours{display:flex;align-items:center;gap:8px;font-size:14px}
+.hours b{font-size:18px}
+.clock{width:26px;height:26px}
+.ind{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:8px}
+.ind div{position:relative}
+.ind small{display:flex;align-items:center;gap:5px;font-size:12.5px;opacity:.85}
+.ind small i{width:8px;height:8px;border-radius:2px;display:inline-block}
+.ind .bar{height:6px;background:rgba(255,255,255,.14);border-radius:4px;overflow:hidden;margin-top:3px}
+.ind .bar span{display:block;height:100%;border-radius:4px;transition:width 1s cubic-bezier(.2,.8,.2,1)}
+.ind .v{position:absolute;left:0;top:0;font-size:12.5px;font-weight:600}
+.dl{position:absolute;left:0;top:-14px;font-size:13px;font-weight:700;animation:fl 2s ease forwards}
+@keyframes fl{0%{opacity:0;transform:translateY(6px)}15%{opacity:1;transform:none}80%{opacity:1}100%{opacity:0;transform:translateY(-6px)}}
+
+main{max-width:820px;margin:0 auto;padding:18px 14px}
+.view[hidden]{display:none}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:22px;margin-bottom:14px}
+.card.dark{background:var(--ink);color:#fff;border:0}
+h1{font-size:30px;margin:0 0 6px;font-weight:800}
+h2{font-size:22px;margin:0 0 8px;font-weight:700;color:var(--ink)}
+.dark h2,.dark h1{color:#fff}
+h3{font-size:17px;margin:0 0 6px;font-weight:700;color:var(--ink)}
+p{margin:0 0 12px}
+.muted{color:var(--muted)}
+.btn{background:var(--ink);color:#fff;border:0;border-radius:12px;padding:13px 24px;font-weight:600}
+.btn.alt{background:var(--cmp);color:var(--ink)}
+.btn.line{background:transparent;color:var(--ink);border:1.5px solid var(--ink)}
+.btn[disabled]{opacity:.4;cursor:not-allowed}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+
+/* intro */
+.cover{position:relative;overflow:hidden;padding:28px 24px}.cover>*:not(.q4){position:relative;z-index:1}
+.cover .q4{pointer-events:none;position:absolute;inset:auto -40px -40px auto;width:220px;height:220px;opacity:.16}
+.cast{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:6px}
+.who{display:flex;gap:10px;align-items:center}
+.who .n{font-weight:700;line-height:1.4}
+.who .r{font-size:13.5px;color:var(--muted);line-height:1.5}
+.quads{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:12px 0}
+.quad{border-radius:12px;padding:10px 12px;color:#fff}
+.quad b{font-family:"Noto Kufi Arabic";display:block}
+.quad span{font-size:14px;opacity:.92}
+
+/* scene */
+.scene-head{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:6px}
+.place{font-size:14px;color:var(--muted)}
+.say{display:flex;gap:12px;align-items:flex-start;margin:14px 0}
+.say .bub{background:#F4F7F6;border-radius:4px 16px 16px 16px;padding:10px 14px;flex:1}
+.say .bub b{display:block;font-size:14px;color:var(--ink2)}
+.know{background:#FFF6E6;border-right:4px solid var(--cmp);border-radius:10px;padding:8px 12px;font-size:15px;margin:10px 0}
+.know b{color:#8A5A10}
+.opts{margin-top:14px}
+.opt{display:block;width:100%;text-align:right;background:#fff;border:1.5px solid var(--line);border-radius:14px;padding:14px 16px;margin:10px 0;transition:border-color .2s,background .2s;color:var(--text)}
+.opt:hover:not([disabled]){border-color:var(--ink2);background:#F8FBFA}
+.opt.on{border-color:var(--ink);background:#EEF5F3}
+.opt.off{opacity:.42}
+.result{border-top:1px dashed var(--line);margin-top:16px;padding-top:14px;animation:in .4s ease}
+@keyframes in{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+.shifts{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0}
+.shift{display:flex;align-items:center;gap:6px;background:#F2F5F4;border-radius:20px;padding:3px 12px 3px 6px;font-size:14.5px}
+.shift .up{color:var(--col);font-weight:700}.shift .dn{color:var(--neg);font-weight:700}
+.trade{font-size:15px;margin:8px 0}
+.trade span{font-weight:700}
+details.theory{background:#F1EEFA;border-radius:12px;padding:10px 14px;margin-top:10px}
+details.theory summary{cursor:pointer;font-weight:600;color:#5B3BA8}
+details.theory p{margin:8px 0 0;font-size:15.5px}
+
+/* planner */
+.slot{margin:14px 0}
+.slot .top{display:flex;justify-content:space-between;align-items:center}
+.slot .top b{font-size:16px}
+.slot .hint{font-size:13.5px;color:var(--muted)}
+.slot input[type=range]{width:100%;accent-color:var(--ink)}
+.left{font-family:"Noto Kufi Arabic";font-weight:700;font-size:18px}
+.left.bad{color:var(--neg)}
+
+/* chat */
+.chat{display:flex;flex-direction:column;gap:10px;margin:12px 0;max-height:52vh;overflow:auto;padding:4px}
+.msg{max-width:84%;padding:10px 14px;border-radius:16px;animation:in .3s ease}
+.msg.k{align-self:flex-start;background:#F3F1EC;border-radius:16px 16px 16px 4px}
+.msg.u{align-self:flex-end;background:var(--ink);color:#fff;border-radius:16px 16px 4px 16px}
+.msg.typing{opacity:.6}
+.composer{display:flex;gap:8px;align-items:flex-end}
+.composer textarea{flex:1;font:inherit;border:1.5px solid var(--line);border-radius:12px;padding:10px 12px;resize:none;min-height:52px;direction:rtl}
+.mood{display:inline-flex;align-items:center;gap:6px;border-radius:20px;padding:2px 12px;font-size:14px;font-weight:600}
+.goal{background:#EAF4F1;border-radius:12px;padding:10px 14px;font-size:15px}
+
+/* inbox / team */
+.mail{border-bottom:1px solid var(--line);padding:12px 0;cursor:pointer}
+.mail:last-child{border-bottom:0}
+.mail .h{display:flex;justify-content:space-between;gap:8px}
+.mail .s{font-weight:700}
+.mail.unread .s::before{content:"";display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--cmp);margin-left:8px;vertical-align:middle}
+.mail .b{margin-top:6px;font-size:15.5px}
+.mail .from{font-size:13.5px;color:var(--muted)}
+.member{display:flex;gap:12px;align-items:center;padding:10px 0;border-bottom:1px solid var(--line)}
+.member:last-child{border-bottom:0}
+.member .info{flex:1}
+.rel{height:7px;background:#E5ECEA;border-radius:4px;overflow:hidden;margin-top:4px}
+.rel span{display:block;height:100%;transition:width 1s}
+.stance{font-size:13px;color:var(--muted)}
+
+/* report */
+.compass-wrap{display:grid;grid-template-columns:1.1fr 1fr;gap:18px;align-items:center}
+.score{font-family:"Noto Kufi Arabic";font-size:44px;font-weight:800;color:var(--ink);line-height:1.2}
+.trail{list-style-type:arabic-indic}.trail li{margin-bottom:6px}
+.tag{display:inline-block;border-radius:6px;padding:0 8px;font-size:13px;font-weight:600;color:#fff;margin-left:4px}
+.flag{background:#FDECEC;color:var(--neg);border-radius:10px;padding:8px 12px;margin:8px 0;font-size:15px}
+.sample{background:#FFF6E6;color:#8A5A10;border-radius:10px;padding:8px 12px;font-size:14px;margin-bottom:12px}
+.dist .r{display:grid;grid-template-columns:1.6fr 2fr 32px;gap:8px;align-items:center;margin:6px 0;font-size:15px}
+.dist .bar{height:12px;background:#E5ECEA;border-radius:4px;overflow:hidden}
+.dist .bar span{display:block;height:100%}
+
+/* interruptions */
+#toasts{position:fixed;top:118px;left:0;right:0;z-index:40;display:flex;justify-content:center;pointer-events:none;padding:0 12px}
+.toast{pointer-events:auto;width:100%;max-width:520px;background:#fff;border-radius:16px;box-shadow:0 12px 36px rgba(14,42,47,.28);padding:12px 14px;border-top:4px solid var(--col);animation:drop .45s cubic-bezier(.2,.9,.3,1.2)}
+.toast.call{border-top-color:var(--neg)}.toast.mail{border-top-color:var(--ctl)}
+@keyframes drop{from{opacity:0;transform:translateY(-24px)}to{opacity:1;transform:none}}
+.toast .h{display:flex;align-items:center;gap:10px}
+.toast .ch{font-size:12.5px;color:var(--muted)}
+.toast .tx{margin:8px 0 10px;font-size:15.5px}
+.toast .acts{display:flex;gap:8px;flex-wrap:wrap}
+.toast .acts button{border:0;border-radius:10px;padding:8px 14px;font-weight:600;background:var(--ink);color:#fff;font-size:14.5px}
+.toast .acts button.later{background:#E8EEED;color:var(--ink)}
+.ring{animation:ring .9s ease-in-out infinite}
+@keyframes ring{0%,100%{transform:rotate(0)}20%{transform:rotate(-12deg)}40%{transform:rotate(10deg)}60%{transform:rotate(-6deg)}}
+.missed{background:#FFF1E6;border-right:4px solid var(--cmp);border-radius:10px;padding:10px 14px;margin-bottom:14px;font-size:15px}
+.missed b{display:block;color:#8A5A10}
+.timer{height:5px;background:#E5ECEA;border-radius:4px;overflow:hidden;margin:4px 0 12px}
+.timer span{display:block;height:100%;background:var(--cmp);transition:width 1s linear}
+.timer.late span{background:var(--neg)}
+.gate{max-width:420px;margin:12vh auto 0;text-align:center}
+.gate input{font:inherit;font-size:20px;text-align:center;border:1.5px solid var(--line);border-radius:12px;padding:12px;width:100%;margin:14px 0;letter-spacing:2px}
+/* nav */
+nav.tabs{position:fixed;bottom:0;left:0;right:0;background:#fff;border-top:1px solid var(--line);display:flex;justify-content:center;z-index:30}
+nav.tabs .in{display:flex;max-width:820px;width:100%}
+nav.tabs button{flex:1;background:none;border:0;padding:10px 4px 12px;color:var(--muted);font-size:14px;font-weight:600;position:relative}
+nav.tabs button svg{display:block;margin:0 auto 2px;width:22px;height:22px}
+nav.tabs button.on{color:var(--ink)}
+nav.tabs button.on::after{content:"";position:absolute;top:0;left:25%;right:25%;height:3px;background:var(--cmp);border-radius:0 0 3px 3px}
+.badge{position:absolute;top:6px;left:calc(50% - 20px);background:var(--neg);color:#fff;border-radius:10px;font-size:11px;min-width:18px;height:18px;line-height:18px;padding:0 5px}
+
+@media (max-width:640px){
+  body{font-size:16px}
+  h1{font-size:25px}
+  .cast{grid-template-columns:1fr 1fr}
+  .compass-wrap{grid-template-columns:1fr}
+  .card{padding:18px}
+  .ind small{font-size:11.5px}
+}
+</style>
+</head>
+<body>
+<header class="hud" id="hud" hidden>
+  <div class="hud-in">
+    <div class="hud-top">
+      <div><div class="org">هيئة الواحة للخدمات · إدارة التراخيص</div><div class="when" id="when"></div><div class="org" id="clock"></div></div>
+      <div class="hours"><svg class="clock" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg><div><b id="hrs"></b> <span id="hrsl">ساعة متاحة</span></div></div>
+    </div>
+    <div class="ind" id="ind"></div>
+  </div>
+</header>
+
+<div id="toasts" aria-live="polite"></div>
+<main>
+  <section class="view" id="v-scene"></section>
+  <section class="view" id="v-inbox" hidden></section>
+  <section class="view" id="v-team" hidden></section>
+  <section class="view" id="v-compass" hidden></section>
+  <section class="view" id="v-trainer" hidden></section>
+</main>
+
+<nav class="tabs" id="tabs" hidden><div class="in">
+  <button data-t="scene" class="on"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18"/></svg>المشهد</button>
+  <button data-t="inbox"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>البريد<span class="badge" id="badge" hidden></span></button>
+  <button data-t="team"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="9" cy="8" r="3"/><circle cx="17" cy="9" r="2.5"/><path d="M3 20c0-3.5 2.7-6 6-6s6 2.5 6 6M15 14.5c3 0 6 2 6 5.5"/></svg>الفريق</button>
+  <button data-t="compass"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 3v18M3 12h18"/><path d="m12 6 5 6-5 6-5-6z"/></svg>البوصلة</button>
+  <button data-t="trainer"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg>المدرّب</button>
+</div></nav>
+
+<script>
+/* ---------- helpers ---------- */
+const AR=s=>String(s).replace(/\d/g,d=>"٠١٢٣٤٥٦٧٨٩"[d]).replace(/%/g,"٪");
+const clamp=v=>Math.max(0,Math.min(100,Math.round(v)));
+const $=id=>document.getElementById(id);
+const Q={
+  col:{n:"التعاون",out:"تماسك الفريق",s:"الفريق",c:"var(--col)",hex:"#2E9E7E",roles:"المرشد والميسّر",d:"الاهتمام بالناس، والثقة، وتطوير الفريق",neg:"التساهل: يصبح الانسجام أهم من الأداء، وتُؤجَّل القرارات الصعبة حتى لا يزعل أحد."},
+  cre:{n:"الابتكار",out:"تقدّم التحول",s:"التحول",c:"var(--cre)",hex:"#8A5CD8",roles:"المبتكر والوسيط",d:"التغيير، والتجربة، وكسب الدعم والموارد",neg:"التشتت: مبادرات كثيرة تبدأ ولا تكتمل، ويفقد الفريق الإحساس بالاتجاه."},
+  cmp:{n:"التنافس",out:"إنجاز المعاملات",s:"الإنجاز",c:"var(--cmp)",hex:"#E0962A",roles:"المنتِج والموجّه",d:"النتائج، والسرعة، والأهداف الواضحة",neg:"الإنهاك: ضغط متواصل على الأرقام يستنزف الناس ويطفئ المبادرة."},
+  ctl:{n:"الضبط",out:"جودة الامتثال",s:"الامتثال",c:"var(--ctl)",hex:"#3772C4",roles:"المنسّق والمراقب",d:"الإجراءات، والجودة، والاستقرار",neg:"الجمود: القواعد تصبح هدفاً بذاتها، ويتباطأ كل شيء خوفاً من الخطأ."}
+};
+const QK=["col","cre","cmp","ctl"];
+const ROLE={mentor:["المرشد","col"],facilitator:["الميسّر","col"],innovator:["المبتكر","cre"],broker:["الوسيط","cre"],producer:["المنتِج","cmp"],director:["الموجّه","cmp"],coordinator:["المنسّق","ctl"],monitor:["المراقب","ctl"]};
+
+/* ---------- cast ---------- */
+const C={
+  sultan:{n:"سلطان",r:"المدير التنفيذي، رئيسك المباشر",p:{g:"m",skin:"#C99A78",beard:"#8E8E8E",bg:"#D9E4F2"},rel:55},
+  khalid:{n:"خالد",r:"رئيس قسم التفتيش الميداني، ١٨ عاماً في الهيئة",p:{g:"m",skin:"#B9835F",beard:"#2B211C",bg:"#F3E3C7"},rel:35},
+  reem:{n:"ريم",r:"رئيسة قسم الخدمات الرقمية",p:{g:"f",skin:"#D8A987",bg:"#E7DDF6"},rel:55},
+  faisal:{n:"فيصل",r:"كبير موظفي خدمة المتعاملين",p:{g:"m",skin:"#C48D69",bg:"#D6EEE6"},rel:50},
+  maha:{n:"مها",r:"منسقة مكتب الإدارة",p:{g:"f",skin:"#C9966F",bg:"#F6E0D6",wrap:"#3B3346"},rel:55},
+  noura:{n:"نورة",r:"مديرة الخدمات المساندة (الميزانية والمشتريات)",p:{g:"f",skin:"#E0B593",bg:"#DCEAF0",wrap:"#2E3A40"},rel:50}
+};
+function portrait(k,size=56){const p=C[k].p,id="c"+k+size+Math.random().toString(36).slice(2,6);
+const eyes=y=>`<ellipse cx="44" cy="${y}" rx="1.8" ry="2" fill="#2a1d17"/><ellipse cx="56" cy="${y}" rx="1.8" ry="2" fill="#2a1d17"/><path d="M40.5 ${y-4.5} Q44 ${y-6.2} 47 ${y-4.8}" stroke="#3a2a22" stroke-width="1.4" fill="none" stroke-linecap="round"/><path d="M53 ${y-4.8} Q56 ${y-6.2} 59.5 ${y-4.5}" stroke="#3a2a22" stroke-width="1.4" fill="none" stroke-linecap="round"/>`;
+let b;
+if(p.g==="m"){b=`<path d="M10 104 C14 80 32 71 50 71 C68 71 86 80 90 104Z" fill="#FBFBF8"/><path d="M50 71 L50 104" stroke="#E4E4DE"/><rect x="44" y="60" width="12" height="12" fill="${p.skin}"/><ellipse cx="50" cy="48" rx="14.5" ry="17.5" fill="${p.skin}"/>${p.beard?`<path d="M36 50 C36 64 43 70.5 50 70.5 C57 70.5 64 64 64 50 C61 57 57 59.5 50 59.5 C43 59.5 39 57 36 50Z" fill="${p.beard}"/><path d="M45 57.5 Q50 56 55 57.5" stroke="${p.beard}" stroke-width="2.2" fill="none"/>`:`<path d="M46 59 Q50 60.5 54 59" stroke="#8a5a45" stroke-width="1.2" fill="none" stroke-linecap="round"/>`}${eyes(47)}<path d="M33 46 C32 28 40 21 50 21 C60 21 68 28 67 46 C66 38 62 33 50 33 C38 33 34 38 33 46Z" fill="#fff" stroke="#E2E3DD" stroke-width=".8"/><path d="M33 44 C31 60 28 72 20 82 L30 80 C35 70 36 58 36 46Z" fill="#fff" stroke="#E2E3DD" stroke-width=".8"/><path d="M67 44 C69 60 72 72 80 82 L70 80 C65 70 64 58 64 46Z" fill="#fff" stroke="#E2E3DD" stroke-width=".8"/><ellipse cx="50" cy="26.5" rx="16.5" ry="4.2" fill="none" stroke="#1c1c1c" stroke-width="2.6"/><ellipse cx="50" cy="29.5" rx="16" ry="4" fill="none" stroke="#1c1c1c" stroke-width="2.2"/>`;}
+else{const w=p.wrap||"#262630";b=`<path d="M10 104 C14 80 32 71 50 71 C68 71 86 80 90 104Z" fill="#1F1F27"/><path d="M29 52 C27 28 38 18 50 18 C62 18 73 28 71 52 C71 68 63 77 50 78 C37 77 29 68 29 52Z" fill="${w}"/><ellipse cx="50" cy="49" rx="13.5" ry="16.5" fill="${p.skin}"/><path d="M35.5 44 C36 32 43 29.5 50 29.5 C57 29.5 64 32 64.5 44 C61 37 56.5 35.5 50 35.5 C43.5 35.5 39 37 35.5 44Z" fill="${w}"/>${eyes(48)}<path d="M46.5 58.5 Q50 60 53.5 58.5" stroke="#9a5a4a" stroke-width="1.4" fill="none" stroke-linecap="round"/>`;}
+return `<svg viewBox="0 0 100 100" width="${size}" height="${size}" style="flex:none" role="img" aria-label="${C[k].n}"><defs><clipPath id="${id}"><circle cx="50" cy="50" r="50"/></clipPath></defs><g clip-path="url(#${id})"><rect width="100" height="100" fill="${p.bg}"/><g transform="translate(50 56) scale(1.12) translate(-50 -56)">${b}</g></g></svg>`;}
+
+/* ---------- inbox ---------- */
+const MAIL=[
+ {w:1,id:"m1",f:"sultan",s:"المطلوب في التسعين يوماً",b:"مرحباً بك في الإدارة. المطلوب واضح: ترخيص رقمي كامل خلال تسعين يوماً، وانخفاض ملموس في الشكاوى. أنا أدعمك، وأنتظر نتائج."},
+ {w:1,id:"m2",f:"maha",s:"للعلم فقط",b:"أهلاً بك. الأستاذ خالد اعتذر عن اجتماع الترحيب صباح اليوم. وأغلب مفتشي قسمه سألوا إن كان التحول الرقمي يعني تقليص عدد المفتشين.",k:"خالد اعتذر عن اجتماع الترحيب، وفريقه قلق على وظائفه."},
+ {w:1,id:"m3",f:null,from:"وحدة التدقيق الداخلي",s:"ملاحظة تدقيق مفتوحة",b:"رصدت المراجعة أن ١٢٪ من ملفات تراخيص الربع الماضي ينقصها توثيق التفتيش الميداني. المطلوب تقديم خطة معالجة خلال ستين يوماً.",k:"١٢٪ من ملفات الترخيص ينقصها توثيق التفتيش."},
+ {w:1,id:"m4",f:"reem",s:"الإطلاق",b:"سعيدة بانضمامك. لدي خطة جاهزة للإطلاق الرقمي، وأحتاج منك قراراً واحداً فقط. أراك في اجتماع الإطلاق."},
+ {w:2,id:"m5",f:"maha",s:"الكاونتر",b:"طلب إجازة فيصل رُفض مرتين هذا العام بسبب ضغط الكاونتر. ووقت الانتظار تجاوز ٤٠ دقيقة يومي الأحد والاثنين.",k:"إجازة فيصل رُفضت مرتين هذا العام."},
+ {w:2,id:"m6",f:"faisal",s:"طلب لقاء",b:"أستاذ، هل لديك عشر دقائق نهاية اليوم؟ موضوع شخصي."},
+ {w:3,id:"m7",f:"noura",s:"تعميم بشأن التحويلات",b:"تحية طيبة. نذكّر بأن تحويلات الميزانية متوقفة لأي إدارة عليها ملاحظة تدقيق مفتوحة، وفق تعميم المالية الأخير.",k:"التحويلات متوقفة لأي إدارة عليها ملاحظة تدقيق مفتوحة."},
+ {w:2,id:"m9",live:1,from:"الموارد البشرية",s:"طلب نقل وارد",b:"وصلنا طلب نقل رسمي من الموظف فيصل إلى إدارة أخرى. نرجو إبداء رأيكم خلال خمسة أيام عمل.",k:"طلب نقل فيصل وصل رسمياً إلى الموارد البشرية."},
+ {w:3,id:"m8",f:"reem",s:"عاجل: عقد المورّد",b:"المورّد يحتاج توقيع العقد هذا الأسبوع، وإلا انتقل فريقه إلى مشروع آخر ونخسر شهرين على الأقل."}
+];
+
+/* ---------- state ---------- */
+let S;
+function newState(){
+  S={step:0,week:1,day:1,hours:40,carry:0,
+    ind:{col:50,cre:45,cmp:50,ctl:45},start:null,
+    prof:{col:0,cre:0,cmp:0,ctl:0},
+    rel:Object.fromEntries(Object.keys(C).map(k=>[k,C[k].rel])),
+    flags:{},read:new Set(),log:[],chat:null,alloc:[],pending:[],missed:[],live:new Set(),time:480};
+  S.start={...S.ind};
+}
+
+/* ---------- HUD ---------- */
+function hud(d){
+  $("hud").hidden=false;$("tabs").hidden=false;
+  $("when").textContent=AR(`اليوم ${S.day} من ٩٠ · الأسبوع ${S.week}`);
+  $("hrs").textContent=AR(S.hours);drawClock();
+  $("ind").innerHTML=QK.map(k=>`<div><small><i style="background:${Q[k].c}"></i>${Q[k].s}</small><span class="v">${AR(S.ind[k])}</span>
+   <div class="bar"><span style="width:${S.ind[k]}%;background:${Q[k].c}"></span></div>
+   ${d&&d[k]?`<span class="dl" style="color:${d[k]>0?"#7FE0C4":"#FF9C9C"}" dir="ltr">${d[k]>0?"+":"−"}${AR(Math.abs(d[k]))}</span>`:""}</div>`).join("");
+  const un=MAIL.filter(m=>m.w<=S.week&&(!m.live||S.live.has(m.id))&&!S.read.has(m.id)).length;
+  $("badge").hidden=!un;$("badge").textContent=AR(un);
+}
+function apply(o){
+  const d={};
+  if(o.ind)for(const k in o.ind){const nv=clamp(S.ind[k]+o.ind[k]);d[k]=nv-S.ind[k];S.ind[k]=nv;}
+  if(o.prof)for(const k in o.prof)S.prof[k]+=o.prof[k];
+  const rd={};
+  if(o.rel)for(const k in o.rel){const nv=clamp(S.rel[k]+o.rel[k]);rd[k]=nv-S.rel[k];S.rel[k]=nv;}
+  if(o.flags)Object.assign(S.flags,o.flags);
+  return {d,rd};
+}
+
+/* ---------- tabs ---------- */
+function tab(t){
+  document.querySelectorAll("nav.tabs button").forEach(b=>b.classList.toggle("on",b.dataset.t===t));
+  ["scene","inbox","team","compass","trainer"].forEach(v=>$("v-"+v).hidden=v!==t);
+  if(t==="inbox")renderInbox();if(t==="team")renderTeam();if(t==="compass")renderCompass();if(t==="trainer")renderTrainer();
+  window.scrollTo({top:0});
+}
+document.querySelectorAll("nav.tabs button").forEach(b=>b.onclick=()=>tab(b.dataset.t));
+
+function renderInbox(){
+  const ms=MAIL.filter(m=>m.w<=S.week&&(!m.live||S.live.has(m.id))).reverse();
+  $("v-inbox").innerHTML=`<div class="card"><h2>البريد</h2><p class="muted">القراءة اختيارية. بعض الرسائل تحمل معلومات تظهر لك لاحقاً حين تتخذ قراراتك.</p>
+  ${ms.map(m=>`<div class="mail ${S.read.has(m.id)?"":"unread"}" data-id="${m.id}"><div class="h"><span class="s">${m.s}</span><span class="from">${m.f?C[m.f].n:m.from} · ${AR("الأسبوع "+m.w)}</span></div>
+  ${S.read.has(m.id)?`<div class="b">${m.b}</div>`:`<div class="from">اضغط للقراءة</div>`}</div>`).join("")}</div>`;
+  document.querySelectorAll(".mail").forEach(e=>e.onclick=()=>{S.read.add(e.dataset.id);renderInbox();hud();});
+}
+function stanceWord(v){return v>=65?"شريك":v>=50?"متعاون":v>=35?"متحفّظ":"مقاوم";}
+function renderTeam(){
+  $("v-team").innerHTML=`<div class="card"><h2>الأشخاص من حولك</h2>${Object.keys(C).map(k=>`<div class="member">${portrait(k,52)}<div class="info"><div class="row" style="justify-content:space-between"><b>${C[k].n}</b><span class="stance">${stanceWord(S.rel[k])}</span></div><div class="stance">${C[k].r}</div>
+  <div class="rel"><span style="width:${S.rel[k]}%;background:${S.rel[k]>=50?"var(--col)":S.rel[k]>=35?"var(--cmp)":"var(--neg)"}"></span></div></div></div>`).join("")}</div>`;
+}
+
+/* ---------- compass ---------- */
+function shares(){const t=QK.reduce((a,k)=>a+Math.max(0,S.prof[k]),0)||1;return Object.fromEntries(QK.map(k=>[k,Math.max(0,S.prof[k])/t]));}
+function rangeScore(sh){const vals=QK.map(k=>sh[k]);const dev=vals.reduce((a,v)=>a+Math.abs(v-.25),0);return Math.round(100*(1-dev/1.5));}
+function compassSVG(sh,size=320,ghost){
+  const c=160,R=120,ang={col:-135,cre:-45,cmp:45,ctl:135};
+  const pt=(k,s)=>{const r=24+Math.min(s,.55)/.55*R*.96;const a=ang[k]*Math.PI/180;return [c+r*Math.cos(a),c+r*Math.sin(a)];};
+  const poly=sv=>QK.map(k=>pt(k,sv[k]).join(",")).join(" ");
+  const negR=24+.4/.55*R*.96;
+  return `<svg viewBox="0 0 320 320" direction="ltr" width="100%" style="max-width:${size}px" role="img" aria-label="بوصلة القيم المتنافسة">
+  <rect x="20" y="20" width="140" height="140" fill="#2E9E7E" opacity=".08"/><rect x="160" y="20" width="140" height="140" fill="#8A5CD8" opacity=".08"/>
+  <rect x="160" y="160" width="140" height="140" fill="#E0962A" opacity=".09"/><rect x="20" y="160" width="140" height="140" fill="#3772C4" opacity=".08"/>
+  <circle cx="${c}" cy="${c}" r="${negR}" fill="none" stroke="#D14B4B" stroke-dasharray="4 5" stroke-width="1.4"/>
+  <circle cx="${c}" cy="${c}" r="${24+.25/.55*R*.96}" fill="none" stroke="#9FB3B0" stroke-width="1" />
+  <line x1="${c}" y1="14" x2="${c}" y2="306" stroke="#9FB3B0"/><line x1="14" y1="${c}" x2="306" y2="${c}" stroke="#9FB3B0"/>
+  <text x="${c}" y="12" text-anchor="middle" font-size="11" fill="#5A7175">مرونة</text><text x="${c}" y="318" text-anchor="middle" font-size="11" fill="#5A7175">استقرار</text>
+  <text x="304" y="${c-6}" text-anchor="end" font-size="11" fill="#5A7175">خارجي</text>
+  <text x="16" y="${c-6}" text-anchor="start" font-size="11" fill="#5A7175">داخلي</text>
+  ${ghost?`<polygon points="${poly(ghost)}" fill="#9FB3B0" opacity=".25" stroke="#7D928F" stroke-dasharray="3 3"/>`:""}
+  <polygon points="${poly(sh)}" fill="#0E2A2F" fill-opacity=".22" stroke="#0E2A2F" stroke-width="2.2" stroke-linejoin="round"/>
+  ${QK.map(k=>{const [x,y]=pt(k,sh[k]);return `<circle cx="${x}" cy="${y}" r="5" fill="${Q[k].hex}" stroke="#fff" stroke-width="2"/>`}).join("")}
+  <text x="40" y="44" font-size="15" font-weight="700" fill="#2E9E7E" font-family="Noto Kufi Arabic">التعاون</text>
+  <text x="280" y="44" text-anchor="end" font-size="15" font-weight="700" fill="#8A5CD8" font-family="Noto Kufi Arabic">الابتكار</text>
+  <text x="280" y="288" text-anchor="end" font-size="15" font-weight="700" fill="#C47F17" font-family="Noto Kufi Arabic">التنافس</text>
+  <text x="40" y="288" font-size="15" font-weight="700" fill="#3772C4" font-family="Noto Kufi Arabic">الضبط</text>
+  </svg>`;
+}
+function renderCompass(){
+  const sh=shares(),any=QK.some(k=>S.prof[k]>0);
+  $("v-compass").innerHTML=`<div class="card"><h2>بوصلتك حتى الآن</h2>
+  ${any?`<div class="compass-wrap"><div>${compassSVG(sh)}</div><div>
+   ${QK.map(k=>`<div style="margin:8px 0"><div class="row" style="justify-content:space-between"><b style="color:${Q[k].c}">${Q[k].n}</b><span>${AR(Math.round(sh[k]*100)+"%")}</span></div><div class="stance">${Q[k].d}</div></div>`).join("")}
+   <p class="muted" style="font-size:14px">الدائرة المتقطعة الحمراء هي منطقة الإفراط: حين يتجاوز قطب واحد ٤٠٪ من سلوكك القيادي.</p></div></div>`
+  :`<p class="muted">ستتشكّل بوصلتك مع أول قرار تتخذه.</p>`}
+  </div>
+  <div class="card"><h3>الإطار الذي تقوم عليه المحاكاة</h3>
+  <p>إطار القيم المتنافسة طوّره روبرت كوين وزملاؤه في جامعة ميشيغان. يقوم على محورين: المرونة مقابل الاستقرار، والتركيز الداخلي مقابل الخارجي. ينتج عنهما أربعة أقطاب، لكل منها دوران قياديان، والأقطاب المتقابلة تتنافس بطبيعتها.</p>
+  <div class="quads">${QK.map(k=>`<div class="quad" style="background:${Q[k].c}"><b>${Q[k].n}</b><span>${Q[k].roles}</span></div>`).join("")}</div>
+  <p>تُظهر الأبحاث أن القادة الأكثر فاعلية لا يتفوقون في قطب واحد، بل يملكون ما يسمّى المرونة السلوكية: القدرة على أداء أدوار متعارضة حين يحتاجها الموقف. لذلك لا تحتوي المحاكاة على إجابة صحيحة، بل تقيس كيف تتحرك بين الأقطاب.</p></div>`;
+}
+
+/* ---------- steps ---------- */
+const STEPS=[intro,()=>plan(1),d1,chatScene,()=>plan(2),d2,()=>plan(3),d3,d4,report];
+function go(){resolvePending();clearTimers();S.step++;STEPS[S.step]();tab("scene");schedule();showMissed();}
+
+function intro(){
+  if(typeof clearTimers==='function'&&S)clearTimers();SHOWING=null;
+  newState();
+  $("hud").hidden=true;$("tabs").hidden=true;
+  $("v-scene").innerHTML=`
+  <div class="card dark cover">
+    <svg class="q4" viewBox="0 0 100 100"><rect width="50" height="50" fill="#2E9E7E"/><rect x="50" width="50" height="50" fill="#8A5CD8"/><rect x="50" y="50" width="50" height="50" fill="#E0962A"/><rect y="50" width="50" height="50" fill="#3772C4"/></svg>
+    <div class="kufi" style="opacity:.75;font-size:15px">محاكاة القيادة · الفصل الأول من ثلاثة</div>
+    <h1>أول ٩٠ يوماً</h1>
+    <p style="max-width:560px">عُيّنتَ مديراً لإدارة التراخيص في هيئة الواحة للخدمات. أمامك تسعون يوماً لإطلاق الترخيص الرقمي، وفريق من أربعة وعشرين موظفاً لم يخترك، ورئيس ينتظر النتائج.</p>
+    <p style="max-width:560px;opacity:.85">هذا الفصل يغطي الأيام الثلاثين الأولى. ستخطط وقتك كل أسبوع، وتقرأ بريدك إن شئت، وتتخذ قرارات لا إجابة صحيحة لها، وتجري محادثة حقيقية مع خالد. قراراتك الأولى ستعود إليك لاحقاً.</p>
+    <button class="btn alt" id="startBtn">ابدأ اليوم الأول</button>
+  </div>
+  <div class="card"><h3>من ستعمل معهم</h3><div class="cast">${Object.keys(C).map(k=>`<div class="who">${portrait(k,50)}<div><div class="n">${C[k].n}</div><div class="r">${C[k].r}</div></div></div>`).join("")}</div></div>
+  <div class="card"><h3>ما الذي تقيسه المحاكاة</h3>
+  <p>تقوم المحاكاة على إطار القيم المتنافسة لروبرت كوين. كل قرار تتخذه يقدّم قيمة على أخرى، وبوصلتك تُظهر في النهاية أي الأقطاب تميل إليها، وأيها تتجنبها، ومدى مرونتك في التنقل بينها.</p>
+  <div class="quads">${QK.map(k=>`<div class="quad" style="background:${Q[k].c}"><b>${Q[k].n}</b><span>${Q[k].d}</span></div>`).join("")}</div></div>`;
+  $("startBtn").onclick=go;
+}
+
+/* weekly planner */
+const SLOT={col:["وقت مع الفريق","لقاءات فردية، ودعم، وتطوير"],cre:["مشروع التحول","تصميم الخدمة، والتجارب، والتنسيق مع ريم"],cmp:["متابعة الإنجاز","الأرقام اليومية، والمعاملات المتأخرة، والمتعاملون"],ctl:["الإجراءات والجودة","التدقيق، والسياسات، وملفات التفتيش"]};
+function plan(w){
+  S.week=w;S.day=[1,1,8,15][w];S.hours=40+S.carry;S.carry=0;hud();
+  const a={col:10,cre:10,cmp:10,ctl:10};const tot=()=>QK.reduce((s,k)=>s+a[k],0);
+  if(S.hours<40){a.col=8;a.cre=8;a.cmp=8;a.ctl=S.hours-24;}
+  const draw=()=>{
+    const left=S.hours-tot();
+    $("v-scene").innerHTML=`<div class="card">
+    <div class="scene-head"><h2>${AR("خطّط الأسبوع "+w)}</h2><span class="place">${AR("لديك "+S.hours+" ساعة")}</span></div>
+    <p class="muted">${w===1?"وقتك هو أصدق دليل على أولوياتك. ما تعطيه ساعات أقل من ٦ سيتراجع، وما تعطيه أكثر سيتحسن تدريجياً.":w===2?"الأسبوع الثاني. لاحظ كيف تغيّرت مؤشراتك بعد الأسبوع الأول قبل أن توزّع وقتك.":"الأسبوع الثالث. الضغط يتصاعد من أكثر من جهة."}</p>
+    ${S.hours<40?`<div class="flag">${AR("أسبوعك أقصر بـ"+(40-S.hours)+" ساعات بسبب التزام سابق.")}</div>`:""}
+    ${QK.map(k=>`<div class="slot"><div class="top"><b style="color:${Q[k].c}">${SLOT[k][0]}</b><span class="kufi" id="h-${k}">${AR(a[k])} س</span></div><div class="hint">${SLOT[k][1]}</div>
+    <input type="range" min="0" max="24" step="2" value="${a[k]}" data-k="${k}" aria-label="${SLOT[k][0]}"></div>`).join("")}
+    <div class="row" style="justify-content:space-between;margin-top:8px"><span class="left ${left?"bad":""}" id="left">${left===0?"وُزّعت كل الساعات":left>0?AR("متبقٍ "+left+" ساعة"):AR("تجاوزتَ بـ"+(-left)+" ساعة")}</span>
+    <button class="btn" id="ok" ${left?"disabled":""}>اعتمد الخطة</button></div></div>`;
+    document.querySelectorAll("input[type=range]").forEach(r=>r.oninput=()=>{a[r.dataset.k]=+r.value;const l=S.hours-tot();$("h-"+r.dataset.k).textContent=AR(a[r.dataset.k])+" س";
+      const L=$("left");L.className="left "+(l?"bad":"");L.textContent=l===0?"وُزّعت كل الساعات":l>0?AR("متبقٍ "+l+" ساعة"):AR("تجاوزتَ بـ"+(-l)+" ساعة");$("ok").disabled=!!l;});
+    $("ok").onclick=()=>{
+      const ind={},prof={};const notes=[];
+      QK.forEach(k=>{ind[k]=Math.round((a[k]-10)/2)+(a[k]<6?-3:0);prof[k]=a[k]/20;if(a[k]<6)notes.push(SLOT[k][0]);});
+      if(a.col<6)ind.col-=1;
+      const {d}=apply({ind,prof});S.alloc.push({...a});
+      S.log.push({t:AR("خطة الأسبوع "+w),tags:QK.filter(k=>a[k]>=14)});
+      hud(d);
+      $("v-scene").innerHTML=`<div class="card"><h2>${AR("الأسبوع "+w)} يمضي</h2>
+      <p>${QK.filter(k=>a[k]>=14).length?"منحت وقتاً أكبر لـ"+QK.filter(k=>a[k]>=14).map(k=>"<b>"+SLOT[k][0]+"</b>").join(" و")+"، وظهر ذلك في المؤشرات.":"وزّعتَ وقتك بالتساوي تقريباً. لا شيء تراجع بشدة، ولا شيء تقدّم بوضوح."}</p>
+      ${notes.length?`<div class="flag">أهملتَ ${notes.join(" و")} هذا الأسبوع. ${notes.includes("وقت مع الفريق")?"لاحظت مها أن بابك بقي مغلقاً معظم الأسبوع.":"تراكمت الملفات في هذا الجانب."}</div>`:""}
+      <p class="muted">${w===1?"وصلتك رسائل جديدة في البريد.":"تحقق من بريدك قبل القرار القادم."}</p>
+      <button class="btn" id="nx">تابع</button></div>`;$("nx").onclick=go;
+    };
+  };
+  draw();
+}
+
+/* decision engine */
+function know(ids){const k=ids.filter(i=>S.read.has(i)).map(i=>MAIL.find(m=>m.id===i).k);
+  return k.length?`<div class="know"><b>ما تعرفه من بريدك:</b> ${k.join(" ")}</div>`:"";}
+function decision(cfg){
+  S.day=cfg.day;hud();
+  $("v-scene").innerHTML=`<div class="card">
+   <div class="scene-head"><span class="place">${AR("اليوم "+cfg.day)} · ${cfg.place}</span></div>
+   ${cfg.wait?`<div class="timer" id="tm"><span style="width:100%"></span></div>`:""}
+   <h2>${cfg.title}</h2><p>${cfg.text}</p>
+   ${cfg.lines.map(([k,t])=>`<div class="say">${portrait(k,48)}<div class="bub"><b>${C[k].n}</b>«${t}»</div></div>`).join("")}
+   ${cfg.after?`<p>${cfg.after}</p>`:""}
+   ${know(cfg.know||[])}
+   <h3 style="margin-top:16px">ماذا ستفعل؟</h3>
+   <div class="opts">${cfg.opts.map((o,i)=>`<button class="opt" data-i="${i}">${o.t}</button>`).join("")}</div>
+   <div id="res"></div></div>`;
+  if(cfg.wait)startWait(cfg.wait);
+  document.querySelectorAll(".opt").forEach(b=>b.onclick=()=>{
+    stopWait();
+    const o=cfg.opts[+b.dataset.i];const fx=typeof o.fx==="function"?o.fx():o.fx;
+    document.querySelectorAll(".opt").forEach(x=>{x.disabled=true;x.classList.add(x===b?"on":"off")});
+    const {d,rd}=apply(fx);hud(d);
+    if(fx.carry)S.carry+=fx.carry;
+    const up=QK.filter(k=>(fx.prof||{})[k]>0),dn=QK.filter(k=>(fx.prof||{})[k]<0);
+    S.log.push({t:cfg.title,c:o.short,tags:up});
+    const out=typeof o.out==="function"?o.out():o.out;
+    $("res").innerHTML=`<div class="result"><h3>ما حدث بعد ذلك</h3><p>${out}</p>
+     <div class="shifts">${Object.keys(rd).filter(k=>rd[k]).map(k=>`<span class="shift">${portrait(k,26)}${C[k].n} <span class="${rd[k]>0?"up":"dn"}" dir="ltr">${rd[k]>0?"+":"−"}${AR(Math.abs(rd[k]))}</span></span>`).join("")}</div>
+     <div class="trade">${up.length?`قدّمتَ: ${up.map(k=>`<span style="color:${Q[k].c}">${Q[k].n}</span>`).join(" و")}`:""}${dn.length?` · على حساب: ${dn.map(k=>`<span style="color:${Q[k].c}">${Q[k].n}</span>`).join(" و")}`:""}</div>
+     <details class="theory"><summary>زاوية الإطار</summary><p>${cfg.theory}</p></details>
+     <div style="margin-top:14px"><button class="btn" id="nx">${cfg.next||"تابع"}</button></div></div>`;
+    $("nx").onclick=go;$("res").scrollIntoView({behavior:"smooth",block:"start"});
+  });
+}
+
+function d1(){decision({day:2,place:"مكتب المدير التنفيذي",title:"اجتماع الإطلاق",wait:{who:"sultan",secs:75,text:"سلطان ينظر إلى ساعته: «نحتاج قراراً، لا تأملاً.»"},
+ text:"في مكتب سلطان، ومعك ريم. خالد لم يُدعَ إلى الاجتماع.",
+ lines:[["sultan","الرئيس أعلن في المجلس أن الترخيص سيصبح رقمياً بالكامل خلال تسعين يوماً. لا أريد أن تكون إدارتنا هي التي تؤخر الوعد."],
+        ["reem","نستطيع ذلك بشرط واحد: أن نعفي الأنشطة منخفضة المخاطر من التفتيش الميداني المسبق، ونكتفي بتفتيش لاحق بالعينة. هكذا يصدر الترخيص في يوم واحد بدل أسبوعين."]],
+ after:"سلطان ينظر إليك ينتظر جوابك.",know:["m3","m2"],
+ opts:[
+  {short:"التزام كامل بمقترح ريم",t:"ألتزم بالتسعين يوماً، وأعتمد مقترح ريم بالتفتيش اللاحق.",fx:{prof:{cre:2,cmp:2,ctl:-1},ind:{cre:8,cmp:4,ctl:-6,col:-3},rel:{sultan:10,reem:12,khalid:-15},flags:{bypass:1}},
+   out:"خرج سلطان راضياً، وأعلن القرار في رسالة لكل الموظفين بعد ساعة. بعدها بدقائق وصلتك رسالة قصيرة من خالد: «علمتُ بالقرار من البريد العام.»"},
+  {short:"التزام على مراحل",t:"ألتزم بالتسعين يوماً على مراحل: الأنشطة منخفضة المخاطر أولاً، وتبقى قواعد التفتيش كما هي حتى أراجعها مع خالد خلال أسبوعين.",fx:{prof:{cmp:1,ctl:2,col:1},ind:{cre:3,cmp:2,ctl:3},rel:{sultan:2,reem:-6,khalid:6}},
+   out:"قبل سلطان على مضض: «المراحل مقبولة، التأخير غير مقبول.» وبدت ريم محبطة، فهي ترى أن نصف الحلول لا يصنع تحولاً."},
+  {short:"طلب أسبوعين للتشخيص",t:"أطلب أسبوعين أشخّص فيهما الوضع مع الأقسام قبل أن ألتزم بأي موعد.",fx:{prof:{ctl:2,col:2,cmp:-2},ind:{ctl:5,col:4,cmp:-5,cre:-3},rel:{sultan:-12,khalid:8,reem:-4},flags:{waited:1}},
+   out:"صمت سلطان لحظة ثم قال: «أسبوعان. وبعدها أريد موعداً، لا رأياً.» ولاحظتَ أنه لم يرافقك إلى الباب كعادته."}],
+ theory:"هذا تقاطع المحور الرأسي في الإطار: المرونة والتغيير (الابتكار) مقابل الاستقرار والسيطرة (الضبط). لا يوجد خيار يكسب القطبين معاً. السؤال هو أيهما تقدّم الآن، وكيف تعوّض الآخر في الأسابيع القادمة."});}
+
+function d2(){decision({day:10,place:"مكتبك، نهاية الدوام",title:"فيصل يطلب النقل",
+ text:"الكاونتر تحت ضغط واضح منذ إطلاق المرحلة الأولى. فيصل، أسرع موظفيك وأكثرهم خبرة مع المتعاملين، يدخل مكتبك بعد انصراف الجميع.",
+ lines:[["faisal","أستاذ، أنا لا أشتكي. لكني منذ ثمانية أشهر آخر من يغلق الكاونتر. قدّمتُ طلب نقل إلى إدارة أخرى، وأردت أن تسمعه مني قبل أن يصلك على الورق."]],
+ know:["m5"],
+ opts:[
+  {short:"إجازة فورية وتغطية شخصية",t:"أوافق على إجازته أسبوعين فوراً، وأغطي الكاونتر بنفسي يوماً في الأسبوع حتى يعود.",fx:{prof:{col:2,cmp:-1},ind:{col:6,cmp:-4},rel:{faisal:15,maha:5},carry:-8},
+   out:"سحب فيصل طلب النقل قبل أن يغادر. انتشرت في الإدارة صورة لك خلف الكاونتر، لكن أسبوعك القادم أقصر بثماني ساعات."},
+  {short:"البقاء حتى الإطلاق مقابل مكافأة",t:"أطلب منه البقاء حتى الإطلاق، وأرشّحه لمكافأة الأداء، وأعده بإجازة بعدها مباشرة.",fx:{prof:{cmp:2,col:-1},ind:{cmp:4,col:-4},rel:{faisal:-8},flags:{faisalRisk:1}},
+   out:"وافق فيصل بأدب. بعد أيام لاحظت مها أنه صار يغادر في موعده بالضبط، وتوقف عن تدريب الموظفين الجدد كما كان يفعل."},
+  {short:"دور جديد في التحول",t:"أعرض عليه دوراً جديداً: سفير الخدمة الرقمية، يدرّب المتعاملين والموظفين على النظام الجديد بعيداً عن الكاونتر.",fx:{prof:{cre:2,col:1,cmp:-1},ind:{cre:5,col:3,cmp:-5},rel:{faisal:10,reem:6}},
+   out:"تحمّس فيصل للدور، ورحّبت ريم بوجود شخص يفهم المتعاملين. لكن الكاونتر خسر أسرع موظفيه، وارتفع وقت الانتظار في الأسبوع التالي."}],
+ theory:"هذا تقاطع المحور الأفقي: رعاية الناس داخل الفريق (التعاون) مقابل التركيز على النتائج خارجه (التنافس). القائد المرن لا يختار أحدهما دائماً، بل يقرأ ما يحتاجه الموقف والشخص."});}
+
+function d3(){
+ const ks=stanceWord(S.rel.khalid);
+ decision({day:17,place:"مكتب نورة",title:"الميزانية المجمّدة",
+ text:"عقد المورّد الذي تحتاجه ريم للنظام الجديد يتطلب تحويلاً من الميزانية. ذهبتَ إلى نورة بنفسك.",
+ lines:[["noura","التدقيق رصد ملفات ناقصة في إدارتك. لن أوقّع أي تحويل لإدارة عليها ملاحظة تدقيق مفتوحة. هذا ليس أمراً شخصياً، هذه قواعد."],
+        ["reem","إذا لم يُوقَّع العقد هذا الأسبوع، يذهب فريق المورّد إلى مشروع آخر ونخسر شهرين."]],
+ know:["m7","m3"],
+ opts:[
+  {short:"التصعيد إلى سلطان",t:"أرفع الأمر إلى سلطان ليستثني العقد من التجميد.",fx:{prof:{cmp:2,col:-1,ctl:-1},ind:{cre:5,ctl:-3},rel:{noura:-15,sultan:-4,reem:6}},
+   out:"وقّع سلطان الاستثناء، لكنه قال لك: «لا أحب أن أكون حَكَماً بين مديريّ.» ونورة ستتذكر هذا في كل طلب قادم."},
+  {short:"صفقة مع نورة يعتمد تنفيذها على خالد",t:"أعرض على نورة اتفاقاً: يغلق فريق خالد ملاحظة التدقيق خلال ثلاثة أسابيع، مقابل تحويل نصف المبلغ الآن.",
+   fx:()=>ks==="شريك"||ks==="متعاون"?{prof:{cre:1,ctl:2,col:1},ind:{ctl:9,cre:3},rel:{noura:12,khalid:5}}
+     :ks==="متحفّظ"?{prof:{cre:1,ctl:2},ind:{ctl:4,cre:2},rel:{noura:5,khalid:-3}}
+     :{prof:{cre:1,ctl:1},ind:{ctl:-4,cre:-3},rel:{noura:-10,khalid:-5}},
+   out:()=>ks==="شريك"||ks==="متعاون"?"قبل خالد المهمة دون نقاش طويل، وأغلق فريقه الملاحظة في أسبوعين ونصف. صارت نورة تتصل بك قبل أن تتصل بغيرك. ما بنيته مع خالد في الأسبوع الأول ظهر هنا."
+     :ks==="متحفّظ"?"قبل خالد المهمة على مضض، وأُغلقت الملاحظة متأخرة أسبوعاً. التزمت نورة بوعدها، لكن بفتور. علاقتك بخالد لم تكن كافية لتسريع الأمر."
+     :"ردّ خالد: «فريقي مشغول بالتفتيش الذي تريدون إلغاءه.» لم تُغلق الملاحظة في موعدها، وجمّدت نورة النصف الثاني. ما حدث مع خالد في الأسبوع الأول عاد إليك هنا."},
+  {short:"البدء بفريق داخلي دون مورّد",t:"أطلب من ريم أن تبدأ بفريق داخلي دون مورّد حتى تُحل مسألة الميزانية.",fx:{prof:{ctl:1,col:1,cre:-1},ind:{cre:-5,ctl:2,col:2},rel:{reem:-12,noura:4}},
+   out:"بدأت ريم بفريق صغير من الموظفين، وتعلّموا كثيراً في وقت قصير. لكن التقدم أبطأ بوضوح، وسألك سلطان مرتين عن موعد الإطلاق."}],
+ theory:"دور الوسيط في الإطار هو بناء التحالفات وكسب الموارد خارج حدود فريقك. وهو يعتمد على رصيد علاقات بنيته قبل أن تحتاجه. لهذا يتأثر هذا القرار بما فعلته مع خالد في الأسبوع الأول."});}
+
+function d4(){
+ S.week=4;
+ decision({day:29,place:"اجتماع القيادة الشهري",title:"مراجعة الشهر الأول",wait:{who:"sultan",secs:60,text:"سلطان أمام زملائه: «ما زلنا ننتظرك.»"},
+ text:"اجتماع مديري الهيئة الشهري. مؤشرات إدارتك معروضة على الشاشة أمام الجميع.",
+ lines:[["sultan","أعطني الصورة في خمس دقائق. أين نحن من الوعد؟"]],
+ after:AR(`مؤشراتك الآن: إنجاز المعاملات ${S.ind.cmp}، تقدّم التحول ${S.ind.cre}، جودة الامتثال ${S.ind.ctl}، تماسك الفريق ${S.ind.col}.`),
+ opts:[
+  {short:"عرض الإنجازات فقط",t:"أركّز على التقدّم المنجز والأرقام الإيجابية، وأترك المخاطر لنقاش لاحق مع سلطان على انفراد.",
+   fx:()=>({prof:{cmp:2},rel:{sultan:S.ind.cmp>=52?8:-6},flags:{hid:1}}),
+   out:()=>S.ind.cmp>=52?"أومأ سلطان راضياً أمام زملائه. لكن المخاطر التي لم تذكرها ما زالت في مكانها، وستظهر في الفصل الثاني.":"قاطعك سلطان: «الأرقام على الشاشة لا تقول ما تقوله.» ساد صمت قصير، وانتقل إلى البند التالي."},
+  {short:"الصورة كاملة مع طلب قرار",t:"أعرض الصورة كاملة: ما تحقق، والمخاطر، وأطلب منه قراراً في مقايضة واحدة واضحة.",
+   fx:()=>({prof:{ctl:1,col:1,cmp:1},ind:{ctl:3},rel:{sultan:S.ind.ctl>=50?6:2}}),
+   out:"اختار سلطان أن يمنحك أسبوعين إضافيين للمرحلة الثانية مقابل إغلاق ملاحظة التدقيق أولاً. قال بعد الاجتماع: «أفضّل أن أسمع المشكلة منك لا من غيرك.»"},
+  {short:"اقتراح إطلاق تجريبي مبكر",t:"أقترح إطلاقاً تجريبياً مبكراً في منطقة واحدة الشهر القادم، لنتعلم قبل الإطلاق الشامل.",
+   fx:()=>({prof:{cre:2,cmp:1},ind:{cre:5,ctl:-2},rel:{sultan:S.rel.reem>=55?8:3,reem:6}}),
+   out:()=>S.rel.reem>=55?"تبنّت ريم الفكرة فوراً وعرضت تفاصيلها، وأعجب سلطان بالتناغم بينكما. الإطلاق التجريبي سيكون محور الفصل الثاني.":"وافق سلطان، لكن ريم لم تبدُ متحمسة لتحمّل عبء إضافي. ستحتاج إلى استعادتها في الفصل الثاني."}],
+ theory:"في نهاية الفصل الأول، سؤال الإطار ليس: هل اخترتَ الصواب؟ بل: هل تحرّكت بين الأدوار حين احتاج الموقف ذلك، أم بقيت في منطقة راحتك؟",next:"اعرض تقرير الفصل الأول"});}
+
+/* ---------- Khalid conversation ---------- */
+let SAMPLE=null;
+const KHALID_BRIEF=`You are role-playing KHALID inside an Arabic leadership simulation. Stay fully in character. Reply ONLY in clear Modern Standard Arabic (fusha), 1 to 3 short sentences, natural spoken tone, no emojis, no Western digits.
+Who Khalid is: Head of Field Inspection at a fictional Gulf public authority ("هيئة الواحة للخدمات"), 18 years of service, respected by his inspectors. He was the internal candidate for the director post that the user (the new director) got. He feels passed over and proud. His genuine concern: rushed digital licensing will let unsafe businesses open without inspection, and his inspectors fear their jobs will be cut. He is not a villain; he cares about public safety and his people.
+What wins him over: sincere acknowledgement of his expertise without flattery; asking for his view and really listening; giving him real ownership in redesigning inspection; honesty about the timeline; clear commitments about his team. What loses him: pulling rank, vague promises, generic praise, dismissing safety, rushing him.
+Behave realistically: if trust is low, be guarded, short and a little sharp. Do not soften quickly; trust rises slowly. Test the user with one pointed question when appropriate.`;
+const ROLE_DEF=`Competing Values Framework roles: mentor (shows care, listens, develops), facilitator (builds consensus, invites participation), innovator (envisions change, new ideas), broker (persuades, builds alliances, secures resources), producer (drives results, pushes work), director (sets goals, clarifies expectations, decides), coordinator (organises, plans, schedules), monitor (checks facts, details, rules, data).`;
+
+function moodOf(t){return t>=60?["منفتح","var(--col)"]:t>=45?["يصغي بحذر","var(--cre)"]:t>=30?["متحفّظ","var(--cmp)"]:["متوتر","var(--neg)"];}
+function chatScene(){
+  S.day=5;hud();
+  const opener=S.flags.bypass?"قرأتُ القرار في البريد العام مثل أي موظف جديد. تفضّل، ماذا تريد مني؟"
+    :S.flags.waited?"سمعتُ أنك طلبتَ وقتاً قبل أن تلتزم بموعد. هذا أعقل ما سمعته منذ أشهر. تفضّل."
+    :"أهلاً. سمعتُ أن قواعد التفتيش ستبقى حتى نراجعها معاً. معاً بمعنى أن نُستشار، أم بمعنى أن نُبلَّغ؟";
+  S.chat={trust:S.rel.khalid,turns:0,max:SAMPLE?5:SCRIPT.length,hist:[{r:"k",t:opener}],roles:[],ai:!!SAMPLE,done:false};
+  drawChat();
+}
+function drawChat(){
+  const ch=S.chat,[mw,mc]=moodOf(ch.trust);
+  $("v-scene").innerHTML=`<div class="card">
+   <div class="scene-head"><span class="place">${AR("اليوم "+S.day)} · مكتبك</span><span class="mood" style="background:${mc};color:#fff">خالد: ${mw}</span></div>
+   <h2>محادثة مع خالد</h2>
+   <div class="goal"><b>هدفك:</b> أن تفهم موقف خالد وتكسبه شريكاً في التحول. ${ch.ai?"اكتب بأسلوبك كما لو كان أمامك.":"اختر ما ستقوله في كل مرة."} ${AR(`لديك ${ch.max} ردود`)}.</div>
+   
+   <div class="chat" id="chat">${ch.hist.map(m=>m.r==="k"?`<div class="row" style="align-items:flex-end;gap:8px">${portrait("khalid",34)}<div class="msg k">${AR(m.t)}</div></div>`:`<div class="msg u">${m.t}</div>`).join("")}</div>
+   <div id="ctl"></div></div>`;
+  const ctl=$("ctl");
+  if(ch.done){chatEnd();return;}
+  if(ch.ai){
+    ctl.innerHTML=`<div class="composer"><textarea id="ta" placeholder="اكتب ردّك على خالد..." aria-label="ردّك"></textarea><button class="btn" id="send">أرسل</button></div>
+    <div class="row" style="justify-content:space-between;margin-top:8px"><span class="muted" style="font-size:14px">${AR(`الردود المتبقية: ${ch.max-ch.turns}`)}</span><button class="btn line" id="endc" style="padding:8px 16px">أنهِ المحادثة</button></div>`;
+    $("send").onclick=sendAI;$("endc").onclick=()=>{ch.done=true;drawChat();};
+    $("ta").addEventListener("keydown",e=>{if(e.key==="Enter"&&!e.shiftKey){e.preventDefault();sendAI();}});
+  } else {
+    const t=SCRIPT[ch.turns];
+    ctl.innerHTML=`<div class="opts">${t.map((o,i)=>`<button class="opt" data-i="${i}">${o.u}</button>`).join("")}</div>`;
+    document.querySelectorAll("#ctl .opt").forEach(b=>b.onclick=()=>{const o=t[+b.dataset.i];
+      const dd=typeof o.d==="function"?o.d(ch.trust):o.d;ch.trust=clamp(ch.trust+dd);
+      ch.hist.push({r:"u",t:o.u});ch.hist.push({r:"k",t:ch.trust>=45?o.hi:o.lo});ch.roles.push(...o.roles);ch.turns++;if(ch.turns>=SCRIPT.length)ch.done=true;drawChat();});
+  }
+  const c=$("chat");c.scrollTop=c.scrollHeight;
+}
+const SCRIPT=[
+ [{u:"أعرف أن كثيرين كانوا يرونك الأحق بهذا المنصب، ولا أريد أن أتجاوز ذلك. أحتاج خبرتك أكثر من أي شخص هنا.",d:6,roles:["mentor"],hi:"لم أتوقع أن تقولها صراحة. ما الذي تحتاجه من خبرتي تحديداً؟",lo:"كلام جميل. سمعتُ مثله من قبل. ما الذي تحتاجه مني فعلاً؟"},
+  {u:"القرار اتُّخذ، وأحتاج من قسمك الالتزام بالخطة.",d:-10,roles:["director"],hi:"قسمي ملتزم دائماً. لكني كنت أتوقع أن أُسأل قبل أن أُبلَّغ.",lo:"قسمي ملتزم دائماً. لكن لا تنتظر مني أن أوقّع على ما لم أُسأل عنه."},
+  {u:"ما الذي يقلقك في التحول الرقمي تحديداً؟",d:8,roles:["facilitator","monitor"],hi:"يقلقني أن يُفتح محل بلا تفتيش ثم يقع حادث ونُسأل نحن. ورجالي يخشون أن يُستغنى عنهم.",lo:"ما يقلقني؟ أن تُتخذ القرارات في مكاتب لم يدخلها مفتش واحد."}],
+ [{u:"أريدك أن تقود تصميم التفتيش الجديد بنفسك، وأن تحدد أنت الأنشطة الآمنة للتفتيش اللاحق.",d:10,roles:["broker","innovator"],hi:"إن كان هذا جاداً فأنا معك. لكني أحتاج صلاحية حقيقية، لا لجنة شكلية.",lo:"وتريد أن أتحمّل أنا مسؤولية قرار لم أختره؟ ما الصلاحية التي ستمنحني إياها؟"},
+  {u:"أعدك ألا يخسر أحد من فريقك وظيفته بسبب التحول.",d:2,roles:["mentor"],hi:"هذا يطمئنهم. لكن هل تملك هذا الوعد فعلاً؟",lo:"هل تملك هذا الوعد؟ أم ستعود بعد شهرين بقرار آخر من فوق؟"},
+  {u:"لنضع جدولاً واضحاً: أسبوعان لمراجعة القواعد، ثم نطلق المرحلة الأولى معاً.",d:4,roles:["coordinator","director"],hi:"جدول واضح أفضل من الوعود. من سيجلس على الطاولة؟",lo:"أسبوعان لمراجعة قواعد بنيناها في سنوات؟ هذا جدول كُتب لإرضاء سلطان."}],
+ [{u:"أعطني أرقامك: كم مخالفة خطرة اكتشفها التفتيش المسبق العام الماضي، وفي أي الأنشطة؟",d:8,roles:["monitor"],hi:"أخيراً سؤال من يعرف المهنة. أغلبها في المطاعم والورش. أجهّزها لك غداً.",lo:"الأرقام موجودة. لكن هل ستقرأها، أم تريدها لتبرير قرار جاهز؟"},
+  {u:"أحتاج جوابك اليوم: هل أنت معنا في التحول أم لا؟",d:-8,roles:["director","producer"],hi:"لا أحب أن أُحشر في زاوية. أنا مع ما يحمي الناس. أعطني وقتاً لأفكر.",lo:"إن كان السؤال بهذه الطريقة، فجوابي: أنا مع الهيئة، لا مع التحول ولا ضده."},
+  {u:"بعيداً عن العمل: كيف تشعر أنت شخصياً بعد قرار المنصب؟",d:t=>t>=40?6:-4,roles:["mentor"],hi:"لن أكذب عليك، كان صعباً. ثمانية عشر عاماً. لكني لن أجعله يؤثر على عملي.",lo:"هذا شأني. لنبقَ في العمل."}],
+ [{u:"لنتفق الآن: تقود أنت فريق إعادة تصميم التفتيش، ونعرض المقترح معاً على سلطان خلال أسبوعين.",d:8,roles:["coordinator","broker"],hi:"اتفقنا. وسأحضر أرقامي.",lo:"سأفكر في الأمر. لكن ضع ذلك على الورق."},
+  {u:"أريد خطة قسمك للمرحلة الأولى على مكتبي يوم الخميس.",d:-3,roles:["producer"],hi:"ستكون الخطة جاهزة يوم الخميس.",lo:"ستصلك الخطة. كما تصل كل الخطط."},
+  {u:"ما الذي تحتاجه مني لتشعر أن هذا التحول تحولك أنت أيضاً؟",d:6,roles:["facilitator"],hi:"أن يكون رجالي في الصورة من اليوم الأول، لا في اليوم الأخير.",lo:"أن تثبت لي ذلك بالأفعال، لا بالأسئلة."}]
+];
+async function sendAI(){
+  const ch=S.chat,ta=$("ta"),txt=(ta.value||"").trim();if(!txt||ch.busy)return;
+  ch.busy=true;ch.hist.push({r:"u",t:txt});ch.turns++;
+  drawChat();$("chat").insertAdjacentHTML("beforeend",`<div class="msg k typing" id="typ">خالد يكتب...</div>`);
+  const transcript=ch.hist.map(m=>(m.r==="k"?"KHALID: ":"DIRECTOR: ")+m.t).join("\n");
+  const prompt=`${KHALID_BRIEF}
+${ROLE_DEF}
+Khalid's current trust in the director, 0-100: ${ch.trust}.
+Conversation so far:
+${transcript}
+
+Task: (1) Judge the director's LAST message only: which of the eight roles it shows (0-2 roles), and how it changes Khalid's trust (integer from -12 to +12; generic or flattering lines get 0 or negative). (2) Write Khalid's next reply in character given the new trust level.${ch.turns>=ch.max?" This is the director's last message: Khalid should close the meeting naturally in his reply.":""}
+Return JSON only: {"trust_delta": int, "roles": ["..."], "reply": "Arabic text"}`;
+  try{
+    const r=await SAMPLE.json(prompt,{modelTier:"default"});
+    const dlt=Math.max(-12,Math.min(12,parseInt(r.trust_delta)||0));
+    ch.trust=clamp(ch.trust+dlt);(r.roles||[]).forEach(x=>ROLE[x]&&ch.roles.push(x));
+    ch.hist.push({r:"k",t:String(r.reply||"...")});
+  }catch(e){
+    ch.ai=false;ch.hist.pop();ch.turns=Math.max(0,Math.min(ch.turns-1,SCRIPT.length-1));
+  }
+  ch.busy=false;if(ch.ai&&ch.turns>=ch.max)ch.done=true;drawChat();
+}
+async function chatEnd(){
+  const ch=S.chat;
+  const before=S.rel.khalid;S.rel.khalid=ch.trust;
+  const prof={};ch.roles.forEach(r=>{const q=ROLE[r][1];prof[q]=(prof[q]||0)+.7;});
+  apply({prof});
+  S.log.push({t:"محادثة مع خالد",c:"خالد الآن: "+stanceWord(ch.trust),tags:[...new Set(ch.roles.map(r=>ROLE[r][1]))]});
+  const st=stanceWord(ch.trust);
+  const roleList=[...new Set(ch.roles)].map(r=>`<span class="tag" style="background:${Q[ROLE[r][1]].c}">${ROLE[r][0]}</span>`).join("")||"<span class='muted'>لم تظهر أدوار واضحة</span>";
+  $("ctl").innerHTML=`<div class="result"><h3>انتهى اللقاء</h3>
+   <p>خرج خالد من مكتبك وهو الآن <b>${st}</b>. ${ch.trust>before?AR(`ارتفعت ثقته بك من ${before} إلى ${ch.trust}.`):ch.trust<before?AR(`تراجعت ثقته بك من ${before} إلى ${ch.trust}.`):"لم تتغيّر ثقته بك."}</p>
+   <p>الأدوار التي ظهرت في كلامك: ${roleList}</p>
+   <div id="fb"></div>
+   <p class="muted">موقف خالد سيؤثر في قرار لاحق لا تعرفه بعد.</p>
+   <button class="btn" id="nx">تابع</button></div>`;
+  $("nx").onclick=go;
+  if(SAMPLE&&ch.ai){
+    $("fb").innerHTML=`<p class="muted">يجري تحليل المحادثة...</p>`;
+    try{const r=await SAMPLE.json(`${ROLE_DEF}
+Below is a practice conversation from a leadership simulation between a new DIRECTOR and KHALID, a proud, passed-over section head worried about safety and his team's jobs. Give the director feedback in plain Modern Standard Arabic, addressed to them as "أنت", 2 to 3 short sentences: one concrete thing they did that worked (quote a few of their words), and the one Competing Values role that was missing and would have helped most, with what it would have sounded like. No praise padding, no Western digits.
+${ch.hist.map(m=>(m.r==="k"?"KHALID: ":"DIRECTOR: ")+m.t).join("\n")}
+Return JSON only: {"feedback":"..."}`,{modelTier:"default"});
+      $("fb").innerHTML=`<div class="know" style="background:#EEF5F3;border-color:var(--col)"><b style="color:var(--ink)">ملاحظة على أسلوبك:</b> ${AR(r.feedback||"")}</div>`;}
+    catch(e){$("fb").innerHTML="";}
+  }
+}
+
+/* ---------- report ---------- */
+function report(){
+  S.day=30;hud();
+  const sh=shares(),rs=rangeScore(sh);
+  const sorted=[...QK].sort((a,b)=>sh[b]-sh[a]),top=sorted[0],low=sorted[3];
+  const over=QK.filter(k=>sh[k]>.4);
+  const carry=[];
+  if(stanceWord(S.rel.khalid)==="مقاوم"||stanceWord(S.rel.khalid)==="متحفّظ")carry.push("خالد ما زال خارج الصف، والإطلاق الثاني يمرّ عبر قسمه.");
+  if(S.flags.faisalRisk)carry.push("فيصل باقٍ بجسده، لكن طاقته تتراجع. وموعد إجازته الموعودة يقترب.");
+  if(S.rel.noura<45)carry.push("نورة ستراجع كل طلب قادم منك بدقة مضاعفة.");
+  if(S.flags.hid)carry.push("المخاطر التي لم تعرضها على سلطان ستظهر في وقت غير مناسب.");
+  if(S.rel.reem<45)carry.push("ريم تفكر في عرض من جهة أخرى.");
+  if(!carry.length)carry.push("بدايتك متوازنة. الفصل الثاني يبدأ بالإطلاق التجريبي، وضغط أكبر من المتعاملين.");
+  $("v-scene").innerHTML=`
+  <div class="card dark"><div class="kufi" style="opacity:.75;font-size:15px">نهاية الفصل الأول · اليوم ٣٠</div><h1>تقرير أيامك الثلاثين الأولى</h1>
+   <p style="opacity:.85;margin:0">هذا التقرير يصف كيف قُدت، لا إن كنت أصبت أو أخطأت.</p></div>
+  <div class="card"><div class="compass-wrap"><div>${compassSVG(sh)}</div><div>
+   <h3>المرونة السلوكية</h3><div class="score">${AR(rs)}<span style="font-size:20px;color:var(--muted)"> / ١٠٠</span></div>
+   <p class="muted" style="font-size:15px">تقيس مدى تنقّلك بين الأقطاب الأربعة. الدرجة المرتفعة تعني أنك استخدمت أدواراً متنوعة بحسب الموقف.</p>
+   ${QK.map(k=>`<div class="row" style="justify-content:space-between;font-size:15px"><span style="color:${Q[k].c};font-weight:700">${Q[k].n}</span><span>${AR(Math.round(sh[k]*100)+"%")}</span></div>`).join("")}
+  </div></div></div>
+  <div class="card"><h3>ما تقوله بوصلتك</h3>
+   <p>قطبك الأقوى هو <b style="color:${Q[top].c}">${Q[top].n}</b>: ${Q[top].d}. وأدواره هي ${Q[top].roles}.</p>
+   <p>القطب الذي استخدمته أقل من غيره هو <b style="color:${Q[low].c}">${Q[low].n}</b>. في الفصل الثاني ستواجه مواقف تحتاج ${Q[low].roles}.</p>
+   ${over.map(k=>`<div class="flag"><b>منطقة إفراط في ${Q[k].n}.</b> ${Q[k].neg}</div>`).join("")}
+  </div>
+  <div class="card"><h3>إدارتك بعد ثلاثين يوماً</h3>
+   ${QK.map(k=>{const dd=S.ind[k]-S.start[k];return `<div class="dist"><div class="r"><span>${Q[k].out}</span><div class="bar"><span style="width:${S.ind[k]}%;background:${Q[k].c}"></span></div><span>${AR(S.ind[k])}</span></div></div><div class="stance" style="margin-top:-4px">${dd?AR((dd>0?"ارتفع بـ":"تراجع بـ")+Math.abs(dd)+" منذ اليوم الأول"):"لم يتغيّر"}</div>`}).join("")}
+  </div>
+  <div class="card"><h3>علاقاتك</h3><div class="cast">${Object.keys(C).map(k=>`<div class="who">${portrait(k,42)}<div><div class="n">${C[k].n}</div><div class="r">${stanceWord(S.rel[k])}</div></div></div>`).join("")}</div></div>
+  <div class="card"><h3>مسار قراراتك</h3><ol class="trail">${S.log.map(l=>`<li><b>${l.t}</b>${l.c?": "+l.c:""} ${(l.tags||[]).map(k=>`<span class="tag" style="background:${Q[k].c}">${Q[k].n}</span>`).join("")}</li>`).join("")}</ol></div>
+  <div class="card"><h3>ما ينتظرك في الفصل الثاني</h3><ul>${carry.map(c=>`<li>${c}</li>`).join("")}</ul>
+   <div class="row" style="margin-top:12px"><button class="btn" id="again">ابدأ من جديد بخيارات مختلفة</button><button class="btn line" id="totr">لوحة المدرّب</button></div></div>`;
+  $("again").onclick=()=>{intro();window.scrollTo({top:0});};
+  $("totr").onclick=()=>tab("trainer");
+}
+
+/* ---------- trainer dashboard (illustrative cohort) ---------- */
+function renderTrainer(){
+  const n=14;
+  const avg={col:.31,cre:.22,cmp:.29,ctl:.18};
+  const dom={col:6,cre:2,cmp:5,ctl:1};
+  const dec=[["اجتماع الإطلاق",["التزام كامل","على مراحل","طلب أسبوعين"],[7,5,2]],["فيصل يطلب النقل",["إجازة وتغطية","بقاء ومكافأة","دور جديد"],[6,3,5]],["الميزانية المجمّدة",["التصعيد","صفقة مع نورة","فريق داخلي"],[5,7,2]],["مراجعة الشهر الأول",["الإنجازات فقط","الصورة كاملة","تجريبي مبكر"],[4,6,4]]];
+  const kh=[["شريك أو متعاون",5],["متحفّظ",6],["مقاوم",3]];
+  const bar=(v,m,c)=>`<div class="bar"><span style="width:${v/m*100}%;background:${c}"></span></div>`;
+  $("v-trainer").innerHTML=`<div class="sample">بيانات توضيحية لمجموعة افتراضية، لعرض ما يراه المدرّب بعد الجلسة.</div>
+  <div class="card"><h2>دفعة مديري الإدارات · الفصل الأول</h2><p class="muted">${AR(n+" مشاركاً أكملوا الفصل")}</p>
+   <div class="compass-wrap"><div>${compassSVG(avg,300)}</div><div>
+    <h3>الأقطاب الغالبة في الدفعة</h3><div class="dist">${QK.map(k=>`<div class="r"><span style="color:${Q[k].c};font-weight:700">${Q[k].n}</span>${bar(dom[k],n,Q[k].c)}<span>${AR(dom[k])}</span></div>`).join("")}</div>
+    <div class="flag" style="background:#EEF2FB;color:var(--ctl)">الضبط هو القطب الأضعف في الدفعة. ثلثا المشاركين أهملوا ملاحظة التدقيق في توزيع وقتهم.</div>
+   </div></div></div>
+  <div class="card"><h3>كيف اختارت الدفعة</h3>${dec.map(([t,o,v])=>{const m=Math.max(...v);return `<div style="margin:12px 0"><b>${t}</b>${Math.max(...v)-Math.min(...v)<=3?`<span class="tag" style="background:var(--neg);margin-right:8px">انقسام حاد</span>`:""}<div class="dist">${o.map((x,i)=>`<div class="r"><span>${x}</span>${bar(v[i],n,v[i]===m?"var(--ink)":"#A9BAB7")}<span>${AR(v[i])}</span></div>`).join("")}</div></div>`}).join("")}</div>
+  <div class="card"><h3>محادثة خالد</h3><div class="dist">${kh.map(([t,v])=>`<div class="r"><span>${t}</span>${bar(v,n,"var(--cre)")}<span>${AR(v)}</span></div>`).join("")}</div>
+   <p class="muted" style="font-size:15px">أكثر الأدوار ظهوراً في المحادثات: الموجّه والمرشد. أقلها: الوسيط، رغم أنه ما كان يحتاجه خالد أكثر.</p></div>
+  <div class="card"><h3>أسئلة النقاش</h3><ol class="trail">
+   <li><b>اجتماع الإطلاق:</b> اطلب من صاحب كل خيار شرح منطقه في دقيقة. ما الذي ضحّى به كل منهم دون أن ينتبه؟</li>
+   <li><b>محادثة خالد:</b> اعرض محادثتين مجهولتي الاسم، واحدة كسبت خالد وواحدة خسرته. ما الجملة التي غيّرت مسار كل منهما؟</li>
+   <li><b>الميزانية المجمّدة:</b> من بنى علاقته بخالد مبكراً حصل على خيار لم يكن متاحاً لغيره بالقدر نفسه. ما المقابل في عملك الفعلي؟</li>
+   <li><b>البوصلة:</b> ما القطب الذي تلجأ إليه تحت الضغط؟ ومتى كلّفك ذلك شيئاً في الواقع؟</li></ol></div>`;
+}
+
+
+/* ---------- live clock & interruptions ---------- */
+const DAYS=["الأحد","الاثنين","الثلاثاء","الأربعاء","الخميس","الجمعة","السبت"];
+const START_TIME={1:480,2:600,3:780,4:480,5:930,6:480,7:660,8:540};
+let TIMERS=[],TICK=null,WAIT=null,UNFIRED=[];
+function drawClock(){const m=S.time,h=Math.floor(m/60),mm=m%60;const h12=((h+11)%12)+1;
+  $("clock").textContent=AR(`${DAYS[(S.day-1)%7]} · ${h12}:${String(mm).padStart(2,"0")} ${h<12?"ص":"م"}`);}
+function clearTimers(){TIMERS.forEach(clearTimeout);TIMERS=[];stopWait();$("toasts").innerHTML="";Q_T.length=0;}
+function schedule(){
+  S.time=START_TIME[S.step]||540;
+  if(!TICK)TICK=setInterval(()=>{if(!S||$("hud").hidden)return;S.time=Math.min(S.time+1,1080);drawClock();},1000);
+  UNFIRED=EVENTS.filter(e=>e.step===S.step&&(!e.when||e.when()));
+  UNFIRED.forEach(e=>TIMERS.push(setTimeout(()=>{UNFIRED=UNFIRED.filter(x=>x!==e);fire(e);},e.at*1000)));
+}
+const Q_T=[];let SHOWING=null;
+function fire(e){Q_T.push(e);if(!SHOWING)nextToast();}
+function nextToast(){
+  const e=Q_T.shift();if(!e){SHOWING=null;$("toasts").innerHTML="";return;}SHOWING=e;
+  if(e.mail){S.live.add(e.mail);hud();}
+  const icon=e.type==="call"?`<svg class="ring" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#D14B4B" stroke-width="2"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/></svg>`:"";
+  const ch=e.type==="call"?"اتصال وارد":e.type==="mail"?"بريد جديد":"رسالة واتساب";
+  $("toasts").innerHTML=`<div class="toast ${e.type}" role="alert"><div class="h">${e.from?portrait(e.from,38):""}<div style="flex:1"><b>${e.from?C[e.from].n:e.sender}</b><div class="ch">${ch}</div></div>${icon}</div>
+   <div class="tx">${e.text}</div><div class="acts">${(e.acts||[]).map((a,i)=>`<button data-i="${i}">${a.t}</button>`).join("")}<button class="later" data-i="x">${e.acts?"لاحقاً":"حسناً"}</button></div></div>`;
+  $("toasts").querySelectorAll("button").forEach(b=>b.onclick=()=>{
+    if(b.dataset.i==="x"){if(e.acts&&e.ignore)S.pending.push(e);}
+    else{const a=e.acts[+b.dataset.i];const fx=typeof a.fx==="function"?a.fx():a.fx;const r=apply(fx);hud(r.d);if(fx.carry)S.carry+=fx.carry;
+      S.log.push({t:"مقاطعة: "+(e.from?C[e.from].n:e.sender),c:a.short,tags:QK.filter(k=>(fx.prof||{})[k]>0)});
+      if(a.after){$("toasts").innerHTML=`<div class="toast ${e.type}"><div class="tx">${a.after}</div></div>`;setTimeout(nextToast,3200);return;}}
+    nextToast();});
+  if(!e.acts)TIMERS.push(setTimeout(()=>{if(SHOWING===e)nextToast();},9000));
+}
+function resolvePending(){
+  if(SHOWING&&SHOWING.acts&&SHOWING.ignore)S.pending.push(SHOWING);
+  Q_T.concat(UNFIRED).forEach(e=>{if(e.mail)S.live.add(e.mail);if(e.acts&&e.ignore)S.pending.push(e);});UNFIRED=[];
+  SHOWING=null;
+  S.pending.forEach(e=>{const fx=e.ignore;apply(fx);S.missed.push(e.note);S.log.push({t:"تجاهلت: "+(e.from?C[e.from].n:e.sender),c:"لم تردّ",tags:[]});});
+  S.pending=[];
+}
+function showMissed(){
+  if(!S.missed.length)return;
+  const box=document.createElement("div");box.className="missed";box.innerHTML=`<b>ما فاتك</b>${S.missed.map(x=>`<div>${x}</div>`).join("")}`;
+  const v=$("v-scene");v.insertBefore(box,v.firstChild);S.missed=[];
+}
+function startWait(w){
+  let left=w.secs;const bar=()=>$("tm")&&($("tm").firstElementChild.style.width=(left/w.secs*100)+"%");
+  WAIT=setInterval(()=>{left--;bar();if(left<=0){stopWait();$("tm")&&$("tm").classList.add("late");
+    const r=apply({rel:{[w.who]:-5}});fire({type:"wa",from:w.who,text:w.text+AR(" (ثقة "+C[w.who].n+" −٥)")});}},1000);
+}
+function stopWait(){if(WAIT){clearInterval(WAIT);WAIT=null;}}
+
+const EVENTS=[
+ {step:1,at:9,type:"wa",from:"maha",text:"صباح الخير. فريق التفتيش يسأل إن كان لديك وقت لزيارتهم هذا الأسبوع. الأستاذ خالد لم يطلب، لكنهم يسألون.",
+  acts:[{t:"سأمرّ عليهم اليوم",short:"زيارة فريق التفتيش",fx:{prof:{col:1},rel:{khalid:5,maha:3},ind:{col:2},carry:-2},after:"وصلتهم رسالتك. خصمنا ساعتين من أسبوعك القادم للزيارة."},
+        {t:"أبلغيهم أن لقاءً سيُحدَّد قريباً",short:"وعد بلقاء",fx:{prof:{ctl:.5},rel:{maha:1}}}],
+  ignore:{rel:{khalid:-4,maha:-2}},note:"لم تردّ على مها بشأن فريق التفتيش. فُهم الصمت على أنه عدم اهتمام، ووصل ذلك إلى خالد."},
+ {step:2,at:22,type:"wa",from:"reem",text:"أرجو ألا تتراجع أمامه. هذه فرصتنا الوحيدة لنثبت أن الهيئة قادرة."},
+ {step:3,at:28,type:"call",from:"sultan",text:"سلطان يتصل بك الآن، وخالد أمامك في منتصف الحديث.",
+  acts:[{t:"أرد على سلطان",short:"قطع اللقاء للرد",fx:()=>{if(S.chat&&!S.chat.done){S.chat.trust=clamp(S.chat.trust-6);S.chat.hist.push({r:"k",t:"... تفضّل، يبدو أن المكالمة أهم."});drawChat();}return{rel:{sultan:3},prof:{cmp:.5}}},after:"أنهيتَ المكالمة في دقيقتين. حين عدت، كان خالد قد أسند ظهره إلى الكرسي."},
+        {t:"أرفض الاتصال وأكمل",short:"البقاء مع خالد",fx:()=>{if(S.chat&&!S.chat.done){S.chat.trust=clamp(S.chat.trust+3);}return{rel:{sultan:-2},prof:{col:.5}}},after:"لاحظ خالد أنك قلبت الهاتف على الطاولة."}]},
+ {step:4,at:12,type:"mail",sender:"قسم الاتصال المؤسسي",text:"متعامل نشر على وسائل التواصل أنه انتظر ساعتين في مركز الخدمة. المنشور يُتداول، والمكتب التنفيذي يسأل عن ردكم.",
+  acts:[{t:"أتصل بالمتعامل بنفسي",short:"اتصال شخصي بالمتعامل",fx:{prof:{cmp:1},ind:{cmp:2},rel:{sultan:3},carry:-2},after:"اعتذرتَ للمتعامل وحللتَ معاملته، فنشر شكراً بعد ساعة."},
+        {t:"أحيلها إلى فيصل ليتابعها",short:"إحالة إلى فيصل",fx:{prof:{cmp:.5},ind:{cmp:1},rel:{faisal:-4}},after:"تابعها فيصل، رغم أنه كان على الكاونتر منذ الصباح."}],
+  ignore:{ind:{cmp:-3},rel:{sultan:-4}},note:"لم تردّ على المنشور. ردّ المكتب التنفيذي بالنيابة عنك، وسأل سلطان لماذا لم تتحرك إدارتك."},
+ {step:5,at:16,type:"mail",mail:"m9",sender:"الموارد البشرية",text:"وصل طلب نقل رسمي من الموظف فيصل. نرجو إبداء رأيكم خلال خمسة أيام عمل."},
+ {step:6,at:10,type:"wa",from:"faisal",text:"أستاذ، الكاونتر بلا نظام أرقام منذ الصباح. الناس غاضبون. هل أوقف استقبال المعاملات الجديدة حتى يعود؟",
+  acts:[{t:"أوقفها، والمتابعة عليّ",short:"تحمّل القرار",fx:{prof:{ctl:1,col:.5},ind:{ctl:2,cmp:-2},rel:{faisal:5}}},
+        {t:"لا، استمر يدوياً",short:"الاستمرار يدوياً",fx:{prof:{cmp:1},ind:{cmp:2,ctl:-2},rel:{faisal:-3}}}],
+  ignore:{ind:{cmp:-2,col:-2},rel:{faisal:-5}},note:"لم تردّ على فيصل عن تعطّل نظام الأرقام. تصرّف وحده، وتعطّل الكاونتر ساعتين."},
+ {step:7,at:14,type:"wa",from:"khalid",when:()=>S.rel.khalid>=50,text:"سمعت عن مسألة الميزانية. إن احتجت فريقي لإغلاق ملاحظة التدقيق، أخبرني."},
+ {step:7,at:14,type:"wa",from:"maha",when:()=>S.rel.khalid<50,text:"للعلم: الأستاذ خالد قال في الممر إن فريقه لن يدفع ثمن أخطاء التحول."},
+ {step:8,at:8,type:"wa",from:"reem",text:"عرض الإطلاق التجريبي جاهز إن احتجته في الاجتماع. أرسلته لك قبل قليل."}
+];
+
+/* ---------- boot ---------- */
+const CODE="WAHA";
+function gate(){
+  let ok=false;try{ok=sessionStorage.getItem("sim90")==="1";}catch(e){}
+  if(ok){intro();return;}
+  $("v-scene").innerHTML=`<div class="card gate"><h2>محاكاة القيادة</h2><p class="muted">نسخة تجريبية خاصة. أدخل رمز الدخول.</p>
+   <form id="gf"><input id="gc" autocomplete="off" aria-label="رمز الدخول" dir="ltr"><button class="btn" style="width:100%">دخول</button></form><p id="ge" class="muted"></p></div>`;
+  $("gf").onsubmit=e=>{e.preventDefault();if($("gc").value.trim().toUpperCase()===CODE){try{sessionStorage.setItem("sim90","1")}catch(_){}intro();}else{$("ge").textContent="الرمز غير صحيح.";}};
+}
+gate();
+(async()=>{try{if(window.claude&&claude.use){const s=await claude.use("sample");if(s)SAMPLE=s;}}catch(e){}})();
+</script>
+</body>
+</html>
