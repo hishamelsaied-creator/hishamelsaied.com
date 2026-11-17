@@ -682,6 +682,7 @@ FONT_CSS = """@font-face{font-family:"Fraunces";font-style:normal;font-weight:40
 
 
 def minify_css(css):
+    # Note: collapses whitespace everywhere, including inside quoted strings; keep content: strings simple.
     css = re.sub(r"/\*.*?\*/", "", css, flags=re.S)
     css = re.sub(r"\s+", " ", css)
     css = re.sub(r"\s*([{};,>])\s*", r"\1", css)
@@ -747,8 +748,8 @@ def head(page, ar=False):
 # Old site (before Nov 2026) URLs, sent to their nearest new page
 OLD_REDIRECTS = {
     "/blog": "/insights/", "/blog-guide-to-find-the-right-coach-60": "/insights/how-to-choose-an-executive-coach-uae/",
-    "/blog-benefits-of-coaching-65": "/insights/coaching-mentoring-or-training/", "/blog-self-awareness-for-leaders-62": "/insights/",
-    "/blog-self-confidence-64": "/insights/", "/blog-transitions-through-coaching-66": "/insights/first-time-general-manager-mistakes/",
+    "/blog-benefits-of-coaching-65": "/insights/coaching-mentoring-or-training/", "/blog-self-awareness-for-leaders-62": "/insights/first-time-general-manager-mistakes/",
+    "/blog-self-confidence-64": "/coaching/", "/blog-transitions-through-coaching-66": "/insights/first-time-general-manager-mistakes/",
 }
 OLD_FILES = {"/about.php": "/about/", "/blog.php": "/insights/", "/contact.php": "/contact/", "/contactform2.php": "/contact/",
              "/gallery.php": "/media/", "/individual-solutions.php": "/coaching/", "/solutions.php": "/coaching/",
