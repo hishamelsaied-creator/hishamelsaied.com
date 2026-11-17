@@ -58,6 +58,16 @@ PAGES = [
         "desc": "ICF PCC executive coach in Dubai who coaches in Arabic and English. For HR leaders and senior leaders across the UAE, Saudi Arabia and the Gulf.",
     },
     {
+        "key": "loc-abu-dhabi", "path": "/executive-coach-abu-dhabi/", "nav": "Executive coach in Abu Dhabi",
+        "title": "Executive Coach in Abu Dhabi | Hisham Elsaied, ICF PCC",
+        "desc": "Executive coaching for HR leaders and senior leaders in Abu Dhabi, in person and online, in Arabic and English. ICF PCC coach with 20 years in HR.",
+    },
+    {
+        "key": "loc-saudi", "path": "/executive-coach-saudi-arabia/", "nav": "Executive coach in Saudi Arabia",
+        "title": "Executive Coach in Riyadh and Saudi Arabia | Hisham Elsaied",
+        "desc": "Executive coaching for HR leaders and senior leaders in Riyadh, Jeddah and across Saudi Arabia, online and in person, in Arabic and English. ICF PCC.",
+    },
+    {
         "key": "self-check", "path": "/hr-self-check/", "nav": "HR self-check",
         "title": "How Does Your CEO See HR? Free Self-Check | Hisham Elsaied",
         "desc": "A free 3-minute self-check for HR managers and directors in the Gulf. 15 questions, with a results dashboard and heat map sent to you by email.",
@@ -152,8 +162,8 @@ PAGES = [
 PAGES_AR = [
     {
         "key": "home", "path": "/ar/", "nav": None,
-        "title": "هشام السعيد | كوتش تنفيذي في دبي لقادة الموارد البشرية",
-        "desc": "كوتش تنفيذي في دبي لمديري الموارد البشرية ولكبار القادة في أدوار جديدة أو أكبر. معتمد ICF PCC وFCIPD. بالعربية والإنجليزية.",
+        "title": "هشام السعيد | كوتش ومدرب تنفيذي في دبي لقادة الموارد البشرية",
+        "desc": "كوتش تنفيذي (مدرب تنفيذي) في دبي لمديري الموارد البشرية ولكبار القادة في أدوار جديدة أو أكبر. معتمد ICF PCC وFCIPD. بالعربية والإنجليزية.",
     },
     {
         "key": "coaching", "path": "/ar/coaching/", "nav": "الكوتشينج",
@@ -177,13 +187,23 @@ PAGES_AR = [
     },
     {
         "key": "about", "path": "/ar/about/", "nav": "نبذة عني",
-        "title": "هشام السعيد، FCIPD وICF PCC | كوتش تنفيذي في دبي",
+        "title": "هشام السعيد، FCIPD وICF PCC | كوتش ومدرب تنفيذي في دبي",
         "desc": "مدير إقليمي سابق للموارد البشرية بخبرة تزيد على ٢٠ عاماً في الخليج وأوروبا وأمريكا الشمالية. معتمد ICF PCC وFCIPD وHogan. عضو هيئة تدريس في أكاديمية PwC وEY.",
     },
     {
         "key": "arabic-coach", "path": "/ar/arabic-speaking-executive-coach-uae/", "nav": "كوتش تنفيذي عربي",
-        "title": "كوتش تنفيذي عربي في دبي والإمارات | هشام السعيد",
-        "desc": "كوتش تنفيذي معتمد ICF PCC في دبي يعمل بالعربية والإنجليزية مع قادة الموارد البشرية والقيادات العليا في الإمارات والسعودية ودول الخليج.",
+        "title": "كوتش تنفيذي عربي (مدرب تنفيذي) في دبي والإمارات | هشام السعيد",
+        "desc": "كوتش تنفيذي ومدرب قيادات معتمد ICF PCC في دبي يعمل بالعربية والإنجليزية مع قادة الموارد البشرية والقيادات العليا في الإمارات والسعودية ودول الخليج.",
+    },
+    {
+        "key": "loc-abu-dhabi", "path": "/ar/executive-coach-abu-dhabi/", "nav": "كوتش تنفيذي في أبوظبي",
+        "title": "كوتش تنفيذي (مدرب تنفيذي) في أبوظبي | هشام السعيد",
+        "desc": "كوتشينج تنفيذي لقادة الموارد البشرية وكبار القادة في أبوظبي، حضورياً وعبر الإنترنت، بالعربية والإنجليزية. كوتش معتمد ICF PCC بخبرة ٢٠ عاماً في الموارد البشرية.",
+    },
+    {
+        "key": "loc-saudi", "path": "/ar/executive-coach-saudi-arabia/", "nav": "كوتش تنفيذي في السعودية",
+        "title": "كوتش تنفيذي (مدرب تنفيذي) في الرياض والسعودية | هشام السعيد",
+        "desc": "كوتشينج تنفيذي لقادة الموارد البشرية وكبار القادة في الرياض وجدة وأنحاء السعودية، عبر الإنترنت وحضورياً، بالعربية والإنجليزية. معتمد ICF PCC.",
     },
     {
         "key": "self-check", "path": "/ar/hr-self-check/", "nav": "تقييم ذاتي لقادة الموارد البشرية",
@@ -299,6 +319,41 @@ FAQ = [
 ]
 
 
+LOC_FAQ = {
+    "loc-abu-dhabi": {
+        "en": [("Is there an executive coach who works with leaders in Abu Dhabi?", "Yes. Hisham Elsaied is an ICF Professional Certified Coach (PCC) based in Dubai who coaches HR leaders and senior leaders in Abu Dhabi, in person and online, in Arabic and English."),
+               ("Do you coach in person in Abu Dhabi?", "Yes. Sessions can be in person in Abu Dhabi or Dubai, or online. Many clients mix the two."),
+               ("Can my organisation pay for the coaching?", "Yes. Many clients are sponsored by their employer. We agree the goals together in a three-way meeting at the start, and the content of sessions stays confidential under the ICF Code of Ethics."),
+               ("Which sectors do your Abu Dhabi clients work in?", "Mostly government and semi-government entities, energy and utilities, and finance, plus multinational companies with offices in Abu Dhabi."),
+               ("How do I start?", "Book a free 30-minute call or send a short enquiry through the contact page. There is no obligation.")],
+        "ar": [("هل يوجد كوتش تنفيذي يعمل مع القادة في أبوظبي؟", "نعم. هشام السعيد كوتش محترف معتمد من الاتحاد الدولي للكوتشينج (ICF PCC)، مقيم في دبي، ويعمل مع قادة الموارد البشرية وكبار القادة في أبوظبي حضورياً وعبر الإنترنت، بالعربية والإنجليزية."),
+               ("هل تُعقد الجلسات حضورياً في أبوظبي؟", "نعم. يمكن أن تكون الجلسات حضورياً في أبوظبي أو دبي، أو عبر الإنترنت، وكثير من العملاء يجمعون بين الاثنين."),
+               ("هل يمكن لجهة عملي أن تتحمل التكلفة؟", "نعم. كثير من العملاء ترعاهم جهات عملهم. نتفق على الأهداف معاً في لقاء ثلاثي في البداية، ويبقى محتوى الجلسات سرياً وفق ميثاق أخلاقيات ICF."),
+               ("في أي قطاعات يعمل عملاؤك في أبوظبي؟", "أغلبهم في الجهات الحكومية وشبه الحكومية، وقطاعات الطاقة والمرافق والمال، إضافة إلى شركات متعددة الجنسيات لها مكاتب في أبوظبي."),
+               ("كيف أبدأ؟", "احجز مكالمة مجانية لمدة ٣٠ دقيقة أو أرسل استفساراً قصيراً من صفحة التواصل، بلا أي التزام.")],
+    },
+    "loc-saudi": {
+        "en": [("Is there an Arabic-speaking executive coach for leaders in Saudi Arabia?", "Yes. Hisham Elsaied, an ICF Professional Certified Coach (PCC) based in Dubai, coaches leaders in Riyadh, Jeddah and across Saudi Arabia in Arabic and English, mostly online and in person when he is in the Kingdom."),
+               ("Do I need to travel to Dubai?", "No. Most sessions run online, and we can meet in person in Riyadh or Jeddah when he is there."),
+               ("Can my organisation pay for the coaching?", "Yes. Many clients are sponsored by their employer. We agree the goals together in a three-way meeting at the start, and the content of sessions stays confidential under the ICF Code of Ethics."),
+               ("Which organisations in Saudi Arabia has he worked with?", "Organisations he has worked with in the Kingdom include ZATCA and Tabuk Pharmaceuticals, and his work takes him regularly to Riyadh, Jeddah and Tabuk."),
+               ("How do I start?", "Book a free 30-minute call or send a short enquiry through the contact page. There is no obligation.")],
+        "ar": [("هل يوجد كوتش تنفيذي يتحدث العربية للقادة في السعودية؟", "نعم. هشام السعيد كوتش محترف معتمد ICF PCC، مقيم في دبي، ويعمل مع القادة في الرياض وجدة وأنحاء السعودية بالعربية والإنجليزية، عبر الإنترنت غالباً، وحضورياً حين يكون في المملكة."),
+               ("هل أحتاج إلى السفر إلى دبي؟", "لا. أغلب الجلسات عبر الإنترنت، ويمكننا أن نلتقي حضورياً في الرياض أو جدة حين أكون هناك."),
+               ("هل يمكن لجهة عملي أن تتحمل التكلفة؟", "نعم. كثير من العملاء ترعاهم جهات عملهم. نتفق على الأهداف معاً في لقاء ثلاثي في البداية، ويبقى محتوى الجلسات سرياً وفق ميثاق أخلاقيات ICF."),
+               ("مع أي جهات في السعودية عمل؟", "من الجهات التي عمل معها في المملكة هيئة الزكاة والضريبة والجمارك وتبوك للأدوية، ويأخذه عمله بانتظام إلى الرياض وجدة وتبوك."),
+               ("كيف أبدأ؟", "احجز مكالمة مجانية لمدة ٣٠ دقيقة أو أرسل استفساراً قصيراً من صفحة التواصل، بلا أي التزام.")],
+    },
+}
+LOC_AREA = {"loc-abu-dhabi": [{"@type": "City", "name": "Abu Dhabi"}, {"@type": "Country", "name": "United Arab Emirates"}],
+            "loc-saudi": [{"@type": "City", "name": "Riyadh"}, {"@type": "City", "name": "Jeddah"}, {"@type": "Country", "name": "Saudi Arabia"}]}
+
+
+def faq_html(key, ar):
+    import html as _html
+    rows = LOC_FAQ[key]["ar" if ar else "en"]
+    return "\n".join(f'        <details{" open" if i == 0 else ""}><summary>{_html.escape(q)}</summary><p>{_html.escape(a)}</p></details>' for i, (q, a) in enumerate(rows))
+
 BOOKS = [
     ("The Moving Line", "The 300-year race to build a thinking machine", "/img/book-the-moving-line.jpg", "History of artificial intelligence"),
     ("The Hidden Board", "How Your Brain Plays the Game of Being Human", "/img/book-the-hidden-board.jpg", "Psychology and popular science"),
@@ -319,6 +374,20 @@ MEDIA = [
 ]
 
 
+def gitdate(key, ar=False):
+    """Last real change to a page's source, from git history (falls back to today for uncommitted edits)."""
+    import subprocess, datetime
+    rel = os.path.join("src", "ar" if ar else "", key + ".html")
+    try:
+        dirty = subprocess.run(["git", "status", "--porcelain", "--", rel], cwd=ROOT, capture_output=True, text=True).stdout.strip()
+        if dirty:
+            return datetime.date.today().isoformat()
+        d = subprocess.run(["git", "log", "-1", "--format=%cs", "--", rel], cwd=ROOT, capture_output=True, text=True).stdout.strip()
+        return d or "2026-11-16"
+    except Exception:
+        return "2026-11-16"
+
+
 def person(ar=False):
     creds = [
         ("ICF Professional Certified Coach (PCC)", "International Coaching Federation"),
@@ -332,8 +401,18 @@ def person(ar=False):
         "@type": "Person",
         "@id": PERSON_ID,
         "name": "هشام السعيد" if ar else "Hisham Elsaied",
-        "alternateName": "Hisham Elsaied" if ar else "هشام السعيد",
+        "alternateName": ["Hisham Elsaied" if ar else "هشام السعيد", "Hisham El Saied", "Hisham El-Saied", "Hisham ElSaied", "Hesham Elsaied", "Hesham El Saied"],
+        "givenName": "Hisham", "familyName": "Elsaied",
         "url": SITE + ("/ar/" if ar else "/"),
+        "mainEntityOfPage": SITE + ("/ar/about/" if ar else "/about/"),
+        "hasOccupation": [
+            {"@type": "Occupation", "name": "Executive coach", "occupationLocation": [{"@type": "City", "name": "Dubai"}, {"@type": "Country", "name": "United Arab Emirates"}],
+             "skills": "Executive coaching, leadership coaching, HR leadership, coaching in Arabic and English"},
+            {"@type": "Occupation", "name": "Keynote speaker", "occupationLocation": {"@type": "Country", "name": "United Arab Emirates"}},
+            {"@type": "Occupation", "name": "Author"}],
+        "memberOf": [{"@type": "Organization", "name": "International Coaching Federation", "url": "https://coachingfederation.org/"},
+                     {"@type": "Organization", "name": "Chartered Institute of Personnel and Development", "url": "https://www.cipd.org/"}],
+        "homeLocation": {"@type": "City", "name": "Dubai", "containedInPlace": {"@type": "Country", "name": "United Arab Emirates"}},
         "image": [SITE + "/img/hisham-closeup.jpg", SITE + "/img/ph-hrse-podium.jpg", SITE + "/img/ph-nice-qa.jpg", SITE + "/img/ph-speak-blue.jpg"],
         "jobTitle": "كوتش تنفيذي ومستشار في تطوير القيادات" if ar else "Executive Coach and Leadership Development Consultant",
         "description": ("كوتش تنفيذي مقيم في دبي ومدير إقليمي سابق للموارد البشرية. يعمل مع مديري ومديرات الموارد البشرية في دول الخليج، ويتحدث في القيادة وقدرات الموارد البشرية والمواهب والتقييم، بالعربية والإنجليزية."
@@ -430,6 +509,12 @@ def graph(page, ar=False):
                          page["path"], "كوتشينج تنفيذي" if ar else "Executive coaching"))
         g.append({"@type": "FAQPage", "inLanguage": "ar" if ar else "en", "mainEntity": [
             {"@type": "Question", "name": q, "acceptedAnswer": {"@type": "Answer", "text": a}} for q, a in (ARQA_AR if ar else ARQA_EN)]})
+    if k in LOC_FAQ:
+        sv = service(page["nav"], page["desc"], page["path"], "كوتشينج تنفيذي" if ar else "Executive coaching")
+        sv["areaServed"] = LOC_AREA[k]
+        g.append(sv)
+        g.append({"@type": "FAQPage", "inLanguage": "ar" if ar else "en", "mainEntity": [
+            {"@type": "Question", "name": q, "acceptedAnswer": {"@type": "Answer", "text": a}} for q, a in LOC_FAQ[k]["ar" if ar else "en"]]})
     if k == "speaking":
         if ar:
             g.append(service("كلمات رئيسية ومحاضرات وورش عمل",
@@ -454,6 +539,7 @@ def graph(page, ar=False):
     if k.startswith("art-"):
         g.append({"@type": "Article", "headline": page["title"], "description": page["desc"], "inLanguage": "ar" if ar else "en",
                   "author": {"@id": PERSON_ID}, "publisher": {"@id": PERSON_ID}, "datePublished": ART_DATES.get(k, "2026-11-15"),
+                  "dateModified": gitdate(k, ar), "isPartOf": {"@id": SITE + ("/ar/#website" if ar else "/#website")},
                   "image": SITE + "/img/og-image.jpg", "mainEntityOfPage": SITE + page["path"]})
     if k in ("home", "books"):
         for name, sub_, img, about in BOOKS:
@@ -534,6 +620,8 @@ FOOTER = """<footer class="site-footer">
       <a href="/insights/">Insights</a>
       <a href="/resources/">Free resources</a>
       <a href="/arabic-speaking-executive-coach-uae/">Arabic-speaking coach</a>
+      <a href="/executive-coach-abu-dhabi/">Coach in Abu Dhabi</a>
+      <a href="/executive-coach-saudi-arabia/">Coach in Saudi Arabia</a>
       <a href="/hr-self-check/">HR self-check</a>
       <a href="/contact/">Contact</a>
       <a href="/ar/" hreflang="ar" lang="ar">العربية</a>
@@ -559,6 +647,8 @@ FOOTER_AR = """<footer class="site-footer">
       <a href="/ar/insights/">مقالات</a>
       <a href="/ar/resources/">مصادر مجانية</a>
       <a href="/ar/arabic-speaking-executive-coach-uae/">كوتش تنفيذي عربي</a>
+      <a href="/ar/executive-coach-abu-dhabi/">كوتش في أبوظبي</a>
+      <a href="/ar/executive-coach-saudi-arabia/">كوتش في السعودية</a>
       <a href="/ar/hr-self-check/">تقييم ذاتي</a>
       <a href="/ar/contact/">تواصل معي</a>
       <a href="/" hreflang="en" lang="en">English</a>
@@ -642,6 +732,8 @@ def build():
         for page in pages:
             src = os.path.join(SRC, "ar" if ar else "", page["key"] + ".html")
             body = open(src, encoding="utf-8").read().replace("__V__", UPDATED)
+            if page["key"] in LOC_FAQ:
+                body = body.replace("__FAQ__", faq_html(page["key"], ar))
             html = head(page, ar) + header(page, ar) + "\n\n<main>\n" + body.rstrip() + "\n</main>\n\n" + (FOOTER_AR if ar else FOOTER) + \
                 f'\n\n<script src="/assets/site.js?v={UPDATED}" defer></script>\n</body>\n</html>\n'
             out = os.path.join(ROOT, page["path"].strip("/"), "index.html")
@@ -710,8 +802,7 @@ def build():
     # sitemap + robots
     import datetime
     def lastmod(key, ar):
-        f = os.path.join(SRC, "ar" if ar else "", key + ".html")
-        return datetime.date.fromtimestamp(os.path.getmtime(f)).isoformat() if os.path.exists(f) else "2026-11-16"
+        return gitdate(key, ar)
     def images(key, ar):
         f = os.path.join(SRC, "ar" if ar else "", key + ".html")
         if not os.path.exists(f): return ""
