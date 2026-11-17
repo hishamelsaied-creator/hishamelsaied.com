@@ -13,7 +13,7 @@ ROOT = os.path.dirname(os.path.abspath(__file__))
 SRC = os.path.join(ROOT, "src")
 SITE = "https://hishamelsaied.com"
 import hashlib as _h
-UPDATED = _h.md5(b"".join(open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "src", f), "rb").read() for f in ("site.css", "rtl.css", "site.js", "selfcheck.js", "resources.js"))).hexdigest()[:10]
+UPDATED = "2" + _h.md5(b"".join(open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "src", f), "rb").read() for f in ("site.css", "rtl.css", "site.js", "selfcheck.js", "resources.js"))).hexdigest()[:9]
 
 PERSON_ID = SITE + "/#person"
 BUSINESS_ID = SITE + "/#business"
@@ -661,6 +661,20 @@ FOOTER_AR = """<footer class="site-footer">
 OG = {"speaking": "og-speaking.jpg", "about": "og-about.jpg", "media": "og-media.jpg", "organisations": "og-organisations.jpg"}
 
 
+FONT_CSS = """@font-face{font-family:"Fraunces";font-style:normal;font-weight:400 600;font-display:swap;src:url(/assets/fonts/fraunces.woff2) format("woff2");unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:"DM Sans";font-style:normal;font-weight:400 700;font-display:swap;src:url(/assets/fonts/dm-sans.woff2) format("woff2");unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:"Noto Kufi Arabic";font-style:normal;font-weight:100 900;font-display:swap;src:url(/assets/fonts/noto-kufi-arabic.woff2) format("woff2");unicode-range:U+0600-06FF,U+0750-077F,U+0870-088E,U+0890-0891,U+0897-08E1,U+08E3-08FF,U+200C-200E,U+2010-2011,U+204F,U+2E41,U+FB50-FDFF,U+FE70-FE74,U+FE76-FEFC}
+""" + "".join('@font-face{font-family:"IBM Plex Sans Arabic";font-style:normal;font-weight:%d;font-display:swap;src:url(/assets/fonts/plex-arabic-%d.woff2) format("woff2");unicode-range:U+0600-06FF,U+0750-077F,U+0870-088E,U+0890-0891,U+0897-08E1,U+08E3-08FF,U+200C-200E,U+2010-2011,U+204F,U+2E41,U+FB50-FDFF,U+FE70-FE74,U+FE76-FEFC}\n' % (w, w) for w in (400, 500, 600, 700))
+
+
+def minify_css(css):
+    css = re.sub(r"/\*.*?\*/", "", css, flags=re.S)
+    css = re.sub(r"\s+", " ", css)
+    css = re.sub(r"\s*([{};,>])\s*", r"\1", css)
+    css = re.sub(r":\s+", ":", css)
+    return css.replace(";}", "}").strip()
+
+
 def head(page, ar=False):
     url = SITE + page["path"]
     ld = json.dumps(graph(page, ar), ensure_ascii=False, indent=1)
@@ -672,9 +686,10 @@ def head(page, ar=False):
         alts = (f'<link rel="alternate" hreflang="en" href="{en_url}">\n'
                 f'<link rel="alternate" hreflang="ar" href="{ar_url}">\n'
                 f'<link rel="alternate" hreflang="x-default" href="{en_url}">\n')
-    fonts = "family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600"
-    if ar:
-        fonts = "family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=Noto+Kufi+Arabic:wght@500;600;700&" + fonts
+    preload = ('<link rel="preload" href="/assets/fonts/plex-arabic-400.woff2" as="font" type="font/woff2" crossorigin>\n'
+               '<link rel="preload" href="/assets/fonts/noto-kufi-arabic.woff2" as="font" type="font/woff2" crossorigin>\n') if ar else \
+              ('<link rel="preload" href="/assets/fonts/dm-sans.woff2" as="font" type="font/woff2" crossorigin>\n'
+               '<link rel="preload" href="/assets/fonts/fraunces.woff2" as="font" type="font/woff2" crossorigin>\n')
     return f"""<!DOCTYPE html>
 <html lang="{'ar' if ar else 'en'}" dir="{'rtl' if ar else 'ltr'}">
 <head>
@@ -706,10 +721,8 @@ def head(page, ar=False):
 <meta name="theme-color" content="#0a1424">
 <link rel="icon" href="/img/favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="/img/apple-touch-icon.png">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?{fonts}&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/assets/site.css?v={UPDATED}">
+<script>if(location.protocol==="http:"&&location.hostname==="hishamelsaied.com")location.replace("https://"+location.host+location.pathname+location.search+location.hash)</script>
+{preload}<link rel="stylesheet" href="/assets/site.css?v={UPDATED}">
 <script type="application/ld+json">
 {ld}
 </script>
@@ -724,7 +737,7 @@ def build():
     css = re.sub(r"\.page \{[^}]*\}\n\.page\.active \{[^}]*\}\n", "", css)
     css += "\n.foot-note { margin-top: 10px; max-width: 46ch; font-size: 0.92rem; color: var(--mist); }\n"
     css += open(os.path.join(SRC, "rtl.css"), encoding="utf-8").read()
-    open(os.path.join(ROOT, "assets", "site.css"), "w", encoding="utf-8").write(css)
+    open(os.path.join(ROOT, "assets", "site.css"), "w", encoding="utf-8").write(FONT_CSS + minify_css(css))
     shutil.copy(os.path.join(SRC, "site.js"), os.path.join(ROOT, "assets", "site.js"))
     shutil.copy(os.path.join(SRC, "selfcheck.js"), os.path.join(ROOT, "assets", "selfcheck.js"))
     shutil.copy(os.path.join(SRC, "resources.js"), os.path.join(ROOT, "assets", "resources.js"))
