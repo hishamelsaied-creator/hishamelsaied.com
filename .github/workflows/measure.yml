@@ -1,0 +1,69 @@
+name: Measure
+on:
+  workflow_dispatch:
+    inputs:
+      label:
+        description: "Label for this measurement (e.g. before, after)"
+        default: "run"
+jobs:
+  lighthouse:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Lighthouse on the live site (mobile, 3 runs per page, median)
+        shell: bash {0}
+        run: |
+          npm i -g lighthouse@12 >/dev/null 2>&1
+          mkdir -p out
+          PAGES="/ /coaching/ /arabic-speaking-executive-coach-uae/ /executive-coach-abu-dhabi/ /about/ /speaking/ /insights/how-to-choose-an-executive-coach-uae/ /ar/ /ar/coaching/"
+          for p in $PAGES; do
+            slug=$(echo "$p" | tr '/' '_')
+            for i in 1 2 3; do
+              lighthouse "https://hishamelsaied.com$p" --quiet --chrome-flags="--headless=new --no-sandbox" \
+                --only-categories=performance,seo,accessibility,best-practices \
+                --output=json --output-path="out/${slug}_$i.json" || true
+            done
+          done
+          python3 - <<'EOF'
+          import json, glob, statistics, collections
+          rows = collections.defaultdict(list)
+          for f in sorted(glob.glob("out/*.json")):
+              try: d = json.load(open(f))
+              except Exception: continue
+              a = d["audits"]; c = d["categories"]
+              rows[d["finalDisplayedUrl"]].append({
+                  "perf": round((c["performance"]["score"] or 0) * 100),
+                  "seo": round((c["seo"]["score"] or 0) * 100),
+                  "a11y": round((c["accessibility"]["score"] or 0) * 100),
+                  "bp": round((c["best-practices"]["score"] or 0) * 100),
+                  "lcp": a["largest-contentful-paint"]["numericValue"],
+                  "fcp": a["first-contentful-paint"]["numericValue"],
+                  "tbt": a["total-blocking-time"]["numericValue"],
+                  "cls": a["cumulative-layout-shift"]["numericValue"],
+                  "bytes": a["total-byte-weight"]["numericValue"],
+                  "fails": sorted({k: v.get("title") for k, v in a.items() if v.get("score") is not None and v.get("score") < 0.9 and v.get("scoreDisplayMode") in ("binary", "numeric", "metricSavings")}.values()),
+              })
+          out = {}
+          for url, rs in rows.items():
+              med = lambda k: statistics.median(r[k] for r in rs)
+              out[url] = {k: med(k) for k in ("perf", "seo", "a11y", "bp", "lcp", "fcp", "tbt", "cls", "bytes")}
+              out[url]["fails"] = rs[0]["fails"]
+          json.dump(out, open("summary.json", "w"), indent=1)
+          for u, v in out.items():
+              print(u, {k: v[k] for k in ("perf", "seo", "a11y", "bp")}, "LCP %.1fs" % (v["lcp"] / 1000), "KB %d" % (v["bytes"] / 1024))
+          EOF
+      - name: Live HTTP checks
+        shell: bash {0}
+        run: |
+          for u in http://hishamelsaied.com/ https://www.hishamelsaied.com/ https://hishamelsaied.com/ https://hishamelsaied.com/nope-404; do
+            curl -sS -o /dev/null -m 20 -w "$u %{http_code} -> %{redirect_url} %{time_total}s\n" "$u"
+          done | tee http.txt
+          curl -sSI https://hishamelsaied.com/ | tee -a http.txt
+      - uses: actions/upload-artifact@v4
+        with:
+          name: measure-${{ github.event.inputs.label }}
+          path: |
+            summary.json
+            http.txt
