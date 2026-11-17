@@ -1,0 +1,197 @@
+{
+ "https://hishamelsaied.com/": {
+  "perf": 99,
+  "seo": 100,
+  "a11y": 100,
+  "bp": 100,
+  "lcp": 2050.7525,
+  "fcp": 925.7525,
+  "tbt": 0,
+  "cls": 0,
+  "bytes": 232784,
+  "fails": [
+   "Defer offscreen images",
+   "Eliminate render-blocking resources",
+   "Improve image delivery",
+   "Max Potential First Input Delay",
+   "Network dependency tree",
+   "Properly size images",
+   "Render blocking requests",
+   "Serve images in next-gen formats",
+   "Serve static assets with an efficient cache policy",
+   "Total Blocking Time",
+   "Use efficient cache lifetimes"
+  ]
+ },
+ "https://hishamelsaied.com/about/": {
+  "perf": 100,
+  "seo": 100,
+  "a11y": 100,
+  "bp": 100,
+  "lcp": 1655.283,
+  "fcp": 905.283,
+  "tbt": 0,
+  "cls": 0,
+  "bytes": 302890,
+  "fails": [
+   "Eliminate render-blocking resources",
+   "Improve image delivery",
+   "LCP request discovery",
+   "Network dependency tree",
+   "Properly size images",
+   "Reduce unused CSS",
+   "Render blocking requests",
+   "Serve images in next-gen formats",
+   "Serve static assets with an efficient cache policy",
+   "Use efficient cache lifetimes"
+  ]
+ },
+ "https://hishamelsaied.com/ar/": {
+  "perf": 97,
+  "seo": 100,
+  "a11y": 100,
+  "bp": 100,
+  "lcp": 2467.574,
+  "fcp": 1717.574,
+  "tbt": 7.5,
+  "cls": 0.00204326909466649,
+  "bytes": 310586,
+  "fails": [
+   "Eliminate render-blocking resources",
+   "Improve image delivery",
+   "Network dependency tree",
+   "Properly size images",
+   "Render blocking requests",
+   "Serve images in next-gen formats",
+   "Serve static assets with an efficient cache policy",
+   "Use efficient cache lifetimes"
+  ]
+ },
+ "https://hishamelsaied.com/ar/coaching/": {
+  "perf": 99,
+  "seo": 100,
+  "a11y": 100,
+  "bp": 100,
+  "lcp": 1708.8339999999998,
+  "fcp": 1502.775,
+  "tbt": 0,
+  "cls": 0.002319737696719124,
+  "bytes": 220781,
+  "fails": [
+   "Eliminate render-blocking resources",
+   "Improve image delivery",
+   "Network dependency tree",
+   "Reduce unused CSS",
+   "Render blocking requests",
+   "Serve static assets with an efficient cache policy",
+   "Use efficient cache lifetimes"
+  ]
+ },
+ "https://hishamelsaied.com/arabic-speaking-executive-coach-uae/": {
+  "perf": 100,
+  "seo": 100,
+  "a11y": 100,
+  "bp": 100,
+  "lcp": 1663.696,
+  "fcp": 924.465,
+  "tbt": 0,
+  "cls": 0,
+  "bytes": 176903,
+  "fails": [
+   "Eliminate render-blocking resources",
+   "Improve image delivery",
+   "LCP request discovery",
+   "Network dependency tree",
+   "Reduce unused CSS",
+   "Render blocking requests",
+   "Serve images in next-gen formats",
+   "Serve static assets with an efficient cache policy",
+   "Use efficient cache lifetimes"
+  ]
+ },
+ "https://hishamelsaied.com/coaching/": {
+  "perf": 100,
+  "seo": 100,
+  "a11y": 100,
+  "bp": 100,
+  "lcp": 1422.292,
+  "fcp": 904.775,
+  "tbt": 0,
+  "cls": 0,
+  "bytes": 156599,
+  "fails": [
+   "Eliminate render-blocking resources",
+   "Improve image delivery",
+   "Network dependency tree",
+   "Reduce unused CSS",
+   "Render blocking requests",
+   "Serve static assets with an efficient cache policy",
+   "Use efficient cache lifetimes"
+  ]
+ },
+ "https://hishamelsaied.com/executive-coach-abu-dhabi/": {
+  "perf": 100,
+  "seo": 100,
+  "a11y": 100,
+  "bp": 100,
+  "lcp": 1738.162,
+  "fcp": 921.0975,
+  "tbt": 0,
+  "cls": 0,
+  "bytes": 178913,
+  "fails": [
+   "Eliminate render-blocking resources",
+   "Improve image delivery",
+   "LCP request discovery",
+   "Network dependency tree",
+   "Properly size images",
+   "Reduce unused CSS",
+   "Render blocking requests",
+   "Serve images in next-gen formats",
+   "Serve static assets with an efficient cache policy",
+   "Use efficient cache lifetimes"
+  ]
+ },
+ "https://hishamelsaied.com/insights/how-to-choose-an-executive-coach-uae/": {
+  "perf": 100,
+  "seo": 100,
+  "a11y": 100,
+  "bp": 100,
+  "lcp": 1426.7145,
+  "fcp": 906.439,
+  "tbt": 0,
+  "cls": 0,
+  "bytes": 117879,
+  "fails": [
+   "Eliminate render-blocking resources",
+   "Network dependency tree",
+   "Reduce unused CSS",
+   "Render blocking requests",
+   "Serve static assets with an efficient cache policy",
+   "Use efficient cache lifetimes"
+  ]
+ },
+ "https://hishamelsaied.com/speaking/": {
+  "perf": 100,
+  "seo": 100,
+  "a11y": 100,
+  "bp": 100,
+  "lcp": 1701.5065,
+  "fcp": 909.5065,
+  "tbt": 0,
+  "cls": 0,
+  "bytes": 421037,
+  "fails": [
+   "Eliminate render-blocking resources",
+   "Improve image delivery",
+   "LCP request discovery",
+   "Network dependency tree",
+   "Properly size images",
+   "Reduce unused CSS",
+   "Render blocking requests",
+   "Serve images in next-gen formats",
+   "Serve static assets with an efficient cache policy",
+   "Use efficient cache lifetimes"
+  ]
+ }
+}

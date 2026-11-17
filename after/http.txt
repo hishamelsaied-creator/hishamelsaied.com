@@ -1,0 +1,27 @@
+http://hishamelsaied.com/ 200 ->  0.211530s
+https://www.hishamelsaied.com/ 301 -> https://hishamelsaied.com/ 0.109688s
+https://hishamelsaied.com/ 200 ->  0.156166s
+https://hishamelsaied.com/nope-404 404 ->  0.098965s
+HTTP/2 200 
+server: GitHub.com
+content-type: text/html; charset=utf-8
+last-modified: Tue, 17 Nov 2026 16:45:42 GMT
+access-control-allow-origin: *
+etag: "6afc84b6-95ed"
+expires: Tue, 17 Nov 2026 17:02:31 GMT
+cache-control: max-age=600
+x-proxy-cache: MISS
+x-github-request-id: AD36:3C5D77:2C3E1F:2FD4FA:6AFC864E
+x-github-edge-region: iad
+accept-ranges: bytes
+date: Tue, 17 Nov 2026 16:52:31 GMT
+via: 1.1 varnish
+age: 0
+x-served-by: cache-iad-khef600051-IAD
+x-cache: HIT
+x-cache-hits: 1
+x-timer: S1794934352.926433,VS0,VE2
+vary: Accept-Encoding
+x-fastly-request-id: c0f65aac7516bf7d3d2d39186d71cf0b14b58d16
+content-length: 38381
+
