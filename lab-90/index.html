@@ -260,7 +260,7 @@ function newState(){
     ind:{col:50,cre:45,cmp:50,ctl:45},start:null,
     prof:{col:0,cre:0,cmp:0,ctl:0},
     rel:Object.fromEntries(Object.keys(C).map(k=>[k,C[k].rel])),
-    flags:{},read:new Set(),log:[],chat:null,alloc:[],pending:[],missed:[],live:new Set(),time:480,t0:Date.now(),pred:null,saved:false};
+    flags:{},read:new Set(),log:[],chat:null,alloc:[],pending:[],missed:[],live:new Set(),time:480,t0:Date.now(),pred:null,saved:false,snz:[],remind:new Set()};
   S.start={...S.ind};
 }
 
@@ -349,7 +349,8 @@ function renderCompass(){
 
 /* ---------- steps ---------- */
 const STEPS=[intro,()=>plan(1),d1,chatScene,()=>plan(2),d2,()=>plan(3),d3,d4,predict,report];
-function go(){resolvePending();clearTimers();S.step++;STEPS[S.step]();tab("scene");schedule();showMissed();}
+function go(){resolvePending();clearTimers();S.step++;STEPS[S.step]();tab("scene");schedule();showMissed();
+  S.snz.slice().forEach((e,i)=>TIMERS.push(setTimeout(()=>{if(S.snz.includes(e)){S.snz=S.snz.filter(x=>x!==e);fire(e);}},6000+i*4000)));}
 
 function intro(){
   if(typeof clearTimers==='function'&&S)clearTimers();SHOWING=null;
@@ -707,19 +708,27 @@ function nextToast(){
   if(e.mail){S.live.add(e.mail);hud();}
   ping(e.type);
   const icon=e.type==="call"?`<svg class="ring" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#D14B4B" stroke-width="2"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/></svg>`:"";
-  const ch=e.type==="call"?"اتصال وارد":e.type==="mail"?"بريد جديد":"رسالة واتساب";
+  const rem=S.remind.has(e);
+  const ch=(e.type==="call"?"اتصال وارد":e.type==="mail"?"بريد جديد":"رسالة واتساب")+(rem?" · تذكير: ما زال ينتظر ردّك":"");
   $("toasts").innerHTML=`<div class="toast ${e.type}" role="alert"><div class="h">${e.from?portrait(e.from,38):""}<div style="flex:1"><b>${e.from?C[e.from].n:e.sender}</b><div class="ch">${ch}</div></div>${icon}</div>
-   <div class="tx">${e.text}</div><div class="acts">${(e.acts||[]).map((a,i)=>`<button data-i="${i}">${a.t}</button>`).join("")}<button class="later" data-i="x">${e.acts?"تجاهل":"حسناً"}</button></div></div>`;
+   <div class="tx">${e.text}</div><div class="acts">${(e.acts||[]).map((a,i)=>`<button data-i="${i}">${a.t}</button>`).join("")}<button class="later" data-i="x">${e.acts?(rem||!e.ignore?"تجاهل":"لاحقاً"):"حسناً"}</button></div></div>`;
   $("toasts").querySelectorAll("button").forEach(b=>b.onclick=()=>{
-    if(b.dataset.i==="x"){if(e.acts&&e.ignore)S.pending.push(e);}
+    if(b.dataset.i==="x"){if(e.acts&&e.ignore)later(e,true);}
     else{const a=e.acts[+b.dataset.i];const fx=typeof a.fx==="function"?a.fx():a.fx;const r=apply(fx);hud(r.d);if(fx.carry)S.carry+=fx.carry;
       S.log.push({t:"مقاطعة: "+(e.from?C[e.from].n:e.sender),c:a.short,tags:QK.filter(k=>(fx.prof||{})[k]>0)});
       if(a.after){SHOWING={};$("toasts").innerHTML=`<div class="toast ${e.type}"><div class="tx">${a.after}</div></div>`;TIMERS.push(setTimeout(nextToast,3200));return;}}
     nextToast();});
   if(!e.acts)TIMERS.push(setTimeout(()=>{if(SHOWING===e)nextToast();},9000));
 }
+function later(e,timer){
+  if(S.remind.has(e)){S.pending.push(e);return;}
+  S.remind.add(e);S.snz.push(e);
+  if(timer)TIMERS.push(setTimeout(()=>{if(S.snz.includes(e)){S.snz=S.snz.filter(x=>x!==e);fire(e);}},20000));
+}
 function resolvePending(){
-  if(SHOWING&&SHOWING.acts&&SHOWING.ignore)S.pending.push(SHOWING);
+  if(SHOWING&&SHOWING.acts&&SHOWING.ignore)later(SHOWING,false);
+  Q_T.forEach(e=>{if(e.acts&&e.ignore&&S.remind.has(e)&&!S.snz.includes(e))S.snz.push(e);});
+  const keep=[];S.snz.forEach(e=>{if(e.urgent||S.step>=8)S.pending.push(e);else keep.push(e);});S.snz=keep;
   Q_T.concat(UNFIRED).forEach(e=>{if(e.mail)S.live.add(e.mail);});UNFIRED=[];
   SHOWING=null;
   S.pending.forEach(e=>{const fx=e.ignore;apply(fx);S.missed.push(e.note);S.log.push({t:"تجاهلت: "+(e.from?C[e.from].n:e.sender),c:"لم تردّ",tags:[]});});
@@ -750,11 +759,11 @@ const EVENTS=[
   acts:[{t:"أتصل بالمتعامل بنفسي",short:"اتصال شخصي بالمتعامل",fx:{prof:{cmp:1},ind:{cmp:2},rel:{sultan:3},carry:-2},after:"اعتذرتَ للمتعامل وحللتَ معاملته، فنشر شكراً بعد ساعة."},
         {t:"أحيلها إلى فيصل ليتابعها",short:"إحالة إلى فيصل",fx:{prof:{cmp:.5},ind:{cmp:1},rel:{faisal:-4}},after:"تابعها فيصل، رغم أنه كان على الكاونتر منذ الصباح."}],
   ignore:{ind:{cmp:-3},rel:{sultan:-4}},note:"لم تردّ على المنشور. ردّ المكتب التنفيذي بالنيابة عنك، وسأل سلطان لماذا لم تتحرك إدارتك."},
- {step:6,at:10,type:"wa",from:"maha",when:()=>S.flags.faisalAway,text:"الكاونتر بلا نظام أرقام منذ الصباح، والناس غاضبون. الموظفون يسألون: هل نوقف استقبال المعاملات الجديدة حتى يعود النظام؟",
+ {step:6,at:10,urgent:1,type:"wa",from:"maha",when:()=>S.flags.faisalAway,text:"الكاونتر بلا نظام أرقام منذ الصباح، والناس غاضبون. الموظفون يسألون: هل نوقف استقبال المعاملات الجديدة حتى يعود النظام؟",
   acts:[{t:"أوقفوها، والمتابعة عليّ",short:"تحمّل القرار",fx:{prof:{ctl:1,col:.5},ind:{ctl:2,cmp:-2},rel:{maha:4}}},
         {t:"لا، استمروا يدوياً",short:"الاستمرار يدوياً",fx:{prof:{cmp:1},ind:{cmp:2,ctl:-2},rel:{maha:-2}}}],
   ignore:{ind:{cmp:-2,col:-2},rel:{maha:-4}},note:"لم تردّ على مها عن تعطّل نظام الأرقام. تصرّف الموظفون وحدهم، وتعطّل الكاونتر ساعتين."},
- {step:6,at:10,type:"wa",from:"faisal",when:()=>!S.flags.faisalAway,text:"أستاذ، الكاونتر بلا نظام أرقام منذ الصباح. الناس غاضبون. هل أوقف استقبال المعاملات الجديدة حتى يعود؟",
+ {step:6,at:10,urgent:1,type:"wa",from:"faisal",when:()=>!S.flags.faisalAway,text:"أستاذ، الكاونتر بلا نظام أرقام منذ الصباح. الناس غاضبون. هل أوقف استقبال المعاملات الجديدة حتى يعود؟",
   acts:[{t:"أوقفها، والمتابعة عليّ",short:"تحمّل القرار",fx:{prof:{ctl:1,col:.5},ind:{ctl:2,cmp:-2},rel:{faisal:5}}},
         {t:"لا، استمر يدوياً",short:"الاستمرار يدوياً",fx:{prof:{cmp:1},ind:{cmp:2,ctl:-2},rel:{faisal:-3}}}],
   ignore:{ind:{cmp:-2,col:-2},rel:{faisal:-5}},note:"لم تردّ على فيصل عن تعطّل نظام الأرقام. تصرّف وحده، وتعطّل الكاونتر ساعتين."},
