@@ -192,17 +192,17 @@ PAGES_AR = [
     },
     {
         "key": "arabic-coach", "path": "/ar/arabic-speaking-executive-coach-uae/", "nav": "كوتش تنفيذي عربي",
-        "title": "كوتش تنفيذي عربي (مدرب تنفيذي) في دبي والإمارات | هشام السعيد",
+        "title": "كوتش ومدرب تنفيذي عربي في دبي والإمارات | هشام السعيد",
         "desc": "كوتش تنفيذي ومدرب قيادات معتمد ICF PCC في دبي يعمل بالعربية والإنجليزية مع قادة الموارد البشرية والقيادات العليا في الإمارات والسعودية ودول الخليج.",
     },
     {
         "key": "loc-abu-dhabi", "path": "/ar/executive-coach-abu-dhabi/", "nav": "كوتش تنفيذي في أبوظبي",
-        "title": "كوتش تنفيذي (مدرب تنفيذي) في أبوظبي | هشام السعيد",
+        "title": "كوتش ومدرب تنفيذي في أبوظبي | هشام السعيد",
         "desc": "كوتشينج تنفيذي لقادة الموارد البشرية وكبار القادة في أبوظبي، حضورياً وعبر الإنترنت، بالعربية والإنجليزية. كوتش معتمد ICF PCC بخبرة ٢٠ عاماً في الموارد البشرية.",
     },
     {
         "key": "loc-saudi", "path": "/ar/executive-coach-saudi-arabia/", "nav": "كوتش تنفيذي في السعودية",
-        "title": "كوتش تنفيذي (مدرب تنفيذي) في الرياض والسعودية | هشام السعيد",
+        "title": "كوتش ومدرب تنفيذي في الرياض والسعودية | هشام السعيد",
         "desc": "كوتشينج تنفيذي لقادة الموارد البشرية وكبار القادة في الرياض وجدة وأنحاء السعودية، عبر الإنترنت وحضورياً، بالعربية والإنجليزية. معتمد ICF PCC.",
     },
     {
@@ -323,26 +323,26 @@ LOC_FAQ = {
     "loc-abu-dhabi": {
         "en": [("Is there an executive coach who works with leaders in Abu Dhabi?", "Yes. Hisham Elsaied is an ICF Professional Certified Coach (PCC) based in Dubai who coaches HR leaders and senior leaders in Abu Dhabi, in person and online, in Arabic and English."),
                ("Do you coach in person in Abu Dhabi?", "Yes. Sessions can be in person in Abu Dhabi or Dubai, or online. Many clients mix the two."),
-               ("Can my organisation pay for the coaching?", "Yes. Many clients are sponsored by their employer. We agree the goals together in a three-way meeting at the start, and the content of sessions stays confidential under the ICF Code of Ethics."),
+               ("Can my organisation pay for the coaching?", "Yes. Many clients are sponsored by their employer. Goals are agreed in a three-way meeting at the start, and the content of sessions stays confidential under the ICF Code of Ethics."),
                ("Which sectors do your Abu Dhabi clients work in?", "Mostly government and semi-government entities, energy and utilities, and finance, plus multinational companies with offices in Abu Dhabi."),
                ("How do I start?", "Book a free 30-minute call or send a short enquiry through the contact page. There is no obligation.")],
         "ar": [("هل يوجد كوتش تنفيذي يعمل مع القادة في أبوظبي؟", "نعم. هشام السعيد كوتش محترف معتمد من الاتحاد الدولي للكوتشينج (ICF PCC)، مقيم في دبي، ويعمل مع قادة الموارد البشرية وكبار القادة في أبوظبي حضورياً وعبر الإنترنت، بالعربية والإنجليزية."),
                ("هل تُعقد الجلسات حضورياً في أبوظبي؟", "نعم. يمكن أن تكون الجلسات حضورياً في أبوظبي أو دبي، أو عبر الإنترنت، وكثير من العملاء يجمعون بين الاثنين."),
-               ("هل يمكن لجهة عملي أن تتحمل التكلفة؟", "نعم. كثير من العملاء ترعاهم جهات عملهم. نتفق على الأهداف معاً في لقاء ثلاثي في البداية، ويبقى محتوى الجلسات سرياً وفق ميثاق أخلاقيات ICF."),
+               ("هل يمكن لجهة عملي أن تتحمل التكلفة؟", "نعم. كثير من العملاء ترعاهم جهات عملهم. يُتفق على الأهداف في لقاء ثلاثي في البداية، ويبقى محتوى الجلسات سرياً وفق ميثاق أخلاقيات ICF."),
                ("في أي قطاعات يعمل عملاؤك في أبوظبي؟", "أغلبهم في الجهات الحكومية وشبه الحكومية، وقطاعات الطاقة والمرافق والمال، إضافة إلى شركات متعددة الجنسيات لها مكاتب في أبوظبي."),
-               ("كيف أبدأ؟", "احجز مكالمة مجانية لمدة ٣٠ دقيقة أو أرسل استفساراً قصيراً من صفحة التواصل، بلا أي التزام.")],
+               ("كيف أبدأ؟", "يمكنك حجز مكالمة مجانية لمدة ٣٠ دقيقة أو إرسال استفسار قصير من صفحة التواصل، بلا أي التزام.")],
     },
     "loc-saudi": {
         "en": [("Is there an Arabic-speaking executive coach for leaders in Saudi Arabia?", "Yes. Hisham Elsaied, an ICF Professional Certified Coach (PCC) based in Dubai, coaches leaders in Riyadh, Jeddah and across Saudi Arabia in Arabic and English, mostly online and in person when he is in the Kingdom."),
-               ("Do I need to travel to Dubai?", "No. Most sessions run online, and we can meet in person in Riyadh or Jeddah when he is there."),
-               ("Can my organisation pay for the coaching?", "Yes. Many clients are sponsored by their employer. We agree the goals together in a three-way meeting at the start, and the content of sessions stays confidential under the ICF Code of Ethics."),
+               ("Do I need to travel to Dubai?", "No. Most sessions run online, and sessions can be in person in Riyadh or Jeddah when Hisham is in the Kingdom."),
+               ("Can my organisation pay for the coaching?", "Yes. Many clients are sponsored by their employer. Goals are agreed in a three-way meeting at the start, and the content of sessions stays confidential under the ICF Code of Ethics."),
                ("Which organisations in Saudi Arabia has he worked with?", "Organisations he has worked with in the Kingdom include ZATCA and Tabuk Pharmaceuticals, and his work takes him regularly to Riyadh, Jeddah and Tabuk."),
                ("How do I start?", "Book a free 30-minute call or send a short enquiry through the contact page. There is no obligation.")],
         "ar": [("هل يوجد كوتش تنفيذي يتحدث العربية للقادة في السعودية؟", "نعم. هشام السعيد كوتش محترف معتمد ICF PCC، مقيم في دبي، ويعمل مع القادة في الرياض وجدة وأنحاء السعودية بالعربية والإنجليزية، عبر الإنترنت غالباً، وحضورياً حين يكون في المملكة."),
-               ("هل أحتاج إلى السفر إلى دبي؟", "لا. أغلب الجلسات عبر الإنترنت، ويمكننا أن نلتقي حضورياً في الرياض أو جدة حين أكون هناك."),
-               ("هل يمكن لجهة عملي أن تتحمل التكلفة؟", "نعم. كثير من العملاء ترعاهم جهات عملهم. نتفق على الأهداف معاً في لقاء ثلاثي في البداية، ويبقى محتوى الجلسات سرياً وفق ميثاق أخلاقيات ICF."),
+               ("هل أحتاج إلى السفر إلى دبي؟", "لا. أغلب الجلسات عبر الإنترنت، ويمكن أن تكون حضورياً في الرياض أو جدة حين يكون هشام في المملكة."),
+               ("هل يمكن لجهة عملي أن تتحمل التكلفة؟", "نعم. كثير من العملاء ترعاهم جهات عملهم. يُتفق على الأهداف في لقاء ثلاثي في البداية، ويبقى محتوى الجلسات سرياً وفق ميثاق أخلاقيات ICF."),
                ("مع أي جهات في السعودية عمل؟", "من الجهات التي عمل معها في المملكة هيئة الزكاة والضريبة والجمارك وتبوك للأدوية، ويأخذه عمله بانتظام إلى الرياض وجدة وتبوك."),
-               ("كيف أبدأ؟", "احجز مكالمة مجانية لمدة ٣٠ دقيقة أو أرسل استفساراً قصيراً من صفحة التواصل، بلا أي التزام.")],
+               ("كيف أبدأ؟", "يمكنك حجز مكالمة مجانية لمدة ٣٠ دقيقة أو إرسال استفسار قصير من صفحة التواصل، بلا أي التزام.")],
     },
 }
 LOC_AREA = {"loc-abu-dhabi": [{"@type": "City", "name": "Abu Dhabi"}, {"@type": "Country", "name": "United Arab Emirates"}],
@@ -401,7 +401,7 @@ def person(ar=False):
         "@type": "Person",
         "@id": PERSON_ID,
         "name": "هشام السعيد" if ar else "Hisham Elsaied",
-        "alternateName": ["Hisham Elsaied" if ar else "هشام السعيد", "Hisham El Saied", "Hisham El-Saied", "Hisham ElSaied", "Hesham Elsaied", "Hesham El Saied"],
+        "alternateName": ["Hisham Elsaied" if ar else "هشام السعيد", "Hisham El Saied", "Hisham El-Saied", "Hesham Elsaied", "Hesham El Saied"],
         "givenName": "Hisham", "familyName": "Elsaied",
         "url": SITE + ("/ar/" if ar else "/"),
         "mainEntityOfPage": SITE + ("/ar/about/" if ar else "/about/"),
@@ -510,7 +510,7 @@ def graph(page, ar=False):
         g.append({"@type": "FAQPage", "inLanguage": "ar" if ar else "en", "mainEntity": [
             {"@type": "Question", "name": q, "acceptedAnswer": {"@type": "Answer", "text": a}} for q, a in (ARQA_AR if ar else ARQA_EN)]})
     if k in LOC_FAQ:
-        sv = service(page["nav"], page["desc"], page["path"], "كوتشينج تنفيذي" if ar else "Executive coaching")
+        sv = service(("الكوتشينج التنفيذي في " + ("أبوظبي" if k == "loc-abu-dhabi" else "السعودية")) if ar else ("Executive coaching in " + ("Abu Dhabi" if k == "loc-abu-dhabi" else "Saudi Arabia")), page["desc"], page["path"], "كوتشينج تنفيذي" if ar else "Executive coaching")
         sv["areaServed"] = LOC_AREA[k]
         g.append(sv)
         g.append({"@type": "FAQPage", "inLanguage": "ar" if ar else "en", "mainEntity": [
