@@ -561,11 +561,13 @@ def graph(page, ar=False):
                       "inLanguage": "en", "image": SITE + img, "about": about, "url": SITE + ("/ar/books/" if ar else "/books/"), **({"sameAs": AMAZON[name]} if name in AMAZON else {})})
     if k == "media":
         g.append({"@type": "ItemList", "name": "Articles and podcasts by Hisham Elsaied", "itemListElement": [
-            {"@type": "ListItem", "position": i + 1, "item": dict({"@type": t, "name": n, "url": u, ("author" if t == "Article" else "actor"): {"@id": PERSON_ID},
+            {"@type": "ListItem", "position": i + 1, "item": dict({"@type": (t if t != "VideoObject" or d else "CreativeWork"), "name": n, "url": u, ("author" if t == "Article" else "actor"): {"@id": PERSON_ID},
                    "publisher": {"@type": "Organization", "name": pub}},
                   **({"datePublished": d} if d else {}),
+                  # Google requires uploadDate on VideoObject; videos without a known date are listed as plain CreativeWork.
                   **({"embedUrl": u.replace("watch?v=", "embed/"), "thumbnailUrl": "https://i.ytimg.com/vi/" + u.split("=")[-1] + "/hqdefault.jpg",
-                      "description": n + ", with Hisham Elsaied."} if t == "VideoObject" else {}))}
+                      "uploadDate": d, "description": n + ", with Hisham Elsaied."} if t == "VideoObject" and d else
+                     {"genre": "Video interview", "description": n + ", with Hisham Elsaied.", "thumbnailUrl": "https://i.ytimg.com/vi/" + u.split("=")[-1] + "/hqdefault.jpg"} if t == "VideoObject" else {}))}
             for i, (t, n, u, d, pub) in enumerate(MEDIA)]})
     if k == "about":
         g.append({"@type": "ProfilePage", "url": SITE + page["path"], "inLanguage": "ar" if ar else "en", "mainEntity": {"@id": PERSON_ID}})
