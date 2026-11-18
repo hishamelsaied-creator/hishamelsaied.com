@@ -106,7 +106,7 @@
 
   // Invitation to the self-check: once per visitor, after 30 seconds or a scroll
   (function () {
-    if (/self-check|contact|session-booked/.test(location.pathname)) return;
+    if (/self-check|contact|session-booked|\/resources\/[^/]+\//.test(location.pathname)) return;
     var seen = false;
     try { seen = !!localStorage.getItem("sc-invite") || !!sessionStorage.getItem("pop-shown"); } catch (e) {}
     if (seen) return;
@@ -150,7 +150,7 @@
 
   // Second invitation: a single paid session, for visitors who stay longer
   (function () {
-    if (/self-check|contact|session-booked/.test(location.pathname)) return;
+    if (/self-check|contact|session-booked|\/resources\/[^/]+\//.test(location.pathname)) return;
     var start = Date.now();
     try {
       if (localStorage.getItem("ss-invite")) return;

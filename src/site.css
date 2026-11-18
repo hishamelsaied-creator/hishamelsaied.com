@@ -712,3 +712,4 @@ html[dir="ltr"] .lg { font-weight: 500; }
 .tc-scale .pk-opt:has(input:checked) { border-color: var(--gold-deep); }
 .tc-scale .pk-opt { align-items: center; padding: 10px; }
 .tc-scale .pk-opt span { font-size: .93rem; line-height: 1.25; }
+@media (max-width: 700px) { .tc-ctx .tc-scale.tc-3, .fb-ctx .tc-scale.tc-3 { grid-template-columns: 1fr; } }

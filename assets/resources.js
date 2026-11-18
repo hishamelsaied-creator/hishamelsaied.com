@@ -239,13 +239,13 @@
     });
     document.getElementById("pl-clear").addEventListener("click", function () {
       if (!window.confirm(L("Clear everything you've written?", "هل تريد مسح كل ما كتبته؟"))) return;
-      fields.forEach(function (f) { f.value = ""; }); store.del(KEY); dates();
+      fields.forEach(function (f) { f.value = ""; }); store.del(KEY); dates(); if (starsSel) starsSel.dispatchEvent(new Event("change"));
     });
   }
   // ---------- Feedback conversation builder ----------
   var fb = document.getElementById("fb");
   if (fb) {
-    var LABELS = AR ? ["كسول", "وقح", "مهمل", "سلبي", "غير مهني", "متكبر", "دائماً", "دائما", "أبداً", "ابدا", "مستهتر", "دائمًا", "أبدًا", "أبدا", "دوماً", "غير ملتزم", "لا مبالي", "فوضوي", "متعجرف", "تصرفاتك"]
+    var LABELS = AR ? ["كسول", "وقح", "مهمل", "سلبي", "غير مهني", "متكبر", "دائماً", "دائما", "أبداً", "ابدا", "مستهتر", "دائمًا", "أبدًا", "أبدا", "دوماً", "غير ملتزم", "لا مبالي", "فوضوي", "متعجرف"]
                     : ["lazy", "rude", "careless", "unprofessional", "arrogant", "always", "never", "attitude", "disrespectful", "useless", "sloppy"];
     var v = function (n) { var el = fb.querySelector("[name=" + n + "]"); return el ? el.value.trim().replace(/[.!?؟。،,;:\s]+$/, "") : ""; };
     var low1 = function (t) { return AR ? t : t.charAt(0).toLowerCase() + t.slice(1); };
@@ -261,7 +261,7 @@
     document.getElementById("fb-go").addEventListener("click", function () {
       var pos = fb.querySelector("[name=kind]:checked").value === "pos";
       var name = v("name"), sit = v("sit"), beh = v("beh"), imp = v("imp"), ask = v("ask");
-      if (!AR) ask = ask.replace(/^(i'?d like (you )?to|please|to)\s+/i, "");
+      if (!AR) ask = ask.replace(/^(i'?d like (you )?to|please|to)\s+/i, ""); else if (ask && !/^أن\s/.test(ask)) ask = "أن " + ask.replace(/^(أرجو|رجاءً|رجاء)\s+/, "");
       var out = document.getElementById("fb-out");
       var need = pos ? [sit, beh, imp] : [sit, beh, imp, ask];
       out.hidden = false;
@@ -372,15 +372,19 @@
       var stage = time === 0
         ? L("You're in your first three months, so lower scores on relationships and your team are normal. Treat them as the plan for the next few weeks, not as a warning.", "أنت في أشهرك الثلاثة الأولى، لذا فإن انخفاض الدرجات في العلاقات والفريق أمر طبيعي. اعتبرها خطة الأسابيع القادمة، لا إنذاراً.")
         : time === 1
-        ? L("Between three and six months is when many new leaders start to pay back the investment made in them. Gaps in role clarity or relationships now deserve attention, because they get harder to close later.", "بين الشهر الثالث والسادس يبدأ كثير من القادة الجدد في ردّ ما استُثمر فيهم. والفجوات في وضوح الدور أو العلاقات تستحق الانتباه الآن، لأن سدّها يصبح أصعب لاحقاً.")
+        ? L("By around six months, most new leaders are expected to be adding as much value as they've taken to get up to speed. Gaps in role clarity or relationships deserve attention now, because they get harder to close later.", "بحلول الشهر السادس تقريباً، يُتوقع من معظم القادة الجدد أن يضيفوا من القيمة بقدر ما استهلكه استقرارهم في الدور. والفجوات في وضوح الدور أو العلاقات تستحق الانتباه الآن، لأن سدّها يصبح أصعب لاحقاً.")
         : L("After six months, people expect you to be fully up to speed. Any area marked as a priority is now a real risk to how you're seen, and worth acting on this month.", "بعد ستة أشهر يتوقع الناس أنك أصبحت متمكناً تماماً من دورك. وأي مجال يظهر كأولوية أصبح خطراً حقيقياً على صورتك، ويستحق أن تتحرك فيه هذا الشهر.");
       var moveNote = move === 2 ? L("You've also changed country. Expect relationships and how decisions get made to take longer to read than in past moves, and ask more questions than feels comfortable.", "لقد انتقلت أيضاً إلى بلد جديد. توقّع أن يستغرق فهم العلاقات وطريقة اتخاذ القرار وقتاً أطول مما في انتقالاتك السابقة، واسأل أكثر مما تعتاد.")
                  : move === 0 ? L("You were promoted from inside, so people know the old you. Letting go of your old job, and being seen to, matters more than usual.", "لقد رُقّيت من الداخل، والناس يعرفونك في دورك السابق. لذا فإن التخلي عن عملك القديم، وأن يرى الناس ذلك، أهم من المعتاد.")
                  : L("You've joined a new organisation, so understanding how things really work here comes before changing them.", "لقد انضممت إلى جهة جديدة، لذا فإن فهم كيف تسير الأمور فعلاً يأتي قبل تغييرها.");
-      var focus = low.length ? "<h3>" + L("Where to focus next", "أين تركّز بعد ذلك") + "</h3>" + low.map(function (a) { return "<p><b>" + D.names[a] + ".</b> " + D.adv[a] + "</p>"; }).join("")
+      if (flags.length >= 3) low = [];
+      var focus = flags.length >= 3 ? "" : low.length ? "<h3>" + L("Where to focus next", "أين تركّز بعد ذلك") + "</h3>" + low.map(function (a) { return "<p><b>" + D.names[a] + ".</b> " + D.adv[a] + "</p>"; }).join("")
         : "<p>" + L("No area stands out as a risk. Run this check again in a month: things shift quickly in a new role.", "لا يبدو أي مجال مصدر خطر. أعد هذه المراجعة بعد شهر، فالأمور تتغير بسرعة في الدور الجديد.") + "</p>";
-      var cons = flags.length ? '<p class="pk-mix">' + L("Your answers in " + flags.map(function (a) { return D.names[a]; }).join(" and ") + " point in different directions. Read those statements again, or ask someone who works closely with you how they'd answer.",
-        "إجاباتك في مجال " + flags.map(function (a) { return D.names[a]; }).join(" و") + " تشير إلى اتجاهات مختلفة. اقرأ تلك العبارات مرة أخرى، أو اسأل شخصاً يعمل معك عن قرب كيف كان سيجيب.") + "</p>" : "";
+      var fn = flags.map(function (a) { return D.names[a]; });
+      var listEn = fn.length > 1 ? fn.slice(0, -1).join(", ") + " and " + fn[fn.length - 1] : fn[0];
+      var cons = flags.length >= 3 ? '<p class="pk-mix">' + L("Many of your answers agree with both the positive and the negative statements. That usually means agreeing across the board rather than a real pattern. Read the statements again slowly, especially the negative ones, and answer for how things are today.", "كثير من إجاباتك يوافق العبارات الإيجابية والسلبية معاً، وهذا يعني عادة ميلاً عاماً إلى الموافقة لا نمطاً حقيقياً. اقرأ العبارات مرة أخرى بتمهّل، وخاصة السلبية منها، وأجب بحسب واقعك اليوم.") + "</p>"
+        : flags.length ? '<p class="pk-mix">' + L("Your answers in " + listEn + " point in different directions. Read those statements again, or ask someone who works closely with you how they'd answer.",
+        "إجاباتك في " + (fn.length === 2 ? "مجالَي " + fn[0] + " و" + fn[1] : "مجال " + fn[0]) + " تشير إلى اتجاهات مختلفة. اقرأ تلك العبارات مرة أخرى، أو اسأل شخصاً يعمل معك عن قرب كيف كان سيجيب.") + "</p>" : "";
       var full = head + '<div class="tc-bars">' + bars + "</div>" + '<p class="tc-key">' + L("75 and above: strong. 50 to 74: building. Below 50: a priority.", "٧٥ فأكثر: قوي. من ٥٠ إلى ٧٤: قيد البناء. أقل من ٥٠: أولوية.") + "</p>" +
         "<h3>" + L("Reading it for your stage", "قراءة النتيجة في ضوء مرحلتك") + "</h3><p>" + stage + " " + moveNote + "</p>" + cons + focus +
         '<div class="pk-acts">' + D.links + '<button type="button" class="btn line-d" onclick="window.print()">' + L("Save as PDF", "احفظ كملف PDF") + "</button></div>" +

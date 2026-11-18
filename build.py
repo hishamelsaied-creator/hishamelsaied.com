@@ -140,7 +140,7 @@ PAGES = [
     {
         "key": "art-feedback", "path": "/insights/why-feedback-backfires/", "nav": "Why a third of feedback makes performance worse",
         "title": "Why a Third of Feedback Makes Performance Worse (and What Works)",
-        "desc": "Research on 607 feedback effects shows over a third made performance worse. Why it happens, five checks before you give feedback, and the Gulf context.",
+        "desc": "In studies of 607 feedback effects, over a third made performance worse. Why it happens, five checks before you give feedback, and the Gulf context.",
     },
     {
         "key": "art-psych-safety", "path": "/insights/psychological-safety-gulf-teams/", "nav": "Psychological safety in Gulf teams",
@@ -298,7 +298,7 @@ PAGES_AR = [
     {
         "key": "art-feedback", "path": "/ar/insights/why-feedback-backfires/", "nav": "لماذا تجعل ثلث الملاحظات الأداء أسوأ",
         "title": "لماذا تجعل ثلث الملاحظات الأداء أسوأ، وما الذي ينجح",
-        "desc": "أبحاث على ٦٠٧ نتائج تُظهر أن أكثر من ثلث الملاحظات جعل الأداء أسوأ. لماذا يحدث ذلك، وخمسة أمور تتحقق منها قبل تقديم ملاحظاتك، وخصوصية الخليج.",
+        "desc": "في دراسات شملت ٦٠٧ نتائج، جعل أكثر من ثلث الملاحظات الأداء أسوأ. لماذا يحدث ذلك، وخمسة أمور تتحقق منها قبل تقديم ملاحظاتك، وخصوصية الخليج.",
     },
     {
         "key": "art-psych-safety", "path": "/ar/insights/psychological-safety-gulf-teams/", "nav": "الأمان النفسي في فرق العمل الخليجية",
