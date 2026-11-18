@@ -1,0 +1,27 @@
+name: Video dates
+on:
+  push:
+    paths: [".github/workflows/video-dates.yml"]
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  dates:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - shell: bash {0}
+        run: |
+          : > video-dates.txt
+          for id in vZPfe2Lh18I 3u2RgcnxhOU S2xIsEFlZDY ojHBFPRFzeU z_S9lsvSaCY; do
+            page=$(curl -sL -m 30 -A "Mozilla/5.0" -H "Accept-Language: en" "https://www.youtube.com/watch?v=$id")
+            up=$(echo "$page" | grep -o '"uploadDate":"[^"]*"' | head -1)
+            pub=$(echo "$page" | grep -o '"publishDate":"[^"]*"' | head -1)
+            dp=$(echo "$page" | grep -o 'itemprop="datePublished" content="[^"]*"' | head -1)
+            dur=$(echo "$page" | grep -o '"lengthSeconds":"[0-9]*"' | head -1)
+            title=$(echo "$page" | grep -o '<title>[^<]*' | head -1)
+            echo "$id | $up | $pub | $dp | $dur | $title" >> video-dates.txt
+          done
+          cat video-dates.txt
+          git config user.name "Hisham Elsaied"; git config user.email "hisham@hishamelsaied.com"
+          git add video-dates.txt && git commit -m "Video dates" && git push
