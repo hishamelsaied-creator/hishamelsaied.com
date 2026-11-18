@@ -19,7 +19,7 @@ PERSON_ID = SITE + "/#person"
 BUSINESS_ID = SITE + "/#business"
 GCC = ["United Arab Emirates", "Saudi Arabia", "Oman", "Kuwait", "Qatar", "Bahrain"]
 
-ART_DATES = {"art-first-90-days": "2026-11-16", "art-coaching-mentoring": "2026-11-16", "art-future-of-work": "2026-11-16", "art-ai-coaching": "2026-11-16", "art-ceo-ai": "2026-11-16", "art-first-gm": "2026-11-16", "art-numbers": "2026-11-17"}
+ART_DATES = {"art-first-90-days": "2026-11-16", "art-coaching-mentoring": "2026-11-16", "art-future-of-work": "2026-11-16", "art-ai-coaching": "2026-11-16", "art-ceo-ai": "2026-11-16", "art-first-gm": "2026-11-16", "art-numbers": "2026-11-17", "art-evidence": "2026-11-18", "art-feedback": "2026-11-18", "art-psych-safety": "2026-11-18"}
 
 PAGES = [
     {
@@ -131,6 +131,21 @@ PAGES = [
         "key": "art-numbers", "path": "/insights/executive-coaching-gulf-statistics/", "nav": "Executive coaching in the Gulf: what the numbers say",
         "title": "Executive Coaching in the Gulf: Statistics and What They Mean",
         "desc": "Key figures on coaching in the Middle East from the ICF 2025 Global Coaching Study, and what they mean for HR leaders hiring an executive coach.",
+    },
+    {
+        "key": "art-evidence", "path": "/insights/does-executive-coaching-work/", "nav": "Does executive coaching work? What the research says",
+        "title": "Does Executive Coaching Work? What the Research Actually Says",
+        "desc": "What randomised trials and meta-analyses show about executive coaching: a moderate positive effect, where the evidence is weaker, and what it means for HR.",
+    },
+    {
+        "key": "art-feedback", "path": "/insights/why-feedback-backfires/", "nav": "Why a third of feedback makes performance worse",
+        "title": "Why a Third of Feedback Makes Performance Worse (and What Works)",
+        "desc": "Research on 607 feedback effects shows over a third made performance worse. Why it happens, five checks before you give feedback, and the Gulf context.",
+    },
+    {
+        "key": "art-psych-safety", "path": "/insights/psychological-safety-gulf-teams/", "nav": "Psychological safety in Gulf teams",
+        "title": "Psychological Safety in Gulf Teams: What Leaders Can Actually Do",
+        "desc": "What psychological safety means, what the research shows, why it's harder in hierarchical workplaces, and six things leaders in the Gulf can do this month.",
     },
     {
         "key": "resources", "path": "/resources/", "nav": "Resources",
@@ -274,6 +289,21 @@ PAGES_AR = [
         "key": "art-numbers", "path": "/ar/insights/executive-coaching-gulf-statistics/", "nav": "الكوتشينج التنفيذي في الخليج: ماذا تقول الأرقام",
         "title": "الكوتشينج التنفيذي في الخليج: أرقام وإحصاءات وما تعنيه",
         "desc": "أهم أرقام الكوتشينج في الشرق الأوسط من الدراسة العالمية للاتحاد الدولي للكوتشينج ٢٠٢٥، وما تعنيه لقادة الموارد البشرية عند اختيار كوتش تنفيذي.",
+    },
+    {
+        "key": "art-evidence", "path": "/ar/insights/does-executive-coaching-work/", "nav": "هل ينجح الكوتشينج التنفيذي؟ ماذا تقول الأبحاث",
+        "title": "هل ينجح الكوتشينج التنفيذي؟ ماذا تقول الأبحاث فعلاً",
+        "desc": "ما الذي تظهره التجارب العشوائية والتحليلات الجامعة عن الكوتشينج التنفيذي: أثر إيجابي متوسط، وأين يضعف الدليل، وماذا يعني ذلك للموارد البشرية.",
+    },
+    {
+        "key": "art-feedback", "path": "/ar/insights/why-feedback-backfires/", "nav": "لماذا تجعل ثلث الملاحظات الأداء أسوأ",
+        "title": "لماذا تجعل ثلث الملاحظات الأداء أسوأ، وما الذي ينجح",
+        "desc": "أبحاث على ٦٠٧ نتائج تُظهر أن أكثر من ثلث الملاحظات جعل الأداء أسوأ. لماذا يحدث ذلك، وخمسة أمور تتحقق منها قبل تقديم ملاحظاتك، وخصوصية الخليج.",
+    },
+    {
+        "key": "art-psych-safety", "path": "/ar/insights/psychological-safety-gulf-teams/", "nav": "الأمان النفسي في فرق العمل الخليجية",
+        "title": "الأمان النفسي في فرق العمل الخليجية: ما الذي يستطيع القائد فعله",
+        "desc": "ما معنى الأمان النفسي، وماذا تقول الأبحاث، ولماذا هو أصعب في بيئات العمل الهرمية، وستة أمور يستطيع القادة في الخليج فعلها هذا الشهر.",
     },
     {
         "key": "resources", "path": "/ar/resources/", "nav": "المصادر",
@@ -551,6 +581,16 @@ def graph(page, ar=False):
                   "author": {"@id": PERSON_ID}, "publisher": {"@id": PERSON_ID}, "datePublished": ART_DATES.get(k, "2026-11-15"),
                   "dateModified": gitdate(k, ar), "isPartOf": {"@id": SITE + ("/ar/#website" if ar else "/#website")},
                   "image": SITE + "/img/og-image.jpg", "mainEntityOfPage": SITE + page["path"]})
+        CITES = {
+            "art-evidence": [("What can we know about the effectiveness of coaching? A meta-analysis based only on randomized controlled trials", "https://research.vu.nl/en/publications/what-can-we-know-about-the-effectiveness-of-coaching-a-meta-analy/", "Academy of Management Learning and Education"),
+                             ("The effectiveness of workplace coaching: a meta-analysis of learning and performance outcomes from coaching", "https://research.aston.ac.uk/en/publications/the-effectiveness-of-workplace-coaching-a-meta-analysis-of-learni/", "Journal of Occupational and Organizational Psychology"),
+                             ("The relationship between working alliance and client outcomes in coaching: a meta-analysis", "https://fis.leuphana.de/en/publications/the-relationship-between-working-alliance-and-client-outcomes-in-/", "Human Relations")],
+            "art-feedback": [("The effects of feedback interventions on performance: a historical review, a meta-analysis, and a preliminary feedback intervention theory", "https://cris.huji.ac.il/en/publications/the-effects-of-feedback-interventions-on-performance-a-historical/", "Psychological Bulletin")],
+            "art-psych-safety": [("Psychological safety: a meta-analytic review and extension", "https://digitalcommons.odu.edu/management_fac_pubs/13/", "Personnel Psychology"),
+                                 ("Guide: understand team effectiveness (Project Aristotle)", "https://rework.withgoogle.com/intl/en/guides/understand-team-effectiveness", "Google re:Work")],
+        }
+        if k in CITES:
+            g[-1]["citation"] = [{"@type": "ScholarlyArticle" if j != "Google re:Work" else "CreativeWork", "name": n, "url": u, "publisher": {"@type": "Organization", "name": j}} for n, u, j in CITES[k]]
         if k == "art-numbers":
             g[-1]["citation"] = [
                 {"@type": "CreativeWork", "name": "2025 ICF Global Coaching Study", "url": "https://coachingfederation.org/research/global-coaching-study", "publisher": {"@type": "Organization", "name": "International Coaching Federation"}},
