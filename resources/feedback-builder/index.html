@@ -35,7 +35,7 @@
 <script>if(location.protocol==="http:"&&location.hostname==="hishamelsaied.com")location.replace("https://"+location.host+location.pathname+location.search+location.hash)</script>
 <link rel="preload" href="/assets/fonts/dm-sans.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/fraunces.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="/assets/site.css?v=2f303ea005">
+<link rel="stylesheet" href="/assets/site.css?v=2a9166808e">
 <script type="application/ld+json">
 {
  "@context": "https://schema.org",
@@ -356,13 +356,30 @@
           <div class="field"><label for="fb-imp">The impact</label><small>What it meant for the work, the team or customers.</small><textarea id="fb-imp" name="imp" rows="2" placeholder="the CFO questioned two figures and we lost some credibility"></textarea></div>
           <div class="fb-dev"><div class="field"><label for="fb-ask">What you'd like instead</label><small>One clear, specific request.</small><textarea id="fb-ask" name="ask" rows="2" placeholder="share the figures with me a day before any senior meeting"></textarea></div></div>
         </div>
+        <div class="pl-phase fb-ctx">
+          <fieldset class="pk-q fb-when"><legend>When did it happen?</legend><div class="tc-scale tc-3">
+            <label class="pk-opt"><input type="radio" name="when" value="0" checked><span>In the last few days</span></label>
+            <label class="pk-opt"><input type="radio" name="when" value="1"><span>Within the last month</span></label>
+            <label class="pk-opt"><input type="radio" name="when" value="2"><span>More than a month ago</span></label></div></fieldset>
+          <fieldset class="pk-q fb-feel"><legend>How do you feel about it right now?</legend><div class="tc-scale tc-3">
+            <label class="pk-opt"><input type="radio" name="feel" value="0" checked><span>Calm</span></label>
+            <label class="pk-opt"><input type="radio" name="feel" value="1"><span>A bit tense</span></label>
+            <label class="pk-opt"><input type="radio" name="feel" value="2"><span>Still angry</span></label></div></fieldset>
+        </div>
         <div><button class="btn x-dark" type="button" id="fb-go">Build my conversation</button></div>
       </form>
       <div id="fb-out" class="pk-result" hidden aria-live="polite"></div>
+      <details class="sci">
+        <summary>The research behind this tool</summary>
+        <p>Feedback doesn't always help. In the largest review of the research, covering 607 effects and more than 23,000 observations, feedback improved performance on average, but in over a third of cases it made performance worse (Kluger and DeNisi, 1996). Their explanation: feedback works when it keeps attention on the task, and backfires when it pulls attention onto the person, their worth or how they compare with others.</p>
+        <p>That's why the builder uses the Situation, Behaviour, Impact structure developed by the Center for Creative Leadership, adds a question to hear the other person's view, and ends with one forward-looking request. The quality check looks for five things: a specific moment, behaviour rather than a label, a stated impact, a request someone could actually act on, and timing. It also asks how you feel, because feedback given in anger is more likely to land on the person than the task.</p>
+        <p>In much of the Gulf, how something is said matters as much as what is said. Keep corrective feedback private, and leave the person a way to keep face.</p>
+        <p class="sci-refs">Sources: Kluger, A. N., &amp; DeNisi, A. (1996). The effects of feedback interventions on performance: A historical review, a meta-analysis, and a preliminary feedback intervention theory. <i>Psychological Bulletin, 119</i>(2), 254–284. · Center for Creative Leadership, Situation-Behavior-Impact (SBI) model.</p>
+      </details>
       <p class="pk-small">Need to plan a harder conversation? The <a href="/resources/#library">difficult conversation sheet</a> is in the free library.</p>
     </div>
   </section>
-  <script src="/assets/resources.js?v=2f303ea005" defer></script>
+  <script src="/assets/resources.js?v=2a9166808e" defer></script>
 </main>
 
 <footer class="site-footer">
@@ -391,6 +408,6 @@
   </div>
 </footer>
 
-<script src="/assets/site.js?v=2f303ea005" defer></script>
+<script src="/assets/site.js?v=2a9166808e" defer></script>
 </body>
 </html>

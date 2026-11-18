@@ -35,7 +35,7 @@
 <script>if(location.protocol==="http:"&&location.hostname==="hishamelsaied.com")location.replace("https://"+location.host+location.pathname+location.search+location.hash)</script>
 <link rel="preload" href="/assets/fonts/plex-arabic-400.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/noto-kufi-arabic.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="/assets/site.css?v=2f303ea005">
+<link rel="stylesheet" href="/assets/site.css?v=2a9166808e">
 <script type="application/ld+json">
 {
  "@context": "https://schema.org",
@@ -356,13 +356,30 @@
           <div class="field"><label for="fb-imp">الأثر</label><small>كيف أثّر ذلك في العمل أو الفريق أو العملاء؟</small><textarea id="fb-imp" name="imp" rows="2" placeholder="شكّك المدير المالي في رقمين وخسرنا بعض المصداقية"></textarea></div>
           <div class="fb-dev"><div class="field"><label for="fb-ask">ما الذي تريده بدلاً من ذلك</label><small>طلب واحد واضح ومحدد، يبدأ بـ«أن».</small><textarea id="fb-ask" name="ask" rows="2" placeholder="أن ترسل لي الأرقام قبل أي اجتماع مع الإدارة العليا بيوم"></textarea></div></div>
         </div>
+        <div class="pl-phase fb-ctx">
+          <fieldset class="pk-q fb-when"><legend>متى حدث ذلك؟</legend><div class="tc-scale tc-3">
+            <label class="pk-opt"><input type="radio" name="when" value="0" checked><span>في الأيام القليلة الماضية</span></label>
+            <label class="pk-opt"><input type="radio" name="when" value="1"><span>خلال الشهر الماضي</span></label>
+            <label class="pk-opt"><input type="radio" name="when" value="2"><span>قبل أكثر من شهر</span></label></div></fieldset>
+          <fieldset class="pk-q fb-feel"><legend>كيف تشعر حيال الأمر الآن؟</legend><div class="tc-scale tc-3">
+            <label class="pk-opt"><input type="radio" name="feel" value="0" checked><span>هادئ</span></label>
+            <label class="pk-opt"><input type="radio" name="feel" value="1"><span>متوتر قليلاً</span></label>
+            <label class="pk-opt"><input type="radio" name="feel" value="2"><span>ما زلت غاضباً</span></label></div></fieldset>
+        </div>
         <div><button class="btn x-dark" type="button" id="fb-go">ابنِ المحادثة</button></div>
       </form>
       <div id="fb-out" class="pk-result" hidden aria-live="polite"></div>
+      <details class="sci">
+        <summary>الأساس العلمي لهذه الأداة</summary>
+        <p>الملاحظات لا تساعد دائماً. في أكبر مراجعة للأبحاث، شملت ٦٠٧ نتائج وأكثر من ٢٣ ألف ملاحظة، حسّنت الملاحظات الأداء في المتوسط، لكنها في أكثر من ثلث الحالات جعلته أسوأ (Kluger وDeNisi، ١٩٩٦). وتفسيرهما أن الملاحظات تنجح حين تُبقي الانتباه على المهمة، وتأتي بنتيجة عكسية حين تشد الانتباه إلى الشخص نفسه وقيمته أو مقارنته بالآخرين.</p>
+        <p>لهذا تعتمد الأداة على بنية الموقف والتصرف والأثر التي طوّرها مركز القيادة الإبداعية (Center for Creative Leadership)، وتضيف سؤالاً لسماع وجهة نظر الطرف الآخر، وتنتهي بطلب واحد للمستقبل. ويبحث فحص الجودة عن خمسة أمور: موقف محدد، وتصرف لا وصف للشخص، وأثر واضح، وطلب يمكن تنفيذه فعلاً، والتوقيت. كما يسألك عن شعورك، لأن الملاحظات التي تُقال في لحظة غضب أقرب إلى أن تصيب الشخص لا المهمة.</p>
+        <p>وفي كثير من بيئات العمل الخليجية، طريقة قول الأمر لا تقل أهمية عن مضمونه. اجعل الملاحظات التصحيحية على انفراد، واترك للشخص ما يحفظ به ماء وجهه.</p>
+        <p class="sci-refs">المراجع: Kluger, A. N., &amp; DeNisi, A. (1996). The effects of feedback interventions on performance: A historical review, a meta-analysis, and a preliminary feedback intervention theory. <i>Psychological Bulletin, 119</i>(2), 254–284. · Center for Creative Leadership, Situation-Behavior-Impact (SBI) model.</p>
+      </details>
       <p class="pk-small">تحتاج إلى التخطيط لمحادثة أصعب؟ <a href="/ar/resources/#library">ورقة الاستعداد لمحادثة صعبة</a> متاحة في المكتبة المجانية.</p>
     </div>
   </section>
-  <script src="/assets/resources.js?v=2f303ea005" defer></script>
+  <script src="/assets/resources.js?v=2a9166808e" defer></script>
 </main>
 
 <footer class="site-footer">
@@ -391,6 +408,6 @@
   </div>
 </footer>
 
-<script src="/assets/site.js?v=2f303ea005" defer></script>
+<script src="/assets/site.js?v=2a9166808e" defer></script>
 </body>
 </html>

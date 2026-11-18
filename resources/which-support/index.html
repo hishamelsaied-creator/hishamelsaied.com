@@ -35,7 +35,7 @@
 <script>if(location.protocol==="http:"&&location.hostname==="hishamelsaied.com")location.replace("https://"+location.host+location.pathname+location.search+location.hash)</script>
 <link rel="preload" href="/assets/fonts/dm-sans.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/fraunces.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="/assets/site.css?v=2f303ea005">
+<link rel="stylesheet" href="/assets/site.css?v=2a9166808e">
 <script type="application/ld+json">
 {
  "@context": "https://schema.org",
@@ -338,13 +338,13 @@
     <div class="wrap stack">
       <span class="label"><a href="/resources/">Resources</a> &nbsp;·&nbsp; Tool</span>
       <h1>Coaching, mentoring or training?</h1>
-      <p class="lead">Six questions, about two minutes. Answer for yourself, or for a leader in your team.</p>
+      <p class="lead">Eight questions, about three minutes. Answer for yourself, or for a leader in your team.</p>
     </div>
   </section>
   <section class="light">
     <div class="wrap rs-tool">
       <form id="picker" class="pk" novalidate>
-        <fieldset class="pk-q"><legend><span>1</span>What best describes the gap?</legend>
+        <fieldset class="pk-q" data-w="2"><legend><span>1</span>What best describes the gap?</legend>
           <label class="pk-opt"><input type="radio" name="q0" value="t"><span>They don't yet have a skill or piece of knowledge the job needs.</span></label>
           <label class="pk-opt"><input type="radio" name="q0" value="m"><span>They're new to this level, this sector or this organisation.</span></label>
           <label class="pk-opt"><input type="radio" name="q0" value="c"><span>They know what to do, but it isn't happening.</span></label>
@@ -364,7 +364,7 @@
           <label class="pk-opt"><input type="radio" name="q3" value="m"><span>Understanding the culture, the politics and how things work here.</span></label>
           <label class="pk-opt"><input type="radio" name="q3" value="c"><span>Confidence, relationships, judgement or a decision.</span></label>
         </fieldset>
-        <fieldset class="pk-q"><legend><span>5</span>Where is the answer?</legend>
+        <fieldset class="pk-q" data-w="2"><legend><span>5</span>Where is the answer?</legend>
           <label class="pk-opt"><input type="radio" name="q4" value="t"><span>An expert can give it.</span></label>
           <label class="pk-opt"><input type="radio" name="q4" value="m"><span>Someone more senior already knows it.</span></label>
           <label class="pk-opt"><input type="radio" name="q4" value="c"><span>Only the person can find it, because it depends on them.</span></label>
@@ -374,13 +374,29 @@
           <label class="pk-opt"><input type="radio" name="q5" value="m"><span>It will build over the first months in the role.</span></label>
           <label class="pk-opt"><input type="radio" name="q5" value="c"><span>It's about a lasting change in how they lead.</span></label>
         </fieldset>
+        <fieldset class="pk-q pk-mod" data-mod="ready"><legend><span>7</span>How ready is the person to work on this?</legend>
+          <label class="pk-opt"><input type="radio" name="q6" value="2"><span>Very ready. They've asked for help themselves.</span></label>
+          <label class="pk-opt"><input type="radio" name="q6" value="1"><span>Willing, if someone suggests it.</span></label>
+          <label class="pk-opt"><input type="radio" name="q6" value="0"><span>Not convinced there's an issue.</span></label>
+        </fieldset>
+        <fieldset class="pk-q pk-mod" data-mod="support"><legend><span>8</span>Afterwards, will their manager give them time and support to use what they learn?</legend>
+          <label class="pk-opt"><input type="radio" name="q7" value="2"><span>Yes, the manager is involved and interested.</span></label>
+          <label class="pk-opt"><input type="radio" name="q7" value="1"><span>Partly. Support will depend on workload.</span></label>
+          <label class="pk-opt"><input type="radio" name="q7" value="0"><span>Unlikely.</span></label>
+        </fieldset>
         <div><button class="btn x-dark" type="submit">See my result</button></div>
       </form>
       <div id="pk-result" class="pk-result" hidden aria-live="polite"></div>
-      <script type="application/json" id="pk-data">{"t": {"name": "Training", "title": "This looks like a training need", "why": "The gap is mainly a skill or knowledge that can be taught, and it's likely shared by others.", "next": ["Be specific about the skill and how you'll see it used at work.", "Look for practical training with practice and feedback, not just content.", "Ask the manager to follow up in the weeks after, so the learning sticks."], "mix": "There's also an element of training here: some of the gap may be a skill that can be taught.", "cta": "<a class=\"btn x-dark\" href=\"/insights/coaching-mentoring-or-training/\">Read the full article</a>"}, "m": {"name": "Mentoring", "title": "This looks like a mentoring need", "why": "The person is new to a world someone else knows well. Experience, introductions and advice will help them most.", "next": ["Find someone who has done this role, ideally in a similar organisation.", "Agree a simple rhythm, such as an hour a month for six months.", "Make sure the mentor is outside the person's reporting line."], "mix": "There's also an element of mentoring here: someone who knows this world could shorten the learning curve.", "cta": "<a class=\"btn x-dark\" href=\"/insights/coaching-mentoring-or-training/\">Read the full article</a>"}, "c": {"name": "Coaching", "title": "This looks like a coaching need", "why": "The issue is about judgement, confidence, relationships or a decision. Only the person can work it out, and a good coach helps them do that faster.", "next": ["Write down what should be different in six months, in plain words.", "Choose a credentialed coach with experience of this level.", "Meet more than one coach before deciding."], "mix": "There's also an element of coaching here: part of this may be about confidence or judgement, not only know-how.", "cta": "<a class=\"btn x-dark\" href=\"https://app.cronofy.com/add_to_calendar/scheduling/ZOT6eIZc\" target=\"_blank\" rel=\"noopener\">Book a free 30-minute call</a>"}}</script>
+      <script type="application/json" id="pk-data">{"t": {"name": "Training", "title": "This looks like a training need", "why": "The gap is mainly a skill or knowledge that can be taught, and it's likely shared by others.", "next": ["Be specific about the skill and how you'll see it used at work.", "Look for practical training with practice and feedback, not just content.", "Ask the manager to follow up in the weeks after, so the learning sticks."], "mix": "There's also an element of training here: some of the gap may be a skill that can be taught.", "cta": "<a class=\"btn x-dark\" href=\"/insights/coaching-mentoring-or-training/\">Read the full article</a>", "ev": "<b>What the research says.</b> Training often teaches well but changes work less than hoped. A meta-analysis of 89 studies found that motivation and a supportive work environment were among the strongest predictors of whether people use what they learned (Blume et al., 2010)."}, "m": {"name": "Mentoring", "title": "This looks like a mentoring need", "why": "The person is new to a world someone else knows well. Experience, introductions and advice will help them most.", "next": ["Find someone who has done this role, ideally in a similar organisation.", "Agree a simple rhythm, such as an hour a month for six months.", "Make sure the mentor is outside the person's reporting line."], "mix": "There's also an element of mentoring here: someone who knows this world could shorten the learning curve.", "cta": "<a class=\"btn x-dark\" href=\"/insights/coaching-mentoring-or-training/\">Read the full article</a>", "ev": "<b>What the research says.</b> Across youth, academic and workplace studies, mentoring is linked to better career, attitude and motivation outcomes, though the effects are generally small (Eby et al., 2008). It works best when the mentor has done the role and the two meet regularly."}, "c": {"name": "Coaching", "title": "This looks like a coaching need", "why": "The issue is about judgement, confidence, relationships or a decision. Only the person can work it out, and a good coach helps them do that faster.", "next": ["Write down what should be different in six months, in plain words.", "Choose a credentialed coach with experience of this level.", "Meet more than one coach before deciding."], "mix": "There's also an element of coaching here: part of this may be about confidence or judgement, not only know-how.", "cta": "<a class=\"btn x-dark\" href=\"https://app.cronofy.com/add_to_calendar/scheduling/ZOT6eIZc\" target=\"_blank\" rel=\"noopener\">Book a free 30-minute call</a>", "ev": "<b>What the research says.</b> A 2023 meta-analysis of 37 randomised controlled trials found a moderate positive effect of workplace coaching (g = 0.59), while noting signs of publication bias (de Haan and Nilsson). The relationship matters: across 27 samples, a strong working alliance between coach and client was linked to better outcomes (r = 0.41) (Graßmann et al., 2020)."}, "mod": {"ready0": "<b>Readiness first.</b> The person doesn't yet see an issue. Coaching and mentoring rarely work when someone is sent rather than willing. Start with an honest, specific conversation with their manager, using examples, before buying anything.", "support0": "<b>Plan the follow-through.</b> Without the manager's time and support, most learning won't reach the job. Agree with the manager now what they'll do in the four weeks after, or the money is likely wasted.", "support1": "<b>Protect the follow-through.</b> Support that depends on workload tends to disappear when it's needed. Book two short check-ins with the manager in advance."}, "conf": {"clear": "Clear result", "lean": "Leaning result", "mixed": "Mixed result"}}</script>
+      <details class="sci">
+        <summary>The research behind this tool</summary>
+        <p>Coaching, mentoring and training solve different problems. Training builds a known skill. Mentoring passes on someone's experience of a world. Coaching helps a person work out their own answer to a problem that depends on them. The questions look at the type of gap, who shares it, where the answer sits, and the time frame.</p>
+        <p><b>How it's scored.</b> Questions 1 and 5 count double, because the kind of gap and where the answer lies are the most telling. The gap between the top two scores gives a clear, leaning or mixed result. Questions 7 and 8 don't change the recommendation. They check two conditions the research says decide whether any of the three works: the person's readiness, and support at work afterwards.</p>
+        <p class="sci-refs">Sources: de Haan, E., &amp; Nilsson, V. O. (2023). What can we know about the effectiveness of coaching? A meta-analysis based only on randomized controlled trials. <i>Academy of Management Learning &amp; Education</i>. · Graßmann, C., Schölmerich, F., &amp; Schermuly, C. C. (2020). The relationship between working alliance and client outcomes in coaching: A meta-analysis. <i>Human Relations, 73</i>(1), 35–58. · Eby, L. T., Allen, T. D., Evans, S. C., Ng, T., &amp; DuBois, D. (2008). Does mentoring matter? <i>Journal of Vocational Behavior, 72</i>(2), 254–267. · Blume, B. D., Ford, J. K., Baldwin, T. T., &amp; Huang, J. L. (2010). Transfer of training: A meta-analytic review. <i>Journal of Management, 36</i>(4), 1065–1105.</p>
+      </details>
     </div>
   </section>
-  <script src="/assets/resources.js?v=2f303ea005" defer></script>
+  <script src="/assets/resources.js?v=2a9166808e" defer></script>
 </main>
 
 <footer class="site-footer">
@@ -409,6 +425,6 @@
   </div>
 </footer>
 
-<script src="/assets/site.js?v=2f303ea005" defer></script>
+<script src="/assets/site.js?v=2a9166808e" defer></script>
 </body>
 </html>

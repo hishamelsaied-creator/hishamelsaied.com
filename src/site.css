@@ -647,3 +647,68 @@ html[dir="ltr"] .lg { font-weight: 500; }
 .x-toolbox a span { color: var(--slate); font-size: .95rem; }
 .x-toolbox a:hover b { color: var(--gold-deep); text-decoration: underline; }
 .prose .x-toolbox a, .x-toolbox a { text-decoration: none; }
+
+/* ---- Tool upgrades: research notes, scales, results ---- */
+.tc-scale.tc-5 { grid-template-columns: repeat(5, minmax(0, 1fr)); }
+.tc-scale.tc-4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+.tc-scale.tc-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.tc-scale .pk-opt span { font-size: .95rem; }
+.tc-ctx { background: var(--ivory); }
+.tc-intro { margin: 8px 0 0; color: var(--slate); }
+.tc-index { display: flex; align-items: baseline; gap: 6px; margin: 0; color: var(--slate) !important; }
+.tc-index b { font-family: var(--display); font-size: 3rem; line-height: 1; color: var(--night); font-weight: 500; }
+.tc-index span { font-size: 1.1rem; }
+.tc-bars { display: flex; flex-direction: column; gap: 10px; margin-top: 6px; }
+.tc-bar { grid-template-columns: 190px 1fr 36px 92px; }
+.tc-bar em { font-style: normal; font-size: .8rem; letter-spacing: .06em; text-transform: uppercase; text-align: center; padding: 3px 6px; }
+[dir="rtl"] .tc-bar em { letter-spacing: 0; font-size: .9rem; }
+.tc-hi em { background: #e7efe4; color: #2f5a2a; }
+.tc-mid em { background: #f6eedb; color: #6b4e12; }
+.tc-lo em { background: #f7e3da; color: #8a3a1a; }
+.tc-lo i::after { background: #b4532a; }
+.tc-mid i::after { background: #b98a2e; }
+.tc-hi i::after { background: #4f7a46; }
+.tc-key { font-size: .9rem; margin: 0; }
+.pk-conf { padding: 2px 8px; border-radius: 2px; }
+.pk-clear { background: #e7efe4; color: #2f5a2a; }
+.pk-lean { background: #f6eedb; color: #6b4e12; }
+.pk-mixed { background: var(--ivory); color: var(--ink); }
+.pk-flags p, .fb-hold { background: #fff6ea; border-inline-start: 3px solid #b4732a; padding: 12px 16px; margin: 0 0 8px; color: #6a3e10 !important; }
+.pk-ev { border-top: 1px solid var(--ivory-line); padding-top: 14px; margin-top: 4px; }
+.pk-ev p { font-size: .95rem; margin: 0 0 8px; }
+.fb-ctx { gap: 10px; }
+.fb-ctx .pk-q { border: 0; padding: 0; background: none; }
+.fb-q { background: var(--ivory); padding: 18px 20px; }
+.fb-score { margin: 0; color: var(--slate) !important; }
+.fb-score b { font-family: var(--display); font-size: 1.9rem; color: var(--night); font-weight: 500; margin-inline-end: 4px; }
+.fb-q ul { list-style: none; padding: 0; margin: 10px 0 0; display: grid; gap: 8px; }
+.fb-q li { padding-inline-start: 28px; position: relative; color: var(--ink); }
+.fb-q li::before { position: absolute; inset-inline-start: 0; top: 0; font-weight: 700; }
+.fb-q li.ok::before { content: "✓"; color: #4f7a46; }
+.fb-q li.tip::before { content: "!"; color: #b4532a; width: 18px; text-align: center; }
+.fb-q li span { display: block; color: var(--slate); font-size: .93rem; }
+.fb-q .fb-hold { margin-top: 12px; }
+.pl-stars select { width: 100%; padding: 12px 13px; font: inherit; font-size: 1rem; border: 1px solid var(--ivory-line); background: #fff; color: var(--ink); margin-top: 8px; }
+.pl-stars-tip { margin: 0; background: var(--ivory); border-inline-start: 3px solid var(--gold-deep); padding: 14px 18px; color: var(--ink) !important; }
+.sci { margin-top: 40px; border-top: 1px solid var(--ivory-line); padding-top: 18px; }
+.sci summary { cursor: pointer; font-weight: 600; color: var(--night); font-size: 1.05rem; }
+.sci p, .sci li { color: var(--slate); font-size: .97rem; }
+.sci ul { padding-inline-start: 20px; }
+.sci-refs { font-size: .85rem !important; border-top: 1px dashed var(--ivory-line); padding-top: 12px; }
+@media (max-width: 700px) {
+  .tc-scale.tc-5 { grid-template-columns: 1fr; }
+  .tc-scale.tc-4, .tc-scale.tc-3 { grid-template-columns: 1fr 1fr; }
+  .tc-bar { grid-template-columns: 1fr 34px 80px; }
+  .tc-bar i { grid-column: 1 / -1; grid-row: 2; }
+}
+@media print { .sci { display: none; } .tc-bar em, .fb-q, .pk-conf { -webkit-print-color-adjust: exact; print-color-adjust: exact; } }
+/* Answer options: readable sentence case and proper radio buttons */
+.pk-opt { text-transform: none; letter-spacing: 0; font-weight: 400; font-size: 1.02rem; line-height: 1.45; color: var(--ink); }
+.pk-opt input[type="radio"] { -webkit-appearance: none; appearance: none; padding: 0; width: 20px; height: 20px; border: 1.5px solid #a8987a; border-radius: 50%; background: #fff; display: grid; place-content: center; margin-top: 1px; cursor: pointer; }
+.pk-opt input[type="radio"]::before { content: ""; width: 10px; height: 10px; border-radius: 50%; background: var(--gold-deep); transform: scale(0); transition: transform .12s ease; }
+.pk-opt input[type="radio"]:checked { border-color: var(--gold-deep); }
+.pk-opt input[type="radio"]:checked::before { transform: scale(1); }
+.pk-opt:has(input:checked) { background: var(--ivory); }
+.tc-scale .pk-opt:has(input:checked) { border-color: var(--gold-deep); }
+.tc-scale .pk-opt { align-items: center; padding: 10px; }
+.tc-scale .pk-opt span { font-size: .93rem; line-height: 1.25; }

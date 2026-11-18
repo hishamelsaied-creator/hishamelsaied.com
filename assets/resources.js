@@ -137,14 +137,17 @@
     pk.addEventListener("change", function (e) { var fs = e.target.closest("fieldset"); if (fs) fs.classList.remove("miss"); });
     pk.addEventListener("submit", function (e) {
       e.preventDefault();
-      var s = { t: 0, m: 0, c: 0 }, n = 0;
+      var s = { t: 0, m: 0, c: 0 }, n = 0, mods = {};
       pk.querySelectorAll("fieldset").forEach(function (fs) {
         var c = fs.querySelector("input:checked");
         fs.classList.toggle("miss", !c);
-        if (c) { s[c.value]++; n++; }
+        if (!c) return;
+        if (fs.hasAttribute("data-mod")) { mods[fs.getAttribute("data-mod")] = +c.value; return; }
+        var w = +(fs.getAttribute("data-w") || 1);
+        s[c.value] += w; n += w;
       });
       var out = document.getElementById("pk-result");
-      if (n < pk.querySelectorAll("fieldset").length) {
+      if (pk.querySelector("fieldset.miss")) {
         out.hidden = false;
         out.innerHTML = '<p class="pk-warn" role="alert">' + L("Please answer every question to see your result.", "يرجى الإجابة عن جميع الأسئلة لرؤية النتيجة.") + "</p>";
         var first = pk.querySelector("fieldset.miss");
@@ -156,28 +159,36 @@
       var top = order[0], second = order[1], third = order[2];
       var R = JSON.parse(document.getElementById("pk-data").textContent);
       var r = R[top];
-      var tied = s[top] === s[second];
-      var mix = !tied && s[second] >= 2 && s[second] >= s[top] - 1;
+      var margin = s[top] - s[second];
+      var conf = margin >= 3 ? "clear" : margin >= 1 ? "lean" : "mixed";
+      var tied = margin === 0;
+      var mix = !tied && margin <= 2 && s[second] >= 2;
       if (tied) {
-        var names = (s[third] === s[top] ? [top, second, third] : [top, second]).map(function (k) { return R[k].name; });
-        r = { title: L("A mixed need: " + names.join(" and "), "حاجة مركّبة: " + names.join(" و")),
+        var keys = s[third] === s[top] ? [top, second, third] : [top, second];
+        r = { title: L("A mixed need: " + keys.map(function (k) { return R[k].name; }).join(" and "), "حاجة مركّبة: " + keys.map(function (k) { return R[k].name; }).join(" و")),
               why: L("Your answers point equally to more than one kind of support. That's common. Start with whichever gap is most urgent, and you may need the other later.", "إجاباتك تشير بالقدر نفسه إلى أكثر من نوع من الدعم، وهذا شائع. ابدأ بالفجوة الأكثر إلحاحاً، وقد تحتاج إلى النوع الآخر لاحقاً."),
-              next: (s[third] === s[top] ? [top, second, third] : [top, second]).map(function (k) { return R[k].next[0]; }),
+              next: keys.map(function (k) { return R[k].next[0]; }),
+              ev: keys.map(function (k) { return R[k].ev; }).join("</p><p>"),
               cta: '<a class="btn x-dark" href="' + (AR ? "/ar" : "") + '/insights/coaching-mentoring-or-training/">' + L("Read the full article", "اقرأ المقال كاملاً") + "</a>" };
       }
       var bars = ["c", "m", "t"].map(function (k) {
         return '<div class="pk-bar"><span>' + R[k].name + '</span><i style="--w:' + Math.round(s[k] / n * 100) + '%"></i><b>' + num(s[k]) + "/" + num(n) + "</b></div>";
       }).join("");
-      var head = '<span class="label">' + L("Your result", "النتيجة") + "</span><h2>" + r.title + "</h2>";
+      var warn = [];
+      if (mods.ready === 0) warn.push(R.mod.ready0);
+      if (mods.support === 0) warn.push(R.mod.support0); else if (mods.support === 1 && (top === "t" || tied)) warn.push(R.mod.support1);
+      var head = '<span class="label">' + L("Your result", "النتيجة") + ' &nbsp;·&nbsp; <span class="pk-conf pk-' + conf + '">' + R.conf[conf] + "</span></span><h2>" + r.title + "</h2>";
       var full = head + "<p>" + r.why + "</p>" + bars +
+        (warn.length ? '<div class="pk-flags">' + warn.map(function (w) { return "<p>" + w + "</p>"; }).join("") + "</div>" : "") +
         "<h3>" + L("What to do next", "الخطوة التالية") + "</h3><ul>" + r.next.map(function (x) { return "<li>" + x + "</li>"; }).join("") + "</ul>" +
         (mix ? '<p class="pk-mix">' + R[second].mix + "</p>" : "") +
+        '<div class="pk-ev"><p>' + r.ev + "</p></div>" +
         '<div class="pk-acts">' + r.cta + '<button type="button" class="btn line-d" onclick="window.print()">' + L("Save as PDF", "احفظ كملف PDF") + "</button></div>" +
         '<p class="pk-small">' + L("This is a guide to help you think, not a diagnosis.", "هذه أداة تساعدك على التفكير، وليست تشخيصاً.") + "</p>";
       gated(out, head, full, { tool: "Coaching, mentoring or training picker", toolName: L("coaching, mentoring or training tool", "أداة كوتشينج أم إرشاد أم تدريب"),
-        what: L("Enter your name and email to see why, your scores and what to do next. I'll email you a copy too.", "اكتب اسمك وبريدك الإلكتروني لترى السبب، ودرجاتك، والخطوة التالية. وسأرسل لك نسخة بالبريد أيضاً."),
+        what: L("Enter your name and email to see why, your scores, what the research says and what to do next. I'll email you a copy too.", "اكتب اسمك وبريدك الإلكتروني لترى السبب، ودرجاتك، وماذا تقول الأبحاث، والخطوة التالية. وسأرسل لك نسخة بالبريد أيضاً."),
         fade: "<p>" + r.why + "</p>" + bars,
-        summary: function () { return plainOf("<p>" + r.title + "</p><p>" + r.why + "</p>" + ["c", "m", "t"].map(function (k) { return "<p>" + R[k].name + ": " + num(s[k]) + "/" + num(n) + "</p>"; }).join("") + r.next.map(function (x) { return "<p>- " + x + "</p>"; }).join("")); } });
+        summary: function () { return plainOf("<p>" + r.title + " (" + R.conf[conf] + ")</p><p>" + r.why + "</p>" + ["c", "m", "t"].map(function (k) { return "<p>" + R[k].name + ": " + num(s[k]) + "/" + num(n) + "</p>"; }).join("") + warn.map(function (w) { return "<p>" + w + "</p>"; }).join("") + r.next.map(function (x) { return "<p>- " + x + "</p>"; }).join("")); } });
     });
   }
 
@@ -185,7 +196,7 @@
   var pl = document.getElementById("planner");
   if (pl) {
     var KEY = "planner-90";
-    var fields = pl.querySelectorAll("input, textarea");
+    var fields = pl.querySelectorAll("input, textarea, select");
     var saved = {};
     try { saved = JSON.parse(store.get(KEY) || "{}"); } catch (e) {}
     fields.forEach(function (f) { if (saved[f.name] != null) f.value = saved[f.name]; });
@@ -209,6 +220,12 @@
       t = setTimeout(function () { note.textContent = ""; }, 1800);
     });
     dates();
+    var starsSel = document.getElementById("p-stars"), starsTip = document.getElementById("pl-stars-tip");
+    if (starsSel) {
+      var SD = JSON.parse(document.getElementById("pl-stars-data").textContent);
+      var starsSync = function () { var v = starsSel.value; starsTip.hidden = !v; starsTip.textContent = v ? SD[v] : ""; };
+      starsSel.addEventListener("change", starsSync); starsSync();
+    }
     var grow = function () { pl.querySelectorAll("textarea").forEach(function (t) { t.style.height = "auto"; t.style.height = (t.scrollHeight + 4) + "px"; }); };
     window.addEventListener("beforeprint", grow);
     var pbox = document.createElement("div"); pbox.className = "pk-result"; pbox.hidden = true;
@@ -266,15 +283,35 @@
         [L("Your request", "طلبك"), L("Going forward, I'd like you to ", "في المرات القادمة، أرجو ") + esc(ask) + L(". What would help you do that?", ". ما الذي سيساعدك على ذلك؟")],
         [L("Agree and follow up", "الاتفاق والمتابعة"), L("Let's agree the next step, and check in on how it's going in two weeks.", "لنتفق على الخطوة التالية، ونتابع كيف تسير الأمور بعد أسبوعين.")]
       ];
+      // ---- Quality check: five research-based criteria ----
+      var when = +fb.querySelector("[name=when]:checked").value, feel = +fb.querySelector("[name=feel]:checked").value;
+      var moment = AR ? /(أمس|البارحة|اليوم|صباح|مساء|الأسبوع|الشهر|اجتماع|مكالمة|رسالة|بريد|عرض|تقرير|الأحد|الاثنين|الإثنين|الثلاثاء|الأربعاء|الخميس|الجمعة|السبت|[0-9٠-٩])/
+                      : /\b(yesterday|today|this morning|this afternoon|last (week|month|night)|monday|tuesday|wednesday|thursday|friday|saturday|sunday|meeting|call|email|review|presentation|report|workshop|session|\d)/i;
+      var labelHit = LABELS.filter(function (w) { return AR ? beh.indexOf(w) > -1 : new RegExp("\\b" + w + "\\b", "i").test(beh); }).length > 0 ||
+                     (AR ? /^(أنت|انت)\s/.test(beh) : /\b(you are|you're|he is|she is|they are)\b/i.test(beh));
+      var vague = AR ? /(أفضل|أكثر احترافية|احترافي|تحسّن|تحسن|بشكل جيد|مبادرة أكثر)/ : /\b(better|more professional|improve|be more|attitude|proactive|step up)\b/i;
+      var Q = [
+        [moment.test(sit), L("A specific moment", "موقف محدد"), L("Name when and where, so they can picture it.", "اذكر متى وأين، ليستحضر الموقف.")],
+        [!labelHit, L("Behaviour, not a label", "تصرف لا وصف للشخص"), L("Describe what they did, not what they are.", "صف ما فعله، لا ما هو عليه.")],
+        [imp.length >= 15, L("A clear impact", "أثر واضح"), L("Say what it meant for the work, the team or customers.", "اذكر ما ترتّب على ذلك في العمل أو الفريق أو العملاء.")],
+        pos ? [beh.length >= 20, L("Specific praise", "ثناء محدد"), L("Add detail. Specific praise teaches; general thanks only pleases.", "أضف تفاصيل. الثناء المحدد يُعلّم، والشكر العام يُرضي فقط.")]
+            : [ask.length >= 12 && !vague.test(ask), L("An actionable request", "طلب قابل للتنفيذ"), L("Ask for something you could see them do, not a quality like 'more professional'.", "اطلب أمراً يمكنك أن تراه يحدث، لا صفة عامة مثل «أكثر احترافية».")],
+        [when === 0, L("Good timing", "توقيت مناسب"), when === 1 ? L("Still workable, but say it this week before memories fade.", "ما زال ممكناً، لكن قله هذا الأسبوع قبل أن تبهت التفاصيل.") : L("This is old now. Raise it only if it's still happening, and use a recent example if you can.", "مضى عليه وقت طويل. أثره فقط إن كان ما زال يتكرر، واستخدم مثالاً حديثاً إن أمكن.")]
+      ];
+      var passed = Q.filter(function (q) { return q[0]; }).length;
+      var qhtml = '<div class="fb-q"><p class="fb-score"><b>' + num(passed) + "/" + num(5) + "</b> " + L("quality check", "فحص الجودة") + "</p><ul>" +
+        Q.map(function (q) { return '<li class="' + (q[0] ? "ok" : "tip") + '"><b>' + q[1] + "</b>" + (q[0] ? "" : "<span>" + q[2] + "</span>") + "</li>"; }).join("") + "</ul>" +
+        (feel === 2 ? '<p class="fb-hold">' + L("You said you're still angry. Wait until you're calmer, ideally a day. Feedback given in anger tends to land on the person, not the task.", "ذكرت أنك ما زلت غاضباً. انتظر حتى تهدأ، ويُفضّل يوماً كاملاً. الملاحظات التي تُقال في لحظة غضب تصيب الشخص غالباً لا المهمة.") + "</p>"
+          : feel === 1 ? '<p class="fb-hold">' + L("You feel a bit tense. Read your words out loud once before the conversation, and slow down when you get to the impact.", "تشعر بشيء من التوتر. اقرأ كلماتك بصوت مسموع مرة قبل المحادثة، وتمهّل حين تصل إلى الأثر.") + "</p>" : "") + "</div>";
       var plain = steps.map(function (s) { return s[1].replace(/&amp;/g, "&").replace(/&lt;/g, "<").replace(/&gt;/g, ">").replace(/&quot;/g, '"'); }).join("\n\n");
       var lab = '<span class="label">' + L("Your conversation", "محادثتك") + "</span>";
       var li = function (st) { return "<li><b>" + st[0] + "</b><p>" + st[1] + "</p></li>"; };
-      var full = lab + '<ol class="fb-script">' + steps.map(li).join("") + "</ol>" +
+      var full = lab + qhtml + '<ol class="fb-script">' + steps.map(li).join("") + "</ol>" +
         "<h3>" + L("Before you go in", "قبل أن تبدأ") + "</h3><ul>" +
         (pos ? [L("Say it soon after it happened. Specific praise lands better than general thanks.", "قلها بعد الموقف بوقت قصير. الثناء المحدد أعمق أثراً من الشكر العام."), L("In public or in private both work for praise, but know the person. Some prefer it quietly.", "يصلح الثناء أمام الآخرين أو على انفراد، لكن راعِ طبيعة الشخص، فبعض الناس يفضّلونه بعيداً عن الأضواء.")]
              : [L("Have it in private, and leave the person a way to keep their dignity.", "اجعل المحادثة على انفراد، واترك للشخص طريقاً يحفظ به كرامته."), L("Use your own words. This is a structure, not a script to read out.", "استخدم كلماتك. هذا هيكل للمحادثة، لا نصّ تقرؤه حرفياً."), L("Be ready to hear something you didn't know.", "كن مستعداً لسماع أمر لم تكن تعرفه.")]).map(function (x) { return "<li>" + x + "</li>"; }).join("") + "</ul>" +
         '<div class="pk-acts"><button type="button" class="btn x-dark" id="fb-copy">' + L("Copy", "انسخ") + '</button><button type="button" class="btn line-d" onclick="window.print()">' + L("Save as PDF", "احفظ كملف PDF") + "</button></div>";
-      gated(out, lab + '<ol class="fb-script">' + steps.slice(0, 2).map(li).join("") + "</ol>", full, { tool: "Feedback conversation builder", toolName: "", title: L("See your full conversation", "اعرض المحادثة كاملة"),
+      gated(out, lab + '<p class="fb-score"><b>' + num(passed) + "/" + num(5) + "</b> " + L("quality check", "فحص الجودة") + '</p><ol class="fb-script">' + steps.slice(0, 2).map(li).join("") + "</ol>", full, { tool: "Feedback conversation builder", toolName: "", title: L("See your full conversation", "اعرض المحادثة كاملة"),
         what: L("Enter your name and email to see the full conversation, ready to copy or save. What you typed stays on this page and isn't sent to anyone.", "اكتب اسمك وبريدك الإلكتروني لترى المحادثة كاملة، جاهزة للنسخ أو الحفظ. ما كتبته يبقى في هذه الصفحة ولا يُرسل إلى أحد."),
         button: L("Show my conversation", "اعرض محادثتي"),
         fade: '<ol class="fb-script">' + steps.slice(2, 4).map(li).join("") + "</ol>",
@@ -293,13 +330,15 @@
     tc.addEventListener("change", function (e) { var fs = e.target.closest("fieldset"); if (fs) fs.classList.remove("miss"); });
     tc.addEventListener("submit", function (e) {
       e.preventDefault();
-      var areas = {}, order = [], total = 0, miss = null;
+      var miss = null, A = {}, order = [];
       tc.querySelectorAll("fieldset").forEach(function (fs) {
-        var a = fs.getAttribute("data-area"), c = fs.querySelector("input:checked");
-        if (!(a in areas)) { areas[a] = 0; order.push(a); }
+        var c = fs.querySelector("input:checked");
         fs.classList.toggle("miss", !c);
         if (!c && !miss) miss = fs;
-        if (c) { areas[a] += +c.value; total += +c.value; }
+        var a = fs.getAttribute("data-area");
+        if (!a) return;
+        if (!(a in A)) { A[a] = { fwd: [], rev: [] }; order.push(a); }
+        if (c) { var rv = fs.hasAttribute("data-rev"); (rv ? A[a].rev : A[a].fwd).push(rv ? 6 - +c.value : +c.value); }
       });
       var out = document.getElementById("tc-result");
       out.hidden = false;
@@ -309,24 +348,47 @@
         return;
       }
       var D = JSON.parse(document.getElementById("tc-data").textContent);
-      var vals = order.map(function (a) { return areas[a]; }), even = Math.max.apply(null, vals) === Math.min.apply(null, vals);
-      var low = even ? [] : order.slice().sort(function (a, b) { return areas[a] - areas[b]; }).filter(function (a) { return areas[a] < 7; }).slice(0, 2);
-      var band = total >= 34 ? L("You're in good shape", "أنت في وضع جيد") : total >= 22 ? L("A solid start, with gaps to close", "بداية جيدة، مع فجوات تحتاج إلى سدّها") : L("Worth focusing on now", "هناك ما يستحق تركيزك الآن");
+      var time = +tc.querySelector("[name=ctime]:checked").value, move = +tc.querySelector("[name=cmove]:checked").value;
+      var mean = function (x) { return x.reduce(function (p, c) { return p + c; }, 0) / x.length; };
+      var S = {}, flags = [];
+      order.forEach(function (a) {
+        var all = A[a].fwd.concat(A[a].rev);
+        S[a] = Math.round((mean(all) - 1) / 4 * 100);
+        // Consistency: positively and negatively worded items disagree by 2+ points on the 1-5 scale
+        if (A[a].fwd.length && A[a].rev.length && Math.abs(mean(A[a].fwd) - mean(A[a].rev)) >= 2) flags.push(a);
+      });
+      var overall = Math.round(mean(order.map(function (a) { return S[a]; })));
+      var band = function (v) { return v >= 75 ? "hi" : v >= 50 ? "mid" : "lo"; };
+      var bandName = { hi: L("Strong", "قوي"), mid: L("Building", "قيد البناء"), lo: L("Priority", "أولوية") };
+      var low = order.slice().sort(function (a, b) { return S[a] - S[b]; }).filter(function (a) { return S[a] < 75; }).slice(0, 2);
+      var head = '<span class="label">' + L("Your result", "النتيجة") + "</span><h2>" +
+        (overall >= 75 ? L("You're settling in well", "أنت تستقر في دورك بشكل جيد") : overall >= 50 ? L("A solid start, with gaps to close", "بداية جيدة، مع فجوات تحتاج إلى سدّها") : L("Worth focusing on now", "هناك ما يستحق تركيزك الآن")) +
+        '</h2><p class="tc-index"><b>' + num(overall) + "</b><span>/" + num(100) + "</span> " + L("overall transition index", "مؤشر الانتقال العام") + "</p>";
       var bars = order.map(function (a) {
-        return '<div class="pk-bar"><span>' + a + '</span><i style="--w:' + Math.round(areas[a] / 8 * 100) + '%"></i><b>' + num(areas[a]) + "/" + num(8) + "</b></div>";
+        var b = band(S[a]);
+        return '<div class="pk-bar tc-bar tc-' + b + '"><span>' + D.names[a] + '</span><i style="--w:' + Math.max(S[a], 3) + '%"></i><b>' + num(S[a]) + '</b><em>' + bandName[b] + "</em></div>";
       }).join("");
-      var head = '<span class="label">' + L("Your result", "النتيجة") + "</span><h2>" + band + "</h2><p>" +
-        L("Your score is " + total + " out of 40.", "مجموعك " + num(total) + " من " + num(40) + ".") + "</p>";
-      var focus = low.length ? "<h3>" + L("Where to focus next", "أين تركّز بعد ذلك") + "</h3>" + low.map(function (a) { return "<p><b>" + a + ".</b> " + D.adv[a] + "</p>"; }).join("")
-                    : even && total < 34 ? "<p>" + L("All five areas scored the same, so no single one stands out. Start with relationships: they make everything else easier.", "حصلت المجالات الخمسة على الدرجة نفسها، فلا يبرز أحدها. ابدأ بالعلاقات، فهي تسهّل كل ما عداها.") + "</p>"
-                    : "<p>" + L("No area stands out as a risk. Keep reviewing these every month: things shift quickly in a new role.", "لا يبدو أي مجال مصدر خطر. واصل مراجعة هذه الجوانب شهرياً، فالأمور تتغير بسرعة في الدور الجديد.") + "</p>";
-      var full = head + "<p>" + L("Here's how it breaks down.", "وهذا توزيعه.") + "</p>" + bars + focus +
+      // Stage reading: what's normal early, what's a risk later
+      var stage = time === 0
+        ? L("You're in your first three months, so lower scores on relationships and your team are normal. Treat them as the plan for the next few weeks, not as a warning.", "أنت في أشهرك الثلاثة الأولى، لذا فإن انخفاض الدرجات في العلاقات والفريق أمر طبيعي. اعتبرها خطة الأسابيع القادمة، لا إنذاراً.")
+        : time === 1
+        ? L("Between three and six months is when many new leaders start to pay back the investment made in them. Gaps in role clarity or relationships now deserve attention, because they get harder to close later.", "بين الشهر الثالث والسادس يبدأ كثير من القادة الجدد في ردّ ما استُثمر فيهم. والفجوات في وضوح الدور أو العلاقات تستحق الانتباه الآن، لأن سدّها يصبح أصعب لاحقاً.")
+        : L("After six months, people expect you to be fully up to speed. Any area marked as a priority is now a real risk to how you're seen, and worth acting on this month.", "بعد ستة أشهر يتوقع الناس أنك أصبحت متمكناً تماماً من دورك. وأي مجال يظهر كأولوية أصبح خطراً حقيقياً على صورتك، ويستحق أن تتحرك فيه هذا الشهر.");
+      var moveNote = move === 2 ? L("You've also changed country. Expect relationships and how decisions get made to take longer to read than in past moves, and ask more questions than feels comfortable.", "لقد انتقلت أيضاً إلى بلد جديد. توقّع أن يستغرق فهم العلاقات وطريقة اتخاذ القرار وقتاً أطول مما في انتقالاتك السابقة، واسأل أكثر مما تعتاد.")
+                 : move === 0 ? L("You were promoted from inside, so people know the old you. Letting go of your old job, and being seen to, matters more than usual.", "لقد رُقّيت من الداخل، والناس يعرفونك في دورك السابق. لذا فإن التخلي عن عملك القديم، وأن يرى الناس ذلك، أهم من المعتاد.")
+                 : L("You've joined a new organisation, so understanding how things really work here comes before changing them.", "لقد انضممت إلى جهة جديدة، لذا فإن فهم كيف تسير الأمور فعلاً يأتي قبل تغييرها.");
+      var focus = low.length ? "<h3>" + L("Where to focus next", "أين تركّز بعد ذلك") + "</h3>" + low.map(function (a) { return "<p><b>" + D.names[a] + ".</b> " + D.adv[a] + "</p>"; }).join("")
+        : "<p>" + L("No area stands out as a risk. Run this check again in a month: things shift quickly in a new role.", "لا يبدو أي مجال مصدر خطر. أعد هذه المراجعة بعد شهر، فالأمور تتغير بسرعة في الدور الجديد.") + "</p>";
+      var cons = flags.length ? '<p class="pk-mix">' + L("Your answers in " + flags.map(function (a) { return D.names[a]; }).join(" and ") + " point in different directions. Read those statements again, or ask someone who works closely with you how they'd answer.",
+        "إجاباتك في مجال " + flags.map(function (a) { return D.names[a]; }).join(" و") + " تشير إلى اتجاهات مختلفة. اقرأ تلك العبارات مرة أخرى، أو اسأل شخصاً يعمل معك عن قرب كيف كان سيجيب.") + "</p>" : "";
+      var full = head + '<div class="tc-bars">' + bars + "</div>" + '<p class="tc-key">' + L("75 and above: strong. 50 to 74: building. Below 50: a priority.", "٧٥ فأكثر: قوي. من ٥٠ إلى ٧٤: قيد البناء. أقل من ٥٠: أولوية.") + "</p>" +
+        "<h3>" + L("Reading it for your stage", "قراءة النتيجة في ضوء مرحلتك") + "</h3><p>" + stage + " " + moveNote + "</p>" + cons + focus +
         '<div class="pk-acts">' + D.links + '<button type="button" class="btn line-d" onclick="window.print()">' + L("Save as PDF", "احفظ كملف PDF") + "</button></div>" +
-        '<p class="pk-small">' + L("This is a guide to help you think, not an assessment.", "هذه أداة تساعدك على التفكير، وليست تقييماً.") + "</p>";
+        '<p class="pk-small">' + L("A structured reflection to help you decide where to look, not a validated assessment.", "أداة تأمل منظّم تساعدك على تحديد أين تنظر، وليست تقييماً مقنّناً.") + "</p>";
       gated(out, head, full, { tool: "Leadership transition check", toolName: L("leadership transition check", "مراجعة الانتقال إلى دور قيادي"),
-        what: L("Enter your name and email to see your score in each area and where to focus next. I'll email you a copy too.", "اكتب اسمك وبريدك الإلكتروني لترى درجتك في كل مجال وأين تركّز بعد ذلك. وسأرسل لك نسخة بالبريد أيضاً."),
+        what: L("Enter your name and email to see your score in each area, what it means at your stage and where to focus next. I'll email you a copy too.", "اكتب اسمك وبريدك الإلكتروني لترى درجتك في كل مجال، وماذا تعني في مرحلتك، وأين تركّز بعد ذلك. وسأرسل لك نسخة بالبريد أيضاً."),
         fade: bars,
-        summary: function () { return plainOf("<p>" + band + " (" + num(total) + "/" + num(40) + ")</p>" + order.map(function (a) { return "<p>" + a + ": " + num(areas[a]) + "/" + num(8) + "</p>"; }).join("") + focus); } });
+        summary: function () { return plainOf("<p>" + L("Overall transition index: ", "مؤشر الانتقال العام: ") + num(overall) + "/" + num(100) + "</p>" + order.map(function (a) { return "<p>" + D.names[a] + ": " + num(S[a]) + " (" + bandName[band(S[a])] + ")</p>"; }).join("") + "<p>" + stage + "</p>" + focus); } });
     });
   }
 })();

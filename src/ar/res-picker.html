@@ -2,13 +2,13 @@
     <div class="wrap stack">
       <span class="label"><a href="/ar/resources/">المصادر</a> &nbsp;·&nbsp; أداة</span>
       <h1>كوتشينج أم إرشاد أم تدريب؟</h1>
-      <p class="lead">ستة أسئلة في دقيقتين تقريباً. أجب عن نفسك، أو عن أحد القادة في فريقك.</p>
+      <p class="lead">ثمانية أسئلة في ثلاث دقائق تقريباً. أجب عن نفسك، أو عن أحد القادة في فريقك.</p>
     </div>
   </section>
   <section class="light">
     <div class="wrap rs-tool">
       <form id="picker" class="pk" novalidate>
-        <fieldset class="pk-q"><legend><span>١</span>ما الوصف الأقرب للفجوة؟</legend>
+        <fieldset class="pk-q" data-w="2"><legend><span>١</span>ما الوصف الأقرب للفجوة؟</legend>
           <label class="pk-opt"><input type="radio" name="q0" value="t"><span>لا يملك بعد مهارة أو معرفة يحتاجها العمل.</span></label>
           <label class="pk-opt"><input type="radio" name="q0" value="m"><span>جديد على هذا المستوى، أو هذا القطاع، أو هذه المؤسسة.</span></label>
           <label class="pk-opt"><input type="radio" name="q0" value="c"><span>يعرف ما يجب فعله، لكنه لا يفعله.</span></label>
@@ -28,7 +28,7 @@
           <label class="pk-opt"><input type="radio" name="q3" value="m"><span>فهم الثقافة والسياسة الداخلية وكيف تسير الأمور هنا.</span></label>
           <label class="pk-opt"><input type="radio" name="q3" value="c"><span>الثقة، أو العلاقات، أو التقدير، أو قرار ما.</span></label>
         </fieldset>
-        <fieldset class="pk-q"><legend><span>٥</span>أين توجد الإجابة؟</legend>
+        <fieldset class="pk-q" data-w="2"><legend><span>٥</span>أين توجد الإجابة؟</legend>
           <label class="pk-opt"><input type="radio" name="q4" value="t"><span>يستطيع خبير أن يقدّمها.</span></label>
           <label class="pk-opt"><input type="radio" name="q4" value="m"><span>يعرفها مسبقاً شخص أقدم منه.</span></label>
           <label class="pk-opt"><input type="radio" name="q4" value="c"><span>لا يجدها إلا الشخص نفسه، لأنها تعتمد عليه.</span></label>
@@ -38,10 +38,26 @@
           <label class="pk-opt"><input type="radio" name="q5" value="m"><span>سيتكوّن خلال الأشهر الأولى في الدور.</span></label>
           <label class="pk-opt"><input type="radio" name="q5" value="c"><span>يتعلق بتغيير دائم في طريقة قيادته.</span></label>
         </fieldset>
+        <fieldset class="pk-q pk-mod" data-mod="ready"><legend><span>٧</span>ما مدى استعداد الشخص للعمل على هذا الأمر؟</legend>
+          <label class="pk-opt"><input type="radio" name="q6" value="2"><span>مستعد تماماً، وقد طلب المساعدة بنفسه.</span></label>
+          <label class="pk-opt"><input type="radio" name="q6" value="1"><span>مستعد إذا اقترح عليه أحد ذلك.</span></label>
+          <label class="pk-opt"><input type="radio" name="q6" value="0"><span>غير مقتنع بأن هناك مشكلة.</span></label>
+        </fieldset>
+        <fieldset class="pk-q pk-mod" data-mod="support"><legend><span>٨</span>بعد ذلك، هل سيمنحه مديره الوقت والدعم لتطبيق ما تعلّمه؟</legend>
+          <label class="pk-opt"><input type="radio" name="q7" value="2"><span>نعم، المدير مشارك ومهتم.</span></label>
+          <label class="pk-opt"><input type="radio" name="q7" value="1"><span>جزئياً، فالدعم سيعتمد على ضغط العمل.</span></label>
+          <label class="pk-opt"><input type="radio" name="q7" value="0"><span>غير مرجّح.</span></label>
+        </fieldset>
         <div><button class="btn x-dark" type="submit">اعرض النتيجة</button></div>
       </form>
       <div id="pk-result" class="pk-result" hidden aria-live="polite"></div>
-      <script type="application/json" id="pk-data">{"t": {"name": "التدريب", "title": "يبدو أن الحاجة هنا تدريب", "why": "الفجوة في الأساس مهارة أو معرفة يمكن تعليمها، والأرجح أن آخرين يشتركون فيها.", "next": ["حدد المهارة بدقة، وكيف سترى استخدامها في العمل.", "ابحث عن تدريب عملي فيه ممارسة وملاحظات، لا محتوى فقط.", "اطلب من المدير المتابعة في الأسابيع التالية ليترسّخ ما تعلّمه."], "mix": "وهناك أيضاً جانب تدريبي: قد يكون جزء من الفجوة مهارة يمكن تعليمها.", "cta": "<a class=\"btn x-dark\" href=\"/ar/insights/coaching-mentoring-or-training/\">اقرأ المقال كاملاً</a>"}, "m": {"name": "الإرشاد", "title": "يبدو أن الحاجة هنا إرشاد", "why": "الشخص جديد على عالم يعرفه غيره جيداً. ما يساعده أكثر هو الخبرة والتعارف والنصيحة.", "next": ["ابحث عن شخص شغل هذا الدور، ويفضل في مؤسسة مشابهة.", "اتفقوا على إيقاع بسيط، مثل ساعة شهرياً لمدة ستة أشهر.", "تأكد أن المرشد من خارج خط التبعية المباشر للشخص."], "mix": "وهناك أيضاً جانب إرشادي: شخص يعرف هذا العالم قد يختصر عليه طريق التعلم.", "cta": "<a class=\"btn x-dark\" href=\"/ar/insights/coaching-mentoring-or-training/\">اقرأ المقال كاملاً</a>"}, "c": {"name": "الكوتشينج", "title": "يبدو أن الحاجة هنا كوتشينج", "why": "المسألة تتعلق بالتقدير، أو الثقة، أو العلاقات، أو قرار ما. ولا يحلها إلا الشخص نفسه، والكوتش الجيد يساعده على ذلك بشكل أسرع.", "next": ["اكتب بكلمات بسيطة ما الذي يجب أن يكون مختلفاً بعد ستة أشهر.", "اختر كوتشاً معتمداً لديه خبرة بهذا المستوى.", "قابل أكثر من كوتش قبل أن تقرر."], "mix": "وهناك أيضاً جانب كوتشينج: قد يتعلق جزء من الأمر بالثقة أو التقدير، لا بالمعرفة فقط.", "cta": "<a class=\"btn x-dark\" href=\"https://app.cronofy.com/add_to_calendar/scheduling/ZOT6eIZc\" target=\"_blank\" rel=\"noopener\">احجز مكالمة مجانية لمدة ٣٠ دقيقة</a>"}}</script>
+      <script type="application/json" id="pk-data">{"t": {"name": "التدريب", "title": "يبدو أن الحاجة هنا تدريب", "why": "الفجوة في الأساس مهارة أو معرفة يمكن تعليمها، والأرجح أن آخرين يشتركون فيها.", "next": ["حدد المهارة بدقة، وكيف سترى استخدامها في العمل.", "ابحث عن تدريب عملي فيه ممارسة وملاحظات، لا محتوى فقط.", "اطلب من المدير المتابعة في الأسابيع التالية ليترسّخ ما تعلّمه."], "mix": "وهناك أيضاً جانب تدريبي: قد يكون جزء من الفجوة مهارة يمكن تعليمها.", "cta": "<a class=\"btn x-dark\" href=\"/ar/insights/coaching-mentoring-or-training/\">اقرأ المقال كاملاً</a>", "ev": "<b>ماذا تقول الأبحاث.</b> كثيراً ما ينجح التدريب في التعليم، لكنه يغيّر العمل أقل مما هو متوقع. وجد تحليل جامع لـ٨٩ دراسة أن الدافعية وبيئة العمل الداعمة من أقوى ما يتنبأ بتطبيق الناس لما تعلّموه (Blume وزملاؤه، ٢٠١٠)."}, "m": {"name": "الإرشاد", "title": "يبدو أن الحاجة هنا إرشاد", "why": "الشخص جديد على عالم يعرفه غيره جيداً. ما يساعده أكثر هو الخبرة والتعارف والنصيحة.", "next": ["ابحث عن شخص شغل هذا الدور، ويفضل في مؤسسة مشابهة.", "اتفقوا على إيقاع بسيط، مثل ساعة شهرياً لمدة ستة أشهر.", "تأكد أن المرشد من خارج خط التبعية المباشر للشخص."], "mix": "وهناك أيضاً جانب إرشادي: شخص يعرف هذا العالم قد يختصر عليه طريق التعلم.", "cta": "<a class=\"btn x-dark\" href=\"/ar/insights/coaching-mentoring-or-training/\">اقرأ المقال كاملاً</a>", "ev": "<b>ماذا تقول الأبحاث.</b> في دراسات الشباب والجامعات وبيئات العمل، يرتبط الإرشاد بنتائج أفضل في المسار المهني والاتجاهات والدافعية، وإن كان الأثر صغيراً في العموم (Eby وزملاؤه، ٢٠٠٨). ويكون أنجح حين يكون المرشد قد شغل الدور نفسه ويلتقيان بانتظام."}, "c": {"name": "الكوتشينج", "title": "يبدو أن الحاجة هنا كوتشينج", "why": "المسألة تتعلق بالتقدير، أو الثقة، أو العلاقات، أو قرار ما. ولا يحلها إلا الشخص نفسه، والكوتش الجيد يساعده على ذلك بشكل أسرع.", "next": ["اكتب بكلمات بسيطة ما الذي يجب أن يكون مختلفاً بعد ستة أشهر.", "اختر كوتشاً معتمداً لديه خبرة بهذا المستوى.", "قابل أكثر من كوتش قبل أن تقرر."], "mix": "وهناك أيضاً جانب كوتشينج: قد يتعلق جزء من الأمر بالثقة أو التقدير، لا بالمعرفة فقط.", "cta": "<a class=\"btn x-dark\" href=\"https://app.cronofy.com/add_to_calendar/scheduling/ZOT6eIZc\" target=\"_blank\" rel=\"noopener\">احجز مكالمة مجانية لمدة ٣٠ دقيقة</a>", "ev": "<b>ماذا تقول الأبحاث.</b> وجد تحليل جامع عام ٢٠٢٣ لـ٣٧ تجربة عشوائية محكمة أثراً إيجابياً متوسطاً للكوتشينج في بيئة العمل (g = 0.59)، مع إشارات إلى تحيّز النشر (de Haan وNilsson). والعلاقة نفسها مهمة: عبر ٢٧ عيّنة، ارتبط تحالف العمل القوي بين الكوتش والعميل بنتائج أفضل (r = 0.41) (Graßmann وزملاؤه، ٢٠٢٠)."}, "mod": {"ready0": "<b>الاستعداد أولاً.</b> الشخص لا يرى مشكلة بعد. ونادراً ما ينجح الكوتشينج أو الإرشاد حين يُرسَل الشخص إليه دون رغبة منه. ابدأ بمحادثة صريحة ومحددة مع مديره، مدعومة بأمثلة، قبل شراء أي شيء.", "support0": "<b>خطط للمتابعة.</b> دون وقت المدير ودعمه، لن يصل معظم ما يُتعلّم إلى العمل. اتفق مع المدير الآن على ما سيفعله في الأسابيع الأربعة التالية، وإلا فالأرجح أن تضيع الكلفة.", "support1": "<b>احمِ المتابعة.</b> الدعم المرهون بضغط العمل يختفي عادة حين تشتد الحاجة إليه. احجز مسبقاً لقاءين قصيرين للمتابعة مع المدير."}, "conf": {"clear": "نتيجة واضحة", "lean": "نتيجة مرجّحة", "mixed": "نتيجة مختلطة"}}</script>
+      <details class="sci">
+        <summary>الأساس العلمي لهذه الأداة</summary>
+        <p>الكوتشينج والإرشاد والتدريب تحل مشكلات مختلفة. التدريب يبني مهارة معروفة. والإرشاد ينقل خبرة شخص في عالم يعرفه. والكوتشينج يساعد الشخص على الوصول إلى إجابته هو في مسألة تتوقف عليه. وتنظر الأسئلة إلى نوع الفجوة، ومن يشترك فيها، وأين توجد الإجابة، والإطار الزمني.</p>
+        <p><b>طريقة الاحتساب.</b> للسؤالين ١ و٥ وزن مضاعف، لأن نوع الفجوة وموضع الإجابة هما الأكثر دلالة. ويحدد الفرق بين أعلى درجتين ما إذا كانت النتيجة واضحة أو مرجّحة أو مختلطة. أما السؤالان ٧ و٨ فلا يغيّران التوصية، بل يتحققان من شرطين تقول الأبحاث إنهما يحددان نجاح أي من الخيارات الثلاثة: استعداد الشخص، والدعم في العمل بعد ذلك.</p>
+        <p class="sci-refs">المراجع: de Haan, E., &amp; Nilsson, V. O. (2023). What can we know about the effectiveness of coaching? A meta-analysis based only on randomized controlled trials. <i>Academy of Management Learning &amp; Education</i>. · Graßmann, C., Schölmerich, F., &amp; Schermuly, C. C. (2020). The relationship between working alliance and client outcomes in coaching: A meta-analysis. <i>Human Relations, 73</i>(1), 35–58. · Eby, L. T., Allen, T. D., Evans, S. C., Ng, T., &amp; DuBois, D. (2008). Does mentoring matter? <i>Journal of Vocational Behavior, 72</i>(2), 254–267. · Blume, B. D., Ford, J. K., Baldwin, T. T., &amp; Huang, J. L. (2010). Transfer of training: A meta-analytic review. <i>Journal of Management, 36</i>(4), 1065–1105.</p>
+      </details>
     </div>
   </section>
   <script src="/assets/resources.js?v=__V__" defer></script>

@@ -35,7 +35,7 @@
 <script>if(location.protocol==="http:"&&location.hostname==="hishamelsaied.com")location.replace("https://"+location.host+location.pathname+location.search+location.hash)</script>
 <link rel="preload" href="/assets/fonts/plex-arabic-400.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/noto-kufi-arabic.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="/assets/site.css?v=2f303ea005">
+<link rel="stylesheet" href="/assets/site.css?v=2a9166808e">
 <script type="application/ld+json">
 {
  "@context": "https://schema.org",
@@ -348,6 +348,11 @@
           <div class="field"><label for="p-role">دوري الجديد</label><input id="p-role" name="role"></div>
           <div class="field"><label for="p-start">تاريخ البدء</label><input id="p-start" name="start" type="date"></div>
         </div>
+        <div class="pl-phase pl-stars"><div class="pl-head"><span class="x-tag">قبل أن تخطط</span><h2>ما الموقف الذي ورثته؟</h2></div>
+          <div class="field"><label for="p-stars">اختر الأقرب إلى وضعك، فالخطوات الأولى الصحيحة تختلف كثيراً من موقف لآخر.</label><select id="p-stars" name="stars"><option value="">اختر</option><option value="start">بداية: بناء شيء جديد</option><option value="turn">إنقاذ: إصلاح وضع في أزمة واضحة</option><option value="grow">نمو متسارع: توسيع شيء ناجح</option><option value="realign">إعادة توجيه: انجراف نحو مشكلة لا يراها الكثيرون</option><option value="sustain">استدامة النجاح: الحفاظ على فريق قوي</option></select></div>
+          <p class="pl-stars-tip" id="pl-stars-tip" aria-live="polite" hidden></p>
+          <script type="application/json" id="pl-stars-data">{"start": "مهمتك جمع الأشخاص والموارد والأنظمة، وإعطاء الطاقة والاتجاه. النجاحات المبكرة هنا تعني أن يعمل شيء ما، لا أن يكون مثالياً. وظّف لما تحتاجه هذه المرحلة.", "turn": "يعرف الناس عادة أن هناك مشكلة، وهذا يمنحك تفويضاً بالتحرك بسرعة. حدد جوهر العمل الذي يستحق الإنقاذ، واتخذ القرارات الصعبة مبكراً، وتواصل كثيراً. السرعة هنا أهم من الإجماع.", "grow": "الخطر أن يسبق النمو البنية التنظيمية. ضع الإجراءات والأدوار وضوابط التوظيف اللازمة للتوسع، وساعد الناس على تقبّل قواعد جديدة دون أن تقتل ما جعل العمل ناجحاً.", "realign": "مهمتك الأولى أن تساعد الناس على رؤية الحاجة إلى التغيير، بالبيانات وبآراء من الخارج، دون لوم الماضي. وتوقّع مقاومة ممن نجحوا بالطريقة القديمة.", "sustain": "تجنّب إجراء تغييرات لمجرد إثبات نفسك. تعلّم بعمق أولاً، واحمِ ما ينجح، وابحث عن التحدي التالي الذي سيواجهه العمل. الخطر الأكبر خطأ مبكر يهز الثقة."}</script>
+        </div>
         <div class="pl-phase"><div class="pl-head"><span class="x-tag">الأيام ١ إلى ٣٠</span><h2>استمع وتعلّم</h2><small data-day="30"></small></div>
           <div class="field"><label>الأشخاص الذين سأقابلهم على انفراد</label><small>مديرك، وكل عضو في الفريق القيادي، وفريقك، والأشخاص المهمون في الإدارات الأخرى.</small><div class="pl-row"><input name="who1" aria-label="الاسم والمنصب 1" placeholder="الاسم والمنصب"><input name="learn1" aria-label="ما أريد أن أعرفه 1" placeholder="ما أريد أن أعرفه منه"></div><div class="pl-row"><input name="who2" aria-label="الاسم والمنصب 2" placeholder="الاسم والمنصب"><input name="learn2" aria-label="ما أريد أن أعرفه 2" placeholder="ما أريد أن أعرفه منه"></div><div class="pl-row"><input name="who3" aria-label="الاسم والمنصب 3" placeholder="الاسم والمنصب"><input name="learn3" aria-label="ما أريد أن أعرفه 3" placeholder="ما أريد أن أعرفه منه"></div><div class="pl-row"><input name="who4" aria-label="الاسم والمنصب 4" placeholder="الاسم والمنصب"><input name="learn4" aria-label="ما أريد أن أعرفه 4" placeholder="ما أريد أن أعرفه منه"></div><div class="pl-row"><input name="who5" aria-label="الاسم والمنصب 5" placeholder="الاسم والمنصب"><input name="learn5" aria-label="ما أريد أن أعرفه 5" placeholder="ما أريد أن أعرفه منه"></div><div class="pl-row"><input name="who6" aria-label="الاسم والمنصب 6" placeholder="الاسم والمنصب"><input name="learn6" aria-label="ما أريد أن أعرفه 6" placeholder="ما أريد أن أعرفه منه"></div></div>
           <div class="field"><label for="p-decisions">كيف تُتخذ القرارات فعلاً هنا</label><small>بمن يتصل الرئيس التنفيذي قبل أن يقرر؟ ومن صاحب الرأي المسموع؟</small><textarea id="p-decisions" name="decisions" rows="3"></textarea></div>
@@ -362,16 +367,26 @@
           <div class="field"><label for="p-plan">الخطة الأكبر التي سأقدّمها، بناءً على ما سمعته</label><textarea id="p-plan" name="plan" rows="3"></textarea></div>
           <div class="field"><label for="p-stop">ما الذي سأتوقف عن فعله</label><textarea id="p-stop" name="stop" rows="2"></textarea></div>
         </div>
+        <div class="pl-phase"><div class="pl-head"><span class="x-tag">حوّل الخطة إلى فعل</span><h2>ثلاث خطط «إذا… فسوف»</h2></div>
+          <div class="field"><label>اربط موقفاً تعرف أنه سيأتي بالفعل الذي ستقوم به</label><small>مثال: «عندما ينتهي اجتماع القيادة يوم الأحد، سأخصص عشر دقائق لأكتب ما سمعته». وفي الدراسات المحكمة، جعلت الخطط المكتوبة بهذه الصيغة الناس أكثر التزاماً بالتنفيذ بشكل واضح.</small><div class="pl-row pl-if"><input name="if1" aria-label="إذا أو عندما 1" placeholder="عندما…"><input name="then1" aria-label="فسوف 1" placeholder="…فسوف"></div><div class="pl-row pl-if"><input name="if2" aria-label="إذا أو عندما 2" placeholder="عندما…"><input name="then2" aria-label="فسوف 2" placeholder="…فسوف"></div><div class="pl-row pl-if"><input name="if3" aria-label="إذا أو عندما 3" placeholder="عندما…"><input name="then3" aria-label="فسوف 3" placeholder="…فسوف"></div></div>
+        </div>
         <div class="pl-phase pl-traps"><div class="pl-head"><span class="x-tag">انتبه إلى</span><h2>ثلاثة فخاخ شائعة</h2></div>
           <ul><li>نسخ ما نجح في مؤسستك السابقة دون أن تسأل.</li><li>أن تُحسب مبكراً على طرف واحد وتبدو ناقلاً لرسائله.</li><li>الغرق في العمليات اليومية.</li></ul>
           <div class="field"><label for="p-risks">ملاحظاتي</label><textarea id="p-risks" name="risks" rows="2"></textarea></div>
         </div>
         <div class="pl-acts"><button type="button" class="btn x-dark" id="pl-print">احفظ كملف PDF أو اطبع</button><button type="button" class="btn line-d" id="pl-clear">مسح الكل</button><span id="pl-saved" class="pl-saved" aria-live="polite"></span></div>
       </form>
+      <details class="sci">
+        <summary>الأساس العلمي لهذه الأداة</summary>
+        <p><b>الموقف أولاً.</b> وجد Michael Watkins أن كثيراً من القادة الجدد يتعثرون لأنهم يطبقون أسلوب وظيفتهم السابقة. ويحدد نموذجه STARS خمسة مواقف قد يرثها القائد: البداية، والإنقاذ، والنمو المتسارع، وإعادة التوجيه، واستدامة النجاح، ولكل منها بداية مختلفة. ويغيّر المخطط نصيحته وفق الموقف الذي تختاره.</p>
+        <p><b>أنصت ثم تحرّك.</b> تتبع المراحل الثلاث البحث نفسه: افهم كيف تسير الأمور فعلاً، وحقق نجاحات مبكرة تهتم بها الإدارة، ثم اتفق مع مديرك على الخطة الأكبر.</p>
+        <p><b>خطط «إذا… فسوف».</b> وجد تحليل جامع لـ٩٤ اختباراً أن ربط إشارة محددة بفعل محدد كان له أثر متوسط إلى كبير في تحقيق الأهداف (d = 0.65؛ Gollwitzer وSheeran، ٢٠٠٦). ووجدت مراجعة أوسع بكثير عام ٢٠٢٤ أثراً أصغر لكنه ثابت على السلوك، فتعامل معها كعادة قوية، لا كحل سحري.</p>
+        <p class="sci-refs">المراجع: Watkins, M. D. <i>The First 90 Days</i>. Harvard Business Review Press. · Gollwitzer, P. M., &amp; Sheeran, P. (2006). Implementation intentions and goal achievement: A meta-analysis of effects and processes. <i>Advances in Experimental Social Psychology, 38</i>, 69–119. · Sheeran, P., Listrom, O., &amp; Gollwitzer, P. M. (2024). The when and how of planning: Meta-analysis of the scope and components of implementation intentions in 642 tests. <i>European Review of Social Psychology</i>.</p>
+      </details>
       <p class="pk-small">هل تريد معرفة المنطق وراء هذا المخطط؟ اقرأ <a href="/ar/insights/first-90-days-hr-director-gulf/">أول ٩٠ يوماً لك كمدير موارد بشرية في الخليج</a>.</p>
     </div>
   </section>
-  <script src="/assets/resources.js?v=2f303ea005" defer></script>
+  <script src="/assets/resources.js?v=2a9166808e" defer></script>
 </main>
 
 <footer class="site-footer">
@@ -400,6 +415,6 @@
   </div>
 </footer>
 
-<script src="/assets/site.js?v=2f303ea005" defer></script>
+<script src="/assets/site.js?v=2a9166808e" defer></script>
 </body>
 </html>
