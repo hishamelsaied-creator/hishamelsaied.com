@@ -14,6 +14,9 @@ SRC = os.path.join(ROOT, "src")
 SITE = "https://hishamelsaied.com"
 import hashlib as _h
 UPDATED = "2" + _h.md5(b"".join(open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "src", f), "rb").read() for f in ("site.css", "rtl.css", "site.js", "selfcheck.js", "resources.js"))).hexdigest()[:9]
+# Cloudflare Web Analytics (free, no cookies, no personal data). Paste the site token to switch visitor counting on.
+CF_TOKEN = ""
+BEACON = ("\n<script defer src=\"https://static.cloudflareinsights.com/beacon.min.js\" data-cf-beacon='{\"token\": \"" + CF_TOKEN + "\"}'></script>") if CF_TOKEN else ""
 
 PERSON_ID = SITE + "/#person"
 BUSINESS_ID = SITE + "/#business"
@@ -817,7 +820,7 @@ def build():
             if page["key"] in LOC_FAQ:
                 body = body.replace("__FAQ__", faq_html(page["key"], ar))
             html = head(page, ar) + header(page, ar) + "\n\n<main>\n" + body.rstrip() + "\n</main>\n\n" + (FOOTER_AR if ar else FOOTER) + \
-                f'\n\n<script src="/assets/site.js?v={UPDATED}" defer></script>\n</body>\n</html>\n'
+                f'\n\n<script src="/assets/site.js?v={UPDATED}" defer></script>{BEACON}\n</body>\n</html>\n'
             out = os.path.join(ROOT, page["path"].strip("/"), "index.html")
             os.makedirs(os.path.dirname(out), exist_ok=True)
             open(out, "w", encoding="utf-8").write(html)
@@ -837,7 +840,7 @@ def build():
     body += "\n<script>(function(){var m=" + json.dumps(OLD_FILES) + ";var p=location.pathname.replace(/\\/$/,'');if(m[p])location.replace(m[p]);})()</script>"
     html = head(nf).replace('<meta name="robots" content="index, follow, max-image-preview:large">', '<meta name="robots" content="noindex">') \
         + header(nf) + "\n\n<main>\n" + body + "\n</main>\n\n" + FOOTER + \
-        f'\n\n<script src="/assets/site.js?v={UPDATED}" defer></script>\n</body>\n</html>\n'
+        f'\n\n<script src="/assets/site.js?v={UPDATED}" defer></script>{BEACON}\n</body>\n</html>\n'
     open(os.path.join(ROOT, "404.html"), "w", encoding="utf-8").write(html)
     # Redirect stubs for the old site's extensionless URLs
     for old_path, target in OLD_REDIRECTS.items():
@@ -885,7 +888,7 @@ def build():
     for ar, tp in ty.items():
         html = head(tp, ar).replace('<meta name="robots" content="index, follow, max-image-preview:large">', '<meta name="robots" content="noindex">') \
             + header(tp, ar) + "\n\n<main>\n" + tp["body"].replace("CAL", "https://app.cronofy.com/add_to_calendar/scheduling/ZOT6eIZc") + "\n</main>\n\n" + (FOOTER_AR if ar else FOOTER) + \
-            f'\n\n<script src="/assets/site.js?v={UPDATED}" defer></script>\n</body>\n</html>\n'
+            f'\n\n<script src="/assets/site.js?v={UPDATED}" defer></script>{BEACON}\n</body>\n</html>\n'
         out = os.path.join(ROOT, tp["path"].strip("/"), "index.html")
         os.makedirs(os.path.dirname(out), exist_ok=True)
         open(out, "w", encoding="utf-8").write(html)
