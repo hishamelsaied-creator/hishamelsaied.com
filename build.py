@@ -16,7 +16,7 @@ import hashlib as _h
 UPDATED = "2" + _h.md5(b"".join(open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "src", f), "rb").read() for f in ("site.css", "rtl.css", "site.js", "selfcheck.js", "resources.js"))).hexdigest()[:9]
 # Cloudflare Web Analytics (free, no cookies, no personal data). Paste the site token to switch visitor counting on.
 CF_TOKEN = ""
-BEACON = ("\n<script defer src=\"https://static.cloudflareinsights.com/beacon.min.js\" data-cf-beacon='{\"token\": \"" + CF_TOKEN + "\"}'></script>") if CF_TOKEN else ""
+BEACON = ("\n<script type=\"module\" defer src=\"https://static.cloudflareinsights.com/beacon.min.js\" data-cf-beacon='{\"token\": \"" + CF_TOKEN + "\"}'></script>") if CF_TOKEN else ""
 
 PERSON_ID = SITE + "/#person"
 BUSINESS_ID = SITE + "/#business"
