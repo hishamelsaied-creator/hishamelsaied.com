@@ -15,7 +15,7 @@ SITE = "https://hishamelsaied.com"
 import hashlib as _h
 UPDATED = "2" + _h.md5(b"".join(open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "src", f), "rb").read() for f in ("site.css", "rtl.css", "site.js", "selfcheck.js", "resources.js"))).hexdigest()[:9]
 # Cloudflare Web Analytics (free, no cookies, no personal data). Paste the site token to switch visitor counting on.
-CF_TOKEN = ""
+CF_TOKEN = "d1a2b371a36f49f2816c70159565f88a"
 BEACON = ("\n<script type=\"module\" defer src=\"https://static.cloudflareinsights.com/beacon.min.js\" data-cf-beacon='{\"token\": \"" + CF_TOKEN + "\"}'></script>") if CF_TOKEN else ""
 
 PERSON_ID = SITE + "/#person"
