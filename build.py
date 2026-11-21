@@ -475,9 +475,7 @@ def person(ar=False):
         ],
         "award": ["Top 100 Global Power Leaders in HR, White Page International (2023)", "CIPD award winner", "Top 20 HR Influencers in the UAE 2025 (Favikon)"],
         "sameAs": ["https://www.linkedin.com/in/hishamelsaied/", "https://x.com/hishamelsaied",
-                   "https://informaconnect.com/hr-summit-expo/speakers/hisham-elsaied-fcipd/",
-                   "https://www.gleac.com/mentors/hisham-elsaied",
-                   "https://bookboon.com/en/hisham-elsaied-author"],
+                   "https://informaconnect.com/hr-summit-expo/speakers/hisham-elsaied-fcipd/"],
     }
 
 
