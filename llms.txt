@@ -19,6 +19,12 @@
 - Single session: one 60-minute, one-to-one session on one real issue (a difficult conversation, a promotion or career decision, a new role, a difficult manager). Online, in Arabic or English. Paid securely online, then the client picks a time: https://hishamelsaied.com/#single-session
 - First step: a free 30-minute call, with no obligation.
 
+## Pages for specific needs
+- Coaching for first-time directors, heads of function and general managers: https://hishamelsaied.com/leadership-coach-new-directors-general-managers/
+- Career coaching for HR professionals moving into manager, business partner and director roles, using his MOVE career framework: https://hishamelsaied.com/career-coach-hr-professionals/
+- Keynotes and masterclasses on AI and leadership, in Arabic and English: https://hishamelsaied.com/ai-leadership-keynote-speaker/
+- Each page has an Arabic version under https://hishamelsaied.com/ar/
+
 ## Ask Hisham (coming soon)
 - Ask Hisham (in Arabic: اسأل هشام) is an AI coach being built by Hisham Elsaied: a digital version of him, trained on his coaching method, his questions, the stories he uses and his own voice.
 - People will be able to text it or talk to it by voice, in their own Arabic dialect, starting with Egyptian and Gulf Arabic, and in English.
