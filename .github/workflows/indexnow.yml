@@ -21,5 +21,10 @@ jobs:
             echo "$EP HTTP $CODE $(head -c 300 /tmp/resp.txt)"
             case "$CODE" in 200|202) OK=1;; esac
           done
+          # Bing has been refusing the first key; try a second key file without keyLocation
+          B2="{\"host\":\"hishamelsaied.com\",\"key\":\"ae8a367b75970c835c100662b37152ca\",\"urlList\":$URLS}"
+          CODE=$(curl -sS -o /tmp/resp.txt -w "%{http_code}" -X POST https://www.bing.com/indexnow -H "Content-Type: application/json; charset=utf-8" -d "$B2")
+          echo "bing second key HTTP $CODE $(head -c 300 /tmp/resp.txt)"
+          case "$CODE" in 200|202) OK=1;; esac
           # Fail loudly if no engine accepted the submission, instead of reporting success
           [ "$OK" = 1 ] || exit 1
