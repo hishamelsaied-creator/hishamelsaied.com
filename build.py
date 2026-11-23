@@ -891,7 +891,8 @@ def build():
         f'\n\n<script src="/assets/site.js?v={UPDATED}" defer></script>{BEACON}\n</body>\n</html>\n'
     open(os.path.join(ROOT, "404.html"), "w", encoding="utf-8").write(html)
     # Redirect stubs for the old site's extensionless URLs
-    for old_path, target in OLD_REDIRECTS.items():
+    # .php pages too: a folder named e.g. about.php answers 200 with a canonical, so search engines pass the old page on instead of dropping it as a 404
+    for old_path, target in list(OLD_REDIRECTS.items()) + [(k, v) for k, v in OLD_FILES.items() if k.endswith('.php') and k != '/404.php']:
         d = os.path.join(ROOT, old_path.strip("/")); os.makedirs(d, exist_ok=True)
         open(os.path.join(d, "index.html"), "w", encoding="utf-8").write(
             f'<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><title>Moved</title>'
