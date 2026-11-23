@@ -13,5 +13,13 @@ jobs:
         shell: bash {0}
         run: |
           URLS=$(grep -o '<loc>[^<]*' sitemap.xml | sed 's/<loc>//' | python3 -c "import sys,json;print(json.dumps([l.strip() for l in sys.stdin if l.strip()]+['https://hishamelsaied.com/llms.txt']+['https://hishamelsaied.com/'+p for p in 'about.php blog.php contact.php contactform2.php gallery.php individual-solutions.php solutions.php solutions-for-teams.php platform-presence.php testimonials.php privacy-policy.php blog blog-guide-to-find-the-right-coach-60 blog-benefits-of-coaching-65 blog-self-awareness-for-leaders-62 blog-self-confidence-64 blog-transitions-through-coaching-66'.split()]))")
-          curl -sS -X POST https://api.indexnow.org/indexnow -H "Content-Type: application/json; charset=utf-8" \
-            -d "{\"host\":\"hishamelsaied.com\",\"key\":\"877572828004e0cec02248ef47d2038d\",\"keyLocation\":\"https://hishamelsaied.com/877572828004e0cec02248ef47d2038d.txt\",\"urlList\":$URLS}" -w "\nHTTP %{http_code}\n"
+          BODY="{\"host\":\"hishamelsaied.com\",\"key\":\"877572828004e0cec02248ef47d2038d\",\"keyLocation\":\"https://hishamelsaied.com/877572828004e0cec02248ef47d2038d.txt\",\"urlList\":$URLS}"
+          curl -sS -o /dev/null -w "key file HTTP %{http_code}\n" https://hishamelsaied.com/877572828004e0cec02248ef47d2038d.txt
+          OK=0
+          for EP in https://api.indexnow.org/indexnow https://www.bing.com/indexnow https://yandex.com/indexnow; do
+            CODE=$(curl -sS -o /tmp/resp.txt -w "%{http_code}" -X POST "$EP" -H "Content-Type: application/json; charset=utf-8" -d "$BODY")
+            echo "$EP HTTP $CODE $(head -c 300 /tmp/resp.txt)"
+            case "$CODE" in 200|202) OK=1;; esac
+          done
+          # Fail loudly if no engine accepted the submission, instead of reporting success
+          [ "$OK" = 1 ] || exit 1
