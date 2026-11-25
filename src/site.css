@@ -729,7 +729,9 @@ html[dir="ltr"] .lg { font-weight: 500; }
   .x-door p { display: none; }
   .x-topic { padding: 18px 0 14px; gap: 6px; }
   .x-sit { padding: 26px 22px; gap: 12px; }
-  .x-rimg { display: none; }
+  .x-replica-grid { gap: 32px; }
+  .x-rimg { width: 100%; max-width: 440px; margin-inline: auto; }
+  .x-rimg img { box-shadow: 0 16px 40px rgba(0, 0, 0, .4); }
   .steps { gap: 22px; }
   .steps li { padding-top: 14px; gap: 8px; }
   .steps li::before { font-size: 1.6rem; }
