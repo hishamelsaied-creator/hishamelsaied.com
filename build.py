@@ -22,7 +22,7 @@ PERSON_ID = SITE + "/#person"
 BUSINESS_ID = SITE + "/#business"
 GCC = ["United Arab Emirates", "Saudi Arabia", "Oman", "Kuwait", "Qatar", "Bahrain"]
 
-ART_DATES = {"art-first-90-days": "2026-11-16", "art-coaching-mentoring": "2026-11-16", "art-future-of-work": "2026-11-16", "art-ai-coaching": "2026-11-16", "art-ceo-ai": "2026-11-16", "art-first-gm": "2026-11-16", "art-numbers": "2026-11-17", "art-evidence": "2026-11-18", "art-feedback": "2026-11-18", "art-psych-safety": "2026-11-18"}
+ART_DATES = {"art-first-90-days": "2026-11-16", "art-coaching-mentoring": "2026-11-16", "art-future-of-work": "2026-11-16", "art-ai-coaching": "2026-11-16", "art-ceo-ai": "2026-11-16", "art-first-gm": "2026-11-16", "art-numbers": "2026-11-17", "art-evidence": "2026-11-18", "art-feedback": "2026-11-18", "art-psych-safety": "2026-11-18", "art-hr-director": "2026-11-25", "art-presence": "2026-11-25", "art-imposter": "2026-11-25", "art-boss": "2026-11-25"}
 
 PAGES = [
     {
@@ -166,6 +166,26 @@ PAGES = [
         "desc": "What psychological safety means, what the research shows, why it's harder in hierarchical workplaces, and six things leaders in the Gulf can do this month.",
     },
     {
+        "key": 'art-hr-director', "path": '/insights/how-to-become-hr-director-uae/', "nav": 'How to become an HR director in the UAE and the Gulf',
+        "title": 'How to Become an HR Director in the UAE and Gulf: A Practical Guide',
+        "desc": 'What gets HR managers appointed to director roles in the UAE and GCC, the common routes, the mistakes that hold people back, and a 12-month plan.',
+    },
+    {
+        "key": 'art-presence', "path": '/insights/executive-presence-gulf/', "nav": 'Executive presence in the Gulf: what it is and how to build it',
+        "title": 'Executive Presence: What It Is and How to Build It in the Gulf',
+        "desc": 'What research says executive presence is made of, why it affects promotions, what changes in Gulf boardrooms, and six practical ways to build it.',
+    },
+    {
+        "key": 'art-imposter', "path": '/insights/imposter-syndrome-after-promotion/', "nav": 'Imposter syndrome after a promotion',
+        "title": 'Imposter Syndrome After a Promotion: Why It Happens and What Helps',
+        "desc": 'Why imposter feelings often peak in a new senior role, what the research says, and practical steps that help, from an executive coach in Dubai.',
+    },
+    {
+        "key": 'art-boss', "path": '/insights/how-to-manage-a-difficult-boss/', "nav": 'How to manage a difficult boss',
+        "title": 'How to Manage a Difficult Boss: A Practical Guide for Gulf Leaders',
+        "desc": "How to work with a difficult manager: understand what drives them, raise it the right way in a Gulf workplace, what to say, and when it's time to leave.",
+    },
+    {
         "key": "resources", "path": "/resources/", "nav": "Resources",
         "title": "Free Tools and Templates for Leaders and HR | Hisham Elsaied",
         "desc": "Free tools, templates and guides for HR leaders and senior leaders in the Gulf, in English and Arabic: planners, checklists, coaching questions and more.",
@@ -187,8 +207,13 @@ PAGES = [
     },
     {
         "key": "res-transition", "path": "/resources/leadership-transition-check/", "nav": "Leadership transition check",
-        "title": "Leadership Transition Check: 10 Questions for New Leaders",
-        "desc": "Ten questions for anyone in their first months as a director, head of function or GM. See where you're on track and where to focus next. Free.",
+        "title": "Leadership Transition Check for New Directors and GMs (Free)",
+        "desc": "Eighteen statements for anyone in their first year as a director, head of function or GM. See where you're on track and where to focus next. Free.",
+    },
+    {
+        "key": 'res-hrd', "path": '/resources/hr-director-readiness/', "nav": 'HR director readiness check',
+        "title": 'HR Director Readiness Check: Are You Ready for the Role? (Free)',
+        "desc": 'A free 4-minute check for HR managers and business partners. Score six areas that decide director appointments in the Gulf, and see where to focus next.',
     },
     {
         "key": "contact", "path": "/contact/", "nav": "Contact",
@@ -339,6 +364,26 @@ PAGES_AR = [
         "desc": "ما معنى الأمان النفسي، وماذا تقول الأبحاث، ولماذا هو أصعب في بيئات العمل الهرمية، وستة أمور يستطيع القادة في الخليج فعلها هذا الشهر.",
     },
     {
+        "key": 'art-hr-director', "path": '/ar/insights/how-to-become-hr-director-uae/', "nav": 'كيف تصبح مدير إدارة موارد بشرية في الإمارات والخليج',
+        "title": 'كيف تصبح مدير موارد بشرية في الإمارات والخليج: الطريق إلى منصب مدير الإدارة',
+        "desc": 'كيف تصبح مدير الموارد البشرية على مستوى الإدارة في الإمارات والخليج: ما الذي يحسم التعيين، والمسارات الشائعة، والأخطاء التي تؤخرهم، وخطة لاثني عشر شهراً.',
+    },
+    {
+        "key": 'art-presence', "path": '/ar/insights/executive-presence-gulf/', "nav": 'الحضور القيادي في الخليج: ما هو وكيف تبنيه',
+        "title": 'الحضور القيادي: ما هو وكيف تبنيه في بيئة العمل الخليجية',
+        "desc": 'ماذا تقول الأبحاث عن مكونات الحضور القيادي، ولماذا يؤثر على الترقيات، وما الذي يختلف في الاجتماعات الخليجية، وست طرق عملية لبنائه.',
+    },
+    {
+        "key": 'art-imposter', "path": '/ar/insights/imposter-syndrome-after-promotion/', "nav": 'متلازمة المحتال بعد الترقية',
+        "title": 'متلازمة المحتال بعد الترقية: لماذا تحدث وما الذي يساعد',
+        "desc": 'لماذا يبلغ الشعور بعدم الاستحقاق ذروته في دور قيادي جديد، وماذا تقول الأبحاث، وخطوات عملية تساعد، من كوتش تنفيذي في دبي.',
+    },
+    {
+        "key": 'art-boss', "path": '/ar/insights/how-to-manage-a-difficult-boss/', "nav": 'كيف تتعامل مع مدير صعب',
+        "title": 'كيف تتعامل مع مدير صعب: دليل عملي للقادة في الخليج',
+        "desc": 'كيف تعمل مع مدير صعب: افهم ما يحرّكه، واطرح الأمر بالطريقة الصحيحة في بيئة العمل الخليجية، وماذا تقول، ومتى يحين وقت الرحيل.',
+    },
+    {
         "key": "resources", "path": "/ar/resources/", "nav": "المصادر",
         "title": "أدوات ونماذج وأدلة مجانية للقادة والموارد البشرية | هشام السعيد",
         "desc": "أدوات ونماذج وأدلة مجانية لقادة الموارد البشرية وكبار القادة في الخليج بالعربية والإنجليزية: مخططات وقوائم تحقق وأسئلة كوتشينج وغيرها.",
@@ -360,8 +405,13 @@ PAGES_AR = [
     },
     {
         "key": "res-transition", "path": "/ar/resources/leadership-transition-check/", "nav": "مراجعة الانتقال إلى دور قيادي",
-        "title": "مراجعة الانتقال إلى دور قيادي: ١٠ أسئلة للقادة الجدد",
-        "desc": "عشرة أسئلة لكل من في أشهره الأولى كمدير أو رئيس إدارة أو مدير عام. اعرف أين تسير على المسار الصحيح وأين تركّز. والأداة مجانية.",
+        "title": "مراجعة الانتقال إلى دور قيادي للمديرين الجدد (أداة مجانية)",
+        "desc": "ثماني عشرة عبارة لكل من في سنته الأولى كمدير أو رئيس إدارة أو مدير عام. اعرف أين تسير على المسار الصحيح وأين تركّز. والأداة مجانية.",
+    },
+    {
+        "key": 'res-hrd', "path": '/ar/resources/hr-director-readiness/', "nav": 'مراجعة الجاهزية لمنصب مدير إدارة الموارد البشرية',
+        "title": 'هل أنت جاهز لمنصب مدير إدارة الموارد البشرية؟ مراجعة مجانية',
+        "desc": 'مراجعة مجانية في ٤ دقائق لمديري الموارد البشرية وشركاء الأعمال. قيّم ستة مجالات تحسم التعيين في منصب مدير الإدارة في الخليج، واعرف أين تركّز.',
     },
     {
         "key": "contact", "path": "/ar/contact/", "nav": "تواصل معي",
@@ -428,6 +478,8 @@ for _k, _v in TOPIC_PAGES.items():
 GCC_AREA = [{"@type": "Country", "name": n} for n in ("United Arab Emirates", "Saudi Arabia", "Oman", "Kuwait", "Qatar", "Bahrain")]
 
 
+
+from art_faq import ART_FAQ
 
 def faq_html(key, ar):
     import html as _html
@@ -610,13 +662,13 @@ def graph(page, ar=False):
                              "Keynotes, conference masterclasses and half-day or one-day workshops on leading people, HR capability, and talent and assessment, in Arabic or English.",
                              page["path"], "Leadership and HR speaking and workshops"))
         g[-1]["areaServed"] = g[-1]["areaServed"] + [{"@type": "Country", "name": "France"}]
-    if k in ("res-picker", "res-planner", "res-feedback", "res-transition"):
+    if k in ("res-picker", "res-planner", "res-feedback", "res-transition", "res-hrd"):
         g.append({"@type": "WebApplication", "name": page["nav"], "description": page["desc"], "url": SITE + page["path"],
                   "applicationCategory": "BusinessApplication", "operatingSystem": "Any", "inLanguage": "ar" if ar else "en",
                   "isAccessibleForFree": True, "offers": {"@type": "Offer", "price": "0", "priceCurrency": "AED"},
                   "author": {"@id": PERSON_ID}, "publisher": {"@id": PERSON_ID}})
     if k == "resources":
-        tools = [x for x in (PAGES_AR if ar else PAGES) if x["key"] in ("res-picker", "res-planner", "res-feedback", "res-transition", "self-check")]
+        tools = [x for x in (PAGES_AR if ar else PAGES) if x["key"] in ("res-picker", "res-planner", "res-feedback", "res-transition", "res-hrd", "self-check")]
         g.append({"@type": "CollectionPage", "name": ("أدوات ونماذج وأدلة للقادة والموارد البشرية" if ar else "Tools, templates and guides for leaders and HR"), "description": page["desc"], "url": SITE + page["path"],
                   "inLanguage": "ar" if ar else "en", "author": {"@id": PERSON_ID},
                   "mainEntity": {"@type": "ItemList", "itemListElement": [
@@ -633,11 +685,19 @@ def graph(page, ar=False):
             "art-feedback": [("The effects of feedback interventions on performance: a historical review, a meta-analysis, and a preliminary feedback intervention theory", "https://cris.huji.ac.il/en/publications/the-effects-of-feedback-interventions-on-performance-a-historical/", "Psychological Bulletin")],
             "art-psych-safety": [("Psychological safety: a meta-analytic review and extension", "https://digitalcommons.odu.edu/management_fac_pubs/13/", "Personnel Psychology"),
                                  ("Guide: understand team effectiveness (Project Aristotle)", "https://rework.withgoogle.com/intl/en/guides/understand-team-effectiveness", "Google re:Work")],
+            "art-imposter": [("Prevalence, predictors, and treatment of impostor syndrome: a systematic review", "https://pmc.ncbi.nlm.nih.gov/articles/PMC7174434/", "Journal of General Internal Medicine")],
+            "art-boss": [("Managing your boss", "https://hbr.org/2005/01/managing-your-boss", "Harvard Business Review")],
+            "art-hr-director": [("Credible activism key HR skill, study concludes (2007 HR Competency Study)", "https://www.shrm.org/topics-tools/news/credible-activism-key-hr-skill-study-concludes", "SHRM"), ("Competencies for HR professionals who deliver outcomes", "https://deepblue.lib.umich.edu/handle/2027.42/138377", "Employment Relations Today")],
+            "art-presence": [("Executive presence: key findings", "https://coqual.org/wp-content/uploads/2020/09/26_executivepresence_keyfindings-1.pdf", "Coqual (Center for Talent Innovation)")],
         }
+        art_node = g[-1]
+        if k in ART_FAQ:
+            g.append({"@type": "FAQPage", "inLanguage": "ar" if ar else "en", "mainEntity": [
+                {"@type": "Question", "name": q, "acceptedAnswer": {"@type": "Answer", "text": a}} for q, a in ART_FAQ[k]["ar" if ar else "en"]]})
         if k in CITES:
-            g[-1]["citation"] = [{"@type": "ScholarlyArticle" if j != "Google re:Work" else "CreativeWork", "name": n, "url": u, "publisher": {"@type": "Organization", "name": j}} for n, u, j in CITES[k]]
+            art_node["citation"] = [{"@type": "CreativeWork" if j in ("Google re:Work", "SHRM", "Harvard Business Review", "Coqual (Center for Talent Innovation)") else "ScholarlyArticle", "name": n, "url": u, "publisher": {"@type": "Organization", "name": j}} for n, u, j in CITES[k]]
         if k == "art-numbers":
-            g[-1]["citation"] = [
+            art_node["citation"] = [
                 {"@type": "CreativeWork", "name": "2025 ICF Global Coaching Study", "url": "https://coachingfederation.org/research/global-coaching-study", "publisher": {"@type": "Organization", "name": "International Coaching Federation"}},
                 {"@type": "CreativeWork", "name": "2023 ICF Global Coaching Study, Executive Summary", "url": "https://coachingfederation.org/app/uploads/2023/04/2023ICFGlobalCoachingStudy_ExecutiveSummary.pdf", "publisher": {"@type": "Organization", "name": "International Coaching Federation"}}]
     if k in ("home", "books"):
@@ -867,6 +927,9 @@ def build():
             body = open(src, encoding="utf-8").read().replace("__V__", UPDATED)
             if page["key"] in LOC_FAQ:
                 body = body.replace("__FAQ__", faq_html(page["key"], ar))
+            if page["key"] in ART_FAQ:
+                import html as _h2
+                body = body.replace("__AFAQ__", "\n".join(f'        <details{" open" if i == 0 else ""}><summary>{_h2.escape(q)}</summary><p>{_h2.escape(a)}</p></details>' for i, (q, a) in enumerate(ART_FAQ[page["key"]]["ar" if ar else "en"])))
             html = head(page, ar) + header(page, ar) + "\n\n<main>\n" + body.rstrip() + "\n</main>\n\n" + (FOOTER_AR if ar else FOOTER) + \
                 f'\n\n<script src="/assets/site.js?v={UPDATED}" defer></script>{BEACON}\n</body>\n</html>\n'
             out = os.path.join(ROOT, page["path"].strip("/"), "index.html")

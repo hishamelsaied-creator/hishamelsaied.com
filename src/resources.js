@@ -395,4 +395,65 @@
         summary: function () { return plainOf("<p>" + L("Overall transition index: ", "مؤشر الانتقال العام: ") + num(overall) + "/" + num(100) + "</p>" + order.map(function (a) { return "<p>" + D.names[a] + ": " + num(S[a]) + " (" + bandName[band(S[a])] + ")</p>"; }).join("") + "<p>" + stage + "</p>" + focus); } });
     });
   }
+  // ---------- HR director readiness check ----------
+  var hd = document.getElementById("hd");
+  if (hd) {
+    hd.addEventListener("change", function (e) { var fs = e.target.closest("fieldset"); if (fs) fs.classList.remove("miss"); });
+    hd.addEventListener("submit", function (e) {
+      e.preventDefault();
+      var miss = null, A = {}, order = [];
+      hd.querySelectorAll("fieldset").forEach(function (fs) {
+        var c = fs.querySelector("input:checked");
+        fs.classList.toggle("miss", !c);
+        if (!c && !miss) miss = fs;
+        var a = fs.getAttribute("data-area");
+        if (!a) return;
+        if (!(a in A)) { A[a] = { fwd: [], rev: [] }; order.push(a); }
+        if (c) { var rv = fs.hasAttribute("data-rev"); (rv ? A[a].rev : A[a].fwd).push(rv ? 6 - +c.value : +c.value); }
+      });
+      var out = document.getElementById("hd-result");
+      out.hidden = false;
+      if (miss) {
+        out.innerHTML = '<p class="pk-warn" role="alert">' + L("Please answer every question to see your result.", "يرجى الإجابة عن جميع الأسئلة لرؤية النتيجة.") + "</p>";
+        miss.scrollIntoView({ behavior: "smooth", block: "center" }); miss.querySelector("input").focus({ preventScroll: true });
+        return;
+      }
+      var D = JSON.parse(document.getElementById("hd-data").textContent);
+      var role = +hd.querySelector("[name=crole]:checked").value, sector = +hd.querySelector("[name=csector]:checked").value;
+      var mean = function (x) { return x.reduce(function (p, c) { return p + c; }, 0) / x.length; };
+      var S = {}, flags = [];
+      order.forEach(function (a) {
+        var all = A[a].fwd.concat(A[a].rev);
+        S[a] = Math.round((mean(all) - 1) / 4 * 100);
+        if (A[a].fwd.length && A[a].rev.length && Math.abs(mean(A[a].fwd) - mean(A[a].rev)) >= 2) flags.push(a);
+      });
+      var overall = Math.round(mean(order.map(function (a) { return S[a]; })));
+      var band = function (v) { return v >= 75 ? "hi" : v >= 50 ? "mid" : "lo"; };
+      var bandName = { hi: L("Strong", "قوي"), mid: L("Building", "قيد البناء"), lo: L("Priority", "أولوية") };
+      var low = order.slice().sort(function (a, b) { return S[a] - S[b]; }).filter(function (a) { return S[a] < 75; }).slice(0, 2);
+      var head = '<span class="label">' + L("Your result", "النتيجة") + "</span><h2>" +
+        (flags.length >= 3 ? L("Worth a second look", "تستحق نظرة ثانية") : role === 3 ? L("You're in the role: here's where to strengthen it", "أنت في المنصب: إليك أين تقوّي موقعك") : overall >= 75 ? L("You look ready for a director conversation", "تبدو جاهزاً للحديث عن منصب مدير إدارة") : overall >= 50 ? L("Real strengths, with gaps to close", "نقاط قوة حقيقية، مع فجوات تحتاج إلى سدّها") : L("A clear list of what to build next", "قائمة واضحة بما تبنيه في المرحلة القادمة")) +
+        '</h2><p class="tc-index"><b>' + num(overall) + "</b><span>/" + num(100) + "</span> " + L("overall readiness index", "مؤشر الجاهزية العام") + "</p>";
+      var bars = order.map(function (a) {
+        var b = band(S[a]);
+        return '<div class="pk-bar tc-bar tc-' + b + '"><span>' + D.names[a] + '</span><i style="--w:' + Math.max(S[a], 3) + '%"></i><b>' + num(S[a]) + '</b><em>' + bandName[b] + "</em></div>";
+      }).join("");
+      if (flags.length >= 3) low = [];
+      var focus = flags.length >= 3 ? "" : low.length ? "<h3>" + L("Where to focus next", "أين تركّز بعد ذلك") + "</h3>" + low.map(function (a) { return "<p><b>" + D.names[a] + ".</b> " + (a === "visibility" && role === 3 ? D.advVis3 : D.adv[a]) + "</p>"; }).join("")
+        : "<p>" + L("No area stands out as a gap. The next step is a direct conversation with your manager or sponsor about a director role, and what they would need to see.", "لا يظهر أي مجال كفجوة. الخطوة التالية محادثة مباشرة مع مديرك أو داعمك حول منصب مدير إدارة، وما الذي يحتاج أن يراه منك.") + "</p>";
+      var fn = flags.map(function (a) { return D.names[a]; });
+      var listEn = fn.length > 1 ? fn.slice(0, -1).join(", ") + " and " + fn[fn.length - 1] : fn[0];
+      var cons = flags.length >= 3 ? '<p class="pk-mix">' + L("Many of your answers agree with both the positive and the negative statements. That usually means agreeing across the board rather than a real pattern. Read the statements again slowly, especially the negative ones, and answer for how things are today.", "كثير من إجاباتك يوافق العبارات الإيجابية والسلبية معاً، وهذا يعني عادة ميلاً عاماً إلى الموافقة لا نمطاً حقيقياً. اقرأ العبارات مرة أخرى بتمهّل، وخاصة السلبية منها، وأجب بحسب واقعك اليوم.") + "</p>"
+        : flags.length ? '<p class="pk-mix">' + L("Your answers in " + listEn + " point in different directions. Read those statements again, or ask someone senior who knows your work how they'd answer.",
+        "إجاباتك في " + (fn.length === 2 ? "مجالَي " + fn[0] + " و" + fn[1] : "مجال " + fn[0]) + " تشير إلى اتجاهات مختلفة. اقرأ تلك العبارات مرة أخرى، أو اسأل قيادياً يعرف عملك كيف كان سيجيب.") + "</p>" : "";
+      var full = head + '<div class="tc-bars">' + bars + "</div>" + '<p class="tc-key">' + L("75 and above: strong. 50 to 74: building. Below 50: a priority.", "٧٥ فأكثر: قوي. من ٥٠ إلى ٧٤: قيد البناء. أقل من ٥٠: أولوية.") + "</p>" +
+        "<h3>" + L("Reading it for where you are", "قراءة النتيجة في ضوء موقعك") + "</h3><p>" + D.stage[role] + (role === 1 && low.length === 2 ? " " + D.stage1extra : "") + " " + D.sector[sector] + "</p>" + cons + focus +
+        '<div class="pk-acts">' + D.links + '<button type="button" class="btn line-d" onclick="window.print()">' + L("Save as PDF", "احفظ كملف PDF") + "</button></div>" +
+        '<p class="pk-small">' + L("A structured reflection to help you decide where to focus, not a validated assessment.", "أداة تأمل منظّم تساعدك على تحديد أين تركّز، وليست تقييماً مقنّناً.") + "</p>";
+      gated(out, head, full, { tool: "HR director readiness check", toolName: L("HR director readiness check", "مراجعة الجاهزية لمنصب مدير إدارة الموارد البشرية"),
+        what: L("Enter your name and email to see your score in each area, what it means for where you are now and where to focus next. I'll email you a copy too.", "اكتب اسمك وبريدك الإلكتروني لترى درجتك في كل مجال، وماذا تعني في موقعك الحالي، وأين تركّز بعد ذلك. وسأرسل لك نسخة بالبريد أيضاً."),
+        fade: bars,
+        summary: function () { return plainOf("<p>" + L("Overall readiness index: ", "مؤشر الجاهزية العام: ") + num(overall) + "/" + num(100) + "</p>" + order.map(function (a) { return "<p>" + D.names[a] + ": " + num(S[a]) + " (" + bandName[band(S[a])] + ")</p>"; }).join("") + "<p>" + D.stage[role] + "</p>" + focus); } });
+    });
+  }
 })();
